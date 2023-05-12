@@ -169,7 +169,7 @@ def getNewFileData(fileData,filePath,fileName):
   modifiedData += "data PrimaryKey " + dataList[3][0] +" f\n\t\t"
   modifiedData += "= Id (B.C f Text)\n\t\t"
   modifiedData += derivingData 
-  modifiedData += "\tprimaryKey = Id . id\n\n"
+  modifiedData += "\tprimaryKey = Id . "+dataList[lastIndex][-1]+"\n\n"
   modifiedData += "instance ModelMeta "+ dataList[3][0] + " where\n"
   modifiedData += "\tmodelFieldModification = " + dataList[3][0][0].lower()+dataList[3][0][1:]+"Mod\n"
   modifiedData += '\tmodelTableName = "' + dataList[3][-1].split('=')[-1] + '"\n' # Get the information about the table name.
@@ -198,14 +198,14 @@ def getNewFileData(fileData,filePath,fileName):
   modifiedData += fileName[0].lower()+fileName[1:] + "ToPSModifiers = \n"
   modifiedData += "\tM.fromList\n\t\t[]\n"
 
-  modifiedData += "$(enableKVPG ''" + dataList[3][0] + " ['id] [])"
+  modifiedData += "$(enableKVPG ''" + dataList[3][0] + " ['"+dataList[lastIndex][-1]+'] [])'
   modifiedData = modifiedData.replace("\t", "  ")
   return modifiedData
   # print(modifiedData)
   # print(instanceList)
 
 
-filePath = '/Users/akhilesh.b/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Beam/CallStatus.hs'
+filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/CancellationReason.hs'
 with open(filePath, 'r') as file:
     filename=os.path.basename(filePath)
     filename = filename.split('.')[0]
