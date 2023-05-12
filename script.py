@@ -3,6 +3,7 @@ import os
 def overwriteFile(file_path, new_contents):
     with open(file_path, 'w') as file:
         file.write(new_contents)
+        file.close()
 
 def getStaticData():
   copyRightString = "{-\n"
@@ -97,13 +98,15 @@ def extractDataList(fileData,filePath):
     extractFields = re.findall(patternField, fileData)
     if(len(extractFields)==0):
         print("No content found in File:",filePath)
-        return
+        return []
     extractFields = extractFields[0].split('\n')
     return extractFields
 
 def getNewFileData(fileData,filePath,fileName):
   modifiedData =''
   dataList = extractDataList(fileData,filePath)
+  if(len(dataList)==0):
+    return ''
   dataList= [word for word in dataList if word !='']
   lastIndex = -1
   derivingList = []
@@ -174,25 +177,29 @@ def getNewFileData(fileData,filePath,fileName):
   # print(instanceList)
 
 
-filePath = '/Users/akhilesh.b/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs'
-with open(filePath, 'r') as file:
-    filename=os.path.basename(filePath)
-    filename = filename.split('.')[0]
-    fileContents = file.read()
-    newFileData=getNewFileData(fileContents,filePath,filename)
-    # print(newFilseData)
-    overwriteFile(filePath, newFileData)
+# filePath = '/Users/akhilesh.b/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs'
+# with open(filePath, 'r') as file:
+#     filename=os.path.basename(filePath)
+#     filename = filename.split('.')[0]
+#     fileContents = file.read()
+#     newFileData=getNewFileData(fileContents,filePath,filename)
+#     # print(newFilseData)
+#     overwriteFile(filePath, newFileData)
 
 
 
-# path = '/Users/akhilesh.b/Desktop/practice/folder/'
-# for filename in os.listdir(path):
-#     file_path = os.path.join(path, filename)
-#     if os.path.isfile(file_path):
-#         # print(file_path)
-#         with open('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs', 'r') as file:
-#             file_contents = file.read()
-#             newFileData=getNewFileData(file_contents)
-#             overwriteFile(file_path, newFileData)
-
-#         print("=====================")
+path = '/Users/vijay.gupta/Desktop/py/Tabular'
+for filename in os.listdir(path):
+  file_path = os.path.join(path, filename)
+  if os.path.isfile(file_path):
+    with open(file_path, 'r') as file:
+      filename=os.path.basename(file_path)
+      fileExtension = filename.split('.')[1]
+      filename = filename.split('.')[0]
+      if(fileExtension!='hs'):
+        continue
+      file_contents = file.read()
+      newFileData = getNewFileData(file_contents,file_path,filename)
+      if(newFileData==''):
+        continue
+      overwriteFile('/Users/vijay.gupta/Desktop/py/Beam/'+filename+'.hs', newFileData)
