@@ -64,6 +64,20 @@ def getImports(fileData):
   commonImports += '      _ -> DPSF.returnError ConversionFailed f ' + "Could not 'read' value for 'Rule'.\n\n\n"
   return specificImports+commonImports
 
+def createInstance(dataType) :
+  instance = ""
+  instance += "instance FromField " + dataType + " where\n"
+  instance += "  fromField = fromFieldEnum\n\n"
+
+  instance += "instance HasSqlValueSyntax be String => HasSqlValueSyntax be " + dataType + " where\n"
+  instance += "\tsqlValueSyntax = autoSqlValueSyntax\n\n"
+
+  instance += "instainstance BeamSqlBackend be => B.HasSqlEqualityCheck be " + dataType + "\n\n"
+
+  instance += "instance FromBackendRow Postgres " + dataType + "\n\n"
+  return instance 
+
+
 def camelToSnakeCase(text):
     converted = re.sub(r'(?<!^)(?=[A-Z])', '_', text)
     converted = converted.lower()
