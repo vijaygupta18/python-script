@@ -44,7 +44,7 @@ def getImports(fileData,instanceList):
   allData = fileData.split("\n")
   for line in allData:
     if(line.startswith("module")):
-      specificImports += line + "\n"
+      specificImports += line + "\n\n"
     if(line.startswith("import")):
       specificImports += line + "\n"
   
@@ -58,16 +58,16 @@ def getImports(fileData,instanceList):
   commonImports += "import Database.Beam.Backend\n"
   commonImports += "import Database.Beam.MySQL ()\n"
   commonImports += "import Database.Beam.Postgres\n"
-  commonImports += "( Postgres,\n"
-  commonImports += "ResultError (ConversionFailed, UnexpectedNull),\n"
-  commonImports += ")\n"
+  commonImports += "\t( Postgres,\n"
+  commonImports += "\t\tResultError (ConversionFailed, UnexpectedNull),\n"
+  commonImports += "\t)\n"
   commonImports += "import Database.PostgreSQL.Simple.FromField (FromField, fromField)\n"
   commonImports += "import qualified Database.PostgreSQL.Simple.FromField as DPSF\n"
   commonImports += "import GHC.Generics (Generic)\n"
   commonImports += "import Kernel.Prelude hiding (Generic)\n"
   commonImports += "import Kernel.Types.Common hiding (id)\n"
   commonImports += "import Lib.UtilsTH\n"
-  commonImports += "import Sequelize\n"
+  commonImports += "import Sequelize\n\n"
   commonImports += "fromFieldEnum ::\n"
   commonImports += "  (Typeable a, Read a) =>"
   commonImports += "  DPSF.Field ->\n"
@@ -78,7 +78,7 @@ def getImports(fileData,instanceList):
   commonImports += "  Just value' ->\n"
   commonImports += "    case (readMaybe (unpackChars value')) of\n"
   commonImports += "      Just val -> pure val\n"
-  commonImports += '      _ -> DPSF.returnError ConversionFailed f ' + "Could not 'read' value for 'Rule'.\n\n\n"
+  commonImports += '      _ -> DPSF.returnError ConversionFailed f ' + "Could not 'read' value for 'Rule'.\n\n"
   allInstances=""
   for instance in instanceList:
     allInstances += createInstance(instance)
@@ -145,42 +145,43 @@ def getNewFileData(fileData,filePath,fileName):
   modifiedData += "\t}\n"
   modifiedData = modifiedData.replace("UTCTime", "Time.LocalTime")
   modifiedData += derivingData
-  modifiedData += "instance B.Table " + dataList[3][0] + " where\n\t"
+  modifiedData += "\ninstance B.Table " + dataList[3][0] + " where\n\t"
   modifiedData += "data PrimaryKey " + dataList[3][0] +" f\n\t\t"
   modifiedData += "= Id (B.C f Text)\n\t\t"
   modifiedData += derivingData 
-  modifiedData += "\tprimaryKey = Id . id\n"
+  modifiedData += "\tprimaryKey = Id . id\n\n"
   modifiedData += "instance ModelMeta "+ dataList[3][0] + " where\n"
   modifiedData += "\tmodelFieldModification = " + dataList[3][0]+"Mod\n"
   modifiedData += '\tmodelTableName = "'+fileName.lower()+'"\n' # Get the information about the table name.
   modifiedData += "\tmkExprWithDefault _ = B.insertExpressions []\n"
 
-  newDataType = "type " + dataList[3][0][0:-1]
+  newDataType = dataList[3][0][0:-1]
 
-  modifiedData += newDataType + " = " + dataList[3][0] + " Identity\n"
-  modifiedData += "instance FromJSON " + newDataType +" where\n"
+  modifiedData += "\ntype "+ newDataType + " = " + dataList[3][0] + " Identity\n"
+  modifiedData += "\ninstance FromJSON " + newDataType +" where\n"
   modifiedData += "\tparseJSON = A.genericParseJSON A.defaultOptions\n"
-  modifiedData += "instance ToJSON " + newDataType + " where\n"
+  modifiedData += "\ninstance ToJSON " + newDataType + " where\n"
   modifiedData += "\ttoJSON = A.genericToJSON A.defaultOptions\n"
-  modifiedData += "deriving stock instance Show " + newDataType +"\n"
-  modifiedData += anotherSchema +"}\n"
+  modifiedData += "\nderiving stock instance Show " + newDataType +"\n\n"
+  modifiedData += anotherSchema +"\t}\n"
   modifiedData += ""
   modifiedData = modifiedData.replace("\t", "  ")
   importData = getStaticData() + getImports(fileData,instanceList)
   modifiedData = importData + modifiedData 
+  modifiedData += "$(enableKVPG ''" + dataList[3][0] + " ['id] [])"
   return modifiedData
   # print(modifiedData)
   # print(instanceList)
 
 
-filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs'
+filePath = '/Users/akhilesh.b/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs'
 with open(filePath, 'r') as file:
     filename=os.path.basename(filePath)
     filename = filename.split('.')[0]
     fileContents = file.read()
     newFileData=getNewFileData(fileContents,filePath,filename)
-    print(newFileData)
-    # overwriteFile(filePath, newFileData)
+    # print(newFilseData)
+    overwriteFile(filePath, newFileData)
 
 
 
