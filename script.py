@@ -34,7 +34,7 @@ def createInstance(dataType) :
   instance += "instance HasSqlValueSyntax be String => HasSqlValueSyntax be " + dataType + " where\n"
   instance += "\tsqlValueSyntax = autoSqlValueSyntax\n\n"
 
-  instance += "instainstance BeamSqlBackend be => B.HasSqlEqualityCheck be " + dataType + "\n\n"
+  instance += "instance BeamSqlBackend be => B.HasSqlEqualityCheck be " + dataType + "\n\n"
 
   instance += "instance FromBackendRow Postgres " + dataType + "\n\n"
   return instance 
@@ -79,7 +79,7 @@ def getImports(fileData,instanceList):
   commonImports += "  Just value' ->\n"
   commonImports += "    case (readMaybe (unpackChars value')) of\n"
   commonImports += "      Just val -> pure val\n"
-  commonImports += '      _ -> DPSF.returnError ConversionFailed f ' + "Could not 'read' value for 'Rule'.\n\n"
+  commonImports += '      _ -> DPSF.returnError ConversionFailed f ' + "\"Could not 'read' value for 'Rule'.\"\n\n"
   allInstances=""
   for instance in instanceList:
     allInstances += createInstance(instance)
