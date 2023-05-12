@@ -78,6 +78,7 @@ def getImports(fileData,instanceList):
   commonImports += "import Database.PostgreSQL.Simple.FromField (FromField, fromField)\n"
   commonImports += "import qualified Database.PostgreSQL.Simple.FromField as DPSF\n"
   commonImports += "import GHC.Generics (Generic)\n"
+  commonImports += "import Kernel.Prelude hiding (Generic)\n"
   commonImports += "import Kernel.Types.Common hiding (id)\n"
   commonImports += "import Lib.UtilsTH\n"
   commonImports += "import Sequelize\n\n"
@@ -140,6 +141,8 @@ def getNewFileData(fileData,filePath,fileName):
   instanceList = []
 
   for i in range(4, lastIndex):
+    if dataList[i][0].startswith("Unique"+fileName):
+      continue
     modifiedData += "\t\t\t" + dataList[i][0]+ " :: B.C f "
     anotherSchema += "\t\t\t" + dataList[i][0] + ' = B.fieldNamed "' +camelToSnakeCase(dataList[i][0]) +'",\n'
     if(len(dataList[i])>2) :
@@ -202,7 +205,7 @@ def getNewFileData(fileData,filePath,fileName):
   # print(instanceList)
 
 
-filePath = '/Users/akhilesh.b/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Beam/FareParameters.hs'
+filePath = '/Users/akhilesh.b/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Beam/CallStatus.hs'
 with open(filePath, 'r') as file:
     filename=os.path.basename(filePath)
     filename = filename.split('.')[0]
