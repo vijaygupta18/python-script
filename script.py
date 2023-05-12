@@ -1,5 +1,68 @@
 import re
 import os
+def getStaticData():
+  copyRightString = "{-\n"
+  copyRightString += "  Copyright 2022-23, Juspay India Pvt Ltd\n\n"
+
+  copyRightString += "  This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License\n\n"
+
+  copyRightString += "  as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program\n\n"
+
+  copyRightString += "  is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY\n\n"
+
+  copyRightString += "  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. You should have received a copy of\n\n"
+
+  copyRightString += "  the GNU Affero General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.\n"
+  copyRightString += "-}\n"
+
+  languageExtensions = ''
+  languageExtensions += "{-# LANGUAGE DerivingStrategies #-}\n"
+  languageExtensions += "{-# LANGUAGE TemplateHaskell #-}\n"
+  languageExtensions += "{-# OPTIONS_GHC -Wno-orphans #-}\n\n\n"
+  return copyRightString + languageExtensions
+
+def getImports(fileData):
+  commonImports = ""
+  specificImports = ""
+  allData = fileData.split("\n")
+  for line in allData:
+    if(line.startswith("module")):
+      specificImports += line + "\n"
+    if(line.startswith("import")):
+      specificImports += line + "\n"
+  
+  commonImports += "import qualified Data.Aeson as A\n"
+  commonImports += "import Data.ByteString.Internal (ByteString, unpackChars)\n"
+  commonImports += "import qualified Data.HashMap.Internal as HM\n"
+  commonImports += "import qualified Data.Map.Strict as M\n"
+  commonImports += "import Data.Serialize\n"
+  commonImports += "import qualified Data.Time as Time\n"
+  commonImports += "import qualified Database.Beam as B\n"
+  commonImports += "import Database.Beam.Backend\n"
+  commonImports += "import Database.Beam.MySQL ()\n"
+  commonImports += "import Database.Beam.Postgres\n"
+  commonImports += "( Postgres,\n"
+  commonImports += "ResultError (ConversionFailed, UnexpectedNull),\n"
+  commonImports += ")\n"
+  commonImports += "import Database.PostgreSQL.Simple.FromField (FromField, fromField)\n"
+  commonImports += "import qualified Database.PostgreSQL.Simple.FromField as DPSF\n"
+  commonImports += "import GHC.Generics (Generic)\n"
+  commonImports += "import Kernel.Prelude hiding (Generic)\n"
+  commonImports += "import Kernel.Types.Common hiding (id)\n"
+  commonImports += "import Lib.UtilsTH\n"
+  commonImports += "import Sequelize\n"
+  commonImports += "fromFieldEnum ::\n"
+  commonImports += "  (Typeable a, Read a) =>"
+  commonImports += "  DPSF.Field ->\n"
+  commonImports += "  Maybe ByteString ->\n"
+  commonImports += "  DPSF.Conversion a\n"
+  commonImports += "fromFieldEnum f mbValue = case mbValue of\n"
+  commonImports += "  Nothing -> DPSF.returnError UnexpectedNull f mempty\n"
+  commonImports += "  Just value' ->\n"
+  commonImports += "    case (readMaybe (unpackChars value')) of\n"
+  commonImports += "      Just val -> pure val\n"
+  commonImports += '      _ -> DPSF.returnError ConversionFailed f ' + "Could not 'read' value for 'Rule'.\n\n\n"
+  return specificImports+commonImports
 
 def camelToSnakeCase(text):
     converted = re.sub(r'(?<!^)(?=[A-Z])', '_', text)
@@ -16,7 +79,8 @@ def extractDataList(fileData,filePath):
     return extractFields
 
 def getNewFileData(fileData,filePath):
-  modifiedData = ''
+  modifiedData = getStaticData() + getImports(fileData) 
+
   dataList = extractDataList(fileData,filePath)
   dataList= [word for word in dataList if word !='']
   lastIndex = -1
@@ -78,7 +142,7 @@ def getNewFileData(fileData,filePath):
 
 
 
-filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs'
+filePath = '/Users/akhilesh.b/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs'
 with open(filePath, 'r') as file:
     fileContents = file.read()
     getNewFileData(fileContents,filePath)
