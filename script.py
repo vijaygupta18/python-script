@@ -39,6 +39,16 @@ def createInstance(dataType) :
   instance += "instance FromBackendRow Postgres " + dataType + "\n\n"
   return instance 
 
+def checkIgnioreLine(line):
+  ignoreLines=["Kernel.Prelude","Kernel.Types.Id","Kernel.Storage.Esqueleto"]
+  for x in ignoreLines:
+    if x in line:
+      return True
+  return False
+    
+      
+   
+
 def getImports(fileData,instanceList):
   commonImports = ""
   specificImports = ""
@@ -46,9 +56,12 @@ def getImports(fileData,instanceList):
   for line in allData:
     if(line.startswith("module")):
       specificImports += line + "\n\n"
+      specificImports = specificImports.replace("Tabular", "Beam")
     if(line.startswith("import")):
+      if(checkIgnioreLine(line)):
+         continue
       specificImports += line + "\n"
-  
+  commonImports += "import EulerHS.KVConnector.Types (KVConnector (..), MeshMeta (..), primaryKey, secondaryKeys, tableName)\n"
   commonImports += "import qualified Data.Aeson as A\n"
   commonImports += "import Data.ByteString.Internal (ByteString, unpackChars)\n"
   commonImports += "import qualified Data.HashMap.Internal as HM\n"
@@ -65,7 +78,6 @@ def getImports(fileData,instanceList):
   commonImports += "import Database.PostgreSQL.Simple.FromField (FromField, fromField)\n"
   commonImports += "import qualified Database.PostgreSQL.Simple.FromField as DPSF\n"
   commonImports += "import GHC.Generics (Generic)\n"
-  commonImports += "import Kernel.Prelude hiding (Generic)\n"
   commonImports += "import Kernel.Types.Common hiding (id)\n"
   commonImports += "import Lib.UtilsTH\n"
   commonImports += "import Sequelize\n\n"
@@ -156,8 +168,8 @@ def getNewFileData(fileData,filePath,fileName):
   modifiedData += derivingData 
   modifiedData += "\tprimaryKey = Id . id\n\n"
   modifiedData += "instance ModelMeta "+ dataList[3][0] + " where\n"
-  modifiedData += "\tmodelFieldModification = " + dataList[3][0]+"Mod\n"
-  modifiedData += '\tmodelTableName = "'+fileName.lower()+'"\n' # Get the information about the table name.
+  modifiedData += "\tmodelFieldModification = " + dataList[3][0][0].lower()+dataList[3][0][1:]+"Mod\n"
+  modifiedData += '\tmodelTableName = "' + dataList[3][-1].split('=')[-1] + '"\n' # Get the information about the table name.
   modifiedData += "\tmkExprWithDefault _ = B.insertExpressions []\n"
 
   newDataType = dataList[3][0][0:-1]
@@ -170,16 +182,27 @@ def getNewFileData(fileData,filePath,fileName):
   modifiedData += "\nderiving stock instance Show " + newDataType +"\n\n"
   modifiedData += anotherSchema +"\t}\n"
   modifiedData += ""
-  modifiedData = modifiedData.replace("\t", "  ")
-  importData = getStaticData() + getImports(fileData,instanceList)
+ 
+  importData = getStaticData() + getImports(fileData,list(set(instanceList)))
   modifiedData = importData + modifiedData 
+
+  modifiedData += "\npsToHs :: HM.HashMap Text Text\n"
+  modifiedData += "psToHs = HM.empty\n\n"
+  modifiedData += fileName[0].lower()+fileName[1:] + "ToHSModifiers :: M.Map Text (A.Value -> A.Value)\n"
+  modifiedData += fileName[0].lower()+fileName[1:] + "ToHSModifiers = \n"
+  modifiedData += "\tM.fromList\n\t\t[]\n\n"
+  modifiedData += fileName[0].lower()+fileName[1:] + "ToPSModifiers :: M.Map Text (A.Value -> A.Value)\n"
+  modifiedData += fileName[0].lower()+fileName[1:] + "ToPSModifiers = \n"
+  modifiedData += "\tM.fromList\n\t\t[]\n"
+
   modifiedData += "$(enableKVPG ''" + dataList[3][0] + " ['id] [])"
+  modifiedData = modifiedData.replace("\t", "  ")
   return modifiedData
   # print(modifiedData)
   # print(instanceList)
 
 
-filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs'
+filePath = '/Users/akhilesh.b/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Beam/FareParameters.hs'
 with open(filePath, 'r') as file:
     filename=os.path.basename(filePath)
     filename = filename.split('.')[0]
@@ -190,6 +213,21 @@ with open(filePath, 'r') as file:
 
 
 
+# path = '/Users/vijay.gupta/Desktop/py/Tabular'
+# for filename in os.listdir(path):
+#   file_path = os.path.join(path, filename)
+#   if os.path.isfile(file_path):
+#     with open(file_path, 'r') as file:
+#       filename=os.path.basename(file_path)
+#       fileExtension = filename.split('.')[1]
+#       filename = filename.split('.')[0]
+#       if(fileExtension!='hs'):
+#         continue
+#       file_contents = file.read()
+#       newFileData = getNewFileData(file_contents,file_path,filename)
+#       if(newFileData==''):
+#         continue
+#       overwriteFile('/Users/vijay.gupta/Desktop/py/Beam/'+filename+'.hs', newFileData)
 # path = '/Users/vijay.gupta/Desktop/py/Tabular'
 # for filename in os.listdir(path):
 #   file_path = os.path.join(path, filename)
