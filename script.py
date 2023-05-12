@@ -1,5 +1,9 @@
 import re
 import os
+def overwriteFile(file_path, new_contents):
+    with open(file_path, 'w') as file:
+        file.write(new_contents)
+
 def getStaticData():
   copyRightString = "{-\n"
   copyRightString += "  Copyright 2022-23, Juspay India Pvt Ltd\n\n"
@@ -21,7 +25,20 @@ def getStaticData():
   languageExtensions += "{-# OPTIONS_GHC -Wno-orphans #-}\n\n\n"
   return copyRightString + languageExtensions
 
-def getImports(fileData):
+def createInstance(dataType) :
+  instance = ""
+  instance += "instance FromField " + dataType + " where\n"
+  instance += "  fromField = fromFieldEnum\n\n"
+
+  instance += "instance HasSqlValueSyntax be String => HasSqlValueSyntax be " + dataType + " where\n"
+  instance += "\tsqlValueSyntax = autoSqlValueSyntax\n\n"
+
+  instance += "instainstance BeamSqlBackend be => B.HasSqlEqualityCheck be " + dataType + "\n\n"
+
+  instance += "instance FromBackendRow Postgres " + dataType + "\n\n"
+  return instance 
+
+def getImports(fileData,instanceList):
   commonImports = ""
   specificImports = ""
   allData = fileData.split("\n")
@@ -62,20 +79,12 @@ def getImports(fileData):
   commonImports += "    case (readMaybe (unpackChars value')) of\n"
   commonImports += "      Just val -> pure val\n"
   commonImports += '      _ -> DPSF.returnError ConversionFailed f ' + "Could not 'read' value for 'Rule'.\n\n\n"
-  return specificImports+commonImports
+  allInstances=""
+  for instance in instanceList:
+    allInstances += createInstance(instance)
+  return specificImports+commonImports+'\n\n' + allInstances
 
-def createInstance(dataType) :
-  instance = ""
-  instance += "instance FromField " + dataType + " where\n"
-  instance += "  fromField = fromFieldEnum\n\n"
 
-  instance += "instance HasSqlValueSyntax be String => HasSqlValueSyntax be " + dataType + " where\n"
-  instance += "\tsqlValueSyntax = autoSqlValueSyntax\n\n"
-
-  instance += "instainstance BeamSqlBackend be => B.HasSqlEqualityCheck be " + dataType + "\n\n"
-
-  instance += "instance FromBackendRow Postgres " + dataType + "\n\n"
-  return instance 
 
 
 def camelToSnakeCase(text):
@@ -92,9 +101,8 @@ def extractDataList(fileData,filePath):
     extractFields = extractFields[0].split('\n')
     return extractFields
 
-def getNewFileData(fileData,filePath):
-  modifiedData = getStaticData() + getImports(fileData) 
-
+def getNewFileData(fileData,filePath,fileName):
+  modifiedData =''
   dataList = extractDataList(fileData,filePath)
   dataList= [word for word in dataList if word !='']
   lastIndex = -1
@@ -112,6 +120,8 @@ def getNewFileData(fileData,filePath):
   modifiedData += "data "+dataList[3][0] + ' f = ' + dataList[3][0:-1][0] +"\n \t{\n" 
   anotherSchema = dataList[3][0]+"Mod :: " + dataList[3][0] + " (B.FieldModification (B.TableField " + dataList[3][0] + "))\n"
   anotherSchema += dataList[3][0]+"Mod = \n B.tableModification\n\t{\n"
+  dataTypeList=["Text", "Int", "Bool","UTCTime", "Double"]
+  instanceList = []
 
   for i in range(4, lastIndex):
     modifiedData += "\t\t\t" + dataList[i][0]+ " :: B.C f "
@@ -121,11 +131,15 @@ def getNewFileData(fileData,filePath):
         if 'TId' in dataList[i][-2]:
           modifiedData += '(Maybe Text),\n'
         else:
+          if(dataList[i][-2] not in dataTypeList):
+            instanceList.append(dataList[i][-2])
           modifiedData += '(Maybe '+ dataList[i][-2]+'),\n'
     else:
       if 'TId' in dataList[i][-1]:
         modifiedData += 'Text,\n'
-      else:  
+      else:
+        if(dataList[i][-1] not in dataTypeList):
+            instanceList.append(dataList[i][-1])
         modifiedData += dataList[i][-1]+',\n'
         
   modifiedData += "\t}\n"
@@ -138,7 +152,7 @@ def getNewFileData(fileData,filePath):
   modifiedData += "\tprimaryKey = Id . id\n"
   modifiedData += "instance ModelMeta "+ dataList[3][0] + " where\n"
   modifiedData += "\tmodelFieldModification = " + dataList[3][0]+"Mod\n"
-  modifiedData += "\tmodelTableName = booking\n" # Get the information about the table name.
+  modifiedData += '\tmodelTableName = "'+fileName.lower()+'"\n' # Get the information about the table name.
   modifiedData += "\tmkExprWithDefault _ = B.insertExpressions []\n"
 
   newDataType = "type " + dataList[3][0][0:-1]
@@ -152,15 +166,24 @@ def getNewFileData(fileData,filePath):
   modifiedData += anotherSchema +"}\n"
   modifiedData += ""
   modifiedData = modifiedData.replace("\t", "  ")
-  print(modifiedData)
+  importData = getStaticData() + getImports(fileData,instanceList)
+  modifiedData = importData + modifiedData 
+  return modifiedData
+  # print(modifiedData)
+  # print(instanceList)
 
 
-
-filePath = '/Users/akhilesh.b/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs'
+filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs'
 with open(filePath, 'r') as file:
+    filename=os.path.basename(filePath)
+    filename = filename.split('.')[0]
     fileContents = file.read()
-    getNewFileData(fileContents,filePath)
-print("=====================")
+    newFileData=getNewFileData(fileContents,filePath,filename)
+    print(newFileData)
+    # overwriteFile(filePath, newFileData)
+
+
+
 # path = '/Users/akhilesh.b/Desktop/practice/folder/'
 # for filename in os.listdir(path):
 #     file_path = os.path.join(path, filename)
@@ -168,5 +191,7 @@ print("=====================")
 #         # print(file_path)
 #         with open('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs', 'r') as file:
 #             file_contents = file.read()
-#         fun(file_contents)
+#             newFileData=getNewFileData(file_contents)
+#             overwriteFile(file_path, newFileData)
+
 #         print("=====================")
