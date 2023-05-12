@@ -120,15 +120,16 @@ def getNewFileData(fileData,filePath,fileName):
       derivingList = dataList[i][1:]
   
   derivingData = "\tderiving (" + ', '.join(str(elem) for elem in derivingList) +", B.Beamable)\n" 
-  modifiedData += "data "+dataList[3][0] + ' f = ' + dataList[3][0:-1][0] +"\n \t{\n" 
-  anotherSchema = dataList[3][0]+"Mod :: " + dataList[3][0] + " (B.FieldModification (B.TableField " + dataList[3][0] + "))\n"
-  anotherSchema += dataList[3][0]+"Mod = \n B.tableModification\n\t{\n"
+  modifiedData += "data "+dataList[3][0] + ' f = ' + dataList[3][0:-1][0] +"\n \t{\n"
+  newSchemaName= dataList[3][0][0].lower() + dataList[3][0][1:] 
+  anotherSchema = newSchemaName+"Mod :: " + dataList[3][0] + " (B.FieldModification (B.TableField " + dataList[3][0] + "))\n"
+  anotherSchema += newSchemaName+"Mod = \n\tB.tableModification\n\t\t{\n"
   dataTypeList=["Text", "Int", "Bool","UTCTime", "Double"]
   instanceList = []
 
   for i in range(4, lastIndex):
     modifiedData += "\t\t\t" + dataList[i][0]+ " :: B.C f "
-    anotherSchema += "\t\t" + dataList[i][0] + ' = B.fieldNamed "' +camelToSnakeCase(dataList[i][0]) +'",\n'
+    anotherSchema += "\t\t\t" + dataList[i][0] + ' = B.fieldNamed "' +camelToSnakeCase(dataList[i][0]) +'",\n'
     if(len(dataList[i])>2) :
       if(dataList[i][-1]=='Maybe'):
         if 'TId' in dataList[i][-2]:
@@ -144,8 +145,9 @@ def getNewFileData(fileData,filePath,fileName):
         if(dataList[i][-1] not in dataTypeList):
             instanceList.append(dataList[i][-1])
         modifiedData += dataList[i][-1]+',\n'
-        
-  modifiedData += "\t}\n"
+  modifiedData=modifiedData[:-2]+'\n'
+  anotherSchema = anotherSchema[:-2]+'\n\t'
+  modifiedData += "\t\t}\n"
   modifiedData = modifiedData.replace("UTCTime", "Time.LocalTime")
   modifiedData += derivingData
   modifiedData += "\ninstance B.Table " + dataList[3][0] + " where\n\t"
@@ -177,29 +179,29 @@ def getNewFileData(fileData,filePath,fileName):
   # print(instanceList)
 
 
-# filePath = '/Users/akhilesh.b/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs'
-# with open(filePath, 'r') as file:
-#     filename=os.path.basename(filePath)
-#     filename = filename.split('.')[0]
-#     fileContents = file.read()
-#     newFileData=getNewFileData(fileContents,filePath,filename)
-#     # print(newFilseData)
-#     overwriteFile(filePath, newFileData)
+filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs'
+with open(filePath, 'r') as file:
+    filename=os.path.basename(filePath)
+    filename = filename.split('.')[0]
+    fileContents = file.read()
+    newFileData=getNewFileData(fileContents,filePath,filename)
+    # print(newFilseData)
+    overwriteFile(filePath, newFileData)
 
 
 
-path = '/Users/vijay.gupta/Desktop/py/Tabular'
-for filename in os.listdir(path):
-  file_path = os.path.join(path, filename)
-  if os.path.isfile(file_path):
-    with open(file_path, 'r') as file:
-      filename=os.path.basename(file_path)
-      fileExtension = filename.split('.')[1]
-      filename = filename.split('.')[0]
-      if(fileExtension!='hs'):
-        continue
-      file_contents = file.read()
-      newFileData = getNewFileData(file_contents,file_path,filename)
-      if(newFileData==''):
-        continue
-      overwriteFile('/Users/vijay.gupta/Desktop/py/Beam/'+filename+'.hs', newFileData)
+# path = '/Users/vijay.gupta/Desktop/py/Tabular'
+# for filename in os.listdir(path):
+#   file_path = os.path.join(path, filename)
+#   if os.path.isfile(file_path):
+#     with open(file_path, 'r') as file:
+#       filename=os.path.basename(file_path)
+#       fileExtension = filename.split('.')[1]
+#       filename = filename.split('.')[0]
+#       if(fileExtension!='hs'):
+#         continue
+#       file_contents = file.read()
+#       newFileData = getNewFileData(file_contents,file_path,filename)
+#       if(newFileData==''):
+#         continue
+#       overwriteFile('/Users/vijay.gupta/Desktop/py/Beam/'+filename+'.hs', newFileData)
