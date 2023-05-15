@@ -8,8 +8,7 @@ def overwriteFile(file_path, new_contents):
 def getFindByIdList(fileContents):
     pattern = r"\n\s*\n" 
     extractFields = re.split(pattern, fileContents)
-    extractFields = [x for x in extractFields if 'Transactionable' in x]
-    extractFields = [x.replace('Transactionable','MonadFlow') for x in extractFields]
+    extractFields = [x.replace('Transactionable','MonadFlow') for x in extractFields if 'Transactionable' in x]
     return extractFields
 
 def getNewFileData(fileContents,filePath,filename):
