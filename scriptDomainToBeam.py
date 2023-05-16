@@ -65,7 +65,7 @@ def getNewFileData(fileData,filePath,fileName):
     return ''
   toDomain='\n'
   toDomain += "transformBeam"+fileName+"ToDomain" + " :: " +'Beam'+getFileNameLetters(fileName)+'.'+fileName+' -> '+ fileName+ '\n'
-  toDomain += "transformBeam"+fileName+"ToDomain " +'Beam'+getFileNameLetters(fileName)+'.'+ fileName+' {..} = do\n'
+  toDomain += "transformBeam"+fileName+"ToDomain " +'Beam'+getFileNameLetters(fileName)+'.'+ fileName+'T {..} = do\n'
   toDomain += '\t'+fileName+'\n\t\t{\n'
 
   beamName='Beam'+getFileNameLetters(fileName)
@@ -77,8 +77,12 @@ def getNewFileData(fileData,filePath,fileName):
   for x in dataList:
     x=x.split('::')
     if 'Id ' in x[1]:
-        modifiedData+= '\t\t\t'+beamName+'.'+x[0].strip()+' = '+'getId '+x[0].strip()+',\n'
-        toDomain+='\t\t\t'+x[0].strip()+' = Id '+x[0].strip()+',\n'
+        if "Maybe" in x[1]:
+            modifiedData+= '\t\t\t'+beamName+'.'+x[0].strip()+' = '+'getId <$> '+x[0].strip()+',\n'
+            toDomain+='\t\t\t'+x[0].strip()+' = Id <$> '+x[0].strip()+',\n'
+        else:
+            modifiedData+= '\t\t\t'+beamName+'.'+x[0].strip()+' = '+'getId '+x[0].strip()+',\n'
+            toDomain+='\t\t\t'+x[0].strip()+' = Id '+x[0].strip()+',\n'
     else:
         modifiedData+= '\t\t\t'+beamName+'.'+x[0].strip()+' = '+x[0].strip()+',\n'
         toDomain+='\t\t\t'+x[0].strip()+' = '+x[0].strip()+',\n'
@@ -89,22 +93,20 @@ def getNewFileData(fileData,filePath,fileName):
   toDomain += "\t\t}\n"
   modifiedData=toDomain + modifiedData
   modifiedData = modifiedData.replace("\t", "  ")
-
   return modifiedData
 
 
 
-filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Domain/Types/CallStatus.hs'
+filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Domain/Types/BookingCancellationReason.hs'
 with open(filePath, 'r') as file:
     filename=os.path.basename(filePath)
     filename = filename.split('.')[0]
     fileContents = file.read()
-    newFilePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Queries/CallStatus.hs'
+    newFilePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Queries/BookingCancellationReason.hs'
     newFileData=getNewFileData(fileContents,newFilePath,filename)
-    appendEnd(newFilePath,newFileData)
+    print(newFileData)
+    # appendEnd(newFilePath,newFileData)
     print('Done')
-    # print(newFileData)
-    # print(getNewFileData(fileContents,filePath,filename))
 
 
 
