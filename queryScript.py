@@ -5,11 +5,20 @@ def overwriteFile(file_path, new_contents):
         file.write(new_contents)
         file.close()
 
+
+
+
 def getFindByIdList(fileContents):
     pattern = r"\n\s*\n" 
     extractFields = re.split(pattern, fileContents)
     extractFields = [x.replace('Transactionable','MonadFlow') for x in extractFields if 'Transactionable' in x]
     return extractFields
+
+# findById (Id driverId) = do
+#   dbConf <- L.getOption Extra.EulerPsqlDbCfg
+#   case dbConf of
+#     Just dbCOnf' -> T.trace (T.unpack driverId) $ either (\x -> T.trace (show x) Nothing) (transformVechileNewToVechile <$>) <$> KV.findWithKVConnector dbCOnf' VN.meshConfig [Se.Is VN.driverId $ Se.Eq driverId]
+#     Nothing -> T.trace "Rahull Nothing" $ pure Nothing
 
 def getNewFileData(fileContents,filePath,filename):
     dataList = getFindByIdList(fileContents)
