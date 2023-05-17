@@ -76,6 +76,8 @@ def getNewFileData(fileData,filePath,fileName):
 
   for x in dataList:
     x=x.split('::')
+    if len(x)==1:
+        continue
     if 'Id ' in x[1]:
         if "Maybe" in x[1]:
             modifiedData+= '\t\t\t'+beamName+'.'+x[0].strip()+' = '+'getId <$> '+x[0].strip()+',\n'
@@ -97,12 +99,12 @@ def getNewFileData(fileData,filePath,fileName):
 
 
 
-filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Domain/Types/BookingCancellationReason.hs'
+filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Domain/Types/Exophone.hs'
 with open(filePath, 'r') as file:
     filename=os.path.basename(filePath)
     filename = filename.split('.')[0]
     fileContents = file.read()
-    newFilePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Queries/BookingCancellationReason.hs'
+    newFilePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Queries/Exophone.hs'
     newFileData=getNewFileData(fileContents,newFilePath,filename)
     print(newFileData)
     # appendEnd(newFilePath,newFileData)
