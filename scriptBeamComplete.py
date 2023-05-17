@@ -180,7 +180,7 @@ def getNewFileData(fileData,filePath,fileName):
   modifiedData=modifiedData[:-2]+'\n'
   anotherSchema = anotherSchema[:-2]+'\n\t'
   modifiedData += "\t\t}\n"
-  modifiedData = modifiedData.replace("UTCTime", "Time.LocalTime")
+  modifiedData = modifiedData.replace("UTCTime", "Time.UTCTime")
   modifiedData += derivingData
   modifiedData += "\ninstance B.Table " + dataList[3][0] + " where\n\t"
   modifiedData += "data PrimaryKey " + dataList[3][0] +" f\n\t\t"
