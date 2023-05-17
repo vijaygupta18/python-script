@@ -170,7 +170,7 @@ def getNewFileData(fileData,filePath,fileName):
         newModifiedData+='\t\t\t'+dataList[i][0]+" = "+'Nothing,\n'
     else:
         if dataList[i][1]=='UTCTime':
-            newModifiedData+='\t\t\t'+dataList[i][0]+" = "+'defaultDate,\n'
+            newModifiedData+='\t\t\t'+dataList[i][0]+" = "+'defaultUTCDate,\n'
         elif dataList[i][1]=='Bool':
           newModifiedData+='\t\t\t'+dataList[i][0]+" = "+'False,\n'
         elif dataList[i][1]=='Int':
@@ -229,14 +229,14 @@ def getNewFileData(fileData,filePath,fileName):
   # print(instanceList)
 
 
-filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Driver/DriverFlowStatus.hs'
-with open(filePath, 'r') as file:
-    filename=os.path.basename(filePath)
-    filename = filename.split('.')[0]
-    fileContents = file.read()
-    newFileData=getNewFileData(fileContents,filePath,filename)
-    print(newFileData)
-    # overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Beam/Driver/DriverFlowStatus.hs', newFileData)
+# filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Driver/DriverFlowStatus.hs'
+# with open(filePath, 'r') as file:
+#     filename=os.path.basename(filePath)
+#     filename = filename.split('.')[0]
+#     fileContents = file.read()
+#     newFileData=getNewFileData(fileContents,filePath,filename)
+#     print(newFileData)
+#     # overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Beam/Driver/DriverFlowStatus.hs', newFileData)
 
 
 
@@ -255,18 +255,18 @@ with open(filePath, 'r') as file:
 #       if(newFileData==''):
 #         continue
 #       overwriteFile('/Users/vijay.gupta/Desktop/py/Beam/'+filename+'.hs', newFileData)
-# path = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/SearchRequest/'
-# for filename in os.listdir(path):
-#   file_path = os.path.join(path, filename)
-#   if os.path.isfile(file_path):
-#     with open(file_path, 'r') as file:
-#       filename=os.path.basename(file_path)
-#       fileExtension = filename.split('.')[1]
-#       filename = filename.split('.')[0]
-#       if(fileExtension!='hs'):
-#         continue
-#       file_contents = file.read()
-#       newFileData = getNewFileData(file_contents,file_path,filename)
-#       if(newFileData==''):
-#         continue
-#       overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Beam/SearchRequest/'+filename+'.hs', newFileData)
+path = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking/'
+for filename in os.listdir(path):
+  file_path = os.path.join(path, filename)
+  if os.path.isfile(file_path):
+    with open(file_path, 'r') as file:
+      filename=os.path.basename(file_path)
+      fileExtension = filename.split('.')[1]
+      filename = filename.split('.')[0]
+      if(fileExtension!='hs'):
+        continue
+      file_contents = file.read()
+      newFileData = getNewFileData(file_contents,file_path,filename)
+      if(newFileData==''):
+        continue
+      overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Beam/Booking/'+filename+'.hs', newFileData)
