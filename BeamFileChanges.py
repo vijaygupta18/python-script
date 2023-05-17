@@ -70,9 +70,9 @@ def getNewFileData(fileData,filePath,fileName):
     else:
         if dataList[i][1]=='UTCTime':
             modifiedData+='\t\t\t'+dataList[i][0]+" = "+'defaultDate,\n'
-        if dataList[i][1]=='Bool':
+        elif dataList[i][1]=='Bool':
           modifiedData+='\t\t\t'+dataList[i][0]+" = "+'False,\n'
-        if dataList[i][1]=='Int':
+        elif dataList[i][1]=='Int':
           modifiedData+='\t\t\t'+dataList[i][0]+" = "+'0,\n'
         else:    
             modifiedData+='\t\t\t'+dataList[i][0]+" = "+'"",\n'

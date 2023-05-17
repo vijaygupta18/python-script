@@ -171,9 +171,9 @@ def getNewFileData(fileData,filePath,fileName):
     else:
         if dataList[i][1]=='UTCTime':
             newModifiedData+='\t\t\t'+dataList[i][0]+" = "+'defaultDate,\n'
-        if dataList[i][1]=='Bool':
+        elif dataList[i][1]=='Bool':
           newModifiedData+='\t\t\t'+dataList[i][0]+" = "+'False,\n'
-        if dataList[i][1]=='Int':
+        elif dataList[i][1]=='Int':
           newModifiedData+='\t\t\t'+dataList[i][0]+" = "+'0,\n'
         else:    
             newModifiedData+='\t\t\t'+dataList[i][0]+" = "+'"",\n'
@@ -207,7 +207,7 @@ def getNewFileData(fileData,filePath,fileName):
   modifiedData = importData + modifiedData 
 
   newModifiedData=newModifiedData[:-2]+'\n'
-  newModifiedData += "\t\t}\n"
+  newModifiedData += "\t\t}\n\n"
   newModifiedData+='instance Serialize '+fileName+' where\n'
   newModifiedData+='\tput = error "undefined"\n'
   newModifiedData+='\tget = error "undefined"\n'
@@ -219,7 +219,7 @@ def getNewFileData(fileData,filePath,fileName):
   modifiedData += "\tM.fromList\n\t\t[]\n\n"
   modifiedData += fileName[0].lower()+fileName[1:] + "ToPSModifiers :: M.Map Text (A.Value -> A.Value)\n"
   modifiedData += fileName[0].lower()+fileName[1:] + "ToPSModifiers = \n"
-  modifiedData += "\tM.fromList\n\t\t[]\n"
+  modifiedData += "\tM.fromList\n\t\t[]\n\n"
   
 
   modifiedData += "$(enableKVPG ''" + dataList[3][0] + " ['"+dataList[lastIndex][-1]+'] [])'
@@ -229,14 +229,14 @@ def getNewFileData(fileData,filePath,fileName):
   # print(instanceList)
 
 
-filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/BusinessEvent.hs'
+filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Driver/DriverFlowStatus.hs'
 with open(filePath, 'r') as file:
     filename=os.path.basename(filePath)
     filename = filename.split('.')[0]
     fileContents = file.read()
     newFileData=getNewFileData(fileContents,filePath,filename)
     print(newFileData)
-    # overwriteFile(filePath, newFileData)
+    # overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Beam/Driver/DriverFlowStatus.hs', newFileData)
 
 
 
@@ -255,7 +255,7 @@ with open(filePath, 'r') as file:
 #       if(newFileData==''):
 #         continue
 #       overwriteFile('/Users/vijay.gupta/Desktop/py/Beam/'+filename+'.hs', newFileData)
-# path = '/Users/vijay.gupta/Desktop/py/Tabular'
+# path = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/SearchRequest/'
 # for filename in os.listdir(path):
 #   file_path = os.path.join(path, filename)
 #   if os.path.isfile(file_path):
@@ -269,4 +269,4 @@ with open(filePath, 'r') as file:
 #       newFileData = getNewFileData(file_contents,file_path,filename)
 #       if(newFileData==''):
 #         continue
-#       overwriteFile('/Users/vijay.gupta/Desktop/py/Beam/'+filename+'.hs', newFileData)
+#       overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Beam/SearchRequest/'+filename+'.hs', newFileData)
