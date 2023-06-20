@@ -23,6 +23,7 @@ def getStaticData():
   languageExtensions = ''
   languageExtensions += "{-# LANGUAGE DerivingStrategies #-}\n"
   languageExtensions += "{-# LANGUAGE TemplateHaskell #-}\n"
+  languageExtensions += "{-# LANGUAGE StandaloneDeriving #-}\n"
   languageExtensions += "{-# OPTIONS_GHC -Wno-orphans #-}\n\n\n"
   return copyRightString + languageExtensions
 
@@ -84,18 +85,19 @@ def getImports(fileData,instanceList):
   commonImports += "import Kernel.Prelude hiding (Generic)\n"
   commonImports += "import Kernel.Types.Common hiding (id)\n"
   commonImports += "import Lib.UtilsTH\n"
+  commonImports += "import Lib.Utils\n"
   commonImports += "import Sequelize\n\n"
-  commonImports += "fromFieldEnum ::\n"
-  commonImports += "  (Typeable a, Read a) =>"
-  commonImports += "  DPSF.Field ->\n"
-  commonImports += "  Maybe ByteString ->\n"
-  commonImports += "  DPSF.Conversion a\n"
-  commonImports += "fromFieldEnum f mbValue = case mbValue of\n"
-  commonImports += "  Nothing -> DPSF.returnError UnexpectedNull f mempty\n"
-  commonImports += "  Just value' ->\n"
-  commonImports += "    case (readMaybe (unpackChars value')) of\n"
-  commonImports += "      Just val -> pure val\n"
-  commonImports += '      _ -> DPSF.returnError ConversionFailed f ' + "\"Could not 'read' value for 'Rule'.\"\n\n"
+  # commonImports += "fromFieldEnum ::\n"
+  # commonImports += "  (Typeable a, Read a) =>"
+  # commonImports += "  DPSF.Field ->\n"
+  # commonImports += "  Maybe ByteString ->\n"
+  # commonImports += "  DPSF.Conversion a\n"
+  # commonImports += "fromFieldEnum f mbValue = case mbValue of\n"
+  # commonImports += "  Nothing -> DPSF.returnError UnexpectedNull f mempty\n"
+  # commonImports += "  Just value' ->\n"
+  # commonImports += "    case (readMaybe (unpackChars value')) of\n"
+  # commonImports += "      Just val -> pure val\n"
+  # commonImports += '      _ -> DPSF.returnError ConversionFailed f ' + "\"Could not 'read' value for 'Rule'.\"\n\n"
   allInstances=""
   for instance in instanceList:
     allInstances += createInstance(instance)
@@ -190,7 +192,7 @@ def getNewFileData(fileData,filePath,fileName):
   modifiedData += "instance ModelMeta "+ dataList[3][0] + " where\n"
   modifiedData += "\tmodelFieldModification = " + dataList[3][0][0].lower()+dataList[3][0][1:]+"Mod\n"
   modifiedData += '\tmodelTableName = "' + dataList[3][-1].split('=')[-1] + '"\n' # Get the information about the table name.
-  modifiedData += "\tmkExprWithDefault _ = B.insertExpressions []\n"
+  modifiedData += '\tmodelSchemaName = Just "atlas_app"\n'
 
   newDataType = dataList[3][0][0:-1]
 
@@ -216,10 +218,10 @@ def getNewFileData(fileData,filePath,fileName):
   modifiedData += "psToHs = HM.empty\n\n"
   modifiedData += fileName[0].lower()+fileName[1:] + "ToHSModifiers :: M.Map Text (A.Value -> A.Value)\n"
   modifiedData += fileName[0].lower()+fileName[1:] + "ToHSModifiers = \n"
-  modifiedData += "\tM.fromList\n\t\t[]\n\n"
+  modifiedData += "\tM.empty\n\t\t\n\n"
   modifiedData += fileName[0].lower()+fileName[1:] + "ToPSModifiers :: M.Map Text (A.Value -> A.Value)\n"
   modifiedData += fileName[0].lower()+fileName[1:] + "ToPSModifiers = \n"
-  modifiedData += "\tM.fromList\n\t\t[]\n\n"
+  modifiedData += "\tM.empty\n\t\t\n\n"
   
 
   modifiedData += "$(enableKVPG ''" + dataList[3][0] + " ['"+dataList[lastIndex][-1]+'] [])'
@@ -229,14 +231,14 @@ def getNewFileData(fileData,filePath,fileName):
   # print(instanceList)
 
 
-# filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Driver/DriverFlowStatus.hs'
+# filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/rider-platform/rider-app/Main/src/Storage/Tabular/Maps/PlaceNameCache.hs'
 # with open(filePath, 'r') as file:
 #     filename=os.path.basename(filePath)
 #     filename = filename.split('.')[0]
 #     fileContents = file.read()
 #     newFileData=getNewFileData(fileContents,filePath,filename)
 #     print(newFileData)
-#     # overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Beam/Driver/DriverFlowStatus.hs', newFileData)
+#     overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/rider-platform/rider-app/Main/src/Storage/Beam/Maps/PlaceNameCache.hs', newFileData)
 
 
 
@@ -255,7 +257,7 @@ def getNewFileData(fileData,filePath,fileName):
 #       if(newFileData==''):
 #         continue
 #       overwriteFile('/Users/vijay.gupta/Desktop/py/Beam/'+filename+'.hs', newFileData)
-path = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking/'
+path = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/rider-platform/rider-app/Main/src/Storage/Tabular/SearchRequest'
 for filename in os.listdir(path):
   file_path = os.path.join(path, filename)
   if os.path.isfile(file_path):
@@ -269,4 +271,4 @@ for filename in os.listdir(path):
       newFileData = getNewFileData(file_contents,file_path,filename)
       if(newFileData==''):
         continue
-      overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Beam/Booking/'+filename+'.hs', newFileData)
+      overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/rider-platform/rider-app/Main/src/Storage/Beam/SearchRequest/'+filename+'.hs', newFileData)
