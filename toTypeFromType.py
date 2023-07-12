@@ -204,13 +204,15 @@ def removeOther(file_path,fileName):
         lines = file.readlines()
     for i, line in enumerate(lines):
         if 'updatedMeshConfig' in line:
-            lines[i].replace('updatedMeshConfig','')
+            lines[i] = lines[i].replace('updatedMeshConfig','')
         if " dbConf' " in line:
-            lines[i].replace("dbConf' ","dbConf")
+           lines[i] = lines[i].replace("dbConf' ","dbConf")
         if "dbCOnf" in line:
-            lines[i].replace("dbCOnf","dbConf")
+            lines[i] = lines[i].replace("dbCOnf","dbConf")
         if 'm (MeshResult ())' in line:
-            lines[i].replace('m (MeshResult ())','m ()') 
+           lines[i] = lines[i].replace('m (MeshResult ())','m ()') 
+        if re.search("L.MonadFlow m =>",line):
+           lines[i] = lines[i].replace("L.MonadFlow m =>","(L.MonadFlow m, Log m) =>")
     with open(file_path, 'w') as file:
         file.writelines(lines)
 
@@ -233,7 +235,7 @@ def replaceData (filePath,fileName):
     removeOther(filePath,fileName)
 
 
-filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Queries/DriverStats.hs'
+filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Queries/Estimate.hs'
 with open(filePath, 'r') as file:
     filename=os.path.basename(filePath)
     filename = filename.split('.')[0]
