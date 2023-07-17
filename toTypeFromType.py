@@ -21,7 +21,7 @@ def appendImports(file_path, line_number, line_to_append):
 
 # add imports at top 
 def addImports(filePath):
-    imports=''
+    imports='import Kernel.Types.Logging (Log)\n'
     imports+="import Lib.Utils (FromTType' (fromTType'), ToTType' (toTType'), createWithKV, findAllWithKV, findOneWithKV, getMasterDBConfig, updateWithKV, findAllWithOptionsKV, deleteWithKV)\n"
     lines=getImportEndLines(filePath)
     endLine=lines[-1]
@@ -72,7 +72,7 @@ def dbConf (file_path,fileName):
         lines = file.readlines()
     for i, line in enumerate(lines):
         if re.search('dbConf <- L.getOption', line):
-            lines[i] = '  dbConf <- getMasterDBConfig\n'
+            lines.remove(line)
     with open(file_path, 'w') as file:
         file.writelines(lines)
 
@@ -137,7 +137,7 @@ def createWithKV (file_path,fileName):
     for i, line in enumerate(lines):
         if re.search('KV.createWoReturingKVConnector',line):
             lineData = line.split(' ')
-            lines[i] = "  createWithKV dbConf " + lineData[-1][:-2] + '\n'
+            lines[i] = "  createWithKV " + lineData[-1][:-2] + '\n'
     with open(file_path, 'w') as file:
         file.writelines(lines)
 
@@ -150,7 +150,7 @@ def findOneWithKV (file_path,fileName):
             search_text = "updatedMeshConfig"
             last_index = line.rfind(search_text)
             ending_index = last_index + len(search_text)
-            lines[i] = "  findOneWithKV dbConf " + line[ending_index:] + '\n'
+            lines[i] = "  findOneWithKV " + line[ending_index:] + '\n'
     with open(file_path, 'w') as file:
         file.writelines(lines)
 
@@ -162,7 +162,7 @@ def findAllWithKV (file_path,fileName):
             search_text = "updatedMeshConfig"
             last_index = line.rfind(search_text)
             ending_index = last_index + len(search_text)
-            lines[i] = "  findAllWithKV dbConf " + line[ending_index:] + '\n'
+            lines[i] = "  findAllWithKV " + line[ending_index:] + '\n'
     with open(file_path, 'w') as file:
         file.writelines(lines)
 
@@ -174,7 +174,7 @@ def findAllWithOptions (file_path,fileName):
             search_text = "updatedMeshConfig"
             last_index = line.rfind(search_text)
             ending_index = last_index + len(search_text)
-            lines[i] = "  findAllWithOptionsKV dbConf " + line[ending_index:] + '\n'
+            lines[i] = "  findAllWithOptionsKV " + line[ending_index:] + '\n'
     with open(file_path, 'w') as file:
         file.writelines(lines)
 
@@ -205,14 +205,18 @@ def removeOther(file_path,fileName):
     for i, line in enumerate(lines):
         if 'updatedMeshConfig' in line:
             lines[i] = lines[i].replace('updatedMeshConfig','')
-        if " dbConf' " in line:
-           lines[i] = lines[i].replace("dbConf' ","dbConf")
+        if "dbConf'" in line:
+           lines[i] = lines[i].replace("dbConf'","")
         if "dbCOnf" in line:
-            lines[i] = lines[i].replace("dbCOnf","dbConf")
+            lines[i] = lines[i].replace("dbCOnf","")
+        if "dbConf" in line:
+            lines[i] = lines[i].replace("dbCOnf","")
         if 'm (MeshResult ())' in line:
            lines[i] = lines[i].replace('m (MeshResult ())','m ()') 
         if re.search("L.MonadFlow m =>",line):
            lines[i] = lines[i].replace("L.MonadFlow m =>","(L.MonadFlow m, Log m) =>")
+        if re.search("(L.MonadFlow m, MonadTime m)",line):
+           lines[i] = lines[i].replace("(L.MonadFlow m, MonadTime m)","(L.MonadFlow m, MonadTime m, Log m)")
     with open(file_path, 'w') as file:
         file.writelines(lines)
 
@@ -229,13 +233,13 @@ def replaceData (filePath,fileName):
     removeCase(filePath,fileName)
     removeLeft(filePath,fileName)
     removeRight(filePath,fileName)
-    # removeUnderscore(filePath,fileName)
+    removeUnderscore(filePath,fileName)
     removeDo(filePath,fileName)
     removeNothing(filePath,fileName)
     removeOther(filePath,fileName)
 
 
-filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Queries/Estimate.hs'
+filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Queries/MetaData.hs'
 with open(filePath, 'r') as file:
     filename=os.path.basename(filePath)
     filename = filename.split('.')[0]
