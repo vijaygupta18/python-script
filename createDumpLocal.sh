@@ -8,14 +8,14 @@ host="localhost"
 username="postgres"
 dbname="atlas_dev"
 password="root"
-schemaName="atlas_app"
+schemaName="atlas_driver_offer_bpp"
 port=5434
 rows_to_export=100
 export PGPASSWORD="$password"
 
 
 
-# ------------------- to get dump from remote db -------------------
+# ------------------- to get dump from db in csv -------------------
 
 # for table in $driver_tables; do
 #     psql "host=$host port=5434 dbname=$dbname user=$username" -c "\copy (SELECT * FROM $schemaName.$table LIMIT 1) TO STDOUT WITH (FORMAT csv , HEADER);" > "dumps/$table.csv"
@@ -23,6 +23,10 @@ export PGPASSWORD="$password"
 # done
 
 
+
+
+
+# ------------------- to get dump from db in sql -------------------
 
 # for table in $rider_tables; do
 
@@ -38,6 +42,8 @@ export PGPASSWORD="$password"
 #         echo "Failed to generate SQL insert statements for $table."
 #     fi
 # done
+
+
 
 
 
@@ -61,9 +67,11 @@ export PGPASSWORD="$password"
 
 
 
+
+
 # ------------------------ to create entries in local db from dump using sql dump ------------------------
-path="/Users/vijay.gupta/Desktop/rdumps"
-for table in $rider_tables; do
+path="/Users/vijay.gupta/Desktop/ddumps"
+for table in $driver_tables; do
     psql --host localhost --username postgres --dbname atlas_dev --port 5434 ON_ERROR_STOP=1 -f $path/$table.sql
 
     if [ $? -eq 0 ]; then
