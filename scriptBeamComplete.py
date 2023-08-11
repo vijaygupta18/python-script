@@ -1,9 +1,10 @@
 import re
 import os
+
 def overwriteFile(file_path, new_contents):
-    with open(file_path, 'w') as file:
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    with open(file_path, 'w+') as file:
         file.write(new_contents)
-        file.close()
 
 def getStaticData():
   copyRightString = "{-\n"
@@ -192,7 +193,7 @@ def getNewFileData(fileData,filePath,fileName):
   modifiedData += "instance ModelMeta "+ dataList[3][0] + " where\n"
   modifiedData += "\tmodelFieldModification = " + dataList[3][0][0].lower()+dataList[3][0][1:]+"Mod\n"
   modifiedData += '\tmodelTableName = "' + dataList[3][-1].split('=')[-1] + '"\n' # Get the information about the table name.
-  modifiedData += '\tmodelSchemaName = Just "atlas_app"\n'
+  modifiedData += '\tmodelSchemaName = Just "atlas_driver_offer_bpp"\n'
 
   newDataType = dataList[3][0][0:-1]
 
@@ -231,14 +232,14 @@ def getNewFileData(fileData,filePath,fileName):
   # print(instanceList)
 
 
-# filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/rider-platform/rider-app/Main/src/Storage/Tabular/Maps/PlaceNameCache.hs'
-# with open(filePath, 'r') as file:
-#     filename=os.path.basename(filePath)
-#     filename = filename.split('.')[0]
-#     fileContents = file.read()
-#     newFileData=getNewFileData(fileContents,filePath,filename)
-#     print(newFileData)
-#     overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/rider-platform/rider-app/Main/src/Storage/Beam/Maps/PlaceNameCache.hs', newFileData)
+filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/rider-platform/rider-app/Main/src/Storage/Beam/Maps/PlaceNameCache.hs'
+with open(filePath, 'r') as file:
+    filename=os.path.basename(filePath)
+    filename = filename.split('.')[0]
+    fileContents = file.read()
+    newFileData=getNewFileData(fileContents,filePath,filename)
+    print(newFileData)
+    overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/rider-platform/rider-app/Main/src/Storage/Beam/Maps/PlaceNameCachess.hs', newFileData)
 
 
 
@@ -257,18 +258,18 @@ def getNewFileData(fileData,filePath,fileName):
 #       if(newFileData==''):
 #         continue
 #       overwriteFile('/Users/vijay.gupta/Desktop/py/Beam/'+filename+'.hs', newFileData)
-path = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/rider-platform/rider-app/Main/src/Storage/Tabular/SearchRequest'
-for filename in os.listdir(path):
-  file_path = os.path.join(path, filename)
-  if os.path.isfile(file_path):
-    with open(file_path, 'r') as file:
-      filename=os.path.basename(file_path)
-      fileExtension = filename.split('.')[1]
-      filename = filename.split('.')[0]
-      if(fileExtension!='hs'):
-        continue
-      file_contents = file.read()
-      newFileData = getNewFileData(file_contents,file_path,filename)
-      if(newFileData==''):
-        continue
-      overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/rider-platform/rider-app/Main/src/Storage/Beam/SearchRequest/'+filename+'.hs', newFileData)
+# path = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/rider-platform/rider-app/Main/src/Storage/Tabular/SearchRequest'
+# for filename in os.listdir(path):
+#   file_path = os.path.join(path, filename)
+#   if os.path.isfile(file_path):
+#     with open(file_path, 'r') as file:
+#       filename=os.path.basename(file_path)
+#       fileExtension = filename.split('.')[1]
+#       filename = filename.split('.')[0]
+#       if(fileExtension!='hs'):
+#         continue
+#       file_contents = file.read()
+#       newFileData = getNewFileData(file_contents,file_path,filename)
+#       if(newFileData==''):
+#         continue
+#       overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/rider-platform/rider-app/Main/src/Storage/Beam/SearchRequest/'+filename+'.hs', newFileData)
