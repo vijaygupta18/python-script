@@ -1,5 +1,27 @@
 import re
 import os
+
+
+def getImports(fileContents):
+    commonImports = ""
+    specificImports = ""
+    allData = fileContents.split("\n")
+    for line in allData:
+        if(line.startswith("module")):
+            specificImports += line + "\n\n"
+        if(line.startswith("import")):
+            specificImports += line + "\n"
+    commonImports += "import qualified Data.Text as T\n"
+    commonImports += "import qualified Debug.Trace as T\n"
+    commonImports += "import qualified EulerHS.Extra.EulerDB as Extra\n"
+    commonImports += "import qualified EulerHS.KVConnector.Flow as KV\n"
+    commonImports += "import qualified EulerHS.Language as L\n"
+    commonImports += "import Sequelize as Se\n"
+    commonImports += "import qualified Storage.Tabular.VechileNew as VN\n"
+    return specificImports+commonImports
+
+
+
 def overwriteFile(file_path, new_contents):
     with open(file_path, 'w') as file:
         file.write(new_contents)
@@ -23,13 +45,14 @@ def getFindByIdList(fileContents):
 def getNewFileData(fileContents,filePath,filename):
     dataList = getFindByIdList(fileContents)
     # print(dataList)
-    for i in dataList:
-        print()
-        print(i)
+    print(getImports(fileContents))
+    # for i in dataList:
+    #     print()
+    #     print(i)
     modifiedData=''
 
 
-filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Queries/Booking.hs'
+filePath = '/Users/akhilesh.b/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Queries/Vehicle.hs'
 with open(filePath, 'r') as file:
     filename=os.path.basename(filePath)
     filename = filename.split('.')[0]
