@@ -327,6 +327,59 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: aadhaar_otp_req; Type: TABLE; Schema: atlas_app; Owner: atlas_app_user
+--
+
+CREATE TABLE atlas_app.aadhaar_otp_req (
+    id character(36) NOT NULL,
+    person_id character(36) NOT NULL,
+    request_id text NOT NULL,
+    status_code text NOT NULL,
+    request_message text NOT NULL,
+    transaction_id text,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+ALTER TABLE atlas_app.aadhaar_otp_req OWNER TO atlas_app_user;
+
+--
+-- Name: aadhaar_otp_verify; Type: TABLE; Schema: atlas_app; Owner: atlas_app_user
+--
+
+CREATE TABLE atlas_app.aadhaar_otp_verify (
+    id character(36) NOT NULL,
+    person_id character(36) NOT NULL,
+    request_id text NOT NULL,
+    status_code text NOT NULL,
+    request_message text NOT NULL,
+    transaction_id text,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+ALTER TABLE atlas_app.aadhaar_otp_verify OWNER TO atlas_app_user;
+
+--
+-- Name: aadhaar_verification; Type: TABLE; Schema: atlas_app; Owner: atlas_app_user
+--
+
+CREATE TABLE atlas_app.aadhaar_verification (
+    person_id character(36) NOT NULL,
+    person_name text,
+    person_gender text,
+    person_dob text,
+    person_image_path text,
+    aadhaar_number_hash text,
+    is_verified boolean DEFAULT false,
+    updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+ALTER TABLE atlas_app.aadhaar_verification OWNER TO atlas_app_user;
+
+--
 -- Name: app_installs; Type: TABLE; Schema: atlas_app; Owner: atlas_app_user
 --
 
@@ -796,7 +849,9 @@ CREATE TABLE atlas_app.merchant (
     time_diff_from_utc integer DEFAULT 19800 NOT NULL,
     distance_weightage integer DEFAULT 60 NOT NULL,
     minimum_driver_rates_count integer,
-    is_avoid_toll boolean DEFAULT true NOT NULL
+    is_avoid_toll boolean DEFAULT true NOT NULL,
+    aadhaar_verification_try_limit integer NOT NULL,
+    aadhaar_key_expiry_time integer
 );
 
 
@@ -896,7 +951,8 @@ CREATE TABLE atlas_app.merchant_service_usage_config (
     get_distances_for_cancel_ride text NOT NULL,
     enable_dashboard_sms boolean NOT NULL,
     issue_ticket_service character varying(30) DEFAULT 'Kapture'::character varying NOT NULL,
-    get_exophone character varying(255) DEFAULT 'Exotel'::character varying NOT NULL
+    get_exophone character varying(255) DEFAULT 'Exotel'::character varying NOT NULL,
+    aadhaar_verification_service character varying(30) NOT NULL
 );
 
 
@@ -1039,7 +1095,8 @@ CREATE TABLE atlas_app.person (
     total_ratings integer DEFAULT 0 NOT NULL,
     total_rating_score integer DEFAULT 0 NOT NULL,
     is_valid_rating boolean DEFAULT false NOT NULL,
-    has_disability boolean
+    has_disability boolean,
+    aadhaar_verified boolean DEFAULT false NOT NULL
 );
 
 
@@ -2236,7 +2293,8 @@ CREATE TABLE atlas_driver_offer_bpp.driver_fee (
     bill_number integer,
     autopay_payment_stage text,
     fee_without_discount integer,
-    collected_at timestamp without time zone
+    collected_at timestamp without time zone,
+    scheduler_try_count integer DEFAULT 1 NOT NULL
 );
 
 
@@ -2767,8 +2825,7 @@ CREATE TABLE atlas_driver_offer_bpp.fare_policy_slabs_details_slab (
     free_wating_time integer NOT NULL,
     platform_fee_charge integer,
     platform_fee_cgst integer,
-    platform_fee_sgst integer,
-    waiting_pickup_charges json
+    platform_fee_sgst integer
 );
 
 
@@ -2960,7 +3017,8 @@ CREATE TABLE atlas_driver_offer_bpp.invoice (
     bank_error_message text,
     bank_error_code text,
     bank_error_updated_at timestamp with time zone,
-    driver_id text
+    driver_id text,
+    last_status_checked_at timestamp with time zone
 );
 
 
@@ -3322,7 +3380,8 @@ CREATE TABLE atlas_driver_offer_bpp.notification (
     date_created timestamp with time zone NOT NULL,
     last_updated timestamp with time zone NOT NULL,
     created_at timestamp with time zone NOT NULL,
-    updated_at timestamp with time zone NOT NULL
+    updated_at timestamp with time zone NOT NULL,
+    last_status_checked_at timestamp with time zone
 );
 
 
@@ -3984,7 +4043,11 @@ CREATE TABLE atlas_driver_offer_bpp.transporter_config (
     mandate_execution_reschedule_interval bigint DEFAULT 60 NOT NULL,
     is_plan_mandatory boolean DEFAULT false NOT NULL,
     free_trial_days integer DEFAULT 0 NOT NULL,
-    open_market_un_blocked boolean DEFAULT false NOT NULL
+    open_market_un_blocked boolean DEFAULT false NOT NULL,
+    driver_fee_retry_threshold_config integer DEFAULT 3 NOT NULL,
+    update_notification_status_batch_size integer DEFAULT 20 NOT NULL,
+    update_order_status_batch_size integer DEFAULT 20 NOT NULL,
+    order_and_notification_status_check_time bigint DEFAULT 63000
 );
 
 
@@ -4330,6 +4393,30 @@ ALTER TABLE ONLY atlas_driver_offer_bpp.fare_policy_progressive_details_per_extr
 --
 
 ALTER TABLE ONLY atlas_driver_offer_bpp.fare_policy_slabs_details_slab ALTER COLUMN id SET DEFAULT nextval('atlas_driver_offer_bpp.fare_policy_slabs_details_slab_id_seq'::regclass);
+
+
+--
+-- Name: aadhaar_otp_req aadhaar_otp_req_pkey; Type: CONSTRAINT; Schema: atlas_app; Owner: atlas_app_user
+--
+
+ALTER TABLE ONLY atlas_app.aadhaar_otp_req
+    ADD CONSTRAINT aadhaar_otp_req_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: aadhaar_otp_verify aadhaar_otp_verify_pkey; Type: CONSTRAINT; Schema: atlas_app; Owner: atlas_app_user
+--
+
+ALTER TABLE ONLY atlas_app.aadhaar_otp_verify
+    ADD CONSTRAINT aadhaar_otp_verify_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: aadhaar_verification aadhaar_verification_pkey; Type: CONSTRAINT; Schema: atlas_app; Owner: atlas_app_user
+--
+
+ALTER TABLE ONLY atlas_app.aadhaar_verification
+    ADD CONSTRAINT aadhaar_verification_pkey PRIMARY KEY (person_id);
 
 
 --
@@ -5973,6 +6060,13 @@ CREATE INDEX idx_16475_tag_type ON atlas_app.tag USING btree (tag_type);
 
 
 --
+-- Name: idx_aadhaar_verification_aadhaar_number_hash; Type: INDEX; Schema: atlas_app; Owner: atlas_app_user
+--
+
+CREATE INDEX idx_aadhaar_verification_aadhaar_number_hash ON atlas_app.aadhaar_verification USING btree (aadhaar_number_hash);
+
+
+--
 -- Name: idx_booking_rider_id; Type: INDEX; Schema: atlas_app; Owner: atlas_app_user
 --
 
@@ -6497,5 +6591,4 @@ ALTER TABLE ONLY atlas_special_zone.entry_exit
 --
 -- PostgreSQL database dump complete
 --
-
 

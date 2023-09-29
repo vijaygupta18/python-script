@@ -1,4 +1,4 @@
-CREATE TABLE atlas_app_helper.app_installs ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.app_installs_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `device_token` Nullable (String),
@@ -44,7 +44,7 @@ CREATE MATERIALIZED VIEW atlas_app.app_installs ON CLUSTER `{cluster}` TO atlas_
 	where JSONExtractString(message,'tag') = 'AppInstallsObject'
 
 
-CREATE TABLE atlas_app_helper.beckn_request ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.beckn_request_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `beckn_request` Nullable (String),
@@ -75,7 +75,7 @@ CREATE MATERIALIZED VIEW atlas_app.beckn_request ON CLUSTER `{cluster}` TO atlas
 	where JSONExtractString(message,'tag') = 'BecknRequestObject'
 
 
-CREATE TABLE atlas_app_helper.black_list_org ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.black_list_org_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `subscriber_id` Nullable (String),
@@ -103,7 +103,7 @@ CREATE MATERIALIZED VIEW atlas_app.black_list_org ON CLUSTER `{cluster}` TO atla
 	where JSONExtractString(message,'tag') = 'BlackListOrgObject'
 
 
-CREATE TABLE atlas_app_helper.booking ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.booking_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `status` Nullable (String),
@@ -221,7 +221,7 @@ CREATE MATERIALIZED VIEW atlas_app.booking ON CLUSTER `{cluster}` TO atlas_app.b
 	where JSONExtractString(message,'tag') = 'BookingObject'
 
 
-CREATE TABLE atlas_app_helper.booking_cancellation_reason ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.booking_cancellation_reason_shard ON CLUSTER `{cluster}`
     (
     `booking_id` Nullable (String),
     `source` Nullable (String),
@@ -270,7 +270,7 @@ CREATE MATERIALIZED VIEW atlas_app.booking_cancellation_reason ON CLUSTER `{clus
 	where JSONExtractString(message,'tag') = 'BookingCancellationReasonObject'
 
 
-CREATE TABLE atlas_app_helper.booking_location ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.booking_location_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `lat` Nullable (Float64),
@@ -334,7 +334,7 @@ CREATE MATERIALIZED VIEW atlas_app.booking_location ON CLUSTER `{cluster}` TO at
 	where JSONExtractString(message,'tag') = 'BookingLocationObject'
 
 
-CREATE TABLE atlas_app_helper.call_status ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.call_status_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `call_id` Nullable (String),
@@ -377,7 +377,7 @@ CREATE MATERIALIZED VIEW atlas_app.call_status ON CLUSTER `{cluster}` TO atlas_a
 	where JSONExtractString(message,'tag') = 'CallStatusObject'
 
 
-CREATE TABLE atlas_app_helper.callback_request ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.callback_request_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `merchant_id` Nullable (String),
@@ -423,7 +423,7 @@ CREATE MATERIALIZED VIEW atlas_app.callback_request ON CLUSTER `{cluster}` TO at
 	where JSONExtractString(message,'tag') = 'CallbackRequestObject'
 
 
-CREATE TABLE atlas_app_helper.cancellation_reason ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.cancellation_reason_shard ON CLUSTER `{cluster}`
     (
     `reason_code` Nullable (String),
     `description` Nullable (String),
@@ -463,7 +463,7 @@ CREATE MATERIALIZED VIEW atlas_app.cancellation_reason ON CLUSTER `{cluster}` TO
 	where JSONExtractString(message,'tag') = 'CancellationReasonObject'
 
 
-CREATE TABLE atlas_app_helper.directions_cache ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.directions_cache_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `origin_hash` Nullable (String),
@@ -500,7 +500,7 @@ CREATE MATERIALIZED VIEW atlas_app.directions_cache ON CLUSTER `{cluster}` TO at
 	where JSONExtractString(message,'tag') = 'DirectionsCacheObject'
 
 
-CREATE TABLE atlas_app_helper.disability ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.disability_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `tag` Nullable (String),
@@ -528,7 +528,7 @@ CREATE MATERIALIZED VIEW atlas_app.disability ON CLUSTER `{cluster}` TO atlas_ap
 	where JSONExtractString(message,'tag') = 'DisabilityObject'
 
 
-CREATE TABLE atlas_app_helper.disability_translation ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.disability_translation_shard ON CLUSTER `{cluster}`
     (
     `disability_id` Nullable (String),
     `disability_tag` Nullable (String),
@@ -559,7 +559,7 @@ CREATE MATERIALIZED VIEW atlas_app.disability_translation ON CLUSTER `{cluster}`
 	where JSONExtractString(message,'tag') = 'DisabilityTranslationObject'
 
 
-CREATE TABLE atlas_app_helper.driver_offer ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.driver_offer_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `estimate_id` Nullable (String),
@@ -614,7 +614,7 @@ CREATE MATERIALIZED VIEW atlas_app.driver_offer ON CLUSTER `{cluster}` TO atlas_
 	where JSONExtractString(message,'tag') = 'DriverOfferObject'
 
 
-CREATE TABLE atlas_app_helper.estimate ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.estimate_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `request_id` Nullable (String),
@@ -723,7 +723,7 @@ CREATE MATERIALIZED VIEW atlas_app.estimate ON CLUSTER `{cluster}` TO atlas_app.
 	where JSONExtractString(message,'tag') = 'EstimateObject'
 
 
-CREATE TABLE atlas_app_helper.estimate_breakup ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.estimate_breakup_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `estimate_id` Nullable (String),
@@ -760,7 +760,7 @@ CREATE MATERIALIZED VIEW atlas_app.estimate_breakup ON CLUSTER `{cluster}` TO at
 	where JSONExtractString(message,'tag') = 'EstimateBreakupObject'
 
 
-CREATE TABLE atlas_app_helper.exophone ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.exophone_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `merchant_id` Nullable (String),
@@ -803,7 +803,7 @@ CREATE MATERIALIZED VIEW atlas_app.exophone ON CLUSTER `{cluster}` TO atlas_app.
 	where JSONExtractString(message,'tag') = 'ExophoneObject'
 
 
-CREATE TABLE atlas_app_helper.fare_breakup ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.fare_breakup_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `booking_id` Nullable (String),
@@ -834,7 +834,7 @@ CREATE MATERIALIZED VIEW atlas_app.fare_breakup ON CLUSTER `{cluster}` TO atlas_
 	where JSONExtractString(message,'tag') = 'FareBreakupObject'
 
 
-CREATE TABLE atlas_app_helper.feedback_form ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.feedback_form_shard ON CLUSTER `{cluster}`
     (
     `category_name` Nullable (String),
     `id` Nullable (String),
@@ -871,7 +871,7 @@ CREATE MATERIALIZED VIEW atlas_app.feedback_form ON CLUSTER `{cluster}` TO atlas
 	where JSONExtractString(message,'tag') = 'FeedbackFormObject'
 
 
-CREATE TABLE atlas_app_helper.geometry ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.geometry_shard ON CLUSTER `{cluster}`
     (
     `region` Nullable (String),
     `geom` Nullable (String),
@@ -899,7 +899,7 @@ CREATE MATERIALIZED VIEW atlas_app.geometry ON CLUSTER `{cluster}` TO atlas_app.
 	where JSONExtractString(message,'tag') = 'GeometryObject'
 
 
-CREATE TABLE atlas_app_helper.hot_spot_config ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.hot_spot_config_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `hot_spot_geo_hash_precision` Nullable (String),
@@ -960,7 +960,7 @@ CREATE MATERIALIZED VIEW atlas_app.hot_spot_config ON CLUSTER `{cluster}` TO atl
 	where JSONExtractString(message,'tag') = 'HotSpotConfigObject'
 
 
-CREATE TABLE atlas_app_helper.issue ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.issue_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `customer_id` Nullable (String),
@@ -1009,7 +1009,7 @@ CREATE MATERIALIZED VIEW atlas_app.issue ON CLUSTER `{cluster}` TO atlas_app.iss
 	where JSONExtractString(message,'tag') = 'IssueObject'
 
 
-CREATE TABLE atlas_app_helper.location_backup ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.location_backup_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `location_type` Nullable (String),
@@ -1076,7 +1076,7 @@ CREATE MATERIALIZED VIEW atlas_app.location_backup ON CLUSTER `{cluster}` TO atl
 	where JSONExtractString(message,'tag') = 'LocationBackupObject'
 
 
-CREATE TABLE atlas_app_helper.merchant ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.merchant_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `short_id` Nullable (String),
@@ -1173,7 +1173,7 @@ CREATE MATERIALIZED VIEW atlas_app.merchant ON CLUSTER `{cluster}` TO atlas_app.
 	where JSONExtractString(message,'tag') = 'MerchantObject'
 
 
-CREATE TABLE atlas_app_helper.merchant_config ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.merchant_config_shard ON CLUSTER `{cluster}`
     (
     `merchant_id` Nullable (String),
     `fraud_booking_cancellation_count_threshold` Nullable (Int64),
@@ -1228,7 +1228,7 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_config ON CLUSTER `{cluster}` TO atl
 	where JSONExtractString(message,'tag') = 'MerchantConfigObject'
 
 
-CREATE TABLE atlas_app_helper.merchant_message ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.merchant_message_shard ON CLUSTER `{cluster}`
     (
     `merchant_id` Nullable (String),
     `message_key` Nullable (String),
@@ -1262,7 +1262,7 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_message ON CLUSTER `{cluster}` TO at
 	where JSONExtractString(message,'tag') = 'MerchantMessageObject'
 
 
-CREATE TABLE atlas_app_helper.merchant_payment_method ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.merchant_payment_method_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `merchant_id` Nullable (String),
@@ -1305,7 +1305,7 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_payment_method ON CLUSTER `{cluster}
 	where JSONExtractString(message,'tag') = 'MerchantPaymentMethodObject'
 
 
-CREATE TABLE atlas_app_helper.merchant_service_config ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.merchant_service_config_shard ON CLUSTER `{cluster}`
     (
     `merchant_id` Nullable (String),
     `service_name` Nullable (String),
@@ -1339,7 +1339,7 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_service_config ON CLUSTER `{cluster}
 	where JSONExtractString(message,'tag') = 'MerchantServiceConfigObject'
 
 
-CREATE TABLE atlas_app_helper.merchant_service_usage_config ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.merchant_service_usage_config_shard ON CLUSTER `{cluster}`
     (
     `merchant_id` Nullable (String),
     `get_distances` Nullable (String),
@@ -1418,7 +1418,7 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_service_usage_config ON CLUSTER `{cl
 	where JSONExtractString(message,'tag') = 'MerchantServiceUsageConfigObject'
 
 
-CREATE TABLE atlas_app_helper.on_search_event ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.on_search_event_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `bpp_id` Nullable (String),
@@ -1458,7 +1458,7 @@ CREATE MATERIALIZED VIEW atlas_app.on_search_event ON CLUSTER `{cluster}` TO atl
 	where JSONExtractString(message,'tag') = 'OnSearchEventObject'
 
 
-CREATE TABLE atlas_app_helper.payment_order ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.payment_order_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `short_id` Nullable (String),
@@ -1570,7 +1570,7 @@ CREATE MATERIALIZED VIEW atlas_app.payment_order ON CLUSTER `{cluster}` TO atlas
 	where JSONExtractString(message,'tag') = 'PaymentOrderObject'
 
 
-CREATE TABLE atlas_app_helper.payment_transaction ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.payment_transaction_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `txn_uuid` Nullable (String),
@@ -1664,7 +1664,7 @@ CREATE MATERIALIZED VIEW atlas_app.payment_transaction ON CLUSTER `{cluster}` TO
 	where JSONExtractString(message,'tag') = 'PaymentTransactionObject'
 
 
-CREATE TABLE atlas_app_helper.person ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.person_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `first_name` Nullable (String),
@@ -1803,7 +1803,7 @@ CREATE MATERIALIZED VIEW atlas_app.person ON CLUSTER `{cluster}` TO atlas_app.pe
 	where JSONExtractString(message,'tag') = 'PersonObject'
 
 
-CREATE TABLE atlas_app_helper.person_default_emergency_number ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.person_default_emergency_number_shard ON CLUSTER `{cluster}`
     (
     `person_id` Nullable (String),
     `name` Nullable (String),
@@ -1840,7 +1840,7 @@ CREATE MATERIALIZED VIEW atlas_app.person_default_emergency_number ON CLUSTER `{
 	where JSONExtractString(message,'tag') = 'PersonDefaultEmergencyNumberObject'
 
 
-CREATE TABLE atlas_app_helper.person_disability ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.person_disability_shard ON CLUSTER `{cluster}`
     (
     `person_id` Nullable (String),
     `disability_id` Nullable (String),
@@ -1874,7 +1874,7 @@ CREATE MATERIALIZED VIEW atlas_app.person_disability ON CLUSTER `{cluster}` TO a
 	where JSONExtractString(message,'tag') = 'PersonDisabilityObject'
 
 
-CREATE TABLE atlas_app_helper.person_flow_status ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.person_flow_status_shard ON CLUSTER `{cluster}`
     (
     `person_id` Nullable (String),
     `flow_status` Nullable (String),
@@ -1902,7 +1902,7 @@ CREATE MATERIALIZED VIEW atlas_app.person_flow_status ON CLUSTER `{cluster}` TO 
 	where JSONExtractString(message,'tag') = 'PersonFlowStatusObject'
 
 
-CREATE TABLE atlas_app_helper.person_stats ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.person_stats_shard ON CLUSTER `{cluster}`
     (
     `person_id` Nullable (String),
     `user_cancelled_rides` Nullable (Int64),
@@ -1954,7 +1954,7 @@ CREATE MATERIALIZED VIEW atlas_app.person_stats ON CLUSTER `{cluster}` TO atlas_
 	where JSONExtractString(message,'tag') = 'PersonStatsObject'
 
 
-CREATE TABLE atlas_app_helper.place_name_cache ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.place_name_cache_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `formatted_address` Nullable (String),
@@ -1997,7 +1997,7 @@ CREATE MATERIALIZED VIEW atlas_app.place_name_cache ON CLUSTER `{cluster}` TO at
 	where JSONExtractString(message,'tag') = 'PlaceNameCacheObject'
 
 
-CREATE TABLE atlas_app_helper.product_instance_backup ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.product_instance_backup_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `case_id` Nullable (String),
@@ -2103,7 +2103,7 @@ CREATE MATERIALIZED VIEW atlas_app.product_instance_backup ON CLUSTER `{cluster}
 	where JSONExtractString(message,'tag') = 'ProductInstanceBackupObject'
 
 
-CREATE TABLE atlas_app_helper.quote ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.quote_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `request_id` Nullable (String),
@@ -2188,7 +2188,7 @@ CREATE MATERIALIZED VIEW atlas_app.quote ON CLUSTER `{cluster}` TO atlas_app.quo
 	where JSONExtractString(message,'tag') = 'QuoteObject'
 
 
-CREATE TABLE atlas_app_helper.quote_bak_1022 ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.quote_bak_1022_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `request_id` Nullable (String),
@@ -2252,7 +2252,7 @@ CREATE MATERIALIZED VIEW atlas_app.quote_bak_1022 ON CLUSTER `{cluster}` TO atla
 	where JSONExtractString(message,'tag') = 'QuoteBak1022Object'
 
 
-CREATE TABLE atlas_app_helper.quote_bak_1026 ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.quote_bak_1026_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `request_id` Nullable (String),
@@ -2316,7 +2316,7 @@ CREATE MATERIALIZED VIEW atlas_app.quote_bak_1026 ON CLUSTER `{cluster}` TO atla
 	where JSONExtractString(message,'tag') = 'QuoteBak1026Object'
 
 
-CREATE TABLE atlas_app_helper.quote_terms_bak_1027 ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.quote_terms_bak_1027_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `quote_id` Nullable (String),
@@ -2344,7 +2344,7 @@ CREATE MATERIALIZED VIEW atlas_app.quote_terms_bak_1027 ON CLUSTER `{cluster}` T
 	where JSONExtractString(message,'tag') = 'QuoteTermsBak1027Object'
 
 
-CREATE TABLE atlas_app_helper.rating ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.rating_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `ride_id` Nullable (String),
@@ -2384,7 +2384,7 @@ CREATE MATERIALIZED VIEW atlas_app.rating ON CLUSTER `{cluster}` TO atlas_app.ra
 	where JSONExtractString(message,'tag') = 'RatingObject'
 
 
-CREATE TABLE atlas_app_helper.registration_token ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.registration_token_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `auth_medium` Nullable (String),
@@ -2448,7 +2448,7 @@ CREATE MATERIALIZED VIEW atlas_app.registration_token ON CLUSTER `{cluster}` TO 
 	where JSONExtractString(message,'tag') = 'RegistrationTokenObject'
 
 
-CREATE TABLE atlas_app_helper.rental_quote_bak_1027 ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.rental_quote_bak_1027_shard ON CLUSTER `{cluster}`
     (
     `quote_id` Nullable (String),
     `base_distance` Nullable (String),
@@ -2476,7 +2476,7 @@ CREATE MATERIALIZED VIEW atlas_app.rental_quote_bak_1027 ON CLUSTER `{cluster}` 
 	where JSONExtractString(message,'tag') = 'RentalQuoteBak1027Object'
 
 
-CREATE TABLE atlas_app_helper.rental_slab ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.rental_slab_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `base_distance` Nullable (Int64),
@@ -2504,7 +2504,7 @@ CREATE MATERIALIZED VIEW atlas_app.rental_slab ON CLUSTER `{cluster}` TO atlas_a
 	where JSONExtractString(message,'tag') = 'RentalSlabObject'
 
 
-CREATE TABLE atlas_app_helper.ride ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.ride_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `booking_id` Nullable (String),
@@ -2607,7 +2607,7 @@ CREATE MATERIALIZED VIEW atlas_app.ride ON CLUSTER `{cluster}` TO atlas_app.ride
 	where JSONExtractString(message,'tag') = 'RideObject'
 
 
-CREATE TABLE atlas_app_helper.ride_booking_bak_1022 ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.ride_booking_bak_1022_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `request_id` Nullable (String),
@@ -2689,7 +2689,7 @@ CREATE MATERIALIZED VIEW atlas_app.ride_booking_bak_1022 ON CLUSTER `{cluster}` 
 	where JSONExtractString(message,'tag') = 'RideBookingBak1022Object'
 
 
-CREATE TABLE atlas_app_helper.ride_booking_bak_1026 ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.ride_booking_bak_1026_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `request_id` Nullable (String),
@@ -2771,7 +2771,7 @@ CREATE MATERIALIZED VIEW atlas_app.ride_booking_bak_1026 ON CLUSTER `{cluster}` 
 	where JSONExtractString(message,'tag') = 'RideBookingBak1026Object'
 
 
-CREATE TABLE atlas_app_helper.saved_location ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.saved_location_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `lat` Nullable (Float64),
@@ -2844,7 +2844,7 @@ CREATE MATERIALIZED VIEW atlas_app.saved_location ON CLUSTER `{cluster}` TO atla
 	where JSONExtractString(message,'tag') = 'SavedLocationObject'
 
 
-CREATE TABLE atlas_app_helper.schema_migrations ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.schema_migrations_shard ON CLUSTER `{cluster}`
     (
     `filename` Nullable (String),
     `checksum` Nullable (String),
@@ -2872,7 +2872,7 @@ CREATE MATERIALIZED VIEW atlas_app.schema_migrations ON CLUSTER `{cluster}` TO a
 	where JSONExtractString(message,'tag') = 'SchemaMigrationsObject'
 
 
-CREATE TABLE atlas_app_helper.search_request ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.search_request_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `start_time` DateTime DEFAULT now(),
@@ -2954,7 +2954,7 @@ CREATE MATERIALIZED VIEW atlas_app.search_request ON CLUSTER `{cluster}` TO atla
 	where JSONExtractString(message,'tag') = 'SearchRequestObject'
 
 
-CREATE TABLE atlas_app_helper.search_request_bak_1022 ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.search_request_bak_1022_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `start_time` DateTime DEFAULT now(),
@@ -2997,7 +2997,7 @@ CREATE MATERIALIZED VIEW atlas_app.search_request_bak_1022 ON CLUSTER `{cluster}
 	where JSONExtractString(message,'tag') = 'SearchRequestBak1022Object'
 
 
-CREATE TABLE atlas_app_helper.search_request_location ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.search_request_location_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `lat` Nullable (Float64),
@@ -3061,7 +3061,7 @@ CREATE MATERIALIZED VIEW atlas_app.search_request_location ON CLUSTER `{cluster}
 	where JSONExtractString(message,'tag') = 'SearchRequestLocationObject'
 
 
-CREATE TABLE atlas_app_helper.search_request_location_1026 ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.search_request_location_1026_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `lat` Nullable (Float64),
@@ -3119,7 +3119,7 @@ CREATE MATERIALIZED VIEW atlas_app.search_request_location_1026 ON CLUSTER `{clu
 	where JSONExtractString(message,'tag') = 'SearchRequestLocation1026Object'
 
 
-CREATE TABLE atlas_app_helper.sos ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.sos_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `flow` Nullable (String),
@@ -3159,7 +3159,7 @@ CREATE MATERIALIZED VIEW atlas_app.sos ON CLUSTER `{cluster}` TO atlas_app.sos
 	where JSONExtractString(message,'tag') = 'SosObject'
 
 
-CREATE TABLE atlas_app_helper.special_location ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.special_location_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `location_name` Nullable (String),
@@ -3196,7 +3196,7 @@ CREATE MATERIALIZED VIEW atlas_app.special_location ON CLUSTER `{cluster}` TO at
 	where JSONExtractString(message,'tag') = 'SpecialLocationObject'
 
 
-CREATE TABLE atlas_app_helper.special_zone_quote ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.special_zone_quote_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `quote_id` Nullable (String)
@@ -3221,7 +3221,7 @@ CREATE MATERIALIZED VIEW atlas_app.special_zone_quote ON CLUSTER `{cluster}` TO 
 	where JSONExtractString(message,'tag') = 'SpecialZoneQuoteObject'
 
 
-CREATE TABLE atlas_app_helper.tag ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.tag_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `created_by` Nullable (String),
@@ -3264,7 +3264,7 @@ CREATE MATERIALIZED VIEW atlas_app.tag ON CLUSTER `{cluster}` TO atlas_app.tag
 	where JSONExtractString(message,'tag') = 'TagObject'
 
 
-CREATE TABLE atlas_app_helper.tag_category_mapping ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.tag_category_mapping_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `tag` Nullable (String),
@@ -3295,7 +3295,7 @@ CREATE MATERIALIZED VIEW atlas_app.tag_category_mapping ON CLUSTER `{cluster}` T
 	where JSONExtractString(message,'tag') = 'TagCategoryMappingObject'
 
 
-CREATE TABLE atlas_app_helper.trip_terms ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.trip_terms_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `descriptions` Nullable (String)
@@ -3320,7 +3320,7 @@ CREATE MATERIALIZED VIEW atlas_app.trip_terms ON CLUSTER `{cluster}` TO atlas_ap
 	where JSONExtractString(message,'tag') = 'TripTermsObject'
 
 
-CREATE TABLE atlas_app_helper.webengage ON CLUSTER `{cluster}`
+CREATE TABLE atlas_app_helper.webengage_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `version` Nullable (String),
@@ -3363,7 +3363,7 @@ CREATE MATERIALIZED VIEW atlas_app.webengage ON CLUSTER `{cluster}` TO atlas_app
 	where JSONExtractString(message,'tag') = 'WebengageObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.aadhaar_otp_req ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.aadhaar_otp_req_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_id` Nullable (String),
@@ -3403,7 +3403,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.aadhaar_otp_req ON CLUSTER `{clu
 	where JSONExtractString(message,'tag') = 'AadhaarOtpReqObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.aadhaar_otp_verify ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.aadhaar_otp_verify_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_id` Nullable (String),
@@ -3443,7 +3443,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.aadhaar_otp_verify ON CLUSTER `{
 	where JSONExtractString(message,'tag') = 'AadhaarOtpVerifyObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.aadhaar_verification ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.aadhaar_verification_shard ON CLUSTER `{cluster}`
     (
     `driver_id` Nullable (String),
     `driver_name` Nullable (String),
@@ -3492,7 +3492,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.aadhaar_verification ON CLUSTER 
 	where JSONExtractString(message,'tag') = 'AadhaarVerificationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.bap_metadata ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.bap_metadata_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `name` Nullable (String),
@@ -3520,7 +3520,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.bap_metadata ON CLUSTER `{cluste
 	where JSONExtractString(message,'tag') = 'BapMetadataObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.beckn_request ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.beckn_request_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `beckn_request` Nullable (String),
@@ -3551,7 +3551,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.beckn_request ON CLUSTER `{clust
 	where JSONExtractString(message,'tag') = 'BecknRequestObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.booking ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.booking_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `status` Nullable (String),
@@ -3660,7 +3660,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.booking ON CLUSTER `{cluster}` T
 	where JSONExtractString(message,'tag') = 'BookingObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.booking_cancellation_reason ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.booking_cancellation_reason_shard ON CLUSTER `{cluster}`
     (
     `driver_id` Nullable (String),
     `booking_id` Nullable (String),
@@ -3709,7 +3709,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.booking_cancellation_reason ON C
 	where JSONExtractString(message,'tag') = 'BookingCancellationReasonObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.booking_location ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.booking_location_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `lat` Nullable (Float64),
@@ -3767,7 +3767,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.booking_location ON CLUSTER `{cl
 	where JSONExtractString(message,'tag') = 'BookingLocationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.business_event ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.business_event_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_id` Nullable (String),
@@ -3816,7 +3816,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.business_event ON CLUSTER `{clus
 	where JSONExtractString(message,'tag') = 'BusinessEventObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.call_status ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.call_status_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `call_id` Nullable (String),
@@ -3859,7 +3859,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.call_status ON CLUSTER `{cluster
 	where JSONExtractString(message,'tag') = 'CallStatusObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.cancellation_reason ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.cancellation_reason_shard ON CLUSTER `{cluster}`
     (
     `reason_code` Nullable (String),
     `description` Nullable (String),
@@ -3890,7 +3890,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.cancellation_reason ON CLUSTER `
 	where JSONExtractString(message,'tag') = 'CancellationReasonObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.comment ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.comment_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `issue_report_id` Nullable (String),
@@ -3924,7 +3924,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.comment ON CLUSTER `{cluster}` T
 	where JSONExtractString(message,'tag') = 'CommentObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_availability ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_availability_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_id` Nullable (String),
@@ -3970,7 +3970,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_availability ON CLUSTER `
 	where JSONExtractString(message,'tag') = 'DriverAvailabilityObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_block_reason ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_block_reason_shard ON CLUSTER `{cluster}`
     (
     `reason_code` Nullable (String),
     `block_reason` Nullable (String),
@@ -3998,7 +3998,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_block_reason ON CLUSTER `
 	where JSONExtractString(message,'tag') = 'DriverBlockReasonObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_fee ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_fee_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_id` Nullable (String),
@@ -4089,7 +4089,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_fee ON CLUSTER `{cluster}
 	where JSONExtractString(message,'tag') = 'DriverFeeObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_flow_status ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_flow_status_shard ON CLUSTER `{cluster}`
     (
     `person_id` Nullable (String),
     `flow_status` Nullable (String),
@@ -4117,7 +4117,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_flow_status ON CLUSTER `{
 	where JSONExtractString(message,'tag') = 'DriverFlowStatusObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_go_home_request ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_go_home_request_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_id` Nullable (String),
@@ -4166,7 +4166,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_go_home_request ON CLUSTE
 	where JSONExtractString(message,'tag') = 'DriverGoHomeRequestObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_home_location ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_home_location_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_id` Nullable (String),
@@ -4209,7 +4209,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_home_location ON CLUSTER 
 	where JSONExtractString(message,'tag') = 'DriverHomeLocationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_information ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_information_shard ON CLUSTER `{cluster}`
     (
     `driver_id` Nullable (String),
     `active` Nullable (String),
@@ -4309,7 +4309,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_information ON CLUSTER `{
 	where JSONExtractString(message,'tag') = 'DriverInformationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_intelligent_pool_config ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_intelligent_pool_config_shard ON CLUSTER `{cluster}`
     (
     `merchant_id` Nullable (String),
     `availability_time_weightage` Nullable (Int64),
@@ -4382,7 +4382,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_intelligent_pool_config O
 	where JSONExtractString(message,'tag') = 'DriverIntelligentPoolConfigObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_license ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_license_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_id` Nullable (String),
@@ -4449,7 +4449,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_license ON CLUSTER `{clus
 	where JSONExtractString(message,'tag') = 'DriverLicenseObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_location ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_location_shard ON CLUSTER `{cluster}`
     (
     `driver_id` Nullable (String),
     `lat` Nullable (Float64),
@@ -4492,7 +4492,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_location ON CLUSTER `{clu
 	where JSONExtractString(message,'tag') = 'DriverLocationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_plan ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_plan_shard ON CLUSTER `{cluster}`
     (
     `driver_id` Nullable (String),
     `plan_id` Nullable (String),
@@ -4532,7 +4532,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_plan ON CLUSTER `{cluster
 	where JSONExtractString(message,'tag') = 'DriverPlanObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_pool_config ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_pool_config_shard ON CLUSTER `{cluster}`
     (
     `merchant_id` Nullable (String),
     `min_radius_of_search` Nullable (Int64),
@@ -4614,7 +4614,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_pool_config ON CLUSTER `{
 	where JSONExtractString(message,'tag') = 'DriverPoolConfigObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_quote ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_quote_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `status` Nullable (String),
@@ -4696,7 +4696,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_quote ON CLUSTER `{cluste
 	where JSONExtractString(message,'tag') = 'DriverQuoteObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_rc_association ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_rc_association_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_id` Nullable (String),
@@ -4739,7 +4739,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_rc_association ON CLUSTER
 	where JSONExtractString(message,'tag') = 'DriverRcAssociationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_referral ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_referral_shard ON CLUSTER `{cluster}`
     (
     `referral_code` Nullable (String),
     `driver_id` Nullable (String),
@@ -4767,7 +4767,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_referral ON CLUSTER `{clu
 	where JSONExtractString(message,'tag') = 'DriverReferralObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.driver_stats ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_stats_shard ON CLUSTER `{cluster}`
     (
     `driver_id` Nullable (String),
     `idle_since` DateTime DEFAULT now(),
@@ -4819,7 +4819,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_stats ON CLUSTER `{cluste
 	where JSONExtractString(message,'tag') = 'DriverStatsObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.estimate ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.estimate_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `vehicle_variant` Nullable (String),
@@ -4880,7 +4880,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.estimate ON CLUSTER `{cluster}` 
 	where JSONExtractString(message,'tag') = 'EstimateObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.exophone ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.exophone_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `merchant_id` Nullable (String),
@@ -4926,7 +4926,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.exophone ON CLUSTER `{cluster}` 
 	where JSONExtractString(message,'tag') = 'ExophoneObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.fare_parameters ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_parameters_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_selected_fare` Nullable (String),
@@ -4975,7 +4975,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_parameters ON CLUSTER `{clu
 	where JSONExtractString(message,'tag') = 'FareParametersObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.fare_parameters_progressive_details ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_parameters_progressive_details_shard ON CLUSTER `{cluster}`
     (
     `fare_parameters_id` Nullable (String),
     `dead_km_fare` Nullable (Int64),
@@ -5003,7 +5003,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_parameters_progressive_deta
 	where JSONExtractString(message,'tag') = 'FareParametersProgressiveDetailsObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.fare_parameters_slab_details ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_parameters_slab_details_shard ON CLUSTER `{cluster}`
     (
     `fare_parameters_id` Nullable (String),
     `platform_fee` Nullable (String),
@@ -5034,7 +5034,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_parameters_slab_details ON 
 	where JSONExtractString(message,'tag') = 'FareParametersSlabDetailsObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `night_shift_start` DateTime DEFAULT now(),
@@ -5086,7 +5086,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy ON CLUSTER `{cluster
 	where JSONExtractString(message,'tag') = 'FarePolicyObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_27_07_bak ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_27_07_bak_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `organization_id` Nullable (String),
@@ -5132,7 +5132,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_27_07_bak ON CLUSTER
 	where JSONExtractString(message,'tag') = 'FarePolicy2707BakObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_driver_extra_fee_bounds ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_driver_extra_fee_bounds_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (Int64),
     `fare_policy_id` Nullable (String),
@@ -5166,7 +5166,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_driver_extra_fee_bou
 	where JSONExtractString(message,'tag') = 'FarePolicyDriverExtraFeeBoundsObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_progressive_details ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_progressive_details_shard ON CLUSTER `{cluster}`
     (
     `fare_policy_id` Nullable (String),
     `base_distance` Nullable (Int64),
@@ -5206,7 +5206,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_progressive_details 
 	where JSONExtractString(message,'tag') = 'FarePolicyProgressiveDetailsObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_progressive_details_per_extra_km_rate_section ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_progressive_details_per_extra_km_rate_section_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (Int64),
     `fare_policy_id` Nullable (String),
@@ -5237,7 +5237,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_progressive_details_
 	where JSONExtractString(message,'tag') = 'FarePolicyProgressiveDetailsPerExtraKmRateSectionObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_slabs_details_slab ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_slabs_details_slab_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (Int64),
     `fare_policy_id` Nullable (String),
@@ -5289,7 +5289,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_slabs_details_slab O
 	where JSONExtractString(message,'tag') = 'FarePolicySlabsDetailsSlabObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.fare_product ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_product_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `merchant_id` Nullable (String),
@@ -5326,7 +5326,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_product ON CLUSTER `{cluste
 	where JSONExtractString(message,'tag') = 'FareProductObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.feedback ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.feedback_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_id` Nullable (String),
@@ -5360,7 +5360,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.feedback ON CLUSTER `{cluster}` 
 	where JSONExtractString(message,'tag') = 'FeedbackObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.feedback_badge ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.feedback_badge_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_id` Nullable (String),
@@ -5397,7 +5397,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.feedback_badge ON CLUSTER `{clus
 	where JSONExtractString(message,'tag') = 'FeedbackBadgeObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.feedback_form ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.feedback_form_shard ON CLUSTER `{cluster}`
     (
     `category_name` Nullable (String),
     `id` Nullable (String),
@@ -5434,7 +5434,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.feedback_form ON CLUSTER `{clust
 	where JSONExtractString(message,'tag') = 'FeedbackFormObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.geometry ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.geometry_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `region` Nullable (String),
@@ -5462,7 +5462,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.geometry ON CLUSTER `{cluster}` 
 	where JSONExtractString(message,'tag') = 'GeometryObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.go_home_config ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.go_home_config_shard ON CLUSTER `{cluster}`
     (
     `merchant_id` Nullable (String),
     `enable_go_home` Nullable (String),
@@ -5532,7 +5532,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.go_home_config ON CLUSTER `{clus
 	where JSONExtractString(message,'tag') = 'GoHomeConfigObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.idfy_verification ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.idfy_verification_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_id` Nullable (String),
@@ -5602,7 +5602,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.idfy_verification ON CLUSTER `{c
 	where JSONExtractString(message,'tag') = 'IdfyVerificationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.image ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.image_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `person_id` Nullable (String),
@@ -5645,7 +5645,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.image ON CLUSTER `{cluster}` TO 
 	where JSONExtractString(message,'tag') = 'ImageObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.invoice ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.invoice_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `invoice_short_id` Nullable (String),
@@ -5700,7 +5700,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.invoice ON CLUSTER `{cluster}` T
 	where JSONExtractString(message,'tag') = 'InvoiceObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.issue_category ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_category_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `category` Nullable (String),
@@ -5728,7 +5728,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_category ON CLUSTER `{clus
 	where JSONExtractString(message,'tag') = 'IssueCategoryObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.issue_option ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_option_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `issue_category_id` Nullable (String),
@@ -5756,7 +5756,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_option ON CLUSTER `{cluste
 	where JSONExtractString(message,'tag') = 'IssueOptionObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.issue_report ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_report_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_id` Nullable (String),
@@ -5814,7 +5814,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_report ON CLUSTER `{cluste
 	where JSONExtractString(message,'tag') = 'IssueReportObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.issue_translation ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_translation_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `sentence` Nullable (String),
@@ -5845,7 +5845,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_translation ON CLUSTER `{c
 	where JSONExtractString(message,'tag') = 'IssueTranslationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.kiosk_location ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.kiosk_location_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `merchant_id` Nullable (String),
@@ -5885,7 +5885,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.kiosk_location ON CLUSTER `{clus
 	where JSONExtractString(message,'tag') = 'KioskLocationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.kiosk_location_translation ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.kiosk_location_translation_shard ON CLUSTER `{cluster}`
     (
     `kiosk_location_id` Nullable (String),
     `language` Nullable (String),
@@ -5916,7 +5916,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.kiosk_location_translation ON CL
 	where JSONExtractString(message,'tag') = 'KioskLocationTranslationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.leader_board_configs ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.leader_board_configs_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `leader_board_type` Nullable (String),
@@ -5959,7 +5959,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.leader_board_configs ON CLUSTER 
 	where JSONExtractString(message,'tag') = 'LeaderBoardConfigsObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.mandate ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.mandate_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `max_amount` Nullable (Int64),
@@ -6011,7 +6011,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.mandate ON CLUSTER `{cluster}` T
 	where JSONExtractString(message,'tag') = 'MandateObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.media_file ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.media_file_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `type` Nullable (String),
@@ -6042,7 +6042,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.media_file ON CLUSTER `{cluster}
 	where JSONExtractString(message,'tag') = 'MediaFileObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.merchant ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `name` Nullable (String),
@@ -6142,7 +6142,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant ON CLUSTER `{cluster}` 
 	where JSONExtractString(message,'tag') = 'MerchantObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.merchant_message ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_message_shard ON CLUSTER `{cluster}`
     (
     `merchant_id` Nullable (String),
     `message_key` Nullable (String),
@@ -6176,7 +6176,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_message ON CLUSTER `{cl
 	where JSONExtractString(message,'tag') = 'MerchantMessageObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.merchant_payment_method ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_payment_method_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `merchant_id` Nullable (String),
@@ -6219,7 +6219,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_payment_method ON CLUST
 	where JSONExtractString(message,'tag') = 'MerchantPaymentMethodObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.merchant_service_config ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_service_config_shard ON CLUSTER `{cluster}`
     (
     `merchant_id` Nullable (String),
     `service_name` Nullable (String),
@@ -6253,7 +6253,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_service_config ON CLUST
 	where JSONExtractString(message,'tag') = 'MerchantServiceConfigObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.merchant_service_usage_config ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_service_usage_config_shard ON CLUSTER `{cluster}`
     (
     `merchant_id` Nullable (String),
     `get_distances` Nullable (String),
@@ -6335,7 +6335,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_service_usage_config ON
 	where JSONExtractString(message,'tag') = 'MerchantServiceUsageConfigObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.message ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.message_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `type` Nullable (String),
@@ -6387,7 +6387,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.message ON CLUSTER `{cluster}` T
 	where JSONExtractString(message,'tag') = 'MessageObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.message_report ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.message_report_shard ON CLUSTER `{cluster}`
     (
     `message_id` Nullable (String),
     `driver_id` Nullable (String),
@@ -6433,7 +6433,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.message_report ON CLUSTER `{clus
 	where JSONExtractString(message,'tag') = 'MessageReportObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.message_translation ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.message_translation_shard ON CLUSTER `{cluster}`
     (
     `message_id` Nullable (String),
     `language` Nullable (String),
@@ -6473,7 +6473,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.message_translation ON CLUSTER `
 	where JSONExtractString(message,'tag') = 'MessageTranslationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.meta_data ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.meta_data_shard ON CLUSTER `{cluster}`
     (
     `driver_id` Nullable (String),
     `device` Nullable (String),
@@ -6513,7 +6513,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.meta_data ON CLUSTER `{cluster}`
 	where JSONExtractString(message,'tag') = 'MetaDataObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.notification ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.notification_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `short_id` Nullable (String),
@@ -6577,7 +6577,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.notification ON CLUSTER `{cluste
 	where JSONExtractString(message,'tag') = 'NotificationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.onboarding_document_configs ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.onboarding_document_configs_shard ON CLUSTER `{cluster}`
     (
     `merchant_id` Nullable (String),
     `document_type` Nullable (String),
@@ -6623,7 +6623,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.onboarding_document_configs ON C
 	where JSONExtractString(message,'tag') = 'OnboardingDocumentConfigsObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.operating_city ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.operating_city_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `merchant_id` Nullable (String),
@@ -6660,7 +6660,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.operating_city ON CLUSTER `{clus
 	where JSONExtractString(message,'tag') = 'OperatingCityObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.payment_order ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.payment_order_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `short_id` Nullable (String),
@@ -6772,7 +6772,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.payment_order ON CLUSTER `{clust
 	where JSONExtractString(message,'tag') = 'PaymentOrderObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.payment_transaction ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.payment_transaction_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `txn_uuid` Nullable (String),
@@ -6866,7 +6866,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.payment_transaction ON CLUSTER `
 	where JSONExtractString(message,'tag') = 'PaymentTransactionObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.person ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.person_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `first_name` Nullable (String),
@@ -6981,7 +6981,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.person ON CLUSTER `{cluster}` TO
 	where JSONExtractString(message,'tag') = 'PersonObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.place_name_cache ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.place_name_cache_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `formatted_address` Nullable (String),
@@ -7027,7 +7027,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.place_name_cache ON CLUSTER `{cl
 	where JSONExtractString(message,'tag') = 'PlaceNameCacheObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.plan ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.plan_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `merchant_id` Nullable (String),
@@ -7091,7 +7091,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.plan ON CLUSTER `{cluster}` TO a
 	where JSONExtractString(message,'tag') = 'PlanObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.plan_translation ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.plan_translation_shard ON CLUSTER `{cluster}`
     (
     `plan_id` Nullable (String),
     `language` Nullable (String),
@@ -7122,7 +7122,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.plan_translation ON CLUSTER `{cl
 	where JSONExtractString(message,'tag') = 'PlanTranslationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.quote_special_zone ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.quote_special_zone_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `search_request_id` Nullable (String),
@@ -7177,7 +7177,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.quote_special_zone ON CLUSTER `{
 	where JSONExtractString(message,'tag') = 'QuoteSpecialZoneObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.rating ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.rating_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `ride_id` Nullable (String),
@@ -7217,7 +7217,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.rating ON CLUSTER `{cluster}` TO
 	where JSONExtractString(message,'tag') = 'RatingObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.registration_token ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.registration_token_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `auth_medium` Nullable (String),
@@ -7284,7 +7284,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.registration_token ON CLUSTER `{
 	where JSONExtractString(message,'tag') = 'RegistrationTokenObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.registry_map_fallback ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.registry_map_fallback_shard ON CLUSTER `{cluster}`
     (
     `subscriber_id` Nullable (String),
     `unique_id` Nullable (String),
@@ -7312,7 +7312,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.registry_map_fallback ON CLUSTER
 	where JSONExtractString(message,'tag') = 'RegistryMapFallbackObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.ride ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.ride_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `booking_id` Nullable (String),
@@ -7418,7 +7418,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.ride ON CLUSTER `{cluster}` TO a
 	where JSONExtractString(message,'tag') = 'RideObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.ride_details ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.ride_details_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `driver_name` Nullable (String),
@@ -7467,7 +7467,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.ride_details ON CLUSTER `{cluste
 	where JSONExtractString(message,'tag') = 'RideDetailsObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.rider_details ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.rider_details_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `mobile_country_code` Nullable (String),
@@ -7525,7 +7525,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.rider_details ON CLUSTER `{clust
 	where JSONExtractString(message,'tag') = 'RiderDetailsObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.scheduler_job ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.scheduler_job_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `job_type` Nullable (String),
@@ -7580,7 +7580,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.scheduler_job ON CLUSTER `{clust
 	where JSONExtractString(message,'tag') = 'SchedulerJobObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.schema_migrations ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.schema_migrations_shard ON CLUSTER `{cluster}`
     (
     `filename` Nullable (String),
     `checksum` Nullable (String),
@@ -7608,7 +7608,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.schema_migrations ON CLUSTER `{c
 	where JSONExtractString(message,'tag') = 'SchemaMigrationsObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.search_request ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.search_request_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `transaction_id` Nullable (String),
@@ -7681,7 +7681,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request ON CLUSTER `{clus
 	where JSONExtractString(message,'tag') = 'SearchRequestObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.search_request_for_driver ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.search_request_for_driver_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `search_request_id` Nullable (String),
@@ -7787,7 +7787,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request_for_driver ON CLU
 	where JSONExtractString(message,'tag') = 'SearchRequestForDriverObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.search_request_location ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.search_request_location_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `lat` Nullable (Float64),
@@ -7848,7 +7848,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request_location ON CLUST
 	where JSONExtractString(message,'tag') = 'SearchRequestLocationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.search_request_special_zone ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.search_request_special_zone_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `transaction_id` Nullable (String),
@@ -7912,7 +7912,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request_special_zone ON C
 	where JSONExtractString(message,'tag') = 'SearchRequestSpecialZoneObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.search_try ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.search_try_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `message_id` Nullable (String),
@@ -7976,7 +7976,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_try ON CLUSTER `{cluster}
 	where JSONExtractString(message,'tag') = 'SearchTryObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.special_location ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.special_location_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `location_name` Nullable (String),
@@ -8013,7 +8013,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.special_location ON CLUSTER `{cl
 	where JSONExtractString(message,'tag') = 'SpecialLocationObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.special_location_priority ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.special_location_priority_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `merchant_id` Nullable (String),
@@ -8047,7 +8047,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.special_location_priority ON CLU
 	where JSONExtractString(message,'tag') = 'SpecialLocationPriorityObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.tag_category_mapping ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.tag_category_mapping_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `tag` Nullable (String),
@@ -8078,7 +8078,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.tag_category_mapping ON CLUSTER 
 	where JSONExtractString(message,'tag') = 'TagCategoryMappingObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.transporter_config ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.transporter_config_shard ON CLUSTER `{cluster}`
     (
     `merchant_id` Nullable (String),
     `pickup_loc_threshold` Nullable (Int64),
@@ -8277,7 +8277,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.transporter_config ON CLUSTER `{
 	where JSONExtractString(message,'tag') = 'TransporterConfigObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.vehicle ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.vehicle_shard ON CLUSTER `{cluster}`
     (
     `driver_id` Nullable (String),
     `capacity` Nullable (String),
@@ -8344,7 +8344,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.vehicle ON CLUSTER `{cluster}` T
 	where JSONExtractString(message,'tag') = 'VehicleObject'
 
 
-CREATE TABLE atlas_driver_offer_bpp_helper.vehicle_registration_certificate ON CLUSTER `{cluster}`
+CREATE TABLE atlas_driver_offer_bpp_helper.vehicle_registration_certificate_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
     `fitness_expiry` DateTime DEFAULT now(),
@@ -8418,5 +8418,16626 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.vehicle_registration_certificate
 
 	FROM atlas_driver_offer_bpp.vehicle_registration_certificate_queue
 	where JSONExtractString(message,'tag') = 'VehicleRegistrationCertificateObject'
+
+
+CREATE TABLE atlas_app_helper.aadhaar_otp_req_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `person_id` Nullable (String),
+    `request_id` Nullable (String),
+    `status_code` Nullable (String),
+    `request_message` Nullable (String),
+    `transaction_id` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.aadhaar_otp_req ON CLUSTER `{cluster}` AS atlas_app_helper.aadhaar_otp_req_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, aadhaar_otp_req_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.aadhaar_otp_req ON CLUSTER `{cluster}` TO atlas_app.aadhaar_otp_req
+(
+	`id` String,
+	`person_id` String,
+	`request_id` String,
+	`status_code` String,
+	`request_message` String,
+	`transaction_id` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'status_code'),'') as status_code,
+	ifNull(JSONExtractString(message,'request_message'),'') as request_message,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.aadhaar_otp_req_queue
+	where JSONExtractString(message,'tag') = 'AadhaarOtpReqObject'
+
+
+CREATE TABLE atlas_app_helper.aadhaar_otp_verify_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `person_id` Nullable (String),
+    `request_id` Nullable (String),
+    `status_code` Nullable (String),
+    `request_message` Nullable (String),
+    `transaction_id` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.aadhaar_otp_verify ON CLUSTER `{cluster}` AS atlas_app_helper.aadhaar_otp_verify_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, aadhaar_otp_verify_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.aadhaar_otp_verify ON CLUSTER `{cluster}` TO atlas_app.aadhaar_otp_verify
+(
+	`id` String,
+	`person_id` String,
+	`request_id` String,
+	`status_code` String,
+	`request_message` String,
+	`transaction_id` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'status_code'),'') as status_code,
+	ifNull(JSONExtractString(message,'request_message'),'') as request_message,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.aadhaar_otp_verify_queue
+	where JSONExtractString(message,'tag') = 'AadhaarOtpVerifyObject'
+
+
+CREATE TABLE atlas_app_helper.aadhaar_verification_shard ON CLUSTER `{cluster}`
+    (
+    `person_id` Nullable (String),
+    `person_name` Nullable (String),
+    `person_gender` Nullable (String),
+    `person_dob` Nullable (String),
+    `person_image_path` Nullable (String),
+    `aadhaar_number_hash` Nullable (String),
+    `is_verified` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.aadhaar_verification ON CLUSTER `{cluster}` AS atlas_app_helper.aadhaar_verification_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, aadhaar_verification_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.aadhaar_verification ON CLUSTER `{cluster}` TO atlas_app.aadhaar_verification
+(
+	`person_id` String,
+	`person_name` String,
+	`person_gender` String,
+	`person_dob` String,
+	`person_image_path` String,
+	`aadhaar_number_hash` String,
+	`is_verified` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'person_name'),'') as person_name,
+	ifNull(JSONExtractString(message,'person_gender'),'') as person_gender,
+	ifNull(JSONExtractString(message,'person_dob'),'') as person_dob,
+	ifNull(JSONExtractString(message,'person_image_path'),'') as person_image_path,
+	ifNull(JSONExtractString(message,'aadhaar_number_hash'),'') as aadhaar_number_hash,
+	ifNull(JSONExtractString(message,'is_verified'),'') as is_verified,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.aadhaar_verification_queue
+	where JSONExtractString(message,'tag') = 'AadhaarVerificationObject'
+
+
+CREATE TABLE atlas_app_helper.app_installs_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `device_token` Nullable (String),
+    `source` Nullable (String),
+    `merchant_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `platform` Nullable (String),
+    `app_version` Nullable (String),
+    `bundle_version` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.app_installs ON CLUSTER `{cluster}` AS atlas_app_helper.app_installs_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, app_installs_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.app_installs ON CLUSTER `{cluster}` TO atlas_app.app_installs
+(
+	`id` String,
+	`device_token` String,
+	`source` String,
+	`merchant_id` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`platform` String,
+	`app_version` String,
+	`bundle_version` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'device_token'),'') as device_token,
+	ifNull(JSONExtractString(message,'source'),'') as source,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'platform'),'') as platform,
+	ifNull(JSONExtractString(message,'app_version'),'') as app_version,
+	ifNull(JSONExtractString(message,'bundle_version'),'') as bundle_version,
+
+	FROM atlas_app.app_installs_queue
+	where JSONExtractString(message,'tag') = 'AppInstallsObject'
+
+
+CREATE TABLE atlas_app_helper.beckn_request_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `beckn_request` Nullable (String),
+    `signature_header` Nullable (String),
+    `time_stamp` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.beckn_request ON CLUSTER `{cluster}` AS atlas_app_helper.beckn_request_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, beckn_request_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.beckn_request ON CLUSTER `{cluster}` TO atlas_app.beckn_request
+(
+	`id` String,
+	`beckn_request` String,
+	`signature_header` String,
+	`time_stamp` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'beckn_request'),'') as beckn_request,
+	ifNull(JSONExtractString(message,'signature_header'),'') as signature_header,
+	toDateTime(JSONExtractInt(message,'time_stamp')) as time_stamp,
+
+	FROM atlas_app.beckn_request_queue
+	where JSONExtractString(message,'tag') = 'BecknRequestObject'
+
+
+CREATE TABLE atlas_app_helper.black_list_org_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `subscriber_id` Nullable (String),
+    `type` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.black_list_org ON CLUSTER `{cluster}` AS atlas_app_helper.black_list_org_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, black_list_org_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.black_list_org ON CLUSTER `{cluster}` TO atlas_app.black_list_org
+(
+	`id` String,
+	`subscriber_id` String,
+	`type` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'subscriber_id'),'') as subscriber_id,
+	ifNull(JSONExtractString(message,'type'),'') as type,
+
+	FROM atlas_app.black_list_org_queue
+	where JSONExtractString(message,'tag') = 'BlackListOrgObject'
+
+
+CREATE TABLE atlas_app_helper.booking_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `status` Nullable (String),
+    `provider_id` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `rider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `estimated_fare` Nullable (String),
+    `discount` Nullable (String),
+    `estimated_total_fare` Nullable (String),
+    `distance` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `bpp_ride_booking_id` Nullable (String),
+    `provider_name` Nullable (String),
+    `provider_url` Nullable (String),
+    `reallocations_count` Nullable (Int64),
+    `fare_product_type` Nullable (String),
+    `trip_terms_id` Nullable (String),
+    `rental_slab_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `quote_id` Nullable (String),
+    `primary_exophone` Nullable (String),
+    `otp_code` Nullable (String),
+    `transaction_id` Nullable (String),
+    `special_location_tag` Nullable (String),
+    `payment_method_id` Nullable (String),
+    `payment_url` Nullable (String),
+    `fulfillment_id` Nullable (String),
+    `driver_id` Nullable (String),
+    `item_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.booking ON CLUSTER `{cluster}` AS atlas_app_helper.booking_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, booking_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.booking ON CLUSTER `{cluster}` TO atlas_app.booking
+(
+	`id` String,
+	`status` String,
+	`provider_id` String,
+	`provider_mobile_number` String,
+	`start_time` DateTime,
+	`rider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`estimated_fare` String,
+	`discount` String,
+	`estimated_total_fare` String,
+	`distance` String,
+	`vehicle_variant` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`bpp_ride_booking_id` String,
+	`provider_name` String,
+	`provider_url` String,
+	`reallocations_count` Int64,
+	`fare_product_type` String,
+	`trip_terms_id` String,
+	`rental_slab_id` String,
+	`merchant_id` String,
+	`quote_id` String,
+	`primary_exophone` String,
+	`otp_code` String,
+	`transaction_id` String,
+	`special_location_tag` String,
+	`payment_method_id` String,
+	`payment_url` String,
+	`fulfillment_id` String,
+	`driver_id` String,
+	`item_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractString(message,'estimated_fare'),'') as estimated_fare,
+	ifNull(JSONExtractString(message,'discount'),'') as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractString(message,'distance'),'') as distance,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'bpp_ride_booking_id'),'') as bpp_ride_booking_id,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+	ifNull(JSONExtractInt(message,'reallocations_count'), 0) as reallocations_count,
+	ifNull(JSONExtractString(message,'fare_product_type'),'') as fare_product_type,
+	ifNull(JSONExtractString(message,'trip_terms_id'),'') as trip_terms_id,
+	ifNull(JSONExtractString(message,'rental_slab_id'),'') as rental_slab_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+	ifNull(JSONExtractString(message,'primary_exophone'),'') as primary_exophone,
+	ifNull(JSONExtractString(message,'otp_code'),'') as otp_code,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+	ifNull(JSONExtractString(message,'payment_method_id'),'') as payment_method_id,
+	ifNull(JSONExtractString(message,'payment_url'),'') as payment_url,
+	ifNull(JSONExtractString(message,'fulfillment_id'),'') as fulfillment_id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'item_id'),'') as item_id,
+
+	FROM atlas_app.booking_queue
+	where JSONExtractString(message,'tag') = 'BookingObject'
+
+
+CREATE TABLE atlas_app_helper.booking_cancellation_reason_shard ON CLUSTER `{cluster}`
+    (
+    `booking_id` Nullable (String),
+    `source` Nullable (String),
+    `reason_code` Nullable (String),
+    `additional_info` Nullable (String),
+    `reason_stage` Nullable (String),
+    `ride_id` Nullable (String),
+    `driver_cancellation_location_lat` Nullable (Float64),
+    `driver_cancellation_location_lon` Nullable (Float64),
+    `driver_dist_to_pickup` Nullable (String),
+    `merchant_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.booking_cancellation_reason ON CLUSTER `{cluster}` AS atlas_app_helper.booking_cancellation_reason_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, booking_cancellation_reason_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.booking_cancellation_reason ON CLUSTER `{cluster}` TO atlas_app.booking_cancellation_reason
+(
+	`booking_id` String,
+	`source` String,
+	`reason_code` String,
+	`additional_info` String,
+	`reason_stage` String,
+	`ride_id` String,
+	`driver_cancellation_location_lat` Float64,
+	`driver_cancellation_location_lon` Float64,
+	`driver_dist_to_pickup` String,
+	`merchant_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'source'),'') as source,
+	ifNull(JSONExtractString(message,'reason_code'),'') as reason_code,
+	ifNull(JSONExtractString(message,'additional_info'),'') as additional_info,
+	ifNull(JSONExtractString(message,'reason_stage'),'') as reason_stage,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractFloat(message,'driver_cancellation_location_lat'),0.0) as driver_cancellation_location_lat,
+	ifNull(JSONExtractFloat(message,'driver_cancellation_location_lon'),0.0) as driver_cancellation_location_lon,
+	ifNull(JSONExtractString(message,'driver_dist_to_pickup'),'') as driver_dist_to_pickup,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+
+	FROM atlas_app.booking_cancellation_reason_queue
+	where JSONExtractString(message,'tag') = 'BookingCancellationReasonObject'
+
+
+CREATE TABLE atlas_app_helper.booking_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `street` Nullable (String),
+    `door` Nullable (String),
+    `building` Nullable (String),
+    `area_code` Nullable (String),
+    `area` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `ward` Nullable (String),
+    `place_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.booking_location ON CLUSTER `{cluster}` AS atlas_app_helper.booking_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, booking_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.booking_location ON CLUSTER `{cluster}` TO atlas_app.booking_location
+(
+	`id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`city` String,
+	`state` String,
+	`country` String,
+	`street` String,
+	`door` String,
+	`building` String,
+	`area_code` String,
+	`area` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`ward` String,
+	`place_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	ifNull(JSONExtractString(message,'street'),'') as street,
+	ifNull(JSONExtractString(message,'door'),'') as door,
+	ifNull(JSONExtractString(message,'building'),'') as building,
+	ifNull(JSONExtractString(message,'area_code'),'') as area_code,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'ward'),'') as ward,
+	ifNull(JSONExtractString(message,'place_id'),'') as place_id,
+
+	FROM atlas_app.booking_location_queue
+	where JSONExtractString(message,'tag') = 'BookingLocationObject'
+
+
+CREATE TABLE atlas_app_helper.call_status_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `call_id` Nullable (String),
+    `ride_id` Nullable (String),
+    `status` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `recording_url` Nullable (String),
+    `conversation_duration` Nullable (String),
+    `dtmf_number_used` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.call_status ON CLUSTER `{cluster}` AS atlas_app_helper.call_status_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, call_status_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.call_status ON CLUSTER `{cluster}` TO atlas_app.call_status
+(
+	`id` String,
+	`call_id` String,
+	`ride_id` String,
+	`status` String,
+	`created_at` DateTime,
+	`recording_url` String,
+	`conversation_duration` String,
+	`dtmf_number_used` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'call_id'),'') as call_id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'recording_url'),'') as recording_url,
+	ifNull(JSONExtractString(message,'conversation_duration'),'') as conversation_duration,
+	ifNull(JSONExtractString(message,'dtmf_number_used'),'') as dtmf_number_used,
+
+	FROM atlas_app.call_status_queue
+	where JSONExtractString(message,'tag') = 'CallStatusObject'
+
+
+CREATE TABLE atlas_app_helper.callback_request_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `customer_name` Nullable (String),
+    `customer_phone_encrypted` Nullable (String),
+    `customer_phone_hash` Nullable (String),
+    `customer_mobile_country_code` Nullable (String),
+    `status` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.callback_request ON CLUSTER `{cluster}` AS atlas_app_helper.callback_request_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, callback_request_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.callback_request ON CLUSTER `{cluster}` TO atlas_app.callback_request
+(
+	`id` String,
+	`merchant_id` String,
+	`customer_name` String,
+	`customer_phone_encrypted` String,
+	`customer_phone_hash` String,
+	`customer_mobile_country_code` String,
+	`status` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'customer_name'),'') as customer_name,
+	ifNull(JSONExtractString(message,'customer_phone_encrypted'),'') as customer_phone_encrypted,
+	ifNull(JSONExtractString(message,'customer_phone_hash'),'') as customer_phone_hash,
+	ifNull(JSONExtractString(message,'customer_mobile_country_code'),'') as customer_mobile_country_code,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.callback_request_queue
+	where JSONExtractString(message,'tag') = 'CallbackRequestObject'
+
+
+CREATE TABLE atlas_app_helper.cancellation_reason_shard ON CLUSTER `{cluster}`
+    (
+    `reason_code` Nullable (String),
+    `description` Nullable (String),
+    `enabled` Nullable (String),
+    `on_search` Nullable (String),
+    `on_confirm` Nullable (String),
+    `on_assign` Nullable (String),
+    `priority` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.cancellation_reason ON CLUSTER `{cluster}` AS atlas_app_helper.cancellation_reason_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, cancellation_reason_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.cancellation_reason ON CLUSTER `{cluster}` TO atlas_app.cancellation_reason
+(
+	`reason_code` String,
+	`description` String,
+	`enabled` String,
+	`on_search` String,
+	`on_confirm` String,
+	`on_assign` String,
+	`priority` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'reason_code'),'') as reason_code,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	ifNull(JSONExtractString(message,'on_search'),'') as on_search,
+	ifNull(JSONExtractString(message,'on_confirm'),'') as on_confirm,
+	ifNull(JSONExtractString(message,'on_assign'),'') as on_assign,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
+
+	FROM atlas_app.cancellation_reason_queue
+	where JSONExtractString(message,'tag') = 'CancellationReasonObject'
+
+
+CREATE TABLE atlas_app_helper.directions_cache_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `origin_hash` Nullable (String),
+    `dest_hash` Nullable (String),
+    `slot` Nullable (Int64),
+    `response` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.directions_cache ON CLUSTER `{cluster}` AS atlas_app_helper.directions_cache_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, directions_cache_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.directions_cache ON CLUSTER `{cluster}` TO atlas_app.directions_cache
+(
+	`id` String,
+	`origin_hash` String,
+	`dest_hash` String,
+	`slot` Int64,
+	`response` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'origin_hash'),'') as origin_hash,
+	ifNull(JSONExtractString(message,'dest_hash'),'') as dest_hash,
+	ifNull(JSONExtractInt(message,'slot'), 0) as slot,
+	ifNull(JSONExtractString(message,'response'),'') as response,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.directions_cache_queue
+	where JSONExtractString(message,'tag') = 'DirectionsCacheObject'
+
+
+CREATE TABLE atlas_app_helper.disability_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `tag` Nullable (String),
+    `description` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.disability ON CLUSTER `{cluster}` AS atlas_app_helper.disability_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, disability_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.disability ON CLUSTER `{cluster}` TO atlas_app.disability
+(
+	`id` String,
+	`tag` String,
+	`description` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'tag'),'') as tag,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+
+	FROM atlas_app.disability_queue
+	where JSONExtractString(message,'tag') = 'DisabilityObject'
+
+
+CREATE TABLE atlas_app_helper.disability_translation_shard ON CLUSTER `{cluster}`
+    (
+    `disability_id` Nullable (String),
+    `disability_tag` Nullable (String),
+    `translation` Nullable (String),
+    `language` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.disability_translation ON CLUSTER `{cluster}` AS atlas_app_helper.disability_translation_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, disability_translation_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.disability_translation ON CLUSTER `{cluster}` TO atlas_app.disability_translation
+(
+	`disability_id` String,
+	`disability_tag` String,
+	`translation` String,
+	`language` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'disability_id'),'') as disability_id,
+	ifNull(JSONExtractString(message,'disability_tag'),'') as disability_tag,
+	ifNull(JSONExtractString(message,'translation'),'') as translation,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+
+	FROM atlas_app.disability_translation_queue
+	where JSONExtractString(message,'tag') = 'DisabilityTranslationObject'
+
+
+CREATE TABLE atlas_app_helper.driver_offer_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `estimate_id` Nullable (String),
+    `driver_name` Nullable (String),
+    `distance_to_pickup` Nullable (Float64),
+    `duration_to_pickup` Nullable (Int64),
+    `valid_till` DateTime DEFAULT now(),
+    `rating` Nullable (Float64),
+    `bpp_quote_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `status` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `driver_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.driver_offer ON CLUSTER `{cluster}` AS atlas_app_helper.driver_offer_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, driver_offer_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.driver_offer ON CLUSTER `{cluster}` TO atlas_app.driver_offer
+(
+	`id` String,
+	`estimate_id` String,
+	`driver_name` String,
+	`distance_to_pickup` Float64,
+	`duration_to_pickup` Int64,
+	`valid_till` DateTime,
+	`rating` Float64,
+	`bpp_quote_id` String,
+	`merchant_id` String,
+	`status` String,
+	`updated_at` DateTime,
+	`driver_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'estimate_id'),'') as estimate_id,
+	ifNull(JSONExtractString(message,'driver_name'),'') as driver_name,
+	ifNull(JSONExtractFloat(message,'distance_to_pickup'),0.0) as distance_to_pickup,
+	ifNull(JSONExtractInt(message,'duration_to_pickup'), 0) as duration_to_pickup,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	ifNull(JSONExtractFloat(message,'rating'),0.0) as rating,
+	ifNull(JSONExtractString(message,'bpp_quote_id'),'') as bpp_quote_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+
+	FROM atlas_app.driver_offer_queue
+	where JSONExtractString(message,'tag') = 'DriverOfferObject'
+
+
+CREATE TABLE atlas_app_helper.estimate_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `request_id` Nullable (String),
+    `estimated_fare` Nullable (String),
+    `discount` Nullable (Float64),
+    `estimated_total_fare` Nullable (String),
+    `provider_id` Nullable (String),
+    `provider_url` Nullable (String),
+    `provider_name` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `provider_completed_rides_count` Nullable (Int64),
+    `vehicle_variant` Nullable (String),
+    `trip_terms_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `min_total_fare` Nullable (String),
+    `max_total_fare` Nullable (String),
+    `night_shift_multiplier` Nullable (String),
+    `night_shift_start` DateTime DEFAULT now(),
+    `night_shift_end` DateTime DEFAULT now(),
+    `drivers_location` Nullable (String),
+    `waiting_charge_per_min` Nullable (Float64),
+    `status` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `device` Nullable (String),
+    `estimated_duration` Nullable (String),
+    `estimated_distance` Nullable (String),
+    `bpp_estimate_id` Nullable (String),
+    `night_shift_charge` Nullable (String),
+    `special_location_tag` Nullable (String),
+    `merchant_id` Nullable (String),
+    `item_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.estimate ON CLUSTER `{cluster}` AS atlas_app_helper.estimate_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, estimate_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.estimate ON CLUSTER `{cluster}` TO atlas_app.estimate
+(
+	`id` String,
+	`request_id` String,
+	`estimated_fare` String,
+	`discount` Float64,
+	`estimated_total_fare` String,
+	`provider_id` String,
+	`provider_url` String,
+	`provider_name` String,
+	`provider_mobile_number` String,
+	`provider_completed_rides_count` Int64,
+	`vehicle_variant` String,
+	`trip_terms_id` String,
+	`created_at` DateTime,
+	`min_total_fare` String,
+	`max_total_fare` String,
+	`night_shift_multiplier` String,
+	`night_shift_start` DateTime,
+	`night_shift_end` DateTime,
+	`drivers_location` String,
+	`waiting_charge_per_min` Float64,
+	`status` String,
+	`updated_at` DateTime,
+	`device` String,
+	`estimated_duration` String,
+	`estimated_distance` String,
+	`bpp_estimate_id` String,
+	`night_shift_charge` String,
+	`special_location_tag` String,
+	`merchant_id` String,
+	`item_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'estimated_fare'),'') as estimated_fare,
+	ifNull(JSONExtractFloat(message,'discount'),0.0) as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	ifNull(JSONExtractInt(message,'provider_completed_rides_count'), 0) as provider_completed_rides_count,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractString(message,'trip_terms_id'),'') as trip_terms_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'min_total_fare'),'') as min_total_fare,
+	ifNull(JSONExtractString(message,'max_total_fare'),'') as max_total_fare,
+	ifNull(JSONExtractString(message,'night_shift_multiplier'),'') as night_shift_multiplier,
+	toDateTime(JSONExtractInt(message,'night_shift_start')) as night_shift_start,
+	toDateTime(JSONExtractInt(message,'night_shift_end')) as night_shift_end,
+	ifNull(JSONExtractString(message,'drivers_location'),'') as drivers_location,
+	ifNull(JSONExtractFloat(message,'waiting_charge_per_min'),0.0) as waiting_charge_per_min,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'device'),'') as device,
+	ifNull(JSONExtractString(message,'estimated_duration'),'') as estimated_duration,
+	ifNull(JSONExtractString(message,'estimated_distance'),'') as estimated_distance,
+	ifNull(JSONExtractString(message,'bpp_estimate_id'),'') as bpp_estimate_id,
+	ifNull(JSONExtractString(message,'night_shift_charge'),'') as night_shift_charge,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'item_id'),'') as item_id,
+
+	FROM atlas_app.estimate_queue
+	where JSONExtractString(message,'tag') = 'EstimateObject'
+
+
+CREATE TABLE atlas_app_helper.estimate_breakup_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `estimate_id` Nullable (String),
+    `title` Nullable (String),
+    `price_currency` Nullable (String),
+    `price_value` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.estimate_breakup ON CLUSTER `{cluster}` AS atlas_app_helper.estimate_breakup_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, estimate_breakup_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.estimate_breakup ON CLUSTER `{cluster}` TO atlas_app.estimate_breakup
+(
+	`id` String,
+	`estimate_id` String,
+	`title` String,
+	`price_currency` String,
+	`price_value` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'estimate_id'),'') as estimate_id,
+	ifNull(JSONExtractString(message,'title'),'') as title,
+	ifNull(JSONExtractString(message,'price_currency'),'') as price_currency,
+	ifNull(JSONExtractString(message,'price_value'),'') as price_value,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.estimate_breakup_queue
+	where JSONExtractString(message,'tag') = 'EstimateBreakupObject'
+
+
+CREATE TABLE atlas_app_helper.exophone_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `primary_phone` Nullable (String),
+    `backup_phone` Nullable (String),
+    `is_primary_down` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `call_service` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.exophone ON CLUSTER `{cluster}` AS atlas_app_helper.exophone_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, exophone_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.exophone ON CLUSTER `{cluster}` TO atlas_app.exophone
+(
+	`id` String,
+	`merchant_id` String,
+	`primary_phone` String,
+	`backup_phone` String,
+	`is_primary_down` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+	`call_service` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'primary_phone'),'') as primary_phone,
+	ifNull(JSONExtractString(message,'backup_phone'),'') as backup_phone,
+	ifNull(JSONExtractString(message,'is_primary_down'),'') as is_primary_down,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'call_service'),'') as call_service,
+
+	FROM atlas_app.exophone_queue
+	where JSONExtractString(message,'tag') = 'ExophoneObject'
+
+
+CREATE TABLE atlas_app_helper.fare_breakup_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `booking_id` Nullable (String),
+    `description` Nullable (String),
+    `amount` Nullable (Float64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.fare_breakup ON CLUSTER `{cluster}` AS atlas_app_helper.fare_breakup_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, fare_breakup_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.fare_breakup ON CLUSTER `{cluster}` TO atlas_app.fare_breakup
+(
+	`id` String,
+	`booking_id` String,
+	`description` String,
+	`amount` Float64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractFloat(message,'amount'),0.0) as amount,
+
+	FROM atlas_app.fare_breakup_queue
+	where JSONExtractString(message,'tag') = 'FareBreakupObject'
+
+
+CREATE TABLE atlas_app_helper.feedback_form_shard ON CLUSTER `{cluster}`
+    (
+    `category_name` Nullable (String),
+    `id` Nullable (String),
+    `rating` Nullable (String),
+    `question` Nullable (String),
+    `answer` Nullable (String),
+    `answer_type` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.feedback_form ON CLUSTER `{cluster}` AS atlas_app_helper.feedback_form_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, feedback_form_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.feedback_form ON CLUSTER `{cluster}` TO atlas_app.feedback_form
+(
+	`category_name` String,
+	`id` String,
+	`rating` String,
+	`question` String,
+	`answer` String,
+	`answer_type` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'category_name'),'') as category_name,
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'rating'),'') as rating,
+	ifNull(JSONExtractString(message,'question'),'') as question,
+	ifNull(JSONExtractString(message,'answer'),'') as answer,
+	ifNull(JSONExtractString(message,'answer_type'),'') as answer_type,
+
+	FROM atlas_app.feedback_form_queue
+	where JSONExtractString(message,'tag') = 'FeedbackFormObject'
+
+
+CREATE TABLE atlas_app_helper.geometry_shard ON CLUSTER `{cluster}`
+    (
+    `region` Nullable (String),
+    `geom` Nullable (String),
+    `id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.geometry ON CLUSTER `{cluster}` AS atlas_app_helper.geometry_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, geometry_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.geometry ON CLUSTER `{cluster}` TO atlas_app.geometry
+(
+	`region` String,
+	`geom` String,
+	`id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'region'),'') as region,
+	ifNull(JSONExtractString(message,'geom'),'') as geom,
+	ifNull(JSONExtractString(message,'id'),'') as id,
+
+	FROM atlas_app.geometry_queue
+	where JSONExtractString(message,'tag') = 'GeometryObject'
+
+
+CREATE TABLE atlas_app_helper.hot_spot_config_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `hot_spot_geo_hash_precision` Nullable (String),
+    `nearby_geohash_precision` Nullable (String),
+    `block_radius` Nullable (String),
+    `min_frequency_of_hot_spot` Nullable (String),
+    `weight_of_manual_pickup` Nullable (String),
+    `weight_of_manual_saved` Nullable (String),
+    `weight_of_auto_pickup` Nullable (String),
+    `weight_of_auto_saved` Nullable (String),
+    `weight_of_trip_start` Nullable (String),
+    `max_num_hot_spots_to_show` Nullable (String),
+    `weight_of_trip_end` Nullable (String),
+    `weight_of_special_location` Nullable (String),
+    `should_take_hot_spot` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.hot_spot_config ON CLUSTER `{cluster}` AS atlas_app_helper.hot_spot_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, hot_spot_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.hot_spot_config ON CLUSTER `{cluster}` TO atlas_app.hot_spot_config
+(
+	`id` String,
+	`hot_spot_geo_hash_precision` String,
+	`nearby_geohash_precision` String,
+	`block_radius` String,
+	`min_frequency_of_hot_spot` String,
+	`weight_of_manual_pickup` String,
+	`weight_of_manual_saved` String,
+	`weight_of_auto_pickup` String,
+	`weight_of_auto_saved` String,
+	`weight_of_trip_start` String,
+	`max_num_hot_spots_to_show` String,
+	`weight_of_trip_end` String,
+	`weight_of_special_location` String,
+	`should_take_hot_spot` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'hot_spot_geo_hash_precision'),'') as hot_spot_geo_hash_precision,
+	ifNull(JSONExtractString(message,'nearby_geohash_precision'),'') as nearby_geohash_precision,
+	ifNull(JSONExtractString(message,'block_radius'),'') as block_radius,
+	ifNull(JSONExtractString(message,'min_frequency_of_hot_spot'),'') as min_frequency_of_hot_spot,
+	ifNull(JSONExtractString(message,'weight_of_manual_pickup'),'') as weight_of_manual_pickup,
+	ifNull(JSONExtractString(message,'weight_of_manual_saved'),'') as weight_of_manual_saved,
+	ifNull(JSONExtractString(message,'weight_of_auto_pickup'),'') as weight_of_auto_pickup,
+	ifNull(JSONExtractString(message,'weight_of_auto_saved'),'') as weight_of_auto_saved,
+	ifNull(JSONExtractString(message,'weight_of_trip_start'),'') as weight_of_trip_start,
+	ifNull(JSONExtractString(message,'max_num_hot_spots_to_show'),'') as max_num_hot_spots_to_show,
+	ifNull(JSONExtractString(message,'weight_of_trip_end'),'') as weight_of_trip_end,
+	ifNull(JSONExtractString(message,'weight_of_special_location'),'') as weight_of_special_location,
+	ifNull(JSONExtractString(message,'should_take_hot_spot'),'') as should_take_hot_spot,
+
+	FROM atlas_app.hot_spot_config_queue
+	where JSONExtractString(message,'tag') = 'HotSpotConfigObject'
+
+
+CREATE TABLE atlas_app_helper.issue_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `customer_id` Nullable (String),
+    `booking_id` Nullable (String),
+    `contact_email` Nullable (String),
+    `reason` Nullable (String),
+    `description` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `ticket_id` Nullable (String),
+    `status` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.issue ON CLUSTER `{cluster}` AS atlas_app_helper.issue_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, issue_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.issue ON CLUSTER `{cluster}` TO atlas_app.issue
+(
+	`id` String,
+	`customer_id` String,
+	`booking_id` String,
+	`contact_email` String,
+	`reason` String,
+	`description` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`ticket_id` String,
+	`status` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'customer_id'),'') as customer_id,
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'contact_email'),'') as contact_email,
+	ifNull(JSONExtractString(message,'reason'),'') as reason,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'ticket_id'),'') as ticket_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+
+	FROM atlas_app.issue_queue
+	where JSONExtractString(message,'tag') = 'IssueObject'
+
+
+CREATE TABLE atlas_app_helper.location_backup_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `location_type` Nullable (String),
+    `lat` Nullable (Float64),
+    `long` Nullable (Float64),
+    `point` Nullable (String),
+    `ward` Nullable (String),
+    `district` Nullable (String),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `pincode` Nullable (String),
+    `address` Nullable (String),
+    `bound` Nullable (String),
+    `info` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.location_backup ON CLUSTER `{cluster}` AS atlas_app_helper.location_backup_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, location_backup_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.location_backup ON CLUSTER `{cluster}` TO atlas_app.location_backup
+(
+	`id` String,
+	`location_type` String,
+	`lat` Float64,
+	`long` Float64,
+	`point` String,
+	`ward` String,
+	`district` String,
+	`city` String,
+	`state` String,
+	`country` String,
+	`pincode` String,
+	`address` String,
+	`bound` String,
+	`info` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'location_type'),'') as location_type,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'long'),0.0) as long,
+	ifNull(JSONExtractString(message,'point'),'') as point,
+	ifNull(JSONExtractString(message,'ward'),'') as ward,
+	ifNull(JSONExtractString(message,'district'),'') as district,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	ifNull(JSONExtractString(message,'pincode'),'') as pincode,
+	ifNull(JSONExtractString(message,'address'),'') as address,
+	ifNull(JSONExtractString(message,'bound'),'') as bound,
+	ifNull(JSONExtractString(message,'info'),'') as info,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.location_backup_queue
+	where JSONExtractString(message,'tag') = 'LocationBackupObject'
+
+
+CREATE TABLE atlas_app_helper.merchant_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `short_id` Nullable (String),
+    `origin_restriction` Nullable (String),
+    `destination_restriction` Nullable (String),
+    `registry_url` Nullable (String),
+    `gateway_url` Nullable (String),
+    `name` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `driver_offer_base_url` Nullable (String),
+    `driver_offer_api_key` Nullable (String),
+    `driver_offer_merchant_id` Nullable (String),
+    `subscriber_id` Nullable (String),
+    `city` Nullable (String),
+    `geo_hash_precision_value` Nullable (Int64),
+    `signing_public_key` Nullable (String),
+    `signature_expiry` Nullable (Int64),
+    `cipher_text` Nullable (String),
+    `country` Nullable (String),
+    `bap_unique_key_id` Nullable (String),
+    `bap_id` Nullable (String),
+    `dir_cache_slot` Nullable (String),
+    `time_diff_from_utc` Nullable (Int64),
+    `distance_weightage` Nullable (Int64),
+    `minimum_driver_rates_count` Nullable (String),
+    `is_avoid_toll` Nullable (String),
+    `aadhaar_verification_try_limit` Nullable (Int64),
+    `aadhaar_key_expiry_time` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.merchant ON CLUSTER `{cluster}` AS atlas_app_helper.merchant_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, merchant_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.merchant ON CLUSTER `{cluster}` TO atlas_app.merchant
+(
+	`id` String,
+	`short_id` String,
+	`origin_restriction` String,
+	`destination_restriction` String,
+	`registry_url` String,
+	`gateway_url` String,
+	`name` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`driver_offer_base_url` String,
+	`driver_offer_api_key` String,
+	`driver_offer_merchant_id` String,
+	`subscriber_id` String,
+	`city` String,
+	`geo_hash_precision_value` Int64,
+	`signing_public_key` String,
+	`signature_expiry` Int64,
+	`cipher_text` String,
+	`country` String,
+	`bap_unique_key_id` String,
+	`bap_id` String,
+	`dir_cache_slot` String,
+	`time_diff_from_utc` Int64,
+	`distance_weightage` Int64,
+	`minimum_driver_rates_count` String,
+	`is_avoid_toll` String,
+	`aadhaar_verification_try_limit` Int64,
+	`aadhaar_key_expiry_time` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'origin_restriction'),'') as origin_restriction,
+	ifNull(JSONExtractString(message,'destination_restriction'),'') as destination_restriction,
+	ifNull(JSONExtractString(message,'registry_url'),'') as registry_url,
+	ifNull(JSONExtractString(message,'gateway_url'),'') as gateway_url,
+	ifNull(JSONExtractString(message,'name'),'') as name,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'driver_offer_base_url'),'') as driver_offer_base_url,
+	ifNull(JSONExtractString(message,'driver_offer_api_key'),'') as driver_offer_api_key,
+	ifNull(JSONExtractString(message,'driver_offer_merchant_id'),'') as driver_offer_merchant_id,
+	ifNull(JSONExtractString(message,'subscriber_id'),'') as subscriber_id,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractInt(message,'geo_hash_precision_value'), 0) as geo_hash_precision_value,
+	ifNull(JSONExtractString(message,'signing_public_key'),'') as signing_public_key,
+	ifNull(JSONExtractInt(message,'signature_expiry'), 0) as signature_expiry,
+	ifNull(JSONExtractString(message,'cipher_text'),'') as cipher_text,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	ifNull(JSONExtractString(message,'bap_unique_key_id'),'') as bap_unique_key_id,
+	ifNull(JSONExtractString(message,'bap_id'),'') as bap_id,
+	ifNull(JSONExtractString(message,'dir_cache_slot'),'') as dir_cache_slot,
+	ifNull(JSONExtractInt(message,'time_diff_from_utc'), 0) as time_diff_from_utc,
+	ifNull(JSONExtractInt(message,'distance_weightage'), 0) as distance_weightage,
+	ifNull(JSONExtractString(message,'minimum_driver_rates_count'),'') as minimum_driver_rates_count,
+	ifNull(JSONExtractString(message,'is_avoid_toll'),'') as is_avoid_toll,
+	ifNull(JSONExtractInt(message,'aadhaar_verification_try_limit'), 0) as aadhaar_verification_try_limit,
+	ifNull(JSONExtractInt(message,'aadhaar_key_expiry_time'), 0) as aadhaar_key_expiry_time,
+
+	FROM atlas_app.merchant_queue
+	where JSONExtractString(message,'tag') = 'MerchantObject'
+
+
+CREATE TABLE atlas_app_helper.merchant_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `fraud_booking_cancellation_count_threshold` Nullable (Int64),
+    `fraud_booking_total_count_threshold` Nullable (Int64),
+    `fraud_booking_cancellation_count_window` Nullable (String),
+    `fraud_booking_cancelled_by_driver_count_threshold` Nullable (Int64),
+    `fraud_booking_cancelled_by_driver_count_window` Nullable (String),
+    `fraud_search_count_threshold` Nullable (Int64),
+    `fraud_search_count_window` Nullable (String),
+    `id` Nullable (String),
+    `enabled` Nullable (String),
+    `fraud_ride_count_threshold` Nullable (Int64),
+    `fraud_ride_count_window` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.merchant_config ON CLUSTER `{cluster}` AS atlas_app_helper.merchant_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, merchant_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.merchant_config ON CLUSTER `{cluster}` TO atlas_app.merchant_config
+(
+	`merchant_id` String,
+	`fraud_booking_cancellation_count_threshold` Int64,
+	`fraud_booking_total_count_threshold` Int64,
+	`fraud_booking_cancellation_count_window` String,
+	`fraud_booking_cancelled_by_driver_count_threshold` Int64,
+	`fraud_booking_cancelled_by_driver_count_window` String,
+	`fraud_search_count_threshold` Int64,
+	`fraud_search_count_window` String,
+	`id` String,
+	`enabled` String,
+	`fraud_ride_count_threshold` Int64,
+	`fraud_ride_count_window` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'fraud_booking_cancellation_count_threshold'), 0) as fraud_booking_cancellation_count_threshold,
+	ifNull(JSONExtractInt(message,'fraud_booking_total_count_threshold'), 0) as fraud_booking_total_count_threshold,
+	ifNull(JSONExtractString(message,'fraud_booking_cancellation_count_window'),'') as fraud_booking_cancellation_count_window,
+	ifNull(JSONExtractInt(message,'fraud_booking_cancelled_by_driver_count_threshold'), 0) as fraud_booking_cancelled_by_driver_count_threshold,
+	ifNull(JSONExtractString(message,'fraud_booking_cancelled_by_driver_count_window'),'') as fraud_booking_cancelled_by_driver_count_window,
+	ifNull(JSONExtractInt(message,'fraud_search_count_threshold'), 0) as fraud_search_count_threshold,
+	ifNull(JSONExtractString(message,'fraud_search_count_window'),'') as fraud_search_count_window,
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	ifNull(JSONExtractInt(message,'fraud_ride_count_threshold'), 0) as fraud_ride_count_threshold,
+	ifNull(JSONExtractString(message,'fraud_ride_count_window'),'') as fraud_ride_count_window,
+
+	FROM atlas_app.merchant_config_queue
+	where JSONExtractString(message,'tag') = 'MerchantConfigObject'
+
+
+CREATE TABLE atlas_app_helper.merchant_message_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `message_key` Nullable (String),
+    `message` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.merchant_message ON CLUSTER `{cluster}` AS atlas_app_helper.merchant_message_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, merchant_message_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.merchant_message ON CLUSTER `{cluster}` TO atlas_app.merchant_message
+(
+	`merchant_id` String,
+	`message_key` String,
+	`message` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'message_key'),'') as message_key,
+	ifNull(JSONExtractString(message,'message'),'') as message,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.merchant_message_queue
+	where JSONExtractString(message,'tag') = 'MerchantMessageObject'
+
+
+CREATE TABLE atlas_app_helper.merchant_payment_method_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `payment_type` Nullable (String),
+    `payment_instrument` Nullable (String),
+    `collected_by` Nullable (String),
+    `priority` Nullable (Int64),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.merchant_payment_method ON CLUSTER `{cluster}` AS atlas_app_helper.merchant_payment_method_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, merchant_payment_method_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.merchant_payment_method ON CLUSTER `{cluster}` TO atlas_app.merchant_payment_method
+(
+	`id` String,
+	`merchant_id` String,
+	`payment_type` String,
+	`payment_instrument` String,
+	`collected_by` String,
+	`priority` Int64,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'payment_type'),'') as payment_type,
+	ifNull(JSONExtractString(message,'payment_instrument'),'') as payment_instrument,
+	ifNull(JSONExtractString(message,'collected_by'),'') as collected_by,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.merchant_payment_method_queue
+	where JSONExtractString(message,'tag') = 'MerchantPaymentMethodObject'
+
+
+CREATE TABLE atlas_app_helper.merchant_service_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `service_name` Nullable (String),
+    `config_json` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.merchant_service_config ON CLUSTER `{cluster}` AS atlas_app_helper.merchant_service_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, merchant_service_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.merchant_service_config ON CLUSTER `{cluster}` TO atlas_app.merchant_service_config
+(
+	`merchant_id` String,
+	`service_name` String,
+	`config_json` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'service_name'),'') as service_name,
+	ifNull(JSONExtractString(message,'config_json'),'') as config_json,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.merchant_service_config_queue
+	where JSONExtractString(message,'tag') = 'MerchantServiceConfigObject'
+
+
+CREATE TABLE atlas_app_helper.merchant_service_usage_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `get_distances` Nullable (String),
+    `get_routes` Nullable (String),
+    `snap_to_road` Nullable (String),
+    `get_place_name` Nullable (String),
+    `get_place_details` Nullable (String),
+    `auto_complete` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `sms_providers_priority_list` Nullable (String),
+    `whatsapp_providers_priority_list` Nullable (String),
+    `initiate_call` Nullable (String),
+    `get_pickup_routes` Nullable (String),
+    `get_trip_routes` Nullable (String),
+    `use_fraud_detection` Nullable (String),
+    `notify_person` Nullable (String),
+    `get_distances_for_cancel_ride` Nullable (String),
+    `enable_dashboard_sms` Nullable (String),
+    `issue_ticket_service` Nullable (String),
+    `get_exophone` Nullable (String),
+    `aadhaar_verification_service` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.merchant_service_usage_config ON CLUSTER `{cluster}` AS atlas_app_helper.merchant_service_usage_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, merchant_service_usage_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.merchant_service_usage_config ON CLUSTER `{cluster}` TO atlas_app.merchant_service_usage_config
+(
+	`merchant_id` String,
+	`get_distances` String,
+	`get_routes` String,
+	`snap_to_road` String,
+	`get_place_name` String,
+	`get_place_details` String,
+	`auto_complete` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+	`sms_providers_priority_list` String,
+	`whatsapp_providers_priority_list` String,
+	`initiate_call` String,
+	`get_pickup_routes` String,
+	`get_trip_routes` String,
+	`use_fraud_detection` String,
+	`notify_person` String,
+	`get_distances_for_cancel_ride` String,
+	`enable_dashboard_sms` String,
+	`issue_ticket_service` String,
+	`get_exophone` String,
+	`aadhaar_verification_service` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'get_distances'),'') as get_distances,
+	ifNull(JSONExtractString(message,'get_routes'),'') as get_routes,
+	ifNull(JSONExtractString(message,'snap_to_road'),'') as snap_to_road,
+	ifNull(JSONExtractString(message,'get_place_name'),'') as get_place_name,
+	ifNull(JSONExtractString(message,'get_place_details'),'') as get_place_details,
+	ifNull(JSONExtractString(message,'auto_complete'),'') as auto_complete,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'sms_providers_priority_list'),'') as sms_providers_priority_list,
+	ifNull(JSONExtractString(message,'whatsapp_providers_priority_list'),'') as whatsapp_providers_priority_list,
+	ifNull(JSONExtractString(message,'initiate_call'),'') as initiate_call,
+	ifNull(JSONExtractString(message,'get_pickup_routes'),'') as get_pickup_routes,
+	ifNull(JSONExtractString(message,'get_trip_routes'),'') as get_trip_routes,
+	ifNull(JSONExtractString(message,'use_fraud_detection'),'') as use_fraud_detection,
+	ifNull(JSONExtractString(message,'notify_person'),'') as notify_person,
+	ifNull(JSONExtractString(message,'get_distances_for_cancel_ride'),'') as get_distances_for_cancel_ride,
+	ifNull(JSONExtractString(message,'enable_dashboard_sms'),'') as enable_dashboard_sms,
+	ifNull(JSONExtractString(message,'issue_ticket_service'),'') as issue_ticket_service,
+	ifNull(JSONExtractString(message,'get_exophone'),'') as get_exophone,
+	ifNull(JSONExtractString(message,'aadhaar_verification_service'),'') as aadhaar_verification_service,
+
+	FROM atlas_app.merchant_service_usage_config_queue
+	where JSONExtractString(message,'tag') = 'MerchantServiceUsageConfigObject'
+
+
+CREATE TABLE atlas_app_helper.on_search_event_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `bpp_id` Nullable (String),
+    `message_id` Nullable (String),
+    `error_code` Nullable (String),
+    `error_type` Nullable (String),
+    `error_message` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.on_search_event ON CLUSTER `{cluster}` AS atlas_app_helper.on_search_event_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, on_search_event_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.on_search_event ON CLUSTER `{cluster}` TO atlas_app.on_search_event
+(
+	`id` String,
+	`bpp_id` String,
+	`message_id` String,
+	`error_code` String,
+	`error_type` String,
+	`error_message` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'bpp_id'),'') as bpp_id,
+	ifNull(JSONExtractString(message,'message_id'),'') as message_id,
+	ifNull(JSONExtractString(message,'error_code'),'') as error_code,
+	ifNull(JSONExtractString(message,'error_type'),'') as error_type,
+	ifNull(JSONExtractString(message,'error_message'),'') as error_message,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.on_search_event_queue
+	where JSONExtractString(message,'tag') = 'OnSearchEventObject'
+
+
+CREATE TABLE atlas_app_helper.payment_order_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `short_id` Nullable (String),
+    `person_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `amount` Nullable (Int64),
+    `currency` Nullable (String),
+    `status` Nullable (String),
+    `web_payment_link` Nullable (String),
+    `iframe_payment_link` Nullable (String),
+    `mobile_payment_link` Nullable (String),
+    `client_auth_token_encrypted` Nullable (String),
+    `client_auth_token_hash` Nullable (String),
+    `client_auth_token_expiry` DateTime DEFAULT now(),
+    `get_upi_deep_links_option` Nullable (String),
+    `environment` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `payment_service_order_id` Nullable (String),
+    `service` Nullable (String),
+    `client_id` Nullable (String),
+    `description` Nullable (String),
+    `return_url` Nullable (String),
+    `action` Nullable (String),
+    `request_id` Nullable (String),
+    `payment_merchant_id` Nullable (String),
+    `create_mandate` Nullable (String),
+    `mandate_max_amount` Nullable (String),
+    `mandate_start_date` DateTime DEFAULT now(),
+    `mandate_end_date` DateTime DEFAULT now(),
+    `bank_error_message` Nullable (String),
+    `bank_error_code` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.payment_order ON CLUSTER `{cluster}` AS atlas_app_helper.payment_order_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, payment_order_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.payment_order ON CLUSTER `{cluster}` TO atlas_app.payment_order
+(
+	`id` String,
+	`short_id` String,
+	`person_id` String,
+	`merchant_id` String,
+	`amount` Int64,
+	`currency` String,
+	`status` String,
+	`web_payment_link` String,
+	`iframe_payment_link` String,
+	`mobile_payment_link` String,
+	`client_auth_token_encrypted` String,
+	`client_auth_token_hash` String,
+	`client_auth_token_expiry` DateTime,
+	`get_upi_deep_links_option` String,
+	`environment` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`payment_service_order_id` String,
+	`service` String,
+	`client_id` String,
+	`description` String,
+	`return_url` String,
+	`action` String,
+	`request_id` String,
+	`payment_merchant_id` String,
+	`create_mandate` String,
+	`mandate_max_amount` String,
+	`mandate_start_date` DateTime,
+	`mandate_end_date` DateTime,
+	`bank_error_message` String,
+	`bank_error_code` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'amount'), 0) as amount,
+	ifNull(JSONExtractString(message,'currency'),'') as currency,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'web_payment_link'),'') as web_payment_link,
+	ifNull(JSONExtractString(message,'iframe_payment_link'),'') as iframe_payment_link,
+	ifNull(JSONExtractString(message,'mobile_payment_link'),'') as mobile_payment_link,
+	ifNull(JSONExtractString(message,'client_auth_token_encrypted'),'') as client_auth_token_encrypted,
+	ifNull(JSONExtractString(message,'client_auth_token_hash'),'') as client_auth_token_hash,
+	toDateTime(JSONExtractInt(message,'client_auth_token_expiry')) as client_auth_token_expiry,
+	ifNull(JSONExtractString(message,'get_upi_deep_links_option'),'') as get_upi_deep_links_option,
+	ifNull(JSONExtractString(message,'environment'),'') as environment,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'payment_service_order_id'),'') as payment_service_order_id,
+	ifNull(JSONExtractString(message,'service'),'') as service,
+	ifNull(JSONExtractString(message,'client_id'),'') as client_id,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'return_url'),'') as return_url,
+	ifNull(JSONExtractString(message,'action'),'') as action,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'payment_merchant_id'),'') as payment_merchant_id,
+	ifNull(JSONExtractString(message,'create_mandate'),'') as create_mandate,
+	ifNull(JSONExtractString(message,'mandate_max_amount'),'') as mandate_max_amount,
+	toDateTime(JSONExtractInt(message,'mandate_start_date')) as mandate_start_date,
+	toDateTime(JSONExtractInt(message,'mandate_end_date')) as mandate_end_date,
+	ifNull(JSONExtractString(message,'bank_error_message'),'') as bank_error_message,
+	ifNull(JSONExtractString(message,'bank_error_code'),'') as bank_error_code,
+
+	FROM atlas_app.payment_order_queue
+	where JSONExtractString(message,'tag') = 'PaymentOrderObject'
+
+
+CREATE TABLE atlas_app_helper.payment_transaction_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `txn_uuid` Nullable (String),
+    `payment_method_type` Nullable (String),
+    `payment_method` Nullable (String),
+    `resp_message` Nullable (String),
+    `resp_code` Nullable (String),
+    `gateway_reference_id` Nullable (String),
+    `order_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `amount` Nullable (String),
+    `currency` Nullable (String),
+    `date_created` DateTime DEFAULT now(),
+    `status_id` Nullable (Int64),
+    `status` Nullable (String),
+    `juspay_response` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `mandate_id` Nullable (String),
+    `mandate_max_amount` Nullable (String),
+    `mandate_frequency` Nullable (String),
+    `mandate_status` Nullable (String),
+    `mandate_start_date` DateTime DEFAULT now(),
+    `mandate_end_date` DateTime DEFAULT now(),
+    `bank_error_message` Nullable (String),
+    `bank_error_code` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.payment_transaction ON CLUSTER `{cluster}` AS atlas_app_helper.payment_transaction_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, payment_transaction_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.payment_transaction ON CLUSTER `{cluster}` TO atlas_app.payment_transaction
+(
+	`id` String,
+	`txn_uuid` String,
+	`payment_method_type` String,
+	`payment_method` String,
+	`resp_message` String,
+	`resp_code` String,
+	`gateway_reference_id` String,
+	`order_id` String,
+	`merchant_id` String,
+	`amount` String,
+	`currency` String,
+	`date_created` DateTime,
+	`status_id` Int64,
+	`status` String,
+	`juspay_response` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`mandate_id` String,
+	`mandate_max_amount` String,
+	`mandate_frequency` String,
+	`mandate_status` String,
+	`mandate_start_date` DateTime,
+	`mandate_end_date` DateTime,
+	`bank_error_message` String,
+	`bank_error_code` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'txn_uuid'),'') as txn_uuid,
+	ifNull(JSONExtractString(message,'payment_method_type'),'') as payment_method_type,
+	ifNull(JSONExtractString(message,'payment_method'),'') as payment_method,
+	ifNull(JSONExtractString(message,'resp_message'),'') as resp_message,
+	ifNull(JSONExtractString(message,'resp_code'),'') as resp_code,
+	ifNull(JSONExtractString(message,'gateway_reference_id'),'') as gateway_reference_id,
+	ifNull(JSONExtractString(message,'order_id'),'') as order_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'amount'),'') as amount,
+	ifNull(JSONExtractString(message,'currency'),'') as currency,
+	toDateTime(JSONExtractInt(message,'date_created')) as date_created,
+	ifNull(JSONExtractInt(message,'status_id'), 0) as status_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'juspay_response'),'') as juspay_response,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'mandate_id'),'') as mandate_id,
+	ifNull(JSONExtractString(message,'mandate_max_amount'),'') as mandate_max_amount,
+	ifNull(JSONExtractString(message,'mandate_frequency'),'') as mandate_frequency,
+	ifNull(JSONExtractString(message,'mandate_status'),'') as mandate_status,
+	toDateTime(JSONExtractInt(message,'mandate_start_date')) as mandate_start_date,
+	toDateTime(JSONExtractInt(message,'mandate_end_date')) as mandate_end_date,
+	ifNull(JSONExtractString(message,'bank_error_message'),'') as bank_error_message,
+	ifNull(JSONExtractString(message,'bank_error_code'),'') as bank_error_code,
+
+	FROM atlas_app.payment_transaction_queue
+	where JSONExtractString(message,'tag') = 'PaymentTransactionObject'
+
+
+CREATE TABLE atlas_app_helper.person_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `first_name` Nullable (String),
+    `middle_name` Nullable (String),
+    `last_name` Nullable (String),
+    `role` Nullable (String),
+    `gender` Nullable (String),
+    `identifier_type` Nullable (String),
+    `password_hash` Nullable (String),
+    `mobile_number_encrypted` Nullable (String),
+    `mobile_number_hash` Nullable (String),
+    `mobile_country_code` Nullable (String),
+    `identifier` Nullable (String),
+    `rating` Nullable (String),
+    `is_new` Nullable (String),
+    `udf1` Nullable (String),
+    `udf2` Nullable (String),
+    `device_token` Nullable (String),
+    `description` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `merchant_id` Nullable (String),
+    `email_encrypted` Nullable (String),
+    `email_hash` Nullable (String),
+    `enabled` Nullable (String),
+    `client_version` Nullable (String),
+    `bundle_version` Nullable (String),
+    `whatsapp_notification_enroll_status` Nullable (String),
+    `unencrypted_mobile_number` Nullable (String),
+    `referral_code` Nullable (String),
+    `referred_at` DateTime DEFAULT now(),
+    `has_taken_valid_ride` Nullable (String),
+    `language` Nullable (String),
+    `blocked` Nullable (String),
+    `blocked_at` DateTime DEFAULT now(),
+    `notification_token` Nullable (String),
+    `blocked_by_rule_id` Nullable (String),
+    `total_ratings` Nullable (Int64),
+    `total_rating_score` Nullable (Int64),
+    `is_valid_rating` Nullable (String),
+    `has_disability` Nullable (String),
+    `aadhaar_verified` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.person ON CLUSTER `{cluster}` AS atlas_app_helper.person_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, person_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.person ON CLUSTER `{cluster}` TO atlas_app.person
+(
+	`id` String,
+	`first_name` String,
+	`middle_name` String,
+	`last_name` String,
+	`role` String,
+	`gender` String,
+	`identifier_type` String,
+	`password_hash` String,
+	`mobile_number_encrypted` String,
+	`mobile_number_hash` String,
+	`mobile_country_code` String,
+	`identifier` String,
+	`rating` String,
+	`is_new` String,
+	`udf1` String,
+	`udf2` String,
+	`device_token` String,
+	`description` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`merchant_id` String,
+	`email_encrypted` String,
+	`email_hash` String,
+	`enabled` String,
+	`client_version` String,
+	`bundle_version` String,
+	`whatsapp_notification_enroll_status` String,
+	`unencrypted_mobile_number` String,
+	`referral_code` String,
+	`referred_at` DateTime,
+	`has_taken_valid_ride` String,
+	`language` String,
+	`blocked` String,
+	`blocked_at` DateTime,
+	`notification_token` String,
+	`blocked_by_rule_id` String,
+	`total_ratings` Int64,
+	`total_rating_score` Int64,
+	`is_valid_rating` String,
+	`has_disability` String,
+	`aadhaar_verified` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'first_name'),'') as first_name,
+	ifNull(JSONExtractString(message,'middle_name'),'') as middle_name,
+	ifNull(JSONExtractString(message,'last_name'),'') as last_name,
+	ifNull(JSONExtractString(message,'role'),'') as role,
+	ifNull(JSONExtractString(message,'gender'),'') as gender,
+	ifNull(JSONExtractString(message,'identifier_type'),'') as identifier_type,
+	ifNull(JSONExtractString(message,'password_hash'),'') as password_hash,
+	ifNull(JSONExtractString(message,'mobile_number_encrypted'),'') as mobile_number_encrypted,
+	ifNull(JSONExtractString(message,'mobile_number_hash'),'') as mobile_number_hash,
+	ifNull(JSONExtractString(message,'mobile_country_code'),'') as mobile_country_code,
+	ifNull(JSONExtractString(message,'identifier'),'') as identifier,
+	ifNull(JSONExtractString(message,'rating'),'') as rating,
+	ifNull(JSONExtractString(message,'is_new'),'') as is_new,
+	ifNull(JSONExtractString(message,'udf1'),'') as udf1,
+	ifNull(JSONExtractString(message,'udf2'),'') as udf2,
+	ifNull(JSONExtractString(message,'device_token'),'') as device_token,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'email_encrypted'),'') as email_encrypted,
+	ifNull(JSONExtractString(message,'email_hash'),'') as email_hash,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	ifNull(JSONExtractString(message,'client_version'),'') as client_version,
+	ifNull(JSONExtractString(message,'bundle_version'),'') as bundle_version,
+	ifNull(JSONExtractString(message,'whatsapp_notification_enroll_status'),'') as whatsapp_notification_enroll_status,
+	ifNull(JSONExtractString(message,'unencrypted_mobile_number'),'') as unencrypted_mobile_number,
+	ifNull(JSONExtractString(message,'referral_code'),'') as referral_code,
+	toDateTime(JSONExtractInt(message,'referred_at')) as referred_at,
+	ifNull(JSONExtractString(message,'has_taken_valid_ride'),'') as has_taken_valid_ride,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+	ifNull(JSONExtractString(message,'blocked'),'') as blocked,
+	toDateTime(JSONExtractInt(message,'blocked_at')) as blocked_at,
+	ifNull(JSONExtractString(message,'notification_token'),'') as notification_token,
+	ifNull(JSONExtractString(message,'blocked_by_rule_id'),'') as blocked_by_rule_id,
+	ifNull(JSONExtractInt(message,'total_ratings'), 0) as total_ratings,
+	ifNull(JSONExtractInt(message,'total_rating_score'), 0) as total_rating_score,
+	ifNull(JSONExtractString(message,'is_valid_rating'),'') as is_valid_rating,
+	ifNull(JSONExtractString(message,'has_disability'),'') as has_disability,
+	ifNull(JSONExtractString(message,'aadhaar_verified'),'') as aadhaar_verified,
+
+	FROM atlas_app.person_queue
+	where JSONExtractString(message,'tag') = 'PersonObject'
+
+
+CREATE TABLE atlas_app_helper.person_default_emergency_number_shard ON CLUSTER `{cluster}`
+    (
+    `person_id` Nullable (String),
+    `name` Nullable (String),
+    `mobile_country_code` Nullable (String),
+    `mobile_number_encrypted` Nullable (String),
+    `mobile_number_hash` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.person_default_emergency_number ON CLUSTER `{cluster}` AS atlas_app_helper.person_default_emergency_number_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, person_default_emergency_number_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.person_default_emergency_number ON CLUSTER `{cluster}` TO atlas_app.person_default_emergency_number
+(
+	`person_id` String,
+	`name` String,
+	`mobile_country_code` String,
+	`mobile_number_encrypted` String,
+	`mobile_number_hash` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'name'),'') as name,
+	ifNull(JSONExtractString(message,'mobile_country_code'),'') as mobile_country_code,
+	ifNull(JSONExtractString(message,'mobile_number_encrypted'),'') as mobile_number_encrypted,
+	ifNull(JSONExtractString(message,'mobile_number_hash'),'') as mobile_number_hash,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.person_default_emergency_number_queue
+	where JSONExtractString(message,'tag') = 'PersonDefaultEmergencyNumberObject'
+
+
+CREATE TABLE atlas_app_helper.person_disability_shard ON CLUSTER `{cluster}`
+    (
+    `person_id` Nullable (String),
+    `disability_id` Nullable (String),
+    `tag` Nullable (String),
+    `description` Nullable (String),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.person_disability ON CLUSTER `{cluster}` AS atlas_app_helper.person_disability_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, person_disability_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.person_disability ON CLUSTER `{cluster}` TO atlas_app.person_disability
+(
+	`person_id` String,
+	`disability_id` String,
+	`tag` String,
+	`description` String,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'disability_id'),'') as disability_id,
+	ifNull(JSONExtractString(message,'tag'),'') as tag,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.person_disability_queue
+	where JSONExtractString(message,'tag') = 'PersonDisabilityObject'
+
+
+CREATE TABLE atlas_app_helper.person_flow_status_shard ON CLUSTER `{cluster}`
+    (
+    `person_id` Nullable (String),
+    `flow_status` Nullable (String),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.person_flow_status ON CLUSTER `{cluster}` AS atlas_app_helper.person_flow_status_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, person_flow_status_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.person_flow_status ON CLUSTER `{cluster}` TO atlas_app.person_flow_status
+(
+	`person_id` String,
+	`flow_status` String,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'flow_status'),'') as flow_status,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.person_flow_status_queue
+	where JSONExtractString(message,'tag') = 'PersonFlowStatusObject'
+
+
+CREATE TABLE atlas_app_helper.person_stats_shard ON CLUSTER `{cluster}`
+    (
+    `person_id` Nullable (String),
+    `user_cancelled_rides` Nullable (Int64),
+    `driver_cancelled_rides` Nullable (Int64),
+    `completed_rides` Nullable (Int64),
+    `weekend_rides` Nullable (Int64),
+    `weekday_rides` Nullable (Int64),
+    `off_peak_rides` Nullable (Int64),
+    `evening_peak_rides` Nullable (Int64),
+    `morning_peak_rides` Nullable (Int64),
+    `weekend_peak_rides` Nullable (Int64),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.person_stats ON CLUSTER `{cluster}` AS atlas_app_helper.person_stats_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, person_stats_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.person_stats ON CLUSTER `{cluster}` TO atlas_app.person_stats
+(
+	`person_id` String,
+	`user_cancelled_rides` Int64,
+	`driver_cancelled_rides` Int64,
+	`completed_rides` Int64,
+	`weekend_rides` Int64,
+	`weekday_rides` Int64,
+	`off_peak_rides` Int64,
+	`evening_peak_rides` Int64,
+	`morning_peak_rides` Int64,
+	`weekend_peak_rides` Int64,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractInt(message,'user_cancelled_rides'), 0) as user_cancelled_rides,
+	ifNull(JSONExtractInt(message,'driver_cancelled_rides'), 0) as driver_cancelled_rides,
+	ifNull(JSONExtractInt(message,'completed_rides'), 0) as completed_rides,
+	ifNull(JSONExtractInt(message,'weekend_rides'), 0) as weekend_rides,
+	ifNull(JSONExtractInt(message,'weekday_rides'), 0) as weekday_rides,
+	ifNull(JSONExtractInt(message,'off_peak_rides'), 0) as off_peak_rides,
+	ifNull(JSONExtractInt(message,'evening_peak_rides'), 0) as evening_peak_rides,
+	ifNull(JSONExtractInt(message,'morning_peak_rides'), 0) as morning_peak_rides,
+	ifNull(JSONExtractInt(message,'weekend_peak_rides'), 0) as weekend_peak_rides,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.person_stats_queue
+	where JSONExtractString(message,'tag') = 'PersonStatsObject'
+
+
+CREATE TABLE atlas_app_helper.place_name_cache_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `formatted_address` Nullable (String),
+    `plus_code` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `place_id` Nullable (String),
+    `address_components` Nullable (String),
+    `geo_hash` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.place_name_cache ON CLUSTER `{cluster}` AS atlas_app_helper.place_name_cache_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, place_name_cache_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.place_name_cache ON CLUSTER `{cluster}` TO atlas_app.place_name_cache
+(
+	`id` String,
+	`formatted_address` String,
+	`plus_code` String,
+	`lat` Float64,
+	`lon` Float64,
+	`place_id` String,
+	`address_components` String,
+	`geo_hash` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'formatted_address'),'') as formatted_address,
+	ifNull(JSONExtractString(message,'plus_code'),'') as plus_code,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'place_id'),'') as place_id,
+	ifNull(JSONExtractString(message,'address_components'),'') as address_components,
+	ifNull(JSONExtractString(message,'geo_hash'),'') as geo_hash,
+
+	FROM atlas_app.place_name_cache_queue
+	where JSONExtractString(message,'tag') = 'PlaceNameCacheObject'
+
+
+CREATE TABLE atlas_app_helper.product_instance_backup_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `case_id` Nullable (String),
+    `product_id` Nullable (String),
+    `person_id` Nullable (String),
+    `person_updated_at` DateTime DEFAULT now(),
+    `short_id` Nullable (String),
+    `entity_id` Nullable (String),
+    `entity_type` Nullable (String),
+    `quantity` Nullable (String),
+    `price` Nullable (String),
+    `type` Nullable (String),
+    `status` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `end_time` DateTime DEFAULT now(),
+    `valid_till` DateTime DEFAULT now(),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `organization_id` Nullable (String),
+    `parent_id` Nullable (String),
+    `info` Nullable (String),
+    `udf1` Nullable (String),
+    `udf2` Nullable (String),
+    `udf3` Nullable (String),
+    `udf4` Nullable (String),
+    `udf5` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `actual_distance` Nullable (Float64),
+    `actual_price` Nullable (Float64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.product_instance_backup ON CLUSTER `{cluster}` AS atlas_app_helper.product_instance_backup_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, product_instance_backup_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.product_instance_backup ON CLUSTER `{cluster}` TO atlas_app.product_instance_backup
+(
+	`id` String,
+	`case_id` String,
+	`product_id` String,
+	`person_id` String,
+	`person_updated_at` DateTime,
+	`short_id` String,
+	`entity_id` String,
+	`entity_type` String,
+	`quantity` String,
+	`price` String,
+	`type` String,
+	`status` String,
+	`start_time` DateTime,
+	`end_time` DateTime,
+	`valid_till` DateTime,
+	`from_location_id` String,
+	`to_location_id` String,
+	`organization_id` String,
+	`parent_id` String,
+	`info` String,
+	`udf1` String,
+	`udf2` String,
+	`udf3` String,
+	`udf4` String,
+	`udf5` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`actual_distance` Float64,
+	`actual_price` Float64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'case_id'),'') as case_id,
+	ifNull(JSONExtractString(message,'product_id'),'') as product_id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	toDateTime(JSONExtractInt(message,'person_updated_at')) as person_updated_at,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'entity_id'),'') as entity_id,
+	ifNull(JSONExtractString(message,'entity_type'),'') as entity_type,
+	ifNull(JSONExtractString(message,'quantity'),'') as quantity,
+	ifNull(JSONExtractString(message,'price'),'') as price,
+	ifNull(JSONExtractString(message,'type'),'') as type,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	toDateTime(JSONExtractInt(message,'end_time')) as end_time,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractString(message,'organization_id'),'') as organization_id,
+	ifNull(JSONExtractString(message,'parent_id'),'') as parent_id,
+	ifNull(JSONExtractString(message,'info'),'') as info,
+	ifNull(JSONExtractString(message,'udf1'),'') as udf1,
+	ifNull(JSONExtractString(message,'udf2'),'') as udf2,
+	ifNull(JSONExtractString(message,'udf3'),'') as udf3,
+	ifNull(JSONExtractString(message,'udf4'),'') as udf4,
+	ifNull(JSONExtractString(message,'udf5'),'') as udf5,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractFloat(message,'actual_distance'),0.0) as actual_distance,
+	ifNull(JSONExtractFloat(message,'actual_price'),0.0) as actual_price,
+
+	FROM atlas_app.product_instance_backup_queue
+	where JSONExtractString(message,'tag') = 'ProductInstanceBackupObject'
+
+
+CREATE TABLE atlas_app_helper.quote_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `request_id` Nullable (String),
+    `estimated_fare` Nullable (String),
+    `provider_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `vehicle_variant` Nullable (String),
+    `discount` Nullable (String),
+    `estimated_total_fare` Nullable (String),
+    `total_fare` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `distance_to_nearest_driver` Nullable (String),
+    `provider_name` Nullable (String),
+    `provider_completed_rides_count` Nullable (Int64),
+    `provider_url` Nullable (String),
+    `rental_slab_id` Nullable (String),
+    `trip_terms_id` Nullable (String),
+    `fare_product_type` Nullable (String),
+    `driver_offer_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `special_zone_quote_id` Nullable (String),
+    `special_location_tag` Nullable (String),
+    `item_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.quote ON CLUSTER `{cluster}` AS atlas_app_helper.quote_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, quote_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.quote ON CLUSTER `{cluster}` TO atlas_app.quote
+(
+	`id` String,
+	`request_id` String,
+	`estimated_fare` String,
+	`provider_id` String,
+	`created_at` DateTime,
+	`vehicle_variant` String,
+	`discount` String,
+	`estimated_total_fare` String,
+	`total_fare` String,
+	`provider_mobile_number` String,
+	`distance_to_nearest_driver` String,
+	`provider_name` String,
+	`provider_completed_rides_count` Int64,
+	`provider_url` String,
+	`rental_slab_id` String,
+	`trip_terms_id` String,
+	`fare_product_type` String,
+	`driver_offer_id` String,
+	`merchant_id` String,
+	`special_zone_quote_id` String,
+	`special_location_tag` String,
+	`item_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'estimated_fare'),'') as estimated_fare,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractString(message,'discount'),'') as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractString(message,'total_fare'),'') as total_fare,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	ifNull(JSONExtractString(message,'distance_to_nearest_driver'),'') as distance_to_nearest_driver,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractInt(message,'provider_completed_rides_count'), 0) as provider_completed_rides_count,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+	ifNull(JSONExtractString(message,'rental_slab_id'),'') as rental_slab_id,
+	ifNull(JSONExtractString(message,'trip_terms_id'),'') as trip_terms_id,
+	ifNull(JSONExtractString(message,'fare_product_type'),'') as fare_product_type,
+	ifNull(JSONExtractString(message,'driver_offer_id'),'') as driver_offer_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'special_zone_quote_id'),'') as special_zone_quote_id,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+	ifNull(JSONExtractString(message,'item_id'),'') as item_id,
+
+	FROM atlas_app.quote_queue
+	where JSONExtractString(message,'tag') = 'QuoteObject'
+
+
+CREATE TABLE atlas_app_helper.quote_bak_1022_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `request_id` Nullable (String),
+    `estimated_fare` Nullable (String),
+    `provider_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `vehicle_variant` Nullable (String),
+    `discount` Nullable (Float64),
+    `estimated_total_fare` Nullable (String),
+    `total_fare` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `distance_to_nearest_driver` Nullable (Float64),
+    `provider_name` Nullable (String),
+    `provider_completed_rides_count` Nullable (String),
+    `bpp_quote_id` Nullable (String),
+    `provider_url` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.quote_bak_1022 ON CLUSTER `{cluster}` AS atlas_app_helper.quote_bak_1022_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, quote_bak_1022_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.quote_bak_1022 ON CLUSTER `{cluster}` TO atlas_app.quote_bak_1022
+(
+	`id` String,
+	`request_id` String,
+	`estimated_fare` String,
+	`provider_id` String,
+	`created_at` DateTime,
+	`vehicle_variant` String,
+	`discount` Float64,
+	`estimated_total_fare` String,
+	`total_fare` String,
+	`provider_mobile_number` String,
+	`distance_to_nearest_driver` Float64,
+	`provider_name` String,
+	`provider_completed_rides_count` String,
+	`bpp_quote_id` String,
+	`provider_url` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'estimated_fare'),'') as estimated_fare,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractFloat(message,'discount'),0.0) as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractString(message,'total_fare'),'') as total_fare,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	ifNull(JSONExtractFloat(message,'distance_to_nearest_driver'),0.0) as distance_to_nearest_driver,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'provider_completed_rides_count'),'') as provider_completed_rides_count,
+	ifNull(JSONExtractString(message,'bpp_quote_id'),'') as bpp_quote_id,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+
+	FROM atlas_app.quote_bak_1022_queue
+	where JSONExtractString(message,'tag') = 'QuoteBak1022Object'
+
+
+CREATE TABLE atlas_app_helper.quote_bak_1026_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `request_id` Nullable (String),
+    `estimated_fare` Nullable (String),
+    `provider_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `vehicle_variant` Nullable (String),
+    `discount` Nullable (Float64),
+    `estimated_total_fare` Nullable (String),
+    `total_fare` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `distance_to_nearest_driver` Nullable (Float64),
+    `provider_name` Nullable (String),
+    `provider_completed_rides_count` Nullable (String),
+    `bpp_quote_id` Nullable (String),
+    `provider_url` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.quote_bak_1026 ON CLUSTER `{cluster}` AS atlas_app_helper.quote_bak_1026_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, quote_bak_1026_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.quote_bak_1026 ON CLUSTER `{cluster}` TO atlas_app.quote_bak_1026
+(
+	`id` String,
+	`request_id` String,
+	`estimated_fare` String,
+	`provider_id` String,
+	`created_at` DateTime,
+	`vehicle_variant` String,
+	`discount` Float64,
+	`estimated_total_fare` String,
+	`total_fare` String,
+	`provider_mobile_number` String,
+	`distance_to_nearest_driver` Float64,
+	`provider_name` String,
+	`provider_completed_rides_count` String,
+	`bpp_quote_id` String,
+	`provider_url` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'estimated_fare'),'') as estimated_fare,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractFloat(message,'discount'),0.0) as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractString(message,'total_fare'),'') as total_fare,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	ifNull(JSONExtractFloat(message,'distance_to_nearest_driver'),0.0) as distance_to_nearest_driver,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'provider_completed_rides_count'),'') as provider_completed_rides_count,
+	ifNull(JSONExtractString(message,'bpp_quote_id'),'') as bpp_quote_id,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+
+	FROM atlas_app.quote_bak_1026_queue
+	where JSONExtractString(message,'tag') = 'QuoteBak1026Object'
+
+
+CREATE TABLE atlas_app_helper.quote_terms_bak_1027_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `quote_id` Nullable (String),
+    `description` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.quote_terms_bak_1027 ON CLUSTER `{cluster}` AS atlas_app_helper.quote_terms_bak_1027_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, quote_terms_bak_1027_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.quote_terms_bak_1027 ON CLUSTER `{cluster}` TO atlas_app.quote_terms_bak_1027
+(
+	`id` String,
+	`quote_id` String,
+	`description` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+
+	FROM atlas_app.quote_terms_bak_1027_queue
+	where JSONExtractString(message,'tag') = 'QuoteTermsBak1027Object'
+
+
+CREATE TABLE atlas_app_helper.rating_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `ride_id` Nullable (String),
+    `rating_value` Nullable (Int64),
+    `feedback_details` Nullable (String),
+    `rider_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.rating ON CLUSTER `{cluster}` AS atlas_app_helper.rating_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, rating_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.rating ON CLUSTER `{cluster}` TO atlas_app.rating
+(
+	`id` String,
+	`ride_id` String,
+	`rating_value` Int64,
+	`feedback_details` String,
+	`rider_id` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractInt(message,'rating_value'), 0) as rating_value,
+	ifNull(JSONExtractString(message,'feedback_details'),'') as feedback_details,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.rating_queue
+	where JSONExtractString(message,'tag') = 'RatingObject'
+
+
+CREATE TABLE atlas_app_helper.registration_token_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `auth_medium` Nullable (String),
+    `auth_type` Nullable (String),
+    `auth_value_hash` Nullable (String),
+    `token` Nullable (String),
+    `verified` Nullable (String),
+    `auth_expiry` Nullable (Int64),
+    `token_expiry` Nullable (Int64),
+    `attempts` Nullable (Int64),
+    `entity_id` Nullable (String),
+    `entity_type` Nullable (String),
+    `info` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `merchant_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.registration_token ON CLUSTER `{cluster}` AS atlas_app_helper.registration_token_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, registration_token_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.registration_token ON CLUSTER `{cluster}` TO atlas_app.registration_token
+(
+	`id` String,
+	`auth_medium` String,
+	`auth_type` String,
+	`auth_value_hash` String,
+	`token` String,
+	`verified` String,
+	`auth_expiry` Int64,
+	`token_expiry` Int64,
+	`attempts` Int64,
+	`entity_id` String,
+	`entity_type` String,
+	`info` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`merchant_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'auth_medium'),'') as auth_medium,
+	ifNull(JSONExtractString(message,'auth_type'),'') as auth_type,
+	ifNull(JSONExtractString(message,'auth_value_hash'),'') as auth_value_hash,
+	ifNull(JSONExtractString(message,'token'),'') as token,
+	ifNull(JSONExtractString(message,'verified'),'') as verified,
+	ifNull(JSONExtractInt(message,'auth_expiry'), 0) as auth_expiry,
+	ifNull(JSONExtractInt(message,'token_expiry'), 0) as token_expiry,
+	ifNull(JSONExtractInt(message,'attempts'), 0) as attempts,
+	ifNull(JSONExtractString(message,'entity_id'),'') as entity_id,
+	ifNull(JSONExtractString(message,'entity_type'),'') as entity_type,
+	ifNull(JSONExtractString(message,'info'),'') as info,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+
+	FROM atlas_app.registration_token_queue
+	where JSONExtractString(message,'tag') = 'RegistrationTokenObject'
+
+
+CREATE TABLE atlas_app_helper.rental_quote_bak_1027_shard ON CLUSTER `{cluster}`
+    (
+    `quote_id` Nullable (String),
+    `base_distance` Nullable (String),
+    `base_duration_hr` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.rental_quote_bak_1027 ON CLUSTER `{cluster}` AS atlas_app_helper.rental_quote_bak_1027_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, rental_quote_bak_1027_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.rental_quote_bak_1027 ON CLUSTER `{cluster}` TO atlas_app.rental_quote_bak_1027
+(
+	`quote_id` String,
+	`base_distance` String,
+	`base_duration_hr` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+	ifNull(JSONExtractString(message,'base_distance'),'') as base_distance,
+	ifNull(JSONExtractInt(message,'base_duration_hr'), 0) as base_duration_hr,
+
+	FROM atlas_app.rental_quote_bak_1027_queue
+	where JSONExtractString(message,'tag') = 'RentalQuoteBak1027Object'
+
+
+CREATE TABLE atlas_app_helper.rental_slab_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `base_distance` Nullable (Int64),
+    `base_duration` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.rental_slab ON CLUSTER `{cluster}` AS atlas_app_helper.rental_slab_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, rental_slab_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.rental_slab ON CLUSTER `{cluster}` TO atlas_app.rental_slab
+(
+	`id` String,
+	`base_distance` Int64,
+	`base_duration` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractInt(message,'base_distance'), 0) as base_distance,
+	ifNull(JSONExtractInt(message,'base_duration'), 0) as base_duration,
+
+	FROM atlas_app.rental_slab_queue
+	where JSONExtractString(message,'tag') = 'RentalSlabObject'
+
+
+CREATE TABLE atlas_app_helper.ride_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `booking_id` Nullable (String),
+    `short_id` Nullable (String),
+    `status` Nullable (String),
+    `driver_name` Nullable (String),
+    `driver_rating` Nullable (String),
+    `driver_mobile_number` Nullable (String),
+    `driver_registered_at` DateTime DEFAULT now(),
+    `vehicle_number` Nullable (String),
+    `vehicle_model` Nullable (String),
+    `vehicle_color` Nullable (String),
+    `otp` Nullable (String),
+    `tracking_url` Nullable (String),
+    `fare` Nullable (String),
+    `total_fare` Nullable (String),
+    `chargeable_distance` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `bpp_ride_id` Nullable (String),
+    `ride_start_time` DateTime DEFAULT now(),
+    `ride_end_time` DateTime DEFAULT now(),
+    `ride_rating` Nullable (String),
+    `driver_arrival_time` DateTime DEFAULT now(),
+    `merchant_id` Nullable (String),
+    `traveled_distance` Nullable (String),
+    `driver_mobile_country_code` Nullable (String),
+    `driver_image` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.ride ON CLUSTER `{cluster}` AS atlas_app_helper.ride_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, ride_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.ride ON CLUSTER `{cluster}` TO atlas_app.ride
+(
+	`id` String,
+	`booking_id` String,
+	`short_id` String,
+	`status` String,
+	`driver_name` String,
+	`driver_rating` String,
+	`driver_mobile_number` String,
+	`driver_registered_at` DateTime,
+	`vehicle_number` String,
+	`vehicle_model` String,
+	`vehicle_color` String,
+	`otp` String,
+	`tracking_url` String,
+	`fare` String,
+	`total_fare` String,
+	`chargeable_distance` String,
+	`vehicle_variant` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`bpp_ride_id` String,
+	`ride_start_time` DateTime,
+	`ride_end_time` DateTime,
+	`ride_rating` String,
+	`driver_arrival_time` DateTime,
+	`merchant_id` String,
+	`traveled_distance` String,
+	`driver_mobile_country_code` String,
+	`driver_image` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'driver_name'),'') as driver_name,
+	ifNull(JSONExtractString(message,'driver_rating'),'') as driver_rating,
+	ifNull(JSONExtractString(message,'driver_mobile_number'),'') as driver_mobile_number,
+	toDateTime(JSONExtractInt(message,'driver_registered_at')) as driver_registered_at,
+	ifNull(JSONExtractString(message,'vehicle_number'),'') as vehicle_number,
+	ifNull(JSONExtractString(message,'vehicle_model'),'') as vehicle_model,
+	ifNull(JSONExtractString(message,'vehicle_color'),'') as vehicle_color,
+	ifNull(JSONExtractString(message,'otp'),'') as otp,
+	ifNull(JSONExtractString(message,'tracking_url'),'') as tracking_url,
+	ifNull(JSONExtractString(message,'fare'),'') as fare,
+	ifNull(JSONExtractString(message,'total_fare'),'') as total_fare,
+	ifNull(JSONExtractString(message,'chargeable_distance'),'') as chargeable_distance,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'bpp_ride_id'),'') as bpp_ride_id,
+	toDateTime(JSONExtractInt(message,'ride_start_time')) as ride_start_time,
+	toDateTime(JSONExtractInt(message,'ride_end_time')) as ride_end_time,
+	ifNull(JSONExtractString(message,'ride_rating'),'') as ride_rating,
+	toDateTime(JSONExtractInt(message,'driver_arrival_time')) as driver_arrival_time,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'traveled_distance'),'') as traveled_distance,
+	ifNull(JSONExtractString(message,'driver_mobile_country_code'),'') as driver_mobile_country_code,
+	ifNull(JSONExtractString(message,'driver_image'),'') as driver_image,
+
+	FROM atlas_app.ride_queue
+	where JSONExtractString(message,'tag') = 'RideObject'
+
+
+CREATE TABLE atlas_app_helper.ride_booking_bak_1022_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `request_id` Nullable (String),
+    `quote_id` Nullable (String),
+    `status` Nullable (String),
+    `provider_id` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `rider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `estimated_fare` Nullable (Float64),
+    `discount` Nullable (Float64),
+    `estimated_total_fare` Nullable (String),
+    `distance` Nullable (Float64),
+    `vehicle_variant` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `bpp_ride_booking_id` Nullable (String),
+    `provider_name` Nullable (String),
+    `provider_url` Nullable (String),
+    `reallocations_count` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.ride_booking_bak_1022 ON CLUSTER `{cluster}` AS atlas_app_helper.ride_booking_bak_1022_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, ride_booking_bak_1022_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.ride_booking_bak_1022 ON CLUSTER `{cluster}` TO atlas_app.ride_booking_bak_1022
+(
+	`id` String,
+	`request_id` String,
+	`quote_id` String,
+	`status` String,
+	`provider_id` String,
+	`provider_mobile_number` String,
+	`start_time` DateTime,
+	`rider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`estimated_fare` Float64,
+	`discount` Float64,
+	`estimated_total_fare` String,
+	`distance` Float64,
+	`vehicle_variant` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`bpp_ride_booking_id` String,
+	`provider_name` String,
+	`provider_url` String,
+	`reallocations_count` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractFloat(message,'estimated_fare'),0.0) as estimated_fare,
+	ifNull(JSONExtractFloat(message,'discount'),0.0) as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractFloat(message,'distance'),0.0) as distance,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'bpp_ride_booking_id'),'') as bpp_ride_booking_id,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+	ifNull(JSONExtractInt(message,'reallocations_count'), 0) as reallocations_count,
+
+	FROM atlas_app.ride_booking_bak_1022_queue
+	where JSONExtractString(message,'tag') = 'RideBookingBak1022Object'
+
+
+CREATE TABLE atlas_app_helper.ride_booking_bak_1026_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `request_id` Nullable (String),
+    `quote_id` Nullable (String),
+    `status` Nullable (String),
+    `provider_id` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `rider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `estimated_fare` Nullable (Float64),
+    `discount` Nullable (Float64),
+    `estimated_total_fare` Nullable (String),
+    `distance` Nullable (Float64),
+    `vehicle_variant` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `bpp_ride_booking_id` Nullable (String),
+    `provider_name` Nullable (String),
+    `provider_url` Nullable (String),
+    `reallocations_count` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.ride_booking_bak_1026 ON CLUSTER `{cluster}` AS atlas_app_helper.ride_booking_bak_1026_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, ride_booking_bak_1026_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.ride_booking_bak_1026 ON CLUSTER `{cluster}` TO atlas_app.ride_booking_bak_1026
+(
+	`id` String,
+	`request_id` String,
+	`quote_id` String,
+	`status` String,
+	`provider_id` String,
+	`provider_mobile_number` String,
+	`start_time` DateTime,
+	`rider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`estimated_fare` Float64,
+	`discount` Float64,
+	`estimated_total_fare` String,
+	`distance` Float64,
+	`vehicle_variant` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`bpp_ride_booking_id` String,
+	`provider_name` String,
+	`provider_url` String,
+	`reallocations_count` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractFloat(message,'estimated_fare'),0.0) as estimated_fare,
+	ifNull(JSONExtractFloat(message,'discount'),0.0) as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractFloat(message,'distance'),0.0) as distance,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'bpp_ride_booking_id'),'') as bpp_ride_booking_id,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+	ifNull(JSONExtractInt(message,'reallocations_count'), 0) as reallocations_count,
+
+	FROM atlas_app.ride_booking_bak_1026_queue
+	where JSONExtractString(message,'tag') = 'RideBookingBak1026Object'
+
+
+CREATE TABLE atlas_app_helper.saved_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `street` Nullable (String),
+    `door` Nullable (String),
+    `building` Nullable (String),
+    `area_code` Nullable (String),
+    `area` Nullable (String),
+    `tag` Nullable (String),
+    `rider_id` Nullable (String),
+    `place_id` Nullable (String),
+    `ward` Nullable (String),
+    `is_moved` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.saved_location ON CLUSTER `{cluster}` AS atlas_app_helper.saved_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, saved_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.saved_location ON CLUSTER `{cluster}` TO atlas_app.saved_location
+(
+	`id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`city` String,
+	`state` String,
+	`country` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`street` String,
+	`door` String,
+	`building` String,
+	`area_code` String,
+	`area` String,
+	`tag` String,
+	`rider_id` String,
+	`place_id` String,
+	`ward` String,
+	`is_moved` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'street'),'') as street,
+	ifNull(JSONExtractString(message,'door'),'') as door,
+	ifNull(JSONExtractString(message,'building'),'') as building,
+	ifNull(JSONExtractString(message,'area_code'),'') as area_code,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	ifNull(JSONExtractString(message,'tag'),'') as tag,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'place_id'),'') as place_id,
+	ifNull(JSONExtractString(message,'ward'),'') as ward,
+	ifNull(JSONExtractString(message,'is_moved'),'') as is_moved,
+
+	FROM atlas_app.saved_location_queue
+	where JSONExtractString(message,'tag') = 'SavedLocationObject'
+
+
+CREATE TABLE atlas_app_helper.schema_migrations_shard ON CLUSTER `{cluster}`
+    (
+    `filename` Nullable (String),
+    `checksum` Nullable (String),
+    `executed_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.schema_migrations ON CLUSTER `{cluster}` AS atlas_app_helper.schema_migrations_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, schema_migrations_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.schema_migrations ON CLUSTER `{cluster}` TO atlas_app.schema_migrations
+(
+	`filename` String,
+	`checksum` String,
+	`executed_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'filename'),'') as filename,
+	ifNull(JSONExtractString(message,'checksum'),'') as checksum,
+	toDateTime(JSONExtractInt(message,'executed_at')) as executed_at,
+
+	FROM atlas_app.schema_migrations_queue
+	where JSONExtractString(message,'tag') = 'SchemaMigrationsObject'
+
+
+CREATE TABLE atlas_app_helper.search_request_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `valid_till` DateTime DEFAULT now(),
+    `rider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `distance` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `merchant_id` Nullable (String),
+    `bundle_version` Nullable (String),
+    `client_version` Nullable (String),
+    `language` Nullable (String),
+    `max_distance` Nullable (Float64),
+    `device` Nullable (String),
+    `estimated_ride_duration` Nullable (String),
+    `customer_extra_fee` Nullable (String),
+    `auto_assign_enabled` Nullable (String),
+    `auto_assign_enabled_v2` Nullable (String),
+    `available_payment_methods` Nullable (String),
+    `selected_payment_method_id` Nullable (String),
+    `disability_tag` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.search_request ON CLUSTER `{cluster}` AS atlas_app_helper.search_request_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, search_request_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.search_request ON CLUSTER `{cluster}` TO atlas_app.search_request
+(
+	`id` String,
+	`start_time` DateTime,
+	`valid_till` DateTime,
+	`rider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`distance` String,
+	`created_at` DateTime,
+	`merchant_id` String,
+	`bundle_version` String,
+	`client_version` String,
+	`language` String,
+	`max_distance` Float64,
+	`device` String,
+	`estimated_ride_duration` String,
+	`customer_extra_fee` String,
+	`auto_assign_enabled` String,
+	`auto_assign_enabled_v2` String,
+	`available_payment_methods` String,
+	`selected_payment_method_id` String,
+	`disability_tag` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractString(message,'distance'),'') as distance,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'bundle_version'),'') as bundle_version,
+	ifNull(JSONExtractString(message,'client_version'),'') as client_version,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+	ifNull(JSONExtractFloat(message,'max_distance'),0.0) as max_distance,
+	ifNull(JSONExtractString(message,'device'),'') as device,
+	ifNull(JSONExtractString(message,'estimated_ride_duration'),'') as estimated_ride_duration,
+	ifNull(JSONExtractString(message,'customer_extra_fee'),'') as customer_extra_fee,
+	ifNull(JSONExtractString(message,'auto_assign_enabled'),'') as auto_assign_enabled,
+	ifNull(JSONExtractString(message,'auto_assign_enabled_v2'),'') as auto_assign_enabled_v2,
+	ifNull(JSONExtractString(message,'available_payment_methods'),'') as available_payment_methods,
+	ifNull(JSONExtractString(message,'selected_payment_method_id'),'') as selected_payment_method_id,
+	ifNull(JSONExtractString(message,'disability_tag'),'') as disability_tag,
+
+	FROM atlas_app.search_request_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestObject'
+
+
+CREATE TABLE atlas_app_helper.search_request_bak_1022_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `valid_till` DateTime DEFAULT now(),
+    `rider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `distance` Nullable (Float64),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.search_request_bak_1022 ON CLUSTER `{cluster}` AS atlas_app_helper.search_request_bak_1022_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, search_request_bak_1022_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.search_request_bak_1022 ON CLUSTER `{cluster}` TO atlas_app.search_request_bak_1022
+(
+	`id` String,
+	`start_time` DateTime,
+	`valid_till` DateTime,
+	`rider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`distance` Float64,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractFloat(message,'distance'),0.0) as distance,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.search_request_bak_1022_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestBak1022Object'
+
+
+CREATE TABLE atlas_app_helper.search_request_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `street` Nullable (String),
+    `door` Nullable (String),
+    `building` Nullable (String),
+    `area_code` Nullable (String),
+    `area` Nullable (String),
+    `ward` Nullable (String),
+    `place_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.search_request_location ON CLUSTER `{cluster}` AS atlas_app_helper.search_request_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, search_request_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.search_request_location ON CLUSTER `{cluster}` TO atlas_app.search_request_location
+(
+	`id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`city` String,
+	`state` String,
+	`country` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`street` String,
+	`door` String,
+	`building` String,
+	`area_code` String,
+	`area` String,
+	`ward` String,
+	`place_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'street'),'') as street,
+	ifNull(JSONExtractString(message,'door'),'') as door,
+	ifNull(JSONExtractString(message,'building'),'') as building,
+	ifNull(JSONExtractString(message,'area_code'),'') as area_code,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	ifNull(JSONExtractString(message,'ward'),'') as ward,
+	ifNull(JSONExtractString(message,'place_id'),'') as place_id,
+
+	FROM atlas_app.search_request_location_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestLocationObject'
+
+
+CREATE TABLE atlas_app_helper.search_request_location_1026_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `street` Nullable (String),
+    `door` Nullable (String),
+    `building` Nullable (String),
+    `area_code` Nullable (String),
+    `area` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.search_request_location_1026 ON CLUSTER `{cluster}` AS atlas_app_helper.search_request_location_1026_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, search_request_location_1026_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.search_request_location_1026 ON CLUSTER `{cluster}` TO atlas_app.search_request_location_1026
+(
+	`id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`city` String,
+	`state` String,
+	`country` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`street` String,
+	`door` String,
+	`building` String,
+	`area_code` String,
+	`area` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'street'),'') as street,
+	ifNull(JSONExtractString(message,'door'),'') as door,
+	ifNull(JSONExtractString(message,'building'),'') as building,
+	ifNull(JSONExtractString(message,'area_code'),'') as area_code,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+
+	FROM atlas_app.search_request_location_1026_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestLocation1026Object'
+
+
+CREATE TABLE atlas_app_helper.sos_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `flow` Nullable (String),
+    `status` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `person_id` Nullable (String),
+    `ride_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.sos ON CLUSTER `{cluster}` AS atlas_app_helper.sos_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, sos_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.sos ON CLUSTER `{cluster}` TO atlas_app.sos
+(
+	`id` String,
+	`flow` String,
+	`status` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`person_id` String,
+	`ride_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'flow'),'') as flow,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+
+	FROM atlas_app.sos_queue
+	where JSONExtractString(message,'tag') = 'SosObject'
+
+
+CREATE TABLE atlas_app_helper.special_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `location_name` Nullable (String),
+    `category` Nullable (String),
+    `gates` Nullable (String),
+    `geom` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.special_location ON CLUSTER `{cluster}` AS atlas_app_helper.special_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, special_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.special_location ON CLUSTER `{cluster}` TO atlas_app.special_location
+(
+	`id` String,
+	`location_name` String,
+	`category` String,
+	`gates` String,
+	`geom` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'location_name'),'') as location_name,
+	ifNull(JSONExtractString(message,'category'),'') as category,
+	ifNull(JSONExtractString(message,'gates'),'') as gates,
+	ifNull(JSONExtractString(message,'geom'),'') as geom,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.special_location_queue
+	where JSONExtractString(message,'tag') = 'SpecialLocationObject'
+
+
+CREATE TABLE atlas_app_helper.special_zone_quote_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `quote_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.special_zone_quote ON CLUSTER `{cluster}` AS atlas_app_helper.special_zone_quote_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, special_zone_quote_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.special_zone_quote ON CLUSTER `{cluster}` TO atlas_app.special_zone_quote
+(
+	`id` String,
+	`quote_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+
+	FROM atlas_app.special_zone_quote_queue
+	where JSONExtractString(message,'tag') = 'SpecialZoneQuoteObject'
+
+
+CREATE TABLE atlas_app_helper.tag_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `created_by` Nullable (String),
+    `created_by_entity_type` Nullable (String),
+    `tag_type` Nullable (String),
+    `tag` Nullable (String),
+    `info` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.tag ON CLUSTER `{cluster}` AS atlas_app_helper.tag_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, tag_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.tag ON CLUSTER `{cluster}` TO atlas_app.tag
+(
+	`id` String,
+	`created_by` String,
+	`created_by_entity_type` String,
+	`tag_type` String,
+	`tag` String,
+	`info` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'created_by'),'') as created_by,
+	ifNull(JSONExtractString(message,'created_by_entity_type'),'') as created_by_entity_type,
+	ifNull(JSONExtractString(message,'tag_type'),'') as tag_type,
+	ifNull(JSONExtractString(message,'tag'),'') as tag,
+	ifNull(JSONExtractString(message,'info'),'') as info,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.tag_queue
+	where JSONExtractString(message,'tag') = 'TagObject'
+
+
+CREATE TABLE atlas_app_helper.tag_category_mapping_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `tag` Nullable (String),
+    `category` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.tag_category_mapping ON CLUSTER `{cluster}` AS atlas_app_helper.tag_category_mapping_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, tag_category_mapping_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.tag_category_mapping ON CLUSTER `{cluster}` TO atlas_app.tag_category_mapping
+(
+	`id` String,
+	`tag` String,
+	`category` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'tag'),'') as tag,
+	ifNull(JSONExtractString(message,'category'),'') as category,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.tag_category_mapping_queue
+	where JSONExtractString(message,'tag') = 'TagCategoryMappingObject'
+
+
+CREATE TABLE atlas_app_helper.trip_terms_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `descriptions` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.trip_terms ON CLUSTER `{cluster}` AS atlas_app_helper.trip_terms_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, trip_terms_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.trip_terms ON CLUSTER `{cluster}` TO atlas_app.trip_terms
+(
+	`id` String,
+	`descriptions` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'descriptions'),'') as descriptions,
+
+	FROM atlas_app.trip_terms_queue
+	where JSONExtractString(message,'tag') = 'TripTermsObject'
+
+
+CREATE TABLE atlas_app_helper.webengage_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `version` Nullable (String),
+    `content_template_id` Nullable (String),
+    `principal_entity_id` Nullable (String),
+    `info_message_id` Nullable (String),
+    `web_message_id` Nullable (String),
+    `to_number` Nullable (String),
+    `status` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.webengage ON CLUSTER `{cluster}` AS atlas_app_helper.webengage_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, webengage_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.webengage ON CLUSTER `{cluster}` TO atlas_app.webengage
+(
+	`id` String,
+	`version` String,
+	`content_template_id` String,
+	`principal_entity_id` String,
+	`info_message_id` String,
+	`web_message_id` String,
+	`to_number` String,
+	`status` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'version'),'') as version,
+	ifNull(JSONExtractString(message,'content_template_id'),'') as content_template_id,
+	ifNull(JSONExtractString(message,'principal_entity_id'),'') as principal_entity_id,
+	ifNull(JSONExtractString(message,'info_message_id'),'') as info_message_id,
+	ifNull(JSONExtractString(message,'web_message_id'),'') as web_message_id,
+	ifNull(JSONExtractString(message,'to_number'),'') as to_number,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+
+	FROM atlas_app.webengage_queue
+	where JSONExtractString(message,'tag') = 'WebengageObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.aadhaar_otp_req_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `request_id` Nullable (String),
+    `status_code` Nullable (String),
+    `request_message` Nullable (String),
+    `transaction_id` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.aadhaar_otp_req ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.aadhaar_otp_req_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, aadhaar_otp_req_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.aadhaar_otp_req ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.aadhaar_otp_req
+(
+	`id` String,
+	`driver_id` String,
+	`request_id` String,
+	`status_code` String,
+	`request_message` String,
+	`transaction_id` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'status_code'),'') as status_code,
+	ifNull(JSONExtractString(message,'request_message'),'') as request_message,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.aadhaar_otp_req_queue
+	where JSONExtractString(message,'tag') = 'AadhaarOtpReqObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.aadhaar_otp_verify_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `request_id` Nullable (String),
+    `status_code` Nullable (String),
+    `request_message` Nullable (String),
+    `transaction_id` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.aadhaar_otp_verify ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.aadhaar_otp_verify_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, aadhaar_otp_verify_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.aadhaar_otp_verify ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.aadhaar_otp_verify
+(
+	`id` String,
+	`driver_id` String,
+	`request_id` String,
+	`status_code` String,
+	`request_message` String,
+	`transaction_id` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'status_code'),'') as status_code,
+	ifNull(JSONExtractString(message,'request_message'),'') as request_message,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.aadhaar_otp_verify_queue
+	where JSONExtractString(message,'tag') = 'AadhaarOtpVerifyObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.aadhaar_verification_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `driver_name` Nullable (String),
+    `driver_gender` Nullable (String),
+    `driver_dob` Nullable (String),
+    `driver_image` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `aadhaar_number_hash` Nullable (String),
+    `is_verified` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `driver_image_path` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.aadhaar_verification ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.aadhaar_verification_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, aadhaar_verification_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.aadhaar_verification ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.aadhaar_verification
+(
+	`driver_id` String,
+	`driver_name` String,
+	`driver_gender` String,
+	`driver_dob` String,
+	`driver_image` String,
+	`created_at` DateTime,
+	`aadhaar_number_hash` String,
+	`is_verified` String,
+	`updated_at` DateTime,
+	`driver_image_path` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'driver_name'),'') as driver_name,
+	ifNull(JSONExtractString(message,'driver_gender'),'') as driver_gender,
+	ifNull(JSONExtractString(message,'driver_dob'),'') as driver_dob,
+	ifNull(JSONExtractString(message,'driver_image'),'') as driver_image,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'aadhaar_number_hash'),'') as aadhaar_number_hash,
+	ifNull(JSONExtractString(message,'is_verified'),'') as is_verified,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'driver_image_path'),'') as driver_image_path,
+
+	FROM atlas_driver_offer_bpp.aadhaar_verification_queue
+	where JSONExtractString(message,'tag') = 'AadhaarVerificationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.bap_metadata_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `name` Nullable (String),
+    `logo_url` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.bap_metadata ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.bap_metadata_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, bap_metadata_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.bap_metadata ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.bap_metadata
+(
+	`id` String,
+	`name` String,
+	`logo_url` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'name'),'') as name,
+	ifNull(JSONExtractString(message,'logo_url'),'') as logo_url,
+
+	FROM atlas_driver_offer_bpp.bap_metadata_queue
+	where JSONExtractString(message,'tag') = 'BapMetadataObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.beckn_request_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `beckn_request` Nullable (String),
+    `signature_header` Nullable (String),
+    `time_stamp` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.beckn_request ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.beckn_request_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, beckn_request_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.beckn_request ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.beckn_request
+(
+	`id` String,
+	`beckn_request` String,
+	`signature_header` String,
+	`time_stamp` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'beckn_request'),'') as beckn_request,
+	ifNull(JSONExtractString(message,'signature_header'),'') as signature_header,
+	toDateTime(JSONExtractInt(message,'time_stamp')) as time_stamp,
+
+	FROM atlas_driver_offer_bpp.beckn_request_queue
+	where JSONExtractString(message,'tag') = 'BecknRequestObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.booking_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `status` Nullable (String),
+    `provider_id` Nullable (String),
+    `bap_id` Nullable (String),
+    `bap_uri` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `rider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `estimated_distance` Nullable (Int64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `quote_id` Nullable (String),
+    `fare_parameters_id` Nullable (String),
+    `estimated_fare` Nullable (Float64),
+    `rider_name` Nullable (String),
+    `estimated_duration` Nullable (Int64),
+    `primary_exophone` Nullable (String),
+    `booking_type` Nullable (String),
+    `special_zone_otp_code` Nullable (String),
+    `transaction_id` Nullable (String),
+    `max_estimated_distance` Nullable (Float64),
+    `area` Nullable (String),
+    `special_location_tag` Nullable (String),
+    `payment_method_id` Nullable (String),
+    `bap_city` Nullable (String),
+    `bap_country` Nullable (String),
+    `payment_url` Nullable (String),
+    `disability_tag` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.booking ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.booking_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, booking_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.booking ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.booking
+(
+	`id` String,
+	`status` String,
+	`provider_id` String,
+	`bap_id` String,
+	`bap_uri` String,
+	`start_time` DateTime,
+	`rider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`vehicle_variant` String,
+	`estimated_distance` Int64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`quote_id` String,
+	`fare_parameters_id` String,
+	`estimated_fare` Float64,
+	`rider_name` String,
+	`estimated_duration` Int64,
+	`primary_exophone` String,
+	`booking_type` String,
+	`special_zone_otp_code` String,
+	`transaction_id` String,
+	`max_estimated_distance` Float64,
+	`area` String,
+	`special_location_tag` String,
+	`payment_method_id` String,
+	`bap_city` String,
+	`bap_country` String,
+	`payment_url` String,
+	`disability_tag` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'bap_id'),'') as bap_id,
+	ifNull(JSONExtractString(message,'bap_uri'),'') as bap_uri,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractInt(message,'estimated_distance'), 0) as estimated_distance,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+	ifNull(JSONExtractString(message,'fare_parameters_id'),'') as fare_parameters_id,
+	ifNull(JSONExtractFloat(message,'estimated_fare'),0.0) as estimated_fare,
+	ifNull(JSONExtractString(message,'rider_name'),'') as rider_name,
+	ifNull(JSONExtractInt(message,'estimated_duration'), 0) as estimated_duration,
+	ifNull(JSONExtractString(message,'primary_exophone'),'') as primary_exophone,
+	ifNull(JSONExtractString(message,'booking_type'),'') as booking_type,
+	ifNull(JSONExtractString(message,'special_zone_otp_code'),'') as special_zone_otp_code,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	ifNull(JSONExtractFloat(message,'max_estimated_distance'),0.0) as max_estimated_distance,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+	ifNull(JSONExtractString(message,'payment_method_id'),'') as payment_method_id,
+	ifNull(JSONExtractString(message,'bap_city'),'') as bap_city,
+	ifNull(JSONExtractString(message,'bap_country'),'') as bap_country,
+	ifNull(JSONExtractString(message,'payment_url'),'') as payment_url,
+	ifNull(JSONExtractString(message,'disability_tag'),'') as disability_tag,
+
+	FROM atlas_driver_offer_bpp.booking_queue
+	where JSONExtractString(message,'tag') = 'BookingObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.booking_cancellation_reason_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `booking_id` Nullable (String),
+    `ride_id` Nullable (String),
+    `source` Nullable (String),
+    `reason_code` Nullable (String),
+    `additional_info` Nullable (String),
+    `driver_cancellation_location_lat` Nullable (Float64),
+    `driver_cancellation_location_lon` Nullable (Float64),
+    `driver_dist_to_pickup` Nullable (String),
+    `merchant_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.booking_cancellation_reason ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.booking_cancellation_reason_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, booking_cancellation_reason_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.booking_cancellation_reason ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.booking_cancellation_reason
+(
+	`driver_id` String,
+	`booking_id` String,
+	`ride_id` String,
+	`source` String,
+	`reason_code` String,
+	`additional_info` String,
+	`driver_cancellation_location_lat` Float64,
+	`driver_cancellation_location_lon` Float64,
+	`driver_dist_to_pickup` String,
+	`merchant_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractString(message,'source'),'') as source,
+	ifNull(JSONExtractString(message,'reason_code'),'') as reason_code,
+	ifNull(JSONExtractString(message,'additional_info'),'') as additional_info,
+	ifNull(JSONExtractFloat(message,'driver_cancellation_location_lat'),0.0) as driver_cancellation_location_lat,
+	ifNull(JSONExtractFloat(message,'driver_cancellation_location_lon'),0.0) as driver_cancellation_location_lon,
+	ifNull(JSONExtractString(message,'driver_dist_to_pickup'),'') as driver_dist_to_pickup,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+
+	FROM atlas_driver_offer_bpp.booking_cancellation_reason_queue
+	where JSONExtractString(message,'tag') = 'BookingCancellationReasonObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.booking_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `street` Nullable (String),
+    `building` Nullable (String),
+    `area_code` Nullable (String),
+    `area` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `door` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.booking_location ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.booking_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, booking_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.booking_location ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.booking_location
+(
+	`id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`city` String,
+	`state` String,
+	`country` String,
+	`street` String,
+	`building` String,
+	`area_code` String,
+	`area` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`door` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	ifNull(JSONExtractString(message,'street'),'') as street,
+	ifNull(JSONExtractString(message,'building'),'') as building,
+	ifNull(JSONExtractString(message,'area_code'),'') as area_code,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'door'),'') as door,
+
+	FROM atlas_driver_offer_bpp.booking_location_queue
+	where JSONExtractString(message,'tag') = 'BookingLocationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.business_event_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `event_type` Nullable (String),
+    `time_stamp` DateTime DEFAULT now(),
+    `booking_id` Nullable (String),
+    `when_pool_was_computed` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `distance` Nullable (Float64),
+    `duration` Nullable (Float64),
+    `ride_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.business_event ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.business_event_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, business_event_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.business_event ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.business_event
+(
+	`id` String,
+	`driver_id` String,
+	`event_type` String,
+	`time_stamp` DateTime,
+	`booking_id` String,
+	`when_pool_was_computed` String,
+	`vehicle_variant` String,
+	`distance` Float64,
+	`duration` Float64,
+	`ride_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'event_type'),'') as event_type,
+	toDateTime(JSONExtractInt(message,'time_stamp')) as time_stamp,
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'when_pool_was_computed'),'') as when_pool_was_computed,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractFloat(message,'distance'),0.0) as distance,
+	ifNull(JSONExtractFloat(message,'duration'),0.0) as duration,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+
+	FROM atlas_driver_offer_bpp.business_event_queue
+	where JSONExtractString(message,'tag') = 'BusinessEventObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.call_status_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `call_id` Nullable (String),
+    `recording_url` Nullable (String),
+    `status` Nullable (String),
+    `conversation_duration` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `dtmf_number_used` Nullable (String),
+    `entity_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.call_status ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.call_status_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, call_status_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.call_status ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.call_status
+(
+	`id` String,
+	`call_id` String,
+	`recording_url` String,
+	`status` String,
+	`conversation_duration` String,
+	`created_at` DateTime,
+	`dtmf_number_used` String,
+	`entity_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'call_id'),'') as call_id,
+	ifNull(JSONExtractString(message,'recording_url'),'') as recording_url,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'conversation_duration'),'') as conversation_duration,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'dtmf_number_used'),'') as dtmf_number_used,
+	ifNull(JSONExtractString(message,'entity_id'),'') as entity_id,
+
+	FROM atlas_driver_offer_bpp.call_status_queue
+	where JSONExtractString(message,'tag') = 'CallStatusObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.cancellation_reason_shard ON CLUSTER `{cluster}`
+    (
+    `reason_code` Nullable (String),
+    `description` Nullable (String),
+    `enabled` Nullable (String),
+    `priority` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.cancellation_reason ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.cancellation_reason_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, cancellation_reason_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.cancellation_reason ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.cancellation_reason
+(
+	`reason_code` String,
+	`description` String,
+	`enabled` String,
+	`priority` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'reason_code'),'') as reason_code,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
+
+	FROM atlas_driver_offer_bpp.cancellation_reason_queue
+	where JSONExtractString(message,'tag') = 'CancellationReasonObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.comment_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `issue_report_id` Nullable (String),
+    `comment` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `author_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.comment ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.comment_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, comment_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.comment ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.comment
+(
+	`id` String,
+	`issue_report_id` String,
+	`comment` String,
+	`created_at` DateTime,
+	`author_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'issue_report_id'),'') as issue_report_id,
+	ifNull(JSONExtractString(message,'comment'),'') as comment,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'author_id'),'') as author_id,
+
+	FROM atlas_driver_offer_bpp.comment_queue
+	where JSONExtractString(message,'tag') = 'CommentObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_availability_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `total_available_time` Nullable (Int64),
+    `last_available_time` DateTime DEFAULT now(),
+    `bucket_start_time` DateTime DEFAULT now(),
+    `bucket_end_time` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_availability ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_availability_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_availability_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_availability ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_availability
+(
+	`id` String,
+	`driver_id` String,
+	`merchant_id` String,
+	`total_available_time` Int64,
+	`last_available_time` DateTime,
+	`bucket_start_time` DateTime,
+	`bucket_end_time` DateTime,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'total_available_time'), 0) as total_available_time,
+	toDateTime(JSONExtractInt(message,'last_available_time')) as last_available_time,
+	toDateTime(JSONExtractInt(message,'bucket_start_time')) as bucket_start_time,
+	toDateTime(JSONExtractInt(message,'bucket_end_time')) as bucket_end_time,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.driver_availability_queue
+	where JSONExtractString(message,'tag') = 'DriverAvailabilityObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_block_reason_shard ON CLUSTER `{cluster}`
+    (
+    `reason_code` Nullable (String),
+    `block_reason` Nullable (String),
+    `block_time_in_hours` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_block_reason ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_block_reason_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_block_reason_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_block_reason ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_block_reason
+(
+	`reason_code` String,
+	`block_reason` String,
+	`block_time_in_hours` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'reason_code'),'') as reason_code,
+	ifNull(JSONExtractString(message,'block_reason'),'') as block_reason,
+	ifNull(JSONExtractInt(message,'block_time_in_hours'), 0) as block_time_in_hours,
+
+	FROM atlas_driver_offer_bpp.driver_block_reason_queue
+	where JSONExtractString(message,'tag') = 'DriverBlockReasonObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_fee_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `total_earnings` Nullable (Int64),
+    `num_rides` Nullable (Int64),
+    `govt_charges` Nullable (Int64),
+    `platform_fee` Nullable (String),
+    `cgst` Nullable (String),
+    `sgst` Nullable (String),
+    `pay_by` DateTime DEFAULT now(),
+    `start_time` DateTime DEFAULT now(),
+    `end_time` DateTime DEFAULT now(),
+    `status` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `collected_by` Nullable (String),
+    `fee_type` Nullable (String),
+    `merchant_id` Nullable (String),
+    `offer_id` Nullable (String),
+    `plan_offer_title` Nullable (String),
+    `stage_updated_at` DateTime DEFAULT now(),
+    `bill_number` Nullable (String),
+    `autopay_payment_stage` Nullable (String),
+    `fee_without_discount` Nullable (String),
+    `collected_at` DateTime DEFAULT now(),
+    `scheduler_try_count` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_fee ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_fee_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_fee_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_fee ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_fee
+(
+	`id` String,
+	`driver_id` String,
+	`total_earnings` Int64,
+	`num_rides` Int64,
+	`govt_charges` Int64,
+	`platform_fee` String,
+	`cgst` String,
+	`sgst` String,
+	`pay_by` DateTime,
+	`start_time` DateTime,
+	`end_time` DateTime,
+	`status` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`collected_by` String,
+	`fee_type` String,
+	`merchant_id` String,
+	`offer_id` String,
+	`plan_offer_title` String,
+	`stage_updated_at` DateTime,
+	`bill_number` String,
+	`autopay_payment_stage` String,
+	`fee_without_discount` String,
+	`collected_at` DateTime,
+	`scheduler_try_count` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractInt(message,'total_earnings'), 0) as total_earnings,
+	ifNull(JSONExtractInt(message,'num_rides'), 0) as num_rides,
+	ifNull(JSONExtractInt(message,'govt_charges'), 0) as govt_charges,
+	ifNull(JSONExtractString(message,'platform_fee'),'') as platform_fee,
+	ifNull(JSONExtractString(message,'cgst'),'') as cgst,
+	ifNull(JSONExtractString(message,'sgst'),'') as sgst,
+	toDateTime(JSONExtractInt(message,'pay_by')) as pay_by,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	toDateTime(JSONExtractInt(message,'end_time')) as end_time,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'collected_by'),'') as collected_by,
+	ifNull(JSONExtractString(message,'fee_type'),'') as fee_type,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'offer_id'),'') as offer_id,
+	ifNull(JSONExtractString(message,'plan_offer_title'),'') as plan_offer_title,
+	toDateTime(JSONExtractInt(message,'stage_updated_at')) as stage_updated_at,
+	ifNull(JSONExtractString(message,'bill_number'),'') as bill_number,
+	ifNull(JSONExtractString(message,'autopay_payment_stage'),'') as autopay_payment_stage,
+	ifNull(JSONExtractString(message,'fee_without_discount'),'') as fee_without_discount,
+	toDateTime(JSONExtractInt(message,'collected_at')) as collected_at,
+	ifNull(JSONExtractInt(message,'scheduler_try_count'), 0) as scheduler_try_count,
+
+	FROM atlas_driver_offer_bpp.driver_fee_queue
+	where JSONExtractString(message,'tag') = 'DriverFeeObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_flow_status_shard ON CLUSTER `{cluster}`
+    (
+    `person_id` Nullable (String),
+    `flow_status` Nullable (String),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_flow_status ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_flow_status_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_flow_status_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_flow_status ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_flow_status
+(
+	`person_id` String,
+	`flow_status` String,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'flow_status'),'') as flow_status,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.driver_flow_status_queue
+	where JSONExtractString(message,'tag') = 'DriverFlowStatusObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_go_home_request_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `point` Nullable (String),
+    `status` Nullable (String),
+    `num_cancellation` Nullable (Int64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `reached_home` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_go_home_request ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_go_home_request_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_go_home_request_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_go_home_request ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_go_home_request
+(
+	`id` String,
+	`driver_id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`point` String,
+	`status` String,
+	`num_cancellation` Int64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`reached_home` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'point'),'') as point,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractInt(message,'num_cancellation'), 0) as num_cancellation,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'reached_home'),'') as reached_home,
+
+	FROM atlas_driver_offer_bpp.driver_go_home_request_queue
+	where JSONExtractString(message,'tag') = 'DriverGoHomeRequestObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_home_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `home_address` Nullable (String),
+    `tag` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_home_location ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_home_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_home_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_home_location ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_home_location
+(
+	`id` String,
+	`driver_id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`home_address` String,
+	`tag` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'home_address'),'') as home_address,
+	ifNull(JSONExtractString(message,'tag'),'') as tag,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.driver_home_location_queue
+	where JSONExtractString(message,'tag') = 'DriverHomeLocationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_information_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `active` Nullable (String),
+    `on_ride` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `enabled` Nullable (String),
+    `verified` Nullable (String),
+    `referral_code` Nullable (String),
+    `admin_id` Nullable (String),
+    `blocked` Nullable (String),
+    `last_enabled_on` DateTime DEFAULT now(),
+    `can_downgrade_to_hatchback` Nullable (String),
+    `can_downgrade_to_sedan` Nullable (String),
+    `can_downgrade_to_taxi` Nullable (String),
+    `mode` Nullable (String),
+    `merchant_id` Nullable (String),
+    `num_of_locks` Nullable (Int64),
+    `aadhaar_verified` Nullable (String),
+    `subscribed` Nullable (String),
+    `payment_pending` Nullable (String),
+    `blocked_reason` Nullable (String),
+    `block_expiry_time` DateTime DEFAULT now(),
+    `auto_pay_status` Nullable (String),
+    `comp_aadhaar_image_path` Nullable (String),
+    `available_upi_apps` Nullable (String),
+    `payer_vpa` Nullable (String),
+    `enabled_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_information ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_information_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_information_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_information ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_information
+(
+	`driver_id` String,
+	`active` String,
+	`on_ride` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`enabled` String,
+	`verified` String,
+	`referral_code` String,
+	`admin_id` String,
+	`blocked` String,
+	`last_enabled_on` DateTime,
+	`can_downgrade_to_hatchback` String,
+	`can_downgrade_to_sedan` String,
+	`can_downgrade_to_taxi` String,
+	`mode` String,
+	`merchant_id` String,
+	`num_of_locks` Int64,
+	`aadhaar_verified` String,
+	`subscribed` String,
+	`payment_pending` String,
+	`blocked_reason` String,
+	`block_expiry_time` DateTime,
+	`auto_pay_status` String,
+	`comp_aadhaar_image_path` String,
+	`available_upi_apps` String,
+	`payer_vpa` String,
+	`enabled_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'active'),'') as active,
+	ifNull(JSONExtractString(message,'on_ride'),'') as on_ride,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	ifNull(JSONExtractString(message,'verified'),'') as verified,
+	ifNull(JSONExtractString(message,'referral_code'),'') as referral_code,
+	ifNull(JSONExtractString(message,'admin_id'),'') as admin_id,
+	ifNull(JSONExtractString(message,'blocked'),'') as blocked,
+	toDateTime(JSONExtractInt(message,'last_enabled_on')) as last_enabled_on,
+	ifNull(JSONExtractString(message,'can_downgrade_to_hatchback'),'') as can_downgrade_to_hatchback,
+	ifNull(JSONExtractString(message,'can_downgrade_to_sedan'),'') as can_downgrade_to_sedan,
+	ifNull(JSONExtractString(message,'can_downgrade_to_taxi'),'') as can_downgrade_to_taxi,
+	ifNull(JSONExtractString(message,'mode'),'') as mode,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'num_of_locks'), 0) as num_of_locks,
+	ifNull(JSONExtractString(message,'aadhaar_verified'),'') as aadhaar_verified,
+	ifNull(JSONExtractString(message,'subscribed'),'') as subscribed,
+	ifNull(JSONExtractString(message,'payment_pending'),'') as payment_pending,
+	ifNull(JSONExtractString(message,'blocked_reason'),'') as blocked_reason,
+	toDateTime(JSONExtractInt(message,'block_expiry_time')) as block_expiry_time,
+	ifNull(JSONExtractString(message,'auto_pay_status'),'') as auto_pay_status,
+	ifNull(JSONExtractString(message,'comp_aadhaar_image_path'),'') as comp_aadhaar_image_path,
+	ifNull(JSONExtractString(message,'available_upi_apps'),'') as available_upi_apps,
+	ifNull(JSONExtractString(message,'payer_vpa'),'') as payer_vpa,
+	toDateTime(JSONExtractInt(message,'enabled_at')) as enabled_at,
+
+	FROM atlas_driver_offer_bpp.driver_information_queue
+	where JSONExtractString(message,'tag') = 'DriverInformationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_intelligent_pool_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `availability_time_weightage` Nullable (Int64),
+    `acceptance_ratio_weightage` Nullable (Int64),
+    `cancellation_ratio_weightage` Nullable (Int64),
+    `availability_time_window_option` Nullable (String),
+    `acceptance_ratio_window_option` Nullable (String),
+    `cancellation_ratio_window_option` Nullable (String),
+    `min_quotes_to_qualify_for_intelligent_pool` Nullable (Int64),
+    `min_quotes_to_qualify_for_intelligent_pool_window_option` Nullable (String),
+    `intelligent_pool_percentage` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `speed_normalizer` Nullable (Float64),
+    `driver_speed_weightage` Nullable (Int64),
+    `location_update_sample_time` Nullable (Int64),
+    `min_location_updates` Nullable (Int64),
+    `default_driver_speed` Nullable (Float64),
+    `actual_pickup_distance_weightage` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_intelligent_pool_config ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_intelligent_pool_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_intelligent_pool_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_intelligent_pool_config ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_intelligent_pool_config
+(
+	`merchant_id` String,
+	`availability_time_weightage` Int64,
+	`acceptance_ratio_weightage` Int64,
+	`cancellation_ratio_weightage` Int64,
+	`availability_time_window_option` String,
+	`acceptance_ratio_window_option` String,
+	`cancellation_ratio_window_option` String,
+	`min_quotes_to_qualify_for_intelligent_pool` Int64,
+	`min_quotes_to_qualify_for_intelligent_pool_window_option` String,
+	`intelligent_pool_percentage` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`speed_normalizer` Float64,
+	`driver_speed_weightage` Int64,
+	`location_update_sample_time` Int64,
+	`min_location_updates` Int64,
+	`default_driver_speed` Float64,
+	`actual_pickup_distance_weightage` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'availability_time_weightage'), 0) as availability_time_weightage,
+	ifNull(JSONExtractInt(message,'acceptance_ratio_weightage'), 0) as acceptance_ratio_weightage,
+	ifNull(JSONExtractInt(message,'cancellation_ratio_weightage'), 0) as cancellation_ratio_weightage,
+	ifNull(JSONExtractString(message,'availability_time_window_option'),'') as availability_time_window_option,
+	ifNull(JSONExtractString(message,'acceptance_ratio_window_option'),'') as acceptance_ratio_window_option,
+	ifNull(JSONExtractString(message,'cancellation_ratio_window_option'),'') as cancellation_ratio_window_option,
+	ifNull(JSONExtractInt(message,'min_quotes_to_qualify_for_intelligent_pool'), 0) as min_quotes_to_qualify_for_intelligent_pool,
+	ifNull(JSONExtractString(message,'min_quotes_to_qualify_for_intelligent_pool_window_option'),'') as min_quotes_to_qualify_for_intelligent_pool_window_option,
+	ifNull(JSONExtractString(message,'intelligent_pool_percentage'),'') as intelligent_pool_percentage,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractFloat(message,'speed_normalizer'),0.0) as speed_normalizer,
+	ifNull(JSONExtractInt(message,'driver_speed_weightage'), 0) as driver_speed_weightage,
+	ifNull(JSONExtractInt(message,'location_update_sample_time'), 0) as location_update_sample_time,
+	ifNull(JSONExtractInt(message,'min_location_updates'), 0) as min_location_updates,
+	ifNull(JSONExtractFloat(message,'default_driver_speed'),0.0) as default_driver_speed,
+	ifNull(JSONExtractInt(message,'actual_pickup_distance_weightage'), 0) as actual_pickup_distance_weightage,
+
+	FROM atlas_driver_offer_bpp.driver_intelligent_pool_config_queue
+	where JSONExtractString(message,'tag') = 'DriverIntelligentPoolConfigObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_license_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `driver_dob` DateTime DEFAULT now(),
+    `license_expiry` DateTime DEFAULT now(),
+    `class_of_vehicles` Nullable (String),
+    `verification_status` Nullable (String),
+    `consent` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `consent_timestamp` DateTime DEFAULT now(),
+    `failed_rules` Nullable (String),
+    `driver_name` Nullable (String),
+    `document_image_id1` Nullable (String),
+    `document_image_id2` Nullable (String),
+    `license_number_hash` Nullable (String),
+    `license_number_encrypted` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_license ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_license_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_license_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_license ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_license
+(
+	`id` String,
+	`driver_id` String,
+	`driver_dob` DateTime,
+	`license_expiry` DateTime,
+	`class_of_vehicles` String,
+	`verification_status` String,
+	`consent` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`consent_timestamp` DateTime,
+	`failed_rules` String,
+	`driver_name` String,
+	`document_image_id1` String,
+	`document_image_id2` String,
+	`license_number_hash` String,
+	`license_number_encrypted` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	toDateTime(JSONExtractInt(message,'driver_dob')) as driver_dob,
+	toDateTime(JSONExtractInt(message,'license_expiry')) as license_expiry,
+	ifNull(JSONExtractString(message,'class_of_vehicles'),'') as class_of_vehicles,
+	ifNull(JSONExtractString(message,'verification_status'),'') as verification_status,
+	ifNull(JSONExtractString(message,'consent'),'') as consent,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'consent_timestamp')) as consent_timestamp,
+	ifNull(JSONExtractString(message,'failed_rules'),'') as failed_rules,
+	ifNull(JSONExtractString(message,'driver_name'),'') as driver_name,
+	ifNull(JSONExtractString(message,'document_image_id1'),'') as document_image_id1,
+	ifNull(JSONExtractString(message,'document_image_id2'),'') as document_image_id2,
+	ifNull(JSONExtractString(message,'license_number_hash'),'') as license_number_hash,
+	ifNull(JSONExtractString(message,'license_number_encrypted'),'') as license_number_encrypted,
+
+	FROM atlas_driver_offer_bpp.driver_license_queue
+	where JSONExtractString(message,'tag') = 'DriverLicenseObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_location_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `point` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `coordinates_calculated_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `merchant_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_location ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_location ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_location
+(
+	`driver_id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`point` String,
+	`created_at` DateTime,
+	`coordinates_calculated_at` DateTime,
+	`updated_at` DateTime,
+	`merchant_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'point'),'') as point,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'coordinates_calculated_at')) as coordinates_calculated_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+
+	FROM atlas_driver_offer_bpp.driver_location_queue
+	where JSONExtractString(message,'tag') = 'DriverLocationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_plan_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `plan_id` Nullable (String),
+    `plan_type` Nullable (String),
+    `mandate_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `mandate_setup_date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_plan ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_plan_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_plan_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_plan ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_plan
+(
+	`driver_id` String,
+	`plan_id` String,
+	`plan_type` String,
+	`mandate_id` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`mandate_setup_date` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'plan_id'),'') as plan_id,
+	ifNull(JSONExtractString(message,'plan_type'),'') as plan_type,
+	ifNull(JSONExtractString(message,'mandate_id'),'') as mandate_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'mandate_setup_date')) as mandate_setup_date,
+
+	FROM atlas_driver_offer_bpp.driver_plan_queue
+	where JSONExtractString(message,'tag') = 'DriverPlanObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_pool_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `min_radius_of_search` Nullable (Int64),
+    `max_radius_of_search` Nullable (Int64),
+    `radius_step_size` Nullable (Int64),
+    `driver_position_info_expiry` Nullable (String),
+    `actual_distance_threshold` Nullable (String),
+    `max_driver_quotes_required` Nullable (String),
+    `driver_quote_limit` Nullable (String),
+    `driver_request_count_limit` Nullable (String),
+    `driver_batch_size` Nullable (Int64),
+    `max_number_of_batches` Nullable (Int64),
+    `max_parallel_search_requests` Nullable (Int64),
+    `pool_sorting_type` Nullable (String),
+    `single_batch_process_time` Nullable (String),
+    `trip_distance` Nullable (Int64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `radius_shrink_value_for_drivers_on_ride` Nullable (Int64),
+    `driver_to_destination_distance_threshold` Nullable (Int64),
+    `driver_to_destination_duration` Nullable (Int64),
+    `distance_based_batch_split` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_pool_config ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_pool_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_pool_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_pool_config ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_pool_config
+(
+	`merchant_id` String,
+	`min_radius_of_search` Int64,
+	`max_radius_of_search` Int64,
+	`radius_step_size` Int64,
+	`driver_position_info_expiry` String,
+	`actual_distance_threshold` String,
+	`max_driver_quotes_required` String,
+	`driver_quote_limit` String,
+	`driver_request_count_limit` String,
+	`driver_batch_size` Int64,
+	`max_number_of_batches` Int64,
+	`max_parallel_search_requests` Int64,
+	`pool_sorting_type` String,
+	`single_batch_process_time` String,
+	`trip_distance` Int64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`radius_shrink_value_for_drivers_on_ride` Int64,
+	`driver_to_destination_distance_threshold` Int64,
+	`driver_to_destination_duration` Int64,
+	`distance_based_batch_split` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'min_radius_of_search'), 0) as min_radius_of_search,
+	ifNull(JSONExtractInt(message,'max_radius_of_search'), 0) as max_radius_of_search,
+	ifNull(JSONExtractInt(message,'radius_step_size'), 0) as radius_step_size,
+	ifNull(JSONExtractString(message,'driver_position_info_expiry'),'') as driver_position_info_expiry,
+	ifNull(JSONExtractString(message,'actual_distance_threshold'),'') as actual_distance_threshold,
+	ifNull(JSONExtractString(message,'max_driver_quotes_required'),'') as max_driver_quotes_required,
+	ifNull(JSONExtractString(message,'driver_quote_limit'),'') as driver_quote_limit,
+	ifNull(JSONExtractString(message,'driver_request_count_limit'),'') as driver_request_count_limit,
+	ifNull(JSONExtractInt(message,'driver_batch_size'), 0) as driver_batch_size,
+	ifNull(JSONExtractInt(message,'max_number_of_batches'), 0) as max_number_of_batches,
+	ifNull(JSONExtractInt(message,'max_parallel_search_requests'), 0) as max_parallel_search_requests,
+	ifNull(JSONExtractString(message,'pool_sorting_type'),'') as pool_sorting_type,
+	ifNull(JSONExtractString(message,'single_batch_process_time'),'') as single_batch_process_time,
+	ifNull(JSONExtractInt(message,'trip_distance'), 0) as trip_distance,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractInt(message,'radius_shrink_value_for_drivers_on_ride'), 0) as radius_shrink_value_for_drivers_on_ride,
+	ifNull(JSONExtractInt(message,'driver_to_destination_distance_threshold'), 0) as driver_to_destination_distance_threshold,
+	ifNull(JSONExtractInt(message,'driver_to_destination_duration'), 0) as driver_to_destination_duration,
+	ifNull(JSONExtractString(message,'distance_based_batch_split'),'') as distance_based_batch_split,
+
+	FROM atlas_driver_offer_bpp.driver_pool_config_queue
+	where JSONExtractString(message,'tag') = 'DriverPoolConfigObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_quote_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `status` Nullable (String),
+    `search_request_id` Nullable (String),
+    `driver_id` Nullable (String),
+    `distance_to_pickup` Nullable (Int64),
+    `duration_to_pickup` Nullable (Int64),
+    `vehicle_variant` Nullable (String),
+    `valid_till` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `driver_name` Nullable (String),
+    `driver_rating` Nullable (Float64),
+    `distance` Nullable (Int64),
+    `fare_parameters_id` Nullable (String),
+    `estimated_fare` Nullable (Float64),
+    `search_request_for_driver_id` Nullable (String),
+    `provider_id` Nullable (String),
+    `search_try_id` Nullable (String),
+    `special_location_tag` Nullable (String),
+    `estimate_id` Nullable (String),
+    `go_home_request_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_quote ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_quote_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_quote_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_quote ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_quote
+(
+	`id` String,
+	`status` String,
+	`search_request_id` String,
+	`driver_id` String,
+	`distance_to_pickup` Int64,
+	`duration_to_pickup` Int64,
+	`vehicle_variant` String,
+	`valid_till` DateTime,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`driver_name` String,
+	`driver_rating` Float64,
+	`distance` Int64,
+	`fare_parameters_id` String,
+	`estimated_fare` Float64,
+	`search_request_for_driver_id` String,
+	`provider_id` String,
+	`search_try_id` String,
+	`special_location_tag` String,
+	`estimate_id` String,
+	`go_home_request_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'search_request_id'),'') as search_request_id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractInt(message,'distance_to_pickup'), 0) as distance_to_pickup,
+	ifNull(JSONExtractInt(message,'duration_to_pickup'), 0) as duration_to_pickup,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'driver_name'),'') as driver_name,
+	ifNull(JSONExtractFloat(message,'driver_rating'),0.0) as driver_rating,
+	ifNull(JSONExtractInt(message,'distance'), 0) as distance,
+	ifNull(JSONExtractString(message,'fare_parameters_id'),'') as fare_parameters_id,
+	ifNull(JSONExtractFloat(message,'estimated_fare'),0.0) as estimated_fare,
+	ifNull(JSONExtractString(message,'search_request_for_driver_id'),'') as search_request_for_driver_id,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'search_try_id'),'') as search_try_id,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+	ifNull(JSONExtractString(message,'estimate_id'),'') as estimate_id,
+	ifNull(JSONExtractString(message,'go_home_request_id'),'') as go_home_request_id,
+
+	FROM atlas_driver_offer_bpp.driver_quote_queue
+	where JSONExtractString(message,'tag') = 'DriverQuoteObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_rc_association_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `rc_id` Nullable (String),
+    `associated_on` DateTime DEFAULT now(),
+    `associated_till` DateTime DEFAULT now(),
+    `consent` Nullable (String),
+    `consent_timestamp` DateTime DEFAULT now(),
+    `is_rc_active` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_rc_association ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_rc_association_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_rc_association_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_rc_association ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_rc_association
+(
+	`id` String,
+	`driver_id` String,
+	`rc_id` String,
+	`associated_on` DateTime,
+	`associated_till` DateTime,
+	`consent` String,
+	`consent_timestamp` DateTime,
+	`is_rc_active` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'rc_id'),'') as rc_id,
+	toDateTime(JSONExtractInt(message,'associated_on')) as associated_on,
+	toDateTime(JSONExtractInt(message,'associated_till')) as associated_till,
+	ifNull(JSONExtractString(message,'consent'),'') as consent,
+	toDateTime(JSONExtractInt(message,'consent_timestamp')) as consent_timestamp,
+	ifNull(JSONExtractString(message,'is_rc_active'),'') as is_rc_active,
+
+	FROM atlas_driver_offer_bpp.driver_rc_association_queue
+	where JSONExtractString(message,'tag') = 'DriverRcAssociationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_referral_shard ON CLUSTER `{cluster}`
+    (
+    `referral_code` Nullable (String),
+    `driver_id` Nullable (String),
+    `linked_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_referral ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_referral_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_referral_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_referral ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_referral
+(
+	`referral_code` String,
+	`driver_id` String,
+	`linked_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'referral_code'),'') as referral_code,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	toDateTime(JSONExtractInt(message,'linked_at')) as linked_at,
+
+	FROM atlas_driver_offer_bpp.driver_referral_queue
+	where JSONExtractString(message,'tag') = 'DriverReferralObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_stats_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `idle_since` DateTime DEFAULT now(),
+    `total_rides` Nullable (Int64),
+    `total_distance` Nullable (Float64),
+    `rides_cancelled` Nullable (String),
+    `total_rides_assigned` Nullable (String),
+    `total_earnings` Nullable (Int64),
+    `bonus_earned` Nullable (Int64),
+    `late_night_trips` Nullable (Int64),
+    `earnings_missed` Nullable (Int64),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_stats ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_stats_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_stats_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_stats ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_stats
+(
+	`driver_id` String,
+	`idle_since` DateTime,
+	`total_rides` Int64,
+	`total_distance` Float64,
+	`rides_cancelled` String,
+	`total_rides_assigned` String,
+	`total_earnings` Int64,
+	`bonus_earned` Int64,
+	`late_night_trips` Int64,
+	`earnings_missed` Int64,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	toDateTime(JSONExtractInt(message,'idle_since')) as idle_since,
+	ifNull(JSONExtractInt(message,'total_rides'), 0) as total_rides,
+	ifNull(JSONExtractFloat(message,'total_distance'),0.0) as total_distance,
+	ifNull(JSONExtractString(message,'rides_cancelled'),'') as rides_cancelled,
+	ifNull(JSONExtractString(message,'total_rides_assigned'),'') as total_rides_assigned,
+	ifNull(JSONExtractInt(message,'total_earnings'), 0) as total_earnings,
+	ifNull(JSONExtractInt(message,'bonus_earned'), 0) as bonus_earned,
+	ifNull(JSONExtractInt(message,'late_night_trips'), 0) as late_night_trips,
+	ifNull(JSONExtractInt(message,'earnings_missed'), 0) as earnings_missed,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.driver_stats_queue
+	where JSONExtractString(message,'tag') = 'DriverStatsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.estimate_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `min_fare` Nullable (Int64),
+    `max_fare` Nullable (Int64),
+    `estimate_breakup_list` Nullable (String),
+    `night_shift_multiplier` Nullable (String),
+    `night_shift_start` Nullable (String),
+    `night_shift_end` Nullable (String),
+    `waiting_charge_per_min` Nullable (String),
+    `waiting_or_pickup_charges` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `night_shift_charge` Nullable (String),
+    `request_id` Nullable (String),
+    `special_location_tag` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.estimate ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.estimate_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, estimate_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.estimate ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.estimate
+(
+	`id` String,
+	`vehicle_variant` String,
+	`min_fare` Int64,
+	`max_fare` Int64,
+	`estimate_breakup_list` String,
+	`night_shift_multiplier` String,
+	`night_shift_start` String,
+	`night_shift_end` String,
+	`waiting_charge_per_min` String,
+	`waiting_or_pickup_charges` String,
+	`created_at` DateTime,
+	`night_shift_charge` String,
+	`request_id` String,
+	`special_location_tag` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractInt(message,'min_fare'), 0) as min_fare,
+	ifNull(JSONExtractInt(message,'max_fare'), 0) as max_fare,
+	ifNull(JSONExtractString(message,'estimate_breakup_list'),'') as estimate_breakup_list,
+	ifNull(JSONExtractString(message,'night_shift_multiplier'),'') as night_shift_multiplier,
+	ifNull(JSONExtractString(message,'night_shift_start'),'') as night_shift_start,
+	ifNull(JSONExtractString(message,'night_shift_end'),'') as night_shift_end,
+	ifNull(JSONExtractString(message,'waiting_charge_per_min'),'') as waiting_charge_per_min,
+	ifNull(JSONExtractString(message,'waiting_or_pickup_charges'),'') as waiting_or_pickup_charges,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'night_shift_charge'),'') as night_shift_charge,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+
+	FROM atlas_driver_offer_bpp.estimate_queue
+	where JSONExtractString(message,'tag') = 'EstimateObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.exophone_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `primary_phone` Nullable (String),
+    `backup_phone` Nullable (String),
+    `is_primary_down` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `exophone_type` Nullable (String),
+    `call_service` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.exophone ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.exophone_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, exophone_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.exophone ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.exophone
+(
+	`id` String,
+	`merchant_id` String,
+	`primary_phone` String,
+	`backup_phone` String,
+	`is_primary_down` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+	`exophone_type` String,
+	`call_service` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'primary_phone'),'') as primary_phone,
+	ifNull(JSONExtractString(message,'backup_phone'),'') as backup_phone,
+	ifNull(JSONExtractString(message,'is_primary_down'),'') as is_primary_down,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'exophone_type'),'') as exophone_type,
+	ifNull(JSONExtractString(message,'call_service'),'') as call_service,
+
+	FROM atlas_driver_offer_bpp.exophone_queue
+	where JSONExtractString(message,'tag') = 'ExophoneObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_parameters_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_selected_fare` Nullable (String),
+    `base_fare` Nullable (Int64),
+    `service_charge` Nullable (String),
+    `customer_extra_fee` Nullable (String),
+    `fare_parameters_type` Nullable (String),
+    `govt_charges` Nullable (String),
+    `waiting_charge` Nullable (String),
+    `night_shift_charge` Nullable (String),
+    `night_shift_rate_if_applies` Nullable (Float64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_parameters ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_parameters_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_parameters_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_parameters ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_parameters
+(
+	`id` String,
+	`driver_selected_fare` String,
+	`base_fare` Int64,
+	`service_charge` String,
+	`customer_extra_fee` String,
+	`fare_parameters_type` String,
+	`govt_charges` String,
+	`waiting_charge` String,
+	`night_shift_charge` String,
+	`night_shift_rate_if_applies` Float64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_selected_fare'),'') as driver_selected_fare,
+	ifNull(JSONExtractInt(message,'base_fare'), 0) as base_fare,
+	ifNull(JSONExtractString(message,'service_charge'),'') as service_charge,
+	ifNull(JSONExtractString(message,'customer_extra_fee'),'') as customer_extra_fee,
+	ifNull(JSONExtractString(message,'fare_parameters_type'),'') as fare_parameters_type,
+	ifNull(JSONExtractString(message,'govt_charges'),'') as govt_charges,
+	ifNull(JSONExtractString(message,'waiting_charge'),'') as waiting_charge,
+	ifNull(JSONExtractString(message,'night_shift_charge'),'') as night_shift_charge,
+	ifNull(JSONExtractFloat(message,'night_shift_rate_if_applies'),0.0) as night_shift_rate_if_applies,
+
+	FROM atlas_driver_offer_bpp.fare_parameters_queue
+	where JSONExtractString(message,'tag') = 'FareParametersObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_parameters_progressive_details_shard ON CLUSTER `{cluster}`
+    (
+    `fare_parameters_id` Nullable (String),
+    `dead_km_fare` Nullable (Int64),
+    `extra_km_fare` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_parameters_progressive_details ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_parameters_progressive_details_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_parameters_progressive_details_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_parameters_progressive_details ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_parameters_progressive_details
+(
+	`fare_parameters_id` String,
+	`dead_km_fare` Int64,
+	`extra_km_fare` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'fare_parameters_id'),'') as fare_parameters_id,
+	ifNull(JSONExtractInt(message,'dead_km_fare'), 0) as dead_km_fare,
+	ifNull(JSONExtractInt(message,'extra_km_fare'), 0) as extra_km_fare,
+
+	FROM atlas_driver_offer_bpp.fare_parameters_progressive_details_queue
+	where JSONExtractString(message,'tag') = 'FareParametersProgressiveDetailsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_parameters_slab_details_shard ON CLUSTER `{cluster}`
+    (
+    `fare_parameters_id` Nullable (String),
+    `platform_fee` Nullable (String),
+    `sgst` Nullable (String),
+    `cgst` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_parameters_slab_details ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_parameters_slab_details_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_parameters_slab_details_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_parameters_slab_details ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_parameters_slab_details
+(
+	`fare_parameters_id` String,
+	`platform_fee` String,
+	`sgst` String,
+	`cgst` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'fare_parameters_id'),'') as fare_parameters_id,
+	ifNull(JSONExtractString(message,'platform_fee'),'') as platform_fee,
+	ifNull(JSONExtractString(message,'sgst'),'') as sgst,
+	ifNull(JSONExtractString(message,'cgst'),'') as cgst,
+
+	FROM atlas_driver_offer_bpp.fare_parameters_slab_details_queue
+	where JSONExtractString(message,'tag') = 'FareParametersSlabDetailsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `night_shift_start` DateTime DEFAULT now(),
+    `night_shift_end` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `min_allowed_trip_distance` Nullable (String),
+    `max_allowed_trip_distance` Nullable (String),
+    `service_charge` Nullable (String),
+    `govt_charges` Nullable (Float64),
+    `fare_policy_type` Nullable (String),
+    `description` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_policy ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_policy_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_policy_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_policy
+(
+	`id` String,
+	`night_shift_start` DateTime,
+	`night_shift_end` DateTime,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`min_allowed_trip_distance` String,
+	`max_allowed_trip_distance` String,
+	`service_charge` String,
+	`govt_charges` Float64,
+	`fare_policy_type` String,
+	`description` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	toDateTime(JSONExtractInt(message,'night_shift_start')) as night_shift_start,
+	toDateTime(JSONExtractInt(message,'night_shift_end')) as night_shift_end,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'min_allowed_trip_distance'),'') as min_allowed_trip_distance,
+	ifNull(JSONExtractString(message,'max_allowed_trip_distance'),'') as max_allowed_trip_distance,
+	ifNull(JSONExtractString(message,'service_charge'),'') as service_charge,
+	ifNull(JSONExtractFloat(message,'govt_charges'),0.0) as govt_charges,
+	ifNull(JSONExtractString(message,'fare_policy_type'),'') as fare_policy_type,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+
+	FROM atlas_driver_offer_bpp.fare_policy_queue
+	where JSONExtractString(message,'tag') = 'FarePolicyObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_27_07_bak_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `organization_id` Nullable (String),
+    `fare_for_pickup` Nullable (Float64),
+    `night_shift_start` DateTime DEFAULT now(),
+    `night_shift_end` DateTime DEFAULT now(),
+    `night_shift_rate` Nullable (Float64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `fare_per_km` Nullable (Float64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_policy_27_07_bak ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_policy_27_07_bak_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_policy_27_07_bak_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_27_07_bak ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_policy_27_07_bak
+(
+	`id` String,
+	`organization_id` String,
+	`fare_for_pickup` Float64,
+	`night_shift_start` DateTime,
+	`night_shift_end` DateTime,
+	`night_shift_rate` Float64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`fare_per_km` Float64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'organization_id'),'') as organization_id,
+	ifNull(JSONExtractFloat(message,'fare_for_pickup'),0.0) as fare_for_pickup,
+	toDateTime(JSONExtractInt(message,'night_shift_start')) as night_shift_start,
+	toDateTime(JSONExtractInt(message,'night_shift_end')) as night_shift_end,
+	ifNull(JSONExtractFloat(message,'night_shift_rate'),0.0) as night_shift_rate,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractFloat(message,'fare_per_km'),0.0) as fare_per_km,
+
+	FROM atlas_driver_offer_bpp.fare_policy_27_07_bak_queue
+	where JSONExtractString(message,'tag') = 'FarePolicy2707BakObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_driver_extra_fee_bounds_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (Int64),
+    `fare_policy_id` Nullable (String),
+    `start_distance` Nullable (Int64),
+    `min_fee` Nullable (Int64),
+    `max_fee` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_policy_driver_extra_fee_bounds ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_policy_driver_extra_fee_bounds_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_policy_driver_extra_fee_bounds_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_driver_extra_fee_bounds ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_policy_driver_extra_fee_bounds
+(
+	`id` Int64,
+	`fare_policy_id` String,
+	`start_distance` Int64,
+	`min_fee` Int64,
+	`max_fee` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractInt(message,'id'), 0) as id,
+	ifNull(JSONExtractString(message,'fare_policy_id'),'') as fare_policy_id,
+	ifNull(JSONExtractInt(message,'start_distance'), 0) as start_distance,
+	ifNull(JSONExtractInt(message,'min_fee'), 0) as min_fee,
+	ifNull(JSONExtractInt(message,'max_fee'), 0) as max_fee,
+
+	FROM atlas_driver_offer_bpp.fare_policy_driver_extra_fee_bounds_queue
+	where JSONExtractString(message,'tag') = 'FarePolicyDriverExtraFeeBoundsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_progressive_details_shard ON CLUSTER `{cluster}`
+    (
+    `fare_policy_id` Nullable (String),
+    `base_distance` Nullable (Int64),
+    `base_fare` Nullable (Int64),
+    `dead_km_fare` Nullable (Int64),
+    `waiting_charge` Nullable (String),
+    `night_shift_charge` Nullable (String),
+    `free_wating_time` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_policy_progressive_details ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_policy_progressive_details_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_policy_progressive_details_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_progressive_details ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_policy_progressive_details
+(
+	`fare_policy_id` String,
+	`base_distance` Int64,
+	`base_fare` Int64,
+	`dead_km_fare` Int64,
+	`waiting_charge` String,
+	`night_shift_charge` String,
+	`free_wating_time` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'fare_policy_id'),'') as fare_policy_id,
+	ifNull(JSONExtractInt(message,'base_distance'), 0) as base_distance,
+	ifNull(JSONExtractInt(message,'base_fare'), 0) as base_fare,
+	ifNull(JSONExtractInt(message,'dead_km_fare'), 0) as dead_km_fare,
+	ifNull(JSONExtractString(message,'waiting_charge'),'') as waiting_charge,
+	ifNull(JSONExtractString(message,'night_shift_charge'),'') as night_shift_charge,
+	ifNull(JSONExtractInt(message,'free_wating_time'), 0) as free_wating_time,
+
+	FROM atlas_driver_offer_bpp.fare_policy_progressive_details_queue
+	where JSONExtractString(message,'tag') = 'FarePolicyProgressiveDetailsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_progressive_details_per_extra_km_rate_section_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (Int64),
+    `fare_policy_id` Nullable (String),
+    `start_distance` Nullable (Int64),
+    `per_extra_km_rate` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_policy_progressive_details_per_extra_km_rate_section ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_policy_progressive_details_per_extra_km_rate_section_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_policy_progressive_details_per_extra_km_rate_section_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_progressive_details_per_extra_km_rate_section ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_policy_progressive_details_per_extra_km_rate_section
+(
+	`id` Int64,
+	`fare_policy_id` String,
+	`start_distance` Int64,
+	`per_extra_km_rate` String,
+)
+	AS SELECT
+	ifNull(JSONExtractInt(message,'id'), 0) as id,
+	ifNull(JSONExtractString(message,'fare_policy_id'),'') as fare_policy_id,
+	ifNull(JSONExtractInt(message,'start_distance'), 0) as start_distance,
+	ifNull(JSONExtractString(message,'per_extra_km_rate'),'') as per_extra_km_rate,
+
+	FROM atlas_driver_offer_bpp.fare_policy_progressive_details_per_extra_km_rate_section_queue
+	where JSONExtractString(message,'tag') = 'FarePolicyProgressiveDetailsPerExtraKmRateSectionObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_slabs_details_slab_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (Int64),
+    `fare_policy_id` Nullable (String),
+    `start_distance` Nullable (Int64),
+    `base_fare` Nullable (Int64),
+    `waiting_charge` Nullable (String),
+    `night_shift_charge` Nullable (String),
+    `free_wating_time` Nullable (Int64),
+    `platform_fee_charge` Nullable (String),
+    `platform_fee_cgst` Nullable (String),
+    `platform_fee_sgst` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_policy_slabs_details_slab ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_policy_slabs_details_slab_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_policy_slabs_details_slab_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_slabs_details_slab ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_policy_slabs_details_slab
+(
+	`id` Int64,
+	`fare_policy_id` String,
+	`start_distance` Int64,
+	`base_fare` Int64,
+	`waiting_charge` String,
+	`night_shift_charge` String,
+	`free_wating_time` Int64,
+	`platform_fee_charge` String,
+	`platform_fee_cgst` String,
+	`platform_fee_sgst` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractInt(message,'id'), 0) as id,
+	ifNull(JSONExtractString(message,'fare_policy_id'),'') as fare_policy_id,
+	ifNull(JSONExtractInt(message,'start_distance'), 0) as start_distance,
+	ifNull(JSONExtractInt(message,'base_fare'), 0) as base_fare,
+	ifNull(JSONExtractString(message,'waiting_charge'),'') as waiting_charge,
+	ifNull(JSONExtractString(message,'night_shift_charge'),'') as night_shift_charge,
+	ifNull(JSONExtractInt(message,'free_wating_time'), 0) as free_wating_time,
+	ifNull(JSONExtractString(message,'platform_fee_charge'),'') as platform_fee_charge,
+	ifNull(JSONExtractString(message,'platform_fee_cgst'),'') as platform_fee_cgst,
+	ifNull(JSONExtractInt(message,'platform_fee_sgst'), 0) as platform_fee_sgst,
+
+	FROM atlas_driver_offer_bpp.fare_policy_slabs_details_slab_queue
+	where JSONExtractString(message,'tag') = 'FarePolicySlabsDetailsSlabObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_product_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `fare_policy_id` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `area` Nullable (String),
+    `flow` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_product ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_product_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_product_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_product ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_product
+(
+	`id` String,
+	`merchant_id` String,
+	`fare_policy_id` String,
+	`vehicle_variant` String,
+	`area` String,
+	`flow` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'fare_policy_id'),'') as fare_policy_id,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	ifNull(JSONExtractString(message,'flow'),'') as flow,
+
+	FROM atlas_driver_offer_bpp.fare_product_queue
+	where JSONExtractString(message,'tag') = 'FareProductObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.feedback_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `ride_id` Nullable (String),
+    `badge` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.feedback ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.feedback_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, feedback_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.feedback ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.feedback
+(
+	`id` String,
+	`driver_id` String,
+	`ride_id` String,
+	`badge` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractString(message,'badge'),'') as badge,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.feedback_queue
+	where JSONExtractString(message,'tag') = 'FeedbackObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.feedback_badge_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `badge` Nullable (String),
+    `badge_count` Nullable (Int64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.feedback_badge ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.feedback_badge_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, feedback_badge_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.feedback_badge ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.feedback_badge
+(
+	`id` String,
+	`driver_id` String,
+	`badge` String,
+	`badge_count` Int64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'badge'),'') as badge,
+	ifNull(JSONExtractInt(message,'badge_count'), 0) as badge_count,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.feedback_badge_queue
+	where JSONExtractString(message,'tag') = 'FeedbackBadgeObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.feedback_form_shard ON CLUSTER `{cluster}`
+    (
+    `category_name` Nullable (String),
+    `id` Nullable (String),
+    `rating` Nullable (String),
+    `question` Nullable (String),
+    `answer` Nullable (String),
+    `answer_type` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.feedback_form ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.feedback_form_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, feedback_form_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.feedback_form ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.feedback_form
+(
+	`category_name` String,
+	`id` String,
+	`rating` String,
+	`question` String,
+	`answer` String,
+	`answer_type` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'category_name'),'') as category_name,
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'rating'),'') as rating,
+	ifNull(JSONExtractString(message,'question'),'') as question,
+	ifNull(JSONExtractString(message,'answer'),'') as answer,
+	ifNull(JSONExtractString(message,'answer_type'),'') as answer_type,
+
+	FROM atlas_driver_offer_bpp.feedback_form_queue
+	where JSONExtractString(message,'tag') = 'FeedbackFormObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.geometry_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `region` Nullable (String),
+    `geom` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.geometry ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.geometry_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, geometry_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.geometry ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.geometry
+(
+	`id` String,
+	`region` String,
+	`geom` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'region'),'') as region,
+	ifNull(JSONExtractString(message,'geom'),'') as geom,
+
+	FROM atlas_driver_offer_bpp.geometry_queue
+	where JSONExtractString(message,'tag') = 'GeometryObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.go_home_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `enable_go_home` Nullable (String),
+    `start_cnt` Nullable (Int64),
+    `dest_radius_meters` Nullable (Int64),
+    `active_time` Nullable (Int64),
+    `update_home_location_after_sec` Nullable (Int64),
+    `cancellation_cnt` Nullable (Int64),
+    `num_home_locations` Nullable (Int64),
+    `go_home_from_location_radius` Nullable (Int64),
+    `go_home_way_point_radius` Nullable (Int64),
+    `num_drivers_for_dir_check` Nullable (Int64),
+    `go_home_batch_delay` Nullable (Int64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `ignore_waypoints_till` Nullable (Int64),
+    `add_start_waypoint_at` Nullable (Int64),
+    `new_loc_allowed_radius` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.go_home_config ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.go_home_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, go_home_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.go_home_config ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.go_home_config
+(
+	`merchant_id` String,
+	`enable_go_home` String,
+	`start_cnt` Int64,
+	`dest_radius_meters` Int64,
+	`active_time` Int64,
+	`update_home_location_after_sec` Int64,
+	`cancellation_cnt` Int64,
+	`num_home_locations` Int64,
+	`go_home_from_location_radius` Int64,
+	`go_home_way_point_radius` Int64,
+	`num_drivers_for_dir_check` Int64,
+	`go_home_batch_delay` Int64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`ignore_waypoints_till` Int64,
+	`add_start_waypoint_at` Int64,
+	`new_loc_allowed_radius` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'enable_go_home'),'') as enable_go_home,
+	ifNull(JSONExtractInt(message,'start_cnt'), 0) as start_cnt,
+	ifNull(JSONExtractInt(message,'dest_radius_meters'), 0) as dest_radius_meters,
+	ifNull(JSONExtractInt(message,'active_time'), 0) as active_time,
+	ifNull(JSONExtractInt(message,'update_home_location_after_sec'), 0) as update_home_location_after_sec,
+	ifNull(JSONExtractInt(message,'cancellation_cnt'), 0) as cancellation_cnt,
+	ifNull(JSONExtractInt(message,'num_home_locations'), 0) as num_home_locations,
+	ifNull(JSONExtractInt(message,'go_home_from_location_radius'), 0) as go_home_from_location_radius,
+	ifNull(JSONExtractInt(message,'go_home_way_point_radius'), 0) as go_home_way_point_radius,
+	ifNull(JSONExtractInt(message,'num_drivers_for_dir_check'), 0) as num_drivers_for_dir_check,
+	ifNull(JSONExtractInt(message,'go_home_batch_delay'), 0) as go_home_batch_delay,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractInt(message,'ignore_waypoints_till'), 0) as ignore_waypoints_till,
+	ifNull(JSONExtractInt(message,'add_start_waypoint_at'), 0) as add_start_waypoint_at,
+	ifNull(JSONExtractInt(message,'new_loc_allowed_radius'), 0) as new_loc_allowed_radius,
+
+	FROM atlas_driver_offer_bpp.go_home_config_queue
+	where JSONExtractString(message,'tag') = 'GoHomeConfigObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.idfy_verification_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `request_id` Nullable (String),
+    `doc_type` Nullable (String),
+    `status` Nullable (String),
+    `idfy_response` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `document_image_id1` Nullable (String),
+    `document_image_id2` Nullable (String),
+    `issue_date_on_doc` DateTime DEFAULT now(),
+    `document_number_encrypted` Nullable (String),
+    `document_number_hash` Nullable (String),
+    `image_extraction_validation` Nullable (String),
+    `driver_date_of_birth` DateTime DEFAULT now(),
+    `multiple_r_c` Nullable (String),
+    `dashboard_passed_vehicle_variant` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.idfy_verification ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.idfy_verification_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, idfy_verification_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.idfy_verification ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.idfy_verification
+(
+	`id` String,
+	`driver_id` String,
+	`request_id` String,
+	`doc_type` String,
+	`status` String,
+	`idfy_response` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`document_image_id1` String,
+	`document_image_id2` String,
+	`issue_date_on_doc` DateTime,
+	`document_number_encrypted` String,
+	`document_number_hash` String,
+	`image_extraction_validation` String,
+	`driver_date_of_birth` DateTime,
+	`multiple_r_c` String,
+	`dashboard_passed_vehicle_variant` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'doc_type'),'') as doc_type,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'idfy_response'),'') as idfy_response,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'document_image_id1'),'') as document_image_id1,
+	ifNull(JSONExtractString(message,'document_image_id2'),'') as document_image_id2,
+	toDateTime(JSONExtractInt(message,'issue_date_on_doc')) as issue_date_on_doc,
+	ifNull(JSONExtractString(message,'document_number_encrypted'),'') as document_number_encrypted,
+	ifNull(JSONExtractString(message,'document_number_hash'),'') as document_number_hash,
+	ifNull(JSONExtractString(message,'image_extraction_validation'),'') as image_extraction_validation,
+	toDateTime(JSONExtractInt(message,'driver_date_of_birth')) as driver_date_of_birth,
+	ifNull(JSONExtractString(message,'multiple_r_c'),'') as multiple_r_c,
+	ifNull(JSONExtractString(message,'dashboard_passed_vehicle_variant'),'') as dashboard_passed_vehicle_variant,
+
+	FROM atlas_driver_offer_bpp.idfy_verification_queue
+	where JSONExtractString(message,'tag') = 'IdfyVerificationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.image_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `person_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `s3_path` Nullable (String),
+    `image_type` Nullable (String),
+    `is_valid` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `failure_reason` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.image ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.image_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, image_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.image ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.image
+(
+	`id` String,
+	`person_id` String,
+	`merchant_id` String,
+	`s3_path` String,
+	`image_type` String,
+	`is_valid` String,
+	`created_at` DateTime,
+	`failure_reason` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'s3_path'),'') as s3_path,
+	ifNull(JSONExtractString(message,'image_type'),'') as image_type,
+	ifNull(JSONExtractString(message,'is_valid'),'') as is_valid,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'failure_reason'),'') as failure_reason,
+
+	FROM atlas_driver_offer_bpp.image_queue
+	where JSONExtractString(message,'tag') = 'ImageObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.invoice_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `invoice_short_id` Nullable (String),
+    `driver_fee_id` Nullable (String),
+    `invoice_status` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `max_mandate_amount` Nullable (String),
+    `payment_mode` Nullable (String),
+    `bank_error_message` Nullable (String),
+    `bank_error_code` Nullable (String),
+    `bank_error_updated_at` DateTime DEFAULT now(),
+    `driver_id` Nullable (String),
+    `last_status_checked_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.invoice ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.invoice_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, invoice_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.invoice ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.invoice
+(
+	`id` String,
+	`invoice_short_id` String,
+	`driver_fee_id` String,
+	`invoice_status` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`max_mandate_amount` String,
+	`payment_mode` String,
+	`bank_error_message` String,
+	`bank_error_code` String,
+	`bank_error_updated_at` DateTime,
+	`driver_id` String,
+	`last_status_checked_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'invoice_short_id'),'') as invoice_short_id,
+	ifNull(JSONExtractString(message,'driver_fee_id'),'') as driver_fee_id,
+	ifNull(JSONExtractString(message,'invoice_status'),'') as invoice_status,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'max_mandate_amount'),'') as max_mandate_amount,
+	ifNull(JSONExtractString(message,'payment_mode'),'') as payment_mode,
+	ifNull(JSONExtractString(message,'bank_error_message'),'') as bank_error_message,
+	ifNull(JSONExtractString(message,'bank_error_code'),'') as bank_error_code,
+	toDateTime(JSONExtractInt(message,'bank_error_updated_at')) as bank_error_updated_at,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	toDateTime(JSONExtractInt(message,'last_status_checked_at')) as last_status_checked_at,
+
+	FROM atlas_driver_offer_bpp.invoice_queue
+	where JSONExtractString(message,'tag') = 'InvoiceObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_category_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `category` Nullable (String),
+    `logo_url` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.issue_category ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.issue_category_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, issue_category_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_category ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.issue_category
+(
+	`id` String,
+	`category` String,
+	`logo_url` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'category'),'') as category,
+	ifNull(JSONExtractString(message,'logo_url'),'') as logo_url,
+
+	FROM atlas_driver_offer_bpp.issue_category_queue
+	where JSONExtractString(message,'tag') = 'IssueCategoryObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_option_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `issue_category_id` Nullable (String),
+    `option` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.issue_option ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.issue_option_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, issue_option_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_option ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.issue_option
+(
+	`id` String,
+	`issue_category_id` String,
+	`option` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'issue_category_id'),'') as issue_category_id,
+	ifNull(JSONExtractString(message,'option'),'') as option,
+
+	FROM atlas_driver_offer_bpp.issue_option_queue
+	where JSONExtractString(message,'tag') = 'IssueOptionObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_report_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `ride_id` Nullable (String),
+    `description` Nullable (String),
+    `assignee` Nullable (String),
+    `status` Nullable (String),
+    `deleted` Nullable (String),
+    `media_files` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `category_id` Nullable (String),
+    `option_id` Nullable (String),
+    `ticket_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.issue_report ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.issue_report_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, issue_report_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_report ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.issue_report
+(
+	`id` String,
+	`driver_id` String,
+	`ride_id` String,
+	`description` String,
+	`assignee` String,
+	`status` String,
+	`deleted` String,
+	`media_files` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`category_id` String,
+	`option_id` String,
+	`ticket_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'assignee'),'') as assignee,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'deleted'),'') as deleted,
+	ifNull(JSONExtractString(message,'media_files'),'') as media_files,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'category_id'),'') as category_id,
+	ifNull(JSONExtractString(message,'option_id'),'') as option_id,
+	ifNull(JSONExtractString(message,'ticket_id'),'') as ticket_id,
+
+	FROM atlas_driver_offer_bpp.issue_report_queue
+	where JSONExtractString(message,'tag') = 'IssueReportObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_translation_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `sentence` Nullable (String),
+    `translation` Nullable (String),
+    `language` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.issue_translation ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.issue_translation_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, issue_translation_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_translation ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.issue_translation
+(
+	`id` String,
+	`sentence` String,
+	`translation` String,
+	`language` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'sentence'),'') as sentence,
+	ifNull(JSONExtractString(message,'translation'),'') as translation,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+
+	FROM atlas_driver_offer_bpp.issue_translation_queue
+	where JSONExtractString(message,'tag') = 'IssueTranslationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.kiosk_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `address` Nullable (String),
+    `landmark` Nullable (String),
+    `contact` Nullable (String),
+    `longitude` Nullable (Float64),
+    `latitude` Nullable (Float64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.kiosk_location ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.kiosk_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, kiosk_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.kiosk_location ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.kiosk_location
+(
+	`id` String,
+	`merchant_id` String,
+	`address` String,
+	`landmark` String,
+	`contact` String,
+	`longitude` Float64,
+	`latitude` Float64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'address'),'') as address,
+	ifNull(JSONExtractString(message,'landmark'),'') as landmark,
+	ifNull(JSONExtractString(message,'contact'),'') as contact,
+	ifNull(JSONExtractFloat(message,'longitude'),0.0) as longitude,
+	ifNull(JSONExtractFloat(message,'latitude'),0.0) as latitude,
+
+	FROM atlas_driver_offer_bpp.kiosk_location_queue
+	where JSONExtractString(message,'tag') = 'KioskLocationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.kiosk_location_translation_shard ON CLUSTER `{cluster}`
+    (
+    `kiosk_location_id` Nullable (String),
+    `language` Nullable (String),
+    `landmark` Nullable (String),
+    `address` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.kiosk_location_translation ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.kiosk_location_translation_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, kiosk_location_translation_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.kiosk_location_translation ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.kiosk_location_translation
+(
+	`kiosk_location_id` String,
+	`language` String,
+	`landmark` String,
+	`address` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'kiosk_location_id'),'') as kiosk_location_id,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+	ifNull(JSONExtractString(message,'landmark'),'') as landmark,
+	ifNull(JSONExtractString(message,'address'),'') as address,
+
+	FROM atlas_driver_offer_bpp.kiosk_location_translation_queue
+	where JSONExtractString(message,'tag') = 'KioskLocationTranslationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.leader_board_configs_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `leader_board_type` Nullable (String),
+    `number_of_sets` Nullable (Int64),
+    `leader_board_expiry` Nullable (Int64),
+    `z_score_base` Nullable (Int64),
+    `leader_board_length_limit` Nullable (Int64),
+    `merchant_id` Nullable (String),
+    `is_enabled` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.leader_board_configs ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.leader_board_configs_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, leader_board_configs_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.leader_board_configs ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.leader_board_configs
+(
+	`id` String,
+	`leader_board_type` String,
+	`number_of_sets` Int64,
+	`leader_board_expiry` Int64,
+	`z_score_base` Int64,
+	`leader_board_length_limit` Int64,
+	`merchant_id` String,
+	`is_enabled` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'leader_board_type'),'') as leader_board_type,
+	ifNull(JSONExtractInt(message,'number_of_sets'), 0) as number_of_sets,
+	ifNull(JSONExtractInt(message,'leader_board_expiry'), 0) as leader_board_expiry,
+	ifNull(JSONExtractInt(message,'z_score_base'), 0) as z_score_base,
+	ifNull(JSONExtractInt(message,'leader_board_length_limit'), 0) as leader_board_length_limit,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'is_enabled'),'') as is_enabled,
+
+	FROM atlas_driver_offer_bpp.leader_board_configs_queue
+	where JSONExtractString(message,'tag') = 'LeaderBoardConfigsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.mandate_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `max_amount` Nullable (Int64),
+    `status` Nullable (String),
+    `payer_vpa` Nullable (String),
+    `start_date` DateTime DEFAULT now(),
+    `end_date` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `payer_app` Nullable (String),
+    `payer_app_name` Nullable (String),
+    `mandate_payment_flow` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.mandate ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.mandate_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, mandate_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.mandate ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.mandate
+(
+	`id` String,
+	`max_amount` Int64,
+	`status` String,
+	`payer_vpa` String,
+	`start_date` DateTime,
+	`end_date` DateTime,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`payer_app` String,
+	`payer_app_name` String,
+	`mandate_payment_flow` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractInt(message,'max_amount'), 0) as max_amount,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'payer_vpa'),'') as payer_vpa,
+	toDateTime(JSONExtractInt(message,'start_date')) as start_date,
+	toDateTime(JSONExtractInt(message,'end_date')) as end_date,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'payer_app'),'') as payer_app,
+	ifNull(JSONExtractString(message,'payer_app_name'),'') as payer_app_name,
+	ifNull(JSONExtractString(message,'mandate_payment_flow'),'') as mandate_payment_flow,
+
+	FROM atlas_driver_offer_bpp.mandate_queue
+	where JSONExtractString(message,'tag') = 'MandateObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.media_file_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `type` Nullable (String),
+    `url` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.media_file ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.media_file_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, media_file_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.media_file ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.media_file
+(
+	`id` String,
+	`type` String,
+	`url` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'type'),'') as type,
+	ifNull(JSONExtractString(message,'url'),'') as url,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.media_file_queue
+	where JSONExtractString(message,'tag') = 'MediaFileObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `name` Nullable (String),
+    `subscriber_id` Nullable (String),
+    `gstin` Nullable (String),
+    `status` Nullable (String),
+    `verified` Nullable (String),
+    `enabled` Nullable (String),
+    `description` Nullable (String),
+    `mobile_number` Nullable (String),
+    `mobile_country_code` Nullable (String),
+    `from_time` DateTime DEFAULT now(),
+    `to_time` DateTime DEFAULT now(),
+    `api_key` Nullable (String),
+    `head_count` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `info` Nullable (String),
+    `unique_key_id` Nullable (String),
+    `short_id` Nullable (String),
+    `origin_restriction` Nullable (String),
+    `destination_restriction` Nullable (String),
+    `internal_api_key` Nullable (String),
+    `city` Nullable (String),
+    `geo_hash_precision_value` Nullable (Int64),
+    `country` Nullable (String),
+    `minimum_driver_rates_count` Nullable (Int64),
+    `registry_url` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.merchant ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.merchant_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, merchant_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.merchant
+(
+	`id` String,
+	`name` String,
+	`subscriber_id` String,
+	`gstin` String,
+	`status` String,
+	`verified` String,
+	`enabled` String,
+	`description` String,
+	`mobile_number` String,
+	`mobile_country_code` String,
+	`from_time` DateTime,
+	`to_time` DateTime,
+	`api_key` String,
+	`head_count` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`info` String,
+	`unique_key_id` String,
+	`short_id` String,
+	`origin_restriction` String,
+	`destination_restriction` String,
+	`internal_api_key` String,
+	`city` String,
+	`geo_hash_precision_value` Int64,
+	`country` String,
+	`minimum_driver_rates_count` Int64,
+	`registry_url` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'name'),'') as name,
+	ifNull(JSONExtractString(message,'subscriber_id'),'') as subscriber_id,
+	ifNull(JSONExtractString(message,'gstin'),'') as gstin,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'verified'),'') as verified,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'mobile_number'),'') as mobile_number,
+	ifNull(JSONExtractString(message,'mobile_country_code'),'') as mobile_country_code,
+	toDateTime(JSONExtractInt(message,'from_time')) as from_time,
+	toDateTime(JSONExtractInt(message,'to_time')) as to_time,
+	ifNull(JSONExtractString(message,'api_key'),'') as api_key,
+	ifNull(JSONExtractString(message,'head_count'),'') as head_count,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'info'),'') as info,
+	ifNull(JSONExtractString(message,'unique_key_id'),'') as unique_key_id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'origin_restriction'),'') as origin_restriction,
+	ifNull(JSONExtractString(message,'destination_restriction'),'') as destination_restriction,
+	ifNull(JSONExtractString(message,'internal_api_key'),'') as internal_api_key,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractInt(message,'geo_hash_precision_value'), 0) as geo_hash_precision_value,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	ifNull(JSONExtractInt(message,'minimum_driver_rates_count'), 0) as minimum_driver_rates_count,
+	ifNull(JSONExtractString(message,'registry_url'),'') as registry_url,
+
+	FROM atlas_driver_offer_bpp.merchant_queue
+	where JSONExtractString(message,'tag') = 'MerchantObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_message_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `message_key` Nullable (String),
+    `message` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.merchant_message ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.merchant_message_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, merchant_message_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_message ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.merchant_message
+(
+	`merchant_id` String,
+	`message_key` String,
+	`message` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'message_key'),'') as message_key,
+	ifNull(JSONExtractString(message,'message'),'') as message,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.merchant_message_queue
+	where JSONExtractString(message,'tag') = 'MerchantMessageObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_payment_method_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `payment_type` Nullable (String),
+    `payment_instrument` Nullable (String),
+    `collected_by` Nullable (String),
+    `priority` Nullable (Int64),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.merchant_payment_method ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.merchant_payment_method_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, merchant_payment_method_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_payment_method ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.merchant_payment_method
+(
+	`id` String,
+	`merchant_id` String,
+	`payment_type` String,
+	`payment_instrument` String,
+	`collected_by` String,
+	`priority` Int64,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'payment_type'),'') as payment_type,
+	ifNull(JSONExtractString(message,'payment_instrument'),'') as payment_instrument,
+	ifNull(JSONExtractString(message,'collected_by'),'') as collected_by,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.merchant_payment_method_queue
+	where JSONExtractString(message,'tag') = 'MerchantPaymentMethodObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_service_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `service_name` Nullable (String),
+    `config_json` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.merchant_service_config ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.merchant_service_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, merchant_service_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_service_config ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.merchant_service_config
+(
+	`merchant_id` String,
+	`service_name` String,
+	`config_json` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'service_name'),'') as service_name,
+	ifNull(JSONExtractString(message,'config_json'),'') as config_json,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.merchant_service_config_queue
+	where JSONExtractString(message,'tag') = 'MerchantServiceConfigObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_service_usage_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `get_distances` Nullable (String),
+    `get_routes` Nullable (String),
+    `snap_to_road` Nullable (String),
+    `get_place_name` Nullable (String),
+    `get_place_details` Nullable (String),
+    `auto_complete` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `sms_providers_priority_list` Nullable (String),
+    `get_estimated_pickup_distances` Nullable (String),
+    `whatsapp_providers_priority_list` Nullable (String),
+    `get_pickup_routes` Nullable (String),
+    `get_trip_routes` Nullable (String),
+    `verification_service` Nullable (String),
+    `initiate_call` Nullable (String),
+    `get_distances_for_cancel_ride` Nullable (String),
+    `aadhaar_verification_service` Nullable (String),
+    `face_verification_service` Nullable (String),
+    `issue_ticket_service` Nullable (String),
+    `get_exophone` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.merchant_service_usage_config ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.merchant_service_usage_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, merchant_service_usage_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_service_usage_config ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.merchant_service_usage_config
+(
+	`merchant_id` String,
+	`get_distances` String,
+	`get_routes` String,
+	`snap_to_road` String,
+	`get_place_name` String,
+	`get_place_details` String,
+	`auto_complete` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+	`sms_providers_priority_list` String,
+	`get_estimated_pickup_distances` String,
+	`whatsapp_providers_priority_list` String,
+	`get_pickup_routes` String,
+	`get_trip_routes` String,
+	`verification_service` String,
+	`initiate_call` String,
+	`get_distances_for_cancel_ride` String,
+	`aadhaar_verification_service` String,
+	`face_verification_service` String,
+	`issue_ticket_service` String,
+	`get_exophone` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'get_distances'),'') as get_distances,
+	ifNull(JSONExtractString(message,'get_routes'),'') as get_routes,
+	ifNull(JSONExtractString(message,'snap_to_road'),'') as snap_to_road,
+	ifNull(JSONExtractString(message,'get_place_name'),'') as get_place_name,
+	ifNull(JSONExtractString(message,'get_place_details'),'') as get_place_details,
+	ifNull(JSONExtractString(message,'auto_complete'),'') as auto_complete,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'sms_providers_priority_list'),'') as sms_providers_priority_list,
+	ifNull(JSONExtractString(message,'get_estimated_pickup_distances'),'') as get_estimated_pickup_distances,
+	ifNull(JSONExtractString(message,'whatsapp_providers_priority_list'),'') as whatsapp_providers_priority_list,
+	ifNull(JSONExtractString(message,'get_pickup_routes'),'') as get_pickup_routes,
+	ifNull(JSONExtractString(message,'get_trip_routes'),'') as get_trip_routes,
+	ifNull(JSONExtractString(message,'verification_service'),'') as verification_service,
+	ifNull(JSONExtractString(message,'initiate_call'),'') as initiate_call,
+	ifNull(JSONExtractString(message,'get_distances_for_cancel_ride'),'') as get_distances_for_cancel_ride,
+	ifNull(JSONExtractString(message,'aadhaar_verification_service'),'') as aadhaar_verification_service,
+	ifNull(JSONExtractString(message,'face_verification_service'),'') as face_verification_service,
+	ifNull(JSONExtractString(message,'issue_ticket_service'),'') as issue_ticket_service,
+	ifNull(JSONExtractString(message,'get_exophone'),'') as get_exophone,
+
+	FROM atlas_driver_offer_bpp.merchant_service_usage_config_queue
+	where JSONExtractString(message,'tag') = 'MerchantServiceUsageConfigObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.message_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `type` Nullable (String),
+    `title` Nullable (String),
+    `description` Nullable (String),
+    `media_files` Nullable (String),
+    `merchant_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `label` Nullable (String),
+    `like_count` Nullable (Int64),
+    `short_description` Nullable (String),
+    `view_count` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.message ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.message_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, message_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.message ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.message
+(
+	`id` String,
+	`type` String,
+	`title` String,
+	`description` String,
+	`media_files` String,
+	`merchant_id` String,
+	`created_at` DateTime,
+	`label` String,
+	`like_count` Int64,
+	`short_description` String,
+	`view_count` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'type'),'') as type,
+	ifNull(JSONExtractString(message,'title'),'') as title,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'media_files'),'') as media_files,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'label'),'') as label,
+	ifNull(JSONExtractInt(message,'like_count'), 0) as like_count,
+	ifNull(JSONExtractString(message,'short_description'),'') as short_description,
+	ifNull(JSONExtractInt(message,'view_count'), 0) as view_count,
+
+	FROM atlas_driver_offer_bpp.message_queue
+	where JSONExtractString(message,'tag') = 'MessageObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.message_report_shard ON CLUSTER `{cluster}`
+    (
+    `message_id` Nullable (String),
+    `driver_id` Nullable (String),
+    `delivery_status` Nullable (String),
+    `read_status` Nullable (String),
+    `reply` Nullable (String),
+    `message_dynamic_fields` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `like_status` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.message_report ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.message_report_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, message_report_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.message_report ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.message_report
+(
+	`message_id` String,
+	`driver_id` String,
+	`delivery_status` String,
+	`read_status` String,
+	`reply` String,
+	`message_dynamic_fields` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`like_status` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'message_id'),'') as message_id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'delivery_status'),'') as delivery_status,
+	ifNull(JSONExtractString(message,'read_status'),'') as read_status,
+	ifNull(JSONExtractString(message,'reply'),'') as reply,
+	ifNull(JSONExtractString(message,'message_dynamic_fields'),'') as message_dynamic_fields,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'like_status'),'') as like_status,
+
+	FROM atlas_driver_offer_bpp.message_report_queue
+	where JSONExtractString(message,'tag') = 'MessageReportObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.message_translation_shard ON CLUSTER `{cluster}`
+    (
+    `message_id` Nullable (String),
+    `language` Nullable (String),
+    `title` Nullable (String),
+    `description` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `label` Nullable (String),
+    `short_description` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.message_translation ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.message_translation_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, message_translation_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.message_translation ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.message_translation
+(
+	`message_id` String,
+	`language` String,
+	`title` String,
+	`description` String,
+	`created_at` DateTime,
+	`label` String,
+	`short_description` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'message_id'),'') as message_id,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+	ifNull(JSONExtractString(message,'title'),'') as title,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'label'),'') as label,
+	ifNull(JSONExtractString(message,'short_description'),'') as short_description,
+
+	FROM atlas_driver_offer_bpp.message_translation_queue
+	where JSONExtractString(message,'tag') = 'MessageTranslationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.meta_data_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `device` Nullable (String),
+    `device_o_s` Nullable (String),
+    `device_date_time` DateTime DEFAULT now(),
+    `app_permissions` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.meta_data ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.meta_data_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, meta_data_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.meta_data ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.meta_data
+(
+	`driver_id` String,
+	`device` String,
+	`device_o_s` String,
+	`device_date_time` DateTime,
+	`app_permissions` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'device'),'') as device,
+	ifNull(JSONExtractString(message,'device_o_s'),'') as device_o_s,
+	toDateTime(JSONExtractInt(message,'device_date_time')) as device_date_time,
+	ifNull(JSONExtractString(message,'app_permissions'),'') as app_permissions,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.meta_data_queue
+	where JSONExtractString(message,'tag') = 'MetaDataObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.notification_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `short_id` Nullable (String),
+    `source_amount` Nullable (String),
+    `mandate_id` Nullable (String),
+    `driver_fee_id` Nullable (String),
+    `txn_date` DateTime DEFAULT now(),
+    `juspay_provided_id` Nullable (String),
+    `provider_name` Nullable (String),
+    `notification_type` Nullable (String),
+    `description` Nullable (String),
+    `status` Nullable (String),
+    `date_created` DateTime DEFAULT now(),
+    `last_updated` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `last_status_checked_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.notification ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.notification_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, notification_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.notification ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.notification
+(
+	`id` String,
+	`short_id` String,
+	`source_amount` String,
+	`mandate_id` String,
+	`driver_fee_id` String,
+	`txn_date` DateTime,
+	`juspay_provided_id` String,
+	`provider_name` String,
+	`notification_type` String,
+	`description` String,
+	`status` String,
+	`date_created` DateTime,
+	`last_updated` DateTime,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`last_status_checked_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'source_amount'),'') as source_amount,
+	ifNull(JSONExtractString(message,'mandate_id'),'') as mandate_id,
+	ifNull(JSONExtractString(message,'driver_fee_id'),'') as driver_fee_id,
+	toDateTime(JSONExtractInt(message,'txn_date')) as txn_date,
+	ifNull(JSONExtractString(message,'juspay_provided_id'),'') as juspay_provided_id,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'notification_type'),'') as notification_type,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'date_created')) as date_created,
+	toDateTime(JSONExtractInt(message,'last_updated')) as last_updated,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'last_status_checked_at')) as last_status_checked_at,
+
+	FROM atlas_driver_offer_bpp.notification_queue
+	where JSONExtractString(message,'tag') = 'NotificationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.onboarding_document_configs_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `document_type` Nullable (String),
+    `check_extraction` Nullable (String),
+    `check_expiry` Nullable (String),
+    `vehicle_class_check_type` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `rc_number_prefix` Nullable (String),
+    `supported_vehicle_classes_json` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.onboarding_document_configs ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.onboarding_document_configs_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, onboarding_document_configs_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.onboarding_document_configs ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.onboarding_document_configs
+(
+	`merchant_id` String,
+	`document_type` String,
+	`check_extraction` String,
+	`check_expiry` String,
+	`vehicle_class_check_type` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`rc_number_prefix` String,
+	`supported_vehicle_classes_json` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'document_type'),'') as document_type,
+	ifNull(JSONExtractString(message,'check_extraction'),'') as check_extraction,
+	ifNull(JSONExtractString(message,'check_expiry'),'') as check_expiry,
+	ifNull(JSONExtractString(message,'vehicle_class_check_type'),'') as vehicle_class_check_type,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'rc_number_prefix'),'') as rc_number_prefix,
+	ifNull(JSONExtractString(message,'supported_vehicle_classes_json'),'') as supported_vehicle_classes_json,
+
+	FROM atlas_driver_offer_bpp.onboarding_document_configs_queue
+	where JSONExtractString(message,'tag') = 'OnboardingDocumentConfigsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.operating_city_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `city_name` Nullable (String),
+    `enabled` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.operating_city ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.operating_city_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, operating_city_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.operating_city ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.operating_city
+(
+	`id` String,
+	`merchant_id` String,
+	`city_name` String,
+	`enabled` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'city_name'),'') as city_name,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.operating_city_queue
+	where JSONExtractString(message,'tag') = 'OperatingCityObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.payment_order_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `short_id` Nullable (String),
+    `person_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `amount` Nullable (Int64),
+    `currency` Nullable (String),
+    `status` Nullable (String),
+    `web_payment_link` Nullable (String),
+    `iframe_payment_link` Nullable (String),
+    `mobile_payment_link` Nullable (String),
+    `client_auth_token_encrypted` Nullable (String),
+    `client_auth_token_hash` Nullable (String),
+    `client_auth_token_expiry` DateTime DEFAULT now(),
+    `get_upi_deep_links_option` Nullable (String),
+    `environment` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `payment_service_order_id` Nullable (String),
+    `service` Nullable (String),
+    `client_id` Nullable (String),
+    `description` Nullable (String),
+    `return_url` Nullable (String),
+    `action` Nullable (String),
+    `request_id` Nullable (String),
+    `payment_merchant_id` Nullable (String),
+    `create_mandate` Nullable (String),
+    `mandate_max_amount` Nullable (String),
+    `mandate_start_date` DateTime DEFAULT now(),
+    `mandate_end_date` DateTime DEFAULT now(),
+    `bank_error_message` Nullable (String),
+    `bank_error_code` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.payment_order ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.payment_order_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, payment_order_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.payment_order ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.payment_order
+(
+	`id` String,
+	`short_id` String,
+	`person_id` String,
+	`merchant_id` String,
+	`amount` Int64,
+	`currency` String,
+	`status` String,
+	`web_payment_link` String,
+	`iframe_payment_link` String,
+	`mobile_payment_link` String,
+	`client_auth_token_encrypted` String,
+	`client_auth_token_hash` String,
+	`client_auth_token_expiry` DateTime,
+	`get_upi_deep_links_option` String,
+	`environment` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`payment_service_order_id` String,
+	`service` String,
+	`client_id` String,
+	`description` String,
+	`return_url` String,
+	`action` String,
+	`request_id` String,
+	`payment_merchant_id` String,
+	`create_mandate` String,
+	`mandate_max_amount` String,
+	`mandate_start_date` DateTime,
+	`mandate_end_date` DateTime,
+	`bank_error_message` String,
+	`bank_error_code` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'amount'), 0) as amount,
+	ifNull(JSONExtractString(message,'currency'),'') as currency,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'web_payment_link'),'') as web_payment_link,
+	ifNull(JSONExtractString(message,'iframe_payment_link'),'') as iframe_payment_link,
+	ifNull(JSONExtractString(message,'mobile_payment_link'),'') as mobile_payment_link,
+	ifNull(JSONExtractString(message,'client_auth_token_encrypted'),'') as client_auth_token_encrypted,
+	ifNull(JSONExtractString(message,'client_auth_token_hash'),'') as client_auth_token_hash,
+	toDateTime(JSONExtractInt(message,'client_auth_token_expiry')) as client_auth_token_expiry,
+	ifNull(JSONExtractString(message,'get_upi_deep_links_option'),'') as get_upi_deep_links_option,
+	ifNull(JSONExtractString(message,'environment'),'') as environment,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'payment_service_order_id'),'') as payment_service_order_id,
+	ifNull(JSONExtractString(message,'service'),'') as service,
+	ifNull(JSONExtractString(message,'client_id'),'') as client_id,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'return_url'),'') as return_url,
+	ifNull(JSONExtractString(message,'action'),'') as action,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'payment_merchant_id'),'') as payment_merchant_id,
+	ifNull(JSONExtractString(message,'create_mandate'),'') as create_mandate,
+	ifNull(JSONExtractString(message,'mandate_max_amount'),'') as mandate_max_amount,
+	toDateTime(JSONExtractInt(message,'mandate_start_date')) as mandate_start_date,
+	toDateTime(JSONExtractInt(message,'mandate_end_date')) as mandate_end_date,
+	ifNull(JSONExtractString(message,'bank_error_message'),'') as bank_error_message,
+	ifNull(JSONExtractString(message,'bank_error_code'),'') as bank_error_code,
+
+	FROM atlas_driver_offer_bpp.payment_order_queue
+	where JSONExtractString(message,'tag') = 'PaymentOrderObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.payment_transaction_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `txn_uuid` Nullable (String),
+    `payment_method_type` Nullable (String),
+    `payment_method` Nullable (String),
+    `resp_message` Nullable (String),
+    `resp_code` Nullable (String),
+    `gateway_reference_id` Nullable (String),
+    `order_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `amount` Nullable (String),
+    `currency` Nullable (String),
+    `date_created` DateTime DEFAULT now(),
+    `status_id` Nullable (Int64),
+    `status` Nullable (String),
+    `juspay_response` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `mandate_id` Nullable (String),
+    `mandate_max_amount` Nullable (String),
+    `mandate_frequency` Nullable (String),
+    `mandate_status` Nullable (String),
+    `mandate_start_date` DateTime DEFAULT now(),
+    `mandate_end_date` DateTime DEFAULT now(),
+    `bank_error_message` Nullable (String),
+    `bank_error_code` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.payment_transaction ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.payment_transaction_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, payment_transaction_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.payment_transaction ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.payment_transaction
+(
+	`id` String,
+	`txn_uuid` String,
+	`payment_method_type` String,
+	`payment_method` String,
+	`resp_message` String,
+	`resp_code` String,
+	`gateway_reference_id` String,
+	`order_id` String,
+	`merchant_id` String,
+	`amount` String,
+	`currency` String,
+	`date_created` DateTime,
+	`status_id` Int64,
+	`status` String,
+	`juspay_response` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`mandate_id` String,
+	`mandate_max_amount` String,
+	`mandate_frequency` String,
+	`mandate_status` String,
+	`mandate_start_date` DateTime,
+	`mandate_end_date` DateTime,
+	`bank_error_message` String,
+	`bank_error_code` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'txn_uuid'),'') as txn_uuid,
+	ifNull(JSONExtractString(message,'payment_method_type'),'') as payment_method_type,
+	ifNull(JSONExtractString(message,'payment_method'),'') as payment_method,
+	ifNull(JSONExtractString(message,'resp_message'),'') as resp_message,
+	ifNull(JSONExtractString(message,'resp_code'),'') as resp_code,
+	ifNull(JSONExtractString(message,'gateway_reference_id'),'') as gateway_reference_id,
+	ifNull(JSONExtractString(message,'order_id'),'') as order_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'amount'),'') as amount,
+	ifNull(JSONExtractString(message,'currency'),'') as currency,
+	toDateTime(JSONExtractInt(message,'date_created')) as date_created,
+	ifNull(JSONExtractInt(message,'status_id'), 0) as status_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'juspay_response'),'') as juspay_response,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'mandate_id'),'') as mandate_id,
+	ifNull(JSONExtractString(message,'mandate_max_amount'),'') as mandate_max_amount,
+	ifNull(JSONExtractString(message,'mandate_frequency'),'') as mandate_frequency,
+	ifNull(JSONExtractString(message,'mandate_status'),'') as mandate_status,
+	toDateTime(JSONExtractInt(message,'mandate_start_date')) as mandate_start_date,
+	toDateTime(JSONExtractInt(message,'mandate_end_date')) as mandate_end_date,
+	ifNull(JSONExtractString(message,'bank_error_message'),'') as bank_error_message,
+	ifNull(JSONExtractString(message,'bank_error_code'),'') as bank_error_code,
+
+	FROM atlas_driver_offer_bpp.payment_transaction_queue
+	where JSONExtractString(message,'tag') = 'PaymentTransactionObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.person_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `first_name` Nullable (String),
+    `middle_name` Nullable (String),
+    `last_name` Nullable (String),
+    `role` Nullable (String),
+    `gender` Nullable (String),
+    `identifier_type` Nullable (String),
+    `email` Nullable (String),
+    `password_hash` Nullable (String),
+    `mobile_number_encrypted` Nullable (String),
+    `mobile_number_hash` Nullable (String),
+    `mobile_country_code` Nullable (String),
+    `identifier` Nullable (String),
+    `is_new` Nullable (String),
+    `merchant_id` Nullable (String),
+    `device_token` Nullable (String),
+    `description` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `rating` Nullable (Float64),
+    `language` Nullable (String),
+    `client_version` Nullable (String),
+    `bundle_version` Nullable (String),
+    `unencrypted_mobile_number` Nullable (String),
+    `whatsapp_notification_enroll_status` Nullable (String),
+    `unencrypted_alternate_mobile_number` Nullable (String),
+    `alternate_mobile_number_encrypted` Nullable (String),
+    `alternate_mobile_number_hash` Nullable (String),
+    `hometown` Nullable (String),
+    `languages_spoken` Nullable (String),
+    `onboarded_from_dashboard` Nullable (String),
+    `face_image_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.person ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.person_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, person_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.person ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.person
+(
+	`id` String,
+	`first_name` String,
+	`middle_name` String,
+	`last_name` String,
+	`role` String,
+	`gender` String,
+	`identifier_type` String,
+	`email` String,
+	`password_hash` String,
+	`mobile_number_encrypted` String,
+	`mobile_number_hash` String,
+	`mobile_country_code` String,
+	`identifier` String,
+	`is_new` String,
+	`merchant_id` String,
+	`device_token` String,
+	`description` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`rating` Float64,
+	`language` String,
+	`client_version` String,
+	`bundle_version` String,
+	`unencrypted_mobile_number` String,
+	`whatsapp_notification_enroll_status` String,
+	`unencrypted_alternate_mobile_number` String,
+	`alternate_mobile_number_encrypted` String,
+	`alternate_mobile_number_hash` String,
+	`hometown` String,
+	`languages_spoken` String,
+	`onboarded_from_dashboard` String,
+	`face_image_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'first_name'),'') as first_name,
+	ifNull(JSONExtractString(message,'middle_name'),'') as middle_name,
+	ifNull(JSONExtractString(message,'last_name'),'') as last_name,
+	ifNull(JSONExtractString(message,'role'),'') as role,
+	ifNull(JSONExtractString(message,'gender'),'') as gender,
+	ifNull(JSONExtractString(message,'identifier_type'),'') as identifier_type,
+	ifNull(JSONExtractString(message,'email'),'') as email,
+	ifNull(JSONExtractString(message,'password_hash'),'') as password_hash,
+	ifNull(JSONExtractString(message,'mobile_number_encrypted'),'') as mobile_number_encrypted,
+	ifNull(JSONExtractString(message,'mobile_number_hash'),'') as mobile_number_hash,
+	ifNull(JSONExtractString(message,'mobile_country_code'),'') as mobile_country_code,
+	ifNull(JSONExtractString(message,'identifier'),'') as identifier,
+	ifNull(JSONExtractString(message,'is_new'),'') as is_new,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'device_token'),'') as device_token,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractFloat(message,'rating'),0.0) as rating,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+	ifNull(JSONExtractString(message,'client_version'),'') as client_version,
+	ifNull(JSONExtractString(message,'bundle_version'),'') as bundle_version,
+	ifNull(JSONExtractString(message,'unencrypted_mobile_number'),'') as unencrypted_mobile_number,
+	ifNull(JSONExtractString(message,'whatsapp_notification_enroll_status'),'') as whatsapp_notification_enroll_status,
+	ifNull(JSONExtractString(message,'unencrypted_alternate_mobile_number'),'') as unencrypted_alternate_mobile_number,
+	ifNull(JSONExtractString(message,'alternate_mobile_number_encrypted'),'') as alternate_mobile_number_encrypted,
+	ifNull(JSONExtractString(message,'alternate_mobile_number_hash'),'') as alternate_mobile_number_hash,
+	ifNull(JSONExtractString(message,'hometown'),'') as hometown,
+	ifNull(JSONExtractString(message,'languages_spoken'),'') as languages_spoken,
+	ifNull(JSONExtractString(message,'onboarded_from_dashboard'),'') as onboarded_from_dashboard,
+	ifNull(JSONExtractString(message,'face_image_id'),'') as face_image_id,
+
+	FROM atlas_driver_offer_bpp.person_queue
+	where JSONExtractString(message,'tag') = 'PersonObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.place_name_cache_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `formatted_address` Nullable (String),
+    `plus_code` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `place_id` Nullable (String),
+    `address_components` Nullable (String),
+    `geo_hash` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.place_name_cache ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.place_name_cache_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, place_name_cache_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.place_name_cache ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.place_name_cache
+(
+	`id` String,
+	`formatted_address` String,
+	`plus_code` String,
+	`lat` Float64,
+	`lon` Float64,
+	`place_id` String,
+	`address_components` String,
+	`geo_hash` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'formatted_address'),'') as formatted_address,
+	ifNull(JSONExtractString(message,'plus_code'),'') as plus_code,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'place_id'),'') as place_id,
+	ifNull(JSONExtractString(message,'address_components'),'') as address_components,
+	ifNull(JSONExtractString(message,'geo_hash'),'') as geo_hash,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.place_name_cache_queue
+	where JSONExtractString(message,'tag') = 'PlaceNameCacheObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.plan_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `payment_mode` Nullable (String),
+    `plan_type` Nullable (String),
+    `name` Nullable (String),
+    `description` Nullable (String),
+    `max_amount` Nullable (Int64),
+    `registration_amount` Nullable (Int64),
+    `plan_base_amount` Nullable (String),
+    `is_offer_applicable` Nullable (String),
+    `max_credit_limit` Nullable (Int64),
+    `free_ride_count` Nullable (Int64),
+    `frequency` Nullable (String),
+    `cgst_percentage` Nullable (Float64),
+    `sgst_percentage` Nullable (Float64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.plan ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.plan_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, plan_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.plan ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.plan
+(
+	`id` String,
+	`merchant_id` String,
+	`payment_mode` String,
+	`plan_type` String,
+	`name` String,
+	`description` String,
+	`max_amount` Int64,
+	`registration_amount` Int64,
+	`plan_base_amount` String,
+	`is_offer_applicable` String,
+	`max_credit_limit` Int64,
+	`free_ride_count` Int64,
+	`frequency` String,
+	`cgst_percentage` Float64,
+	`sgst_percentage` Float64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'payment_mode'),'') as payment_mode,
+	ifNull(JSONExtractString(message,'plan_type'),'') as plan_type,
+	ifNull(JSONExtractString(message,'name'),'') as name,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractInt(message,'max_amount'), 0) as max_amount,
+	ifNull(JSONExtractInt(message,'registration_amount'), 0) as registration_amount,
+	ifNull(JSONExtractString(message,'plan_base_amount'),'') as plan_base_amount,
+	ifNull(JSONExtractString(message,'is_offer_applicable'),'') as is_offer_applicable,
+	ifNull(JSONExtractInt(message,'max_credit_limit'), 0) as max_credit_limit,
+	ifNull(JSONExtractInt(message,'free_ride_count'), 0) as free_ride_count,
+	ifNull(JSONExtractString(message,'frequency'),'') as frequency,
+	ifNull(JSONExtractFloat(message,'cgst_percentage'),0.0) as cgst_percentage,
+	ifNull(JSONExtractFloat(message,'sgst_percentage'),0.0) as sgst_percentage,
+
+	FROM atlas_driver_offer_bpp.plan_queue
+	where JSONExtractString(message,'tag') = 'PlanObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.plan_translation_shard ON CLUSTER `{cluster}`
+    (
+    `plan_id` Nullable (String),
+    `language` Nullable (String),
+    `name` Nullable (String),
+    `description` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.plan_translation ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.plan_translation_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, plan_translation_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.plan_translation ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.plan_translation
+(
+	`plan_id` String,
+	`language` String,
+	`name` String,
+	`description` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'plan_id'),'') as plan_id,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+	ifNull(JSONExtractString(message,'name'),'') as name,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+
+	FROM atlas_driver_offer_bpp.plan_translation_queue
+	where JSONExtractString(message,'tag') = 'PlanTranslationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.quote_special_zone_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `search_request_id` Nullable (String),
+    `provider_id` Nullable (String),
+    `distance` Nullable (Int64),
+    `estimated_fare` Nullable (Float64),
+    `fare_parameters_id` Nullable (String),
+    `estimated_finish_time` DateTime DEFAULT now(),
+    `vehicle_variant` Nullable (String),
+    `valid_till` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `special_location_tag` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.quote_special_zone ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.quote_special_zone_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, quote_special_zone_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.quote_special_zone ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.quote_special_zone
+(
+	`id` String,
+	`search_request_id` String,
+	`provider_id` String,
+	`distance` Int64,
+	`estimated_fare` Float64,
+	`fare_parameters_id` String,
+	`estimated_finish_time` DateTime,
+	`vehicle_variant` String,
+	`valid_till` DateTime,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`special_location_tag` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'search_request_id'),'') as search_request_id,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractInt(message,'distance'), 0) as distance,
+	ifNull(JSONExtractFloat(message,'estimated_fare'),0.0) as estimated_fare,
+	ifNull(JSONExtractString(message,'fare_parameters_id'),'') as fare_parameters_id,
+	toDateTime(JSONExtractInt(message,'estimated_finish_time')) as estimated_finish_time,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+
+	FROM atlas_driver_offer_bpp.quote_special_zone_queue
+	where JSONExtractString(message,'tag') = 'QuoteSpecialZoneObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.rating_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `ride_id` Nullable (String),
+    `rating_value` Nullable (Int64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `driver_id` Nullable (String),
+    `feedback_details` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.rating ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.rating_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, rating_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.rating ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.rating
+(
+	`id` String,
+	`ride_id` String,
+	`rating_value` Int64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`driver_id` String,
+	`feedback_details` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractInt(message,'rating_value'), 0) as rating_value,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'feedback_details'),'') as feedback_details,
+
+	FROM atlas_driver_offer_bpp.rating_queue
+	where JSONExtractString(message,'tag') = 'RatingObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.registration_token_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `auth_medium` Nullable (String),
+    `auth_type` Nullable (String),
+    `auth_value_hash` Nullable (String),
+    `token` Nullable (String),
+    `verified` Nullable (String),
+    `auth_expiry` Nullable (Int64),
+    `token_expiry` Nullable (Int64),
+    `attempts` Nullable (Int64),
+    `entity_id` Nullable (String),
+    `entity_type` Nullable (String),
+    `info` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `alternate_number_attempts` Nullable (Int64),
+    `merchant_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.registration_token ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.registration_token_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, registration_token_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.registration_token ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.registration_token
+(
+	`id` String,
+	`auth_medium` String,
+	`auth_type` String,
+	`auth_value_hash` String,
+	`token` String,
+	`verified` String,
+	`auth_expiry` Int64,
+	`token_expiry` Int64,
+	`attempts` Int64,
+	`entity_id` String,
+	`entity_type` String,
+	`info` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`alternate_number_attempts` Int64,
+	`merchant_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'auth_medium'),'') as auth_medium,
+	ifNull(JSONExtractString(message,'auth_type'),'') as auth_type,
+	ifNull(JSONExtractString(message,'auth_value_hash'),'') as auth_value_hash,
+	ifNull(JSONExtractString(message,'token'),'') as token,
+	ifNull(JSONExtractString(message,'verified'),'') as verified,
+	ifNull(JSONExtractInt(message,'auth_expiry'), 0) as auth_expiry,
+	ifNull(JSONExtractInt(message,'token_expiry'), 0) as token_expiry,
+	ifNull(JSONExtractInt(message,'attempts'), 0) as attempts,
+	ifNull(JSONExtractString(message,'entity_id'),'') as entity_id,
+	ifNull(JSONExtractString(message,'entity_type'),'') as entity_type,
+	ifNull(JSONExtractString(message,'info'),'') as info,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractInt(message,'alternate_number_attempts'), 0) as alternate_number_attempts,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+
+	FROM atlas_driver_offer_bpp.registration_token_queue
+	where JSONExtractString(message,'tag') = 'RegistrationTokenObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.registry_map_fallback_shard ON CLUSTER `{cluster}`
+    (
+    `subscriber_id` Nullable (String),
+    `unique_id` Nullable (String),
+    `registry_url` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.registry_map_fallback ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.registry_map_fallback_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, registry_map_fallback_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.registry_map_fallback ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.registry_map_fallback
+(
+	`subscriber_id` String,
+	`unique_id` String,
+	`registry_url` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'subscriber_id'),'') as subscriber_id,
+	ifNull(JSONExtractString(message,'unique_id'),'') as unique_id,
+	ifNull(JSONExtractString(message,'registry_url'),'') as registry_url,
+
+	FROM atlas_driver_offer_bpp.registry_map_fallback_queue
+	where JSONExtractString(message,'tag') = 'RegistryMapFallbackObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.ride_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `booking_id` Nullable (String),
+    `short_id` Nullable (String),
+    `status` Nullable (String),
+    `driver_id` Nullable (String),
+    `otp` Nullable (String),
+    `tracking_url` Nullable (String),
+    `fare` Nullable (String),
+    `traveled_distance` Nullable (Float64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `trip_start_time` DateTime DEFAULT now(),
+    `trip_end_time` DateTime DEFAULT now(),
+    `chargeable_distance` Nullable (String),
+    `trip_start_lat` Nullable (Float64),
+    `trip_start_lon` Nullable (Float64),
+    `trip_end_lat` Nullable (Float64),
+    `trip_end_lon` Nullable (Float64),
+    `driver_arrival_time` DateTime DEFAULT now(),
+    `fare_parameters_id` Nullable (String),
+    `distance_calculation_failed` Nullable (String),
+    `pickup_drop_outside_of_threshold` Nullable (String),
+    `merchant_id` Nullable (String),
+    `number_of_deviation` Nullable (String),
+    `driver_deviated_from_route` Nullable (String),
+    `number_of_snap_to_road_calls` Nullable (String),
+    `driver_go_home_request_id` Nullable (String),
+    `ui_distance_calculation_with_accuracy` Nullable (String),
+    `ui_distance_calculation_without_accuracy` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.ride ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.ride_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, ride_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.ride ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.ride
+(
+	`id` String,
+	`booking_id` String,
+	`short_id` String,
+	`status` String,
+	`driver_id` String,
+	`otp` String,
+	`tracking_url` String,
+	`fare` String,
+	`traveled_distance` Float64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`trip_start_time` DateTime,
+	`trip_end_time` DateTime,
+	`chargeable_distance` String,
+	`trip_start_lat` Float64,
+	`trip_start_lon` Float64,
+	`trip_end_lat` Float64,
+	`trip_end_lon` Float64,
+	`driver_arrival_time` DateTime,
+	`fare_parameters_id` String,
+	`distance_calculation_failed` String,
+	`pickup_drop_outside_of_threshold` String,
+	`merchant_id` String,
+	`number_of_deviation` String,
+	`driver_deviated_from_route` String,
+	`number_of_snap_to_road_calls` String,
+	`driver_go_home_request_id` String,
+	`ui_distance_calculation_with_accuracy` String,
+	`ui_distance_calculation_without_accuracy` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'otp'),'') as otp,
+	ifNull(JSONExtractString(message,'tracking_url'),'') as tracking_url,
+	ifNull(JSONExtractString(message,'fare'),'') as fare,
+	ifNull(JSONExtractFloat(message,'traveled_distance'),0.0) as traveled_distance,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'trip_start_time')) as trip_start_time,
+	toDateTime(JSONExtractInt(message,'trip_end_time')) as trip_end_time,
+	ifNull(JSONExtractString(message,'chargeable_distance'),'') as chargeable_distance,
+	ifNull(JSONExtractFloat(message,'trip_start_lat'),0.0) as trip_start_lat,
+	ifNull(JSONExtractFloat(message,'trip_start_lon'),0.0) as trip_start_lon,
+	ifNull(JSONExtractFloat(message,'trip_end_lat'),0.0) as trip_end_lat,
+	ifNull(JSONExtractFloat(message,'trip_end_lon'),0.0) as trip_end_lon,
+	toDateTime(JSONExtractInt(message,'driver_arrival_time')) as driver_arrival_time,
+	ifNull(JSONExtractString(message,'fare_parameters_id'),'') as fare_parameters_id,
+	ifNull(JSONExtractString(message,'distance_calculation_failed'),'') as distance_calculation_failed,
+	ifNull(JSONExtractString(message,'pickup_drop_outside_of_threshold'),'') as pickup_drop_outside_of_threshold,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'number_of_deviation'),'') as number_of_deviation,
+	ifNull(JSONExtractString(message,'driver_deviated_from_route'),'') as driver_deviated_from_route,
+	ifNull(JSONExtractString(message,'number_of_snap_to_road_calls'),'') as number_of_snap_to_road_calls,
+	ifNull(JSONExtractString(message,'driver_go_home_request_id'),'') as driver_go_home_request_id,
+	ifNull(JSONExtractString(message,'ui_distance_calculation_with_accuracy'),'') as ui_distance_calculation_with_accuracy,
+	ifNull(JSONExtractInt(message,'ui_distance_calculation_without_accuracy'), 0) as ui_distance_calculation_without_accuracy,
+
+	FROM atlas_driver_offer_bpp.ride_queue
+	where JSONExtractString(message,'tag') = 'RideObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.ride_details_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_name` Nullable (String),
+    `driver_number_encrypted` Nullable (String),
+    `driver_number_hash` Nullable (String),
+    `driver_country_code` Nullable (String),
+    `vehicle_number` Nullable (String),
+    `vehicle_color` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `vehicle_model` Nullable (String),
+    `vehicle_class` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.ride_details ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.ride_details_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, ride_details_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.ride_details ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.ride_details
+(
+	`id` String,
+	`driver_name` String,
+	`driver_number_encrypted` String,
+	`driver_number_hash` String,
+	`driver_country_code` String,
+	`vehicle_number` String,
+	`vehicle_color` String,
+	`vehicle_variant` String,
+	`vehicle_model` String,
+	`vehicle_class` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_name'),'') as driver_name,
+	ifNull(JSONExtractString(message,'driver_number_encrypted'),'') as driver_number_encrypted,
+	ifNull(JSONExtractString(message,'driver_number_hash'),'') as driver_number_hash,
+	ifNull(JSONExtractString(message,'driver_country_code'),'') as driver_country_code,
+	ifNull(JSONExtractString(message,'vehicle_number'),'') as vehicle_number,
+	ifNull(JSONExtractString(message,'vehicle_color'),'') as vehicle_color,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractString(message,'vehicle_model'),'') as vehicle_model,
+	ifNull(JSONExtractString(message,'vehicle_class'),'') as vehicle_class,
+
+	FROM atlas_driver_offer_bpp.ride_details_queue
+	where JSONExtractString(message,'tag') = 'RideDetailsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.rider_details_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `mobile_country_code` Nullable (String),
+    `mobile_number_encrypted` Nullable (String),
+    `mobile_number_hash` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `referral_code` Nullable (String),
+    `referred_by_driver` Nullable (String),
+    `referred_at` DateTime DEFAULT now(),
+    `has_taken_valid_ride` Nullable (String),
+    `has_taken_valid_ride_at` DateTime DEFAULT now(),
+    `merchant_id` Nullable (String),
+    `otp_code` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.rider_details ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.rider_details_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, rider_details_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.rider_details ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.rider_details
+(
+	`id` String,
+	`mobile_country_code` String,
+	`mobile_number_encrypted` String,
+	`mobile_number_hash` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`referral_code` String,
+	`referred_by_driver` String,
+	`referred_at` DateTime,
+	`has_taken_valid_ride` String,
+	`has_taken_valid_ride_at` DateTime,
+	`merchant_id` String,
+	`otp_code` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'mobile_country_code'),'') as mobile_country_code,
+	ifNull(JSONExtractString(message,'mobile_number_encrypted'),'') as mobile_number_encrypted,
+	ifNull(JSONExtractString(message,'mobile_number_hash'),'') as mobile_number_hash,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'referral_code'),'') as referral_code,
+	ifNull(JSONExtractString(message,'referred_by_driver'),'') as referred_by_driver,
+	toDateTime(JSONExtractInt(message,'referred_at')) as referred_at,
+	ifNull(JSONExtractString(message,'has_taken_valid_ride'),'') as has_taken_valid_ride,
+	toDateTime(JSONExtractInt(message,'has_taken_valid_ride_at')) as has_taken_valid_ride_at,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'otp_code'),'') as otp_code,
+
+	FROM atlas_driver_offer_bpp.rider_details_queue
+	where JSONExtractString(message,'tag') = 'RiderDetailsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.scheduler_job_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `job_type` Nullable (String),
+    `job_data` Nullable (String),
+    `scheduled_at` DateTime DEFAULT now(),
+    `maximum_delay` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `max_errors` Nullable (Int64),
+    `curr_errors` Nullable (Int64),
+    `status` Nullable (String),
+    `shard_id` Nullable (String),
+    `parent_job_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.scheduler_job ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.scheduler_job_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, scheduler_job_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.scheduler_job ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.scheduler_job
+(
+	`id` String,
+	`job_type` String,
+	`job_data` String,
+	`scheduled_at` DateTime,
+	`maximum_delay` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`max_errors` Int64,
+	`curr_errors` Int64,
+	`status` String,
+	`shard_id` String,
+	`parent_job_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'job_type'),'') as job_type,
+	ifNull(JSONExtractString(message,'job_data'),'') as job_data,
+	toDateTime(JSONExtractInt(message,'scheduled_at')) as scheduled_at,
+	ifNull(JSONExtractString(message,'maximum_delay'),'') as maximum_delay,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractInt(message,'max_errors'), 0) as max_errors,
+	ifNull(JSONExtractInt(message,'curr_errors'), 0) as curr_errors,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'shard_id'),'') as shard_id,
+	ifNull(JSONExtractString(message,'parent_job_id'),'') as parent_job_id,
+
+	FROM atlas_driver_offer_bpp.scheduler_job_queue
+	where JSONExtractString(message,'tag') = 'SchedulerJobObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.schema_migrations_shard ON CLUSTER `{cluster}`
+    (
+    `filename` Nullable (String),
+    `checksum` Nullable (String),
+    `executed_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.schema_migrations ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.schema_migrations_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, schema_migrations_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.schema_migrations ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.schema_migrations
+(
+	`filename` String,
+	`checksum` String,
+	`executed_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'filename'),'') as filename,
+	ifNull(JSONExtractString(message,'checksum'),'') as checksum,
+	toDateTime(JSONExtractInt(message,'executed_at')) as executed_at,
+
+	FROM atlas_driver_offer_bpp.schema_migrations_queue
+	where JSONExtractString(message,'tag') = 'SchemaMigrationsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.search_request_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `transaction_id` Nullable (String),
+    `provider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `bap_id` Nullable (String),
+    `bap_uri` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `estimated_duration` Nullable (Int64),
+    `estimated_distance` Nullable (Int64),
+    `auto_assign_enabled` Nullable (String),
+    `device` Nullable (String),
+    `customer_language` Nullable (String),
+    `special_location_tag` Nullable (String),
+    `area` Nullable (String),
+    `bap_city` Nullable (String),
+    `bap_country` Nullable (String),
+    `disability_tag` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.search_request ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.search_request_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, search_request_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.search_request
+(
+	`id` String,
+	`transaction_id` String,
+	`provider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`bap_id` String,
+	`bap_uri` String,
+	`created_at` DateTime,
+	`estimated_duration` Int64,
+	`estimated_distance` Int64,
+	`auto_assign_enabled` String,
+	`device` String,
+	`customer_language` String,
+	`special_location_tag` String,
+	`area` String,
+	`bap_city` String,
+	`bap_country` String,
+	`disability_tag` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractString(message,'bap_id'),'') as bap_id,
+	ifNull(JSONExtractString(message,'bap_uri'),'') as bap_uri,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractInt(message,'estimated_duration'), 0) as estimated_duration,
+	ifNull(JSONExtractInt(message,'estimated_distance'), 0) as estimated_distance,
+	ifNull(JSONExtractString(message,'auto_assign_enabled'),'') as auto_assign_enabled,
+	ifNull(JSONExtractString(message,'device'),'') as device,
+	ifNull(JSONExtractString(message,'customer_language'),'') as customer_language,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	ifNull(JSONExtractString(message,'bap_city'),'') as bap_city,
+	ifNull(JSONExtractString(message,'bap_country'),'') as bap_country,
+	ifNull(JSONExtractString(message,'disability_tag'),'') as disability_tag,
+
+	FROM atlas_driver_offer_bpp.search_request_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.search_request_for_driver_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `search_request_id` Nullable (String),
+    `actual_distance_to_pickup` Nullable (Int64),
+    `duration_to_pickup` Nullable (Int64),
+    `vehicle_variant` Nullable (String),
+    `search_request_valid_till` DateTime DEFAULT now(),
+    `driver_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `start_time` DateTime DEFAULT now(),
+    `status` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `straight_line_distance_to_pickup` Nullable (Int64),
+    `response` Nullable (String),
+    `driver_min_extra_fee` Nullable (Float64),
+    `driver_max_extra_fee` Nullable (Float64),
+    `batch_number` Nullable (String),
+    `ride_request_popup_delay_duration` Nullable (Int64),
+    `parallel_search_request_count` Nullable (String),
+    `is_part_of_intelligent_pool` Nullable (String),
+    `cancellation_ratio` Nullable (String),
+    `acceptance_ratio` Nullable (String),
+    `driver_available_time` Nullable (String),
+    `driver_speed` Nullable (Float64),
+    `mode` Nullable (String),
+    `search_try_id` Nullable (String),
+    `keep_hidden_for_seconds` Nullable (Int64),
+    `merchant_id` Nullable (String),
+    `go_home_request_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.search_request_for_driver ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.search_request_for_driver_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, search_request_for_driver_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request_for_driver ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.search_request_for_driver
+(
+	`id` String,
+	`search_request_id` String,
+	`actual_distance_to_pickup` Int64,
+	`duration_to_pickup` Int64,
+	`vehicle_variant` String,
+	`search_request_valid_till` DateTime,
+	`driver_id` String,
+	`created_at` DateTime,
+	`start_time` DateTime,
+	`status` String,
+	`lat` Float64,
+	`lon` Float64,
+	`straight_line_distance_to_pickup` Int64,
+	`response` String,
+	`driver_min_extra_fee` Float64,
+	`driver_max_extra_fee` Float64,
+	`batch_number` String,
+	`ride_request_popup_delay_duration` Int64,
+	`parallel_search_request_count` String,
+	`is_part_of_intelligent_pool` String,
+	`cancellation_ratio` String,
+	`acceptance_ratio` String,
+	`driver_available_time` String,
+	`driver_speed` Float64,
+	`mode` String,
+	`search_try_id` String,
+	`keep_hidden_for_seconds` Int64,
+	`merchant_id` String,
+	`go_home_request_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'search_request_id'),'') as search_request_id,
+	ifNull(JSONExtractInt(message,'actual_distance_to_pickup'), 0) as actual_distance_to_pickup,
+	ifNull(JSONExtractInt(message,'duration_to_pickup'), 0) as duration_to_pickup,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'search_request_valid_till')) as search_request_valid_till,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractInt(message,'straight_line_distance_to_pickup'), 0) as straight_line_distance_to_pickup,
+	ifNull(JSONExtractString(message,'response'),'') as response,
+	ifNull(JSONExtractFloat(message,'driver_min_extra_fee'),0.0) as driver_min_extra_fee,
+	ifNull(JSONExtractFloat(message,'driver_max_extra_fee'),0.0) as driver_max_extra_fee,
+	ifNull(JSONExtractString(message,'batch_number'),'') as batch_number,
+	ifNull(JSONExtractInt(message,'ride_request_popup_delay_duration'), 0) as ride_request_popup_delay_duration,
+	ifNull(JSONExtractString(message,'parallel_search_request_count'),'') as parallel_search_request_count,
+	ifNull(JSONExtractString(message,'is_part_of_intelligent_pool'),'') as is_part_of_intelligent_pool,
+	ifNull(JSONExtractString(message,'cancellation_ratio'),'') as cancellation_ratio,
+	ifNull(JSONExtractString(message,'acceptance_ratio'),'') as acceptance_ratio,
+	ifNull(JSONExtractString(message,'driver_available_time'),'') as driver_available_time,
+	ifNull(JSONExtractFloat(message,'driver_speed'),0.0) as driver_speed,
+	ifNull(JSONExtractString(message,'mode'),'') as mode,
+	ifNull(JSONExtractString(message,'search_try_id'),'') as search_try_id,
+	ifNull(JSONExtractInt(message,'keep_hidden_for_seconds'), 0) as keep_hidden_for_seconds,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'go_home_request_id'),'') as go_home_request_id,
+
+	FROM atlas_driver_offer_bpp.search_request_for_driver_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestForDriverObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.search_request_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `street` Nullable (String),
+    `building` Nullable (String),
+    `area_code` Nullable (String),
+    `area` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `full_address` Nullable (String),
+    `door` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.search_request_location ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.search_request_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, search_request_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request_location ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.search_request_location
+(
+	`id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`city` String,
+	`state` String,
+	`country` String,
+	`street` String,
+	`building` String,
+	`area_code` String,
+	`area` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`full_address` String,
+	`door` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	ifNull(JSONExtractString(message,'street'),'') as street,
+	ifNull(JSONExtractString(message,'building'),'') as building,
+	ifNull(JSONExtractString(message,'area_code'),'') as area_code,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'full_address'),'') as full_address,
+	ifNull(JSONExtractString(message,'door'),'') as door,
+
+	FROM atlas_driver_offer_bpp.search_request_location_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestLocationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.search_request_special_zone_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `transaction_id` Nullable (String),
+    `message_id` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `valid_till` DateTime DEFAULT now(),
+    `provider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `bap_id` Nullable (String),
+    `bap_uri` Nullable (String),
+    `estimated_duration` Nullable (String),
+    `estimated_distance` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `area` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.search_request_special_zone ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.search_request_special_zone_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, search_request_special_zone_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request_special_zone ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.search_request_special_zone
+(
+	`id` String,
+	`transaction_id` String,
+	`message_id` String,
+	`start_time` DateTime,
+	`valid_till` DateTime,
+	`provider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`bap_id` String,
+	`bap_uri` String,
+	`estimated_duration` String,
+	`estimated_distance` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`area` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	ifNull(JSONExtractString(message,'message_id'),'') as message_id,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractString(message,'bap_id'),'') as bap_id,
+	ifNull(JSONExtractString(message,'bap_uri'),'') as bap_uri,
+	ifNull(JSONExtractString(message,'estimated_duration'),'') as estimated_duration,
+	ifNull(JSONExtractString(message,'estimated_distance'),'') as estimated_distance,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+
+	FROM atlas_driver_offer_bpp.search_request_special_zone_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestSpecialZoneObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.search_try_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `message_id` Nullable (String),
+    `valid_till` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `start_time` DateTime DEFAULT now(),
+    `vehicle_variant` Nullable (String),
+    `status` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `search_repeat_counter` Nullable (String),
+    `customer_extra_fee` Nullable (String),
+    `estimate_id` Nullable (String),
+    `request_id` Nullable (String),
+    `search_repeat_type` Nullable (String),
+    `base_fare` Nullable (Int64),
+    `merchant_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.search_try ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.search_try_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, search_try_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_try ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.search_try
+(
+	`id` String,
+	`message_id` String,
+	`valid_till` DateTime,
+	`created_at` DateTime,
+	`start_time` DateTime,
+	`vehicle_variant` String,
+	`status` String,
+	`updated_at` DateTime,
+	`search_repeat_counter` String,
+	`customer_extra_fee` String,
+	`estimate_id` String,
+	`request_id` String,
+	`search_repeat_type` String,
+	`base_fare` Int64,
+	`merchant_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'message_id'),'') as message_id,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'search_repeat_counter'),'') as search_repeat_counter,
+	ifNull(JSONExtractString(message,'customer_extra_fee'),'') as customer_extra_fee,
+	ifNull(JSONExtractString(message,'estimate_id'),'') as estimate_id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'search_repeat_type'),'') as search_repeat_type,
+	ifNull(JSONExtractInt(message,'base_fare'), 0) as base_fare,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+
+	FROM atlas_driver_offer_bpp.search_try_queue
+	where JSONExtractString(message,'tag') = 'SearchTryObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.special_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `location_name` Nullable (String),
+    `category` Nullable (String),
+    `gates` Nullable (String),
+    `geom` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.special_location ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.special_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, special_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.special_location ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.special_location
+(
+	`id` String,
+	`location_name` String,
+	`category` String,
+	`gates` String,
+	`geom` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'location_name'),'') as location_name,
+	ifNull(JSONExtractString(message,'category'),'') as category,
+	ifNull(JSONExtractString(message,'gates'),'') as gates,
+	ifNull(JSONExtractString(message,'geom'),'') as geom,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.special_location_queue
+	where JSONExtractString(message,'tag') = 'SpecialLocationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.special_location_priority_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `category` Nullable (String),
+    `pickup_priority` Nullable (Int64),
+    `drop_priority` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.special_location_priority ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.special_location_priority_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, special_location_priority_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.special_location_priority ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.special_location_priority
+(
+	`id` String,
+	`merchant_id` String,
+	`category` String,
+	`pickup_priority` Int64,
+	`drop_priority` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'category'),'') as category,
+	ifNull(JSONExtractInt(message,'pickup_priority'), 0) as pickup_priority,
+	ifNull(JSONExtractInt(message,'drop_priority'), 0) as drop_priority,
+
+	FROM atlas_driver_offer_bpp.special_location_priority_queue
+	where JSONExtractString(message,'tag') = 'SpecialLocationPriorityObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.tag_category_mapping_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `tag` Nullable (String),
+    `category` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.tag_category_mapping ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.tag_category_mapping_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, tag_category_mapping_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.tag_category_mapping ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.tag_category_mapping
+(
+	`id` String,
+	`tag` String,
+	`category` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'tag'),'') as tag,
+	ifNull(JSONExtractString(message,'category'),'') as category,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.tag_category_mapping_queue
+	where JSONExtractString(message,'tag') = 'TagCategoryMappingObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.transporter_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `pickup_loc_threshold` Nullable (Int64),
+    `drop_loc_threshold` Nullable (Int64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `ride_time_estimated_threshold` Nullable (Int64),
+    `fcm_url` Nullable (String),
+    `fcm_service_account` Nullable (String),
+    `fcm_token_key_prefix` Nullable (String),
+    `referral_link_password` Nullable (String),
+    `popup_delay_to_add_as_penalty` Nullable (String),
+    `threshold_cancellation_score` Nullable (String),
+    `min_rides_for_cancellation_score` Nullable (String),
+    `onboarding_try_limit` Nullable (Int64),
+    `onboarding_retry_time_in_hours` Nullable (Int64),
+    `check_image_extraction_for_dashboard` Nullable (String),
+    `search_repeat_limit` Nullable (Int64),
+    `default_popup_delay` Nullable (Int64),
+    `media_file_url_pattern` Nullable (String),
+    `media_file_size_upper_limit` Nullable (Int64),
+    `include_driver_currently_on_ride` Nullable (String),
+    `actual_ride_distance_diff_threshold` Nullable (Float64),
+    `upwards_recompute_buffer` Nullable (Float64),
+    `approx_ride_distance_diff_threshold` Nullable (Float64),
+    `min_location_accuracy` Nullable (Float64),
+    `threshold_cancellation_percentage_to_unlist` Nullable (String),
+    `min_rides_to_unlist` Nullable (String),
+    `driver_payment_cycle_duration` Nullable (Int64),
+    `driver_payment_cycle_start_time` Nullable (Int64),
+    `driver_payment_cycle_buffer` Nullable (Int64),
+    `driver_payment_reminder_interval` Nullable (Int64),
+    `time_diff_from_utc` Nullable (Int64),
+    `subscription` Nullable (String),
+    `aadhaar_verification_required` Nullable (String),
+    `rc_limit` Nullable (Int64),
+    `automatic_r_c_activation_cut_off` Nullable (Int64),
+    `enable_dashboard_sms` Nullable (String),
+    `driver_auto_pay_notification_time` Nullable (Int64),
+    `driver_auto_pay_execution_time` Nullable (Int64),
+    `subscription_start_time` DateTime DEFAULT now(),
+    `mandate_validity` Nullable (Int64),
+    `driver_location_accuracy_buffer` Nullable (Int64),
+    `route_deviation_threshold` Nullable (Int64),
+    `can_downgrade_to_sedan` Nullable (String),
+    `can_downgrade_to_hatchback` Nullable (String),
+    `can_downgrade_to_taxi` Nullable (String),
+    `is_avoid_toll` Nullable (String),
+    `special_zone_booking_otp_expiry` Nullable (Int64),
+    `aadhaar_image_resize_config` Nullable (String),
+    `bank_error_expiry` Nullable (Int64),
+    `driver_fee_calculation_time` Nullable (String),
+    `driver_fee_calculator_batch_size` Nullable (String),
+    `driver_fee_calculator_batch_gap` Nullable (String),
+    `driver_fee_mandate_notification_batch_size` Nullable (Int64),
+    `driver_fee_mandate_execution_batch_size` Nullable (Int64),
+    `mandate_notification_reschedule_interval` Nullable (Int64),
+    `mandate_execution_reschedule_interval` Nullable (Int64),
+    `is_plan_mandatory` Nullable (String),
+    `free_trial_days` Nullable (Int64),
+    `open_market_un_blocked` Nullable (String),
+    `driver_fee_retry_threshold_config` Nullable (Int64),
+    `update_notification_status_batch_size` Nullable (Int64),
+    `update_order_status_batch_size` Nullable (Int64),
+    `order_and_notification_status_check_time` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.transporter_config ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.transporter_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, transporter_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.transporter_config ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.transporter_config
+(
+	`merchant_id` String,
+	`pickup_loc_threshold` Int64,
+	`drop_loc_threshold` Int64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`ride_time_estimated_threshold` Int64,
+	`fcm_url` String,
+	`fcm_service_account` String,
+	`fcm_token_key_prefix` String,
+	`referral_link_password` String,
+	`popup_delay_to_add_as_penalty` String,
+	`threshold_cancellation_score` String,
+	`min_rides_for_cancellation_score` String,
+	`onboarding_try_limit` Int64,
+	`onboarding_retry_time_in_hours` Int64,
+	`check_image_extraction_for_dashboard` String,
+	`search_repeat_limit` Int64,
+	`default_popup_delay` Int64,
+	`media_file_url_pattern` String,
+	`media_file_size_upper_limit` Int64,
+	`include_driver_currently_on_ride` String,
+	`actual_ride_distance_diff_threshold` Float64,
+	`upwards_recompute_buffer` Float64,
+	`approx_ride_distance_diff_threshold` Float64,
+	`min_location_accuracy` Float64,
+	`threshold_cancellation_percentage_to_unlist` String,
+	`min_rides_to_unlist` String,
+	`driver_payment_cycle_duration` Int64,
+	`driver_payment_cycle_start_time` Int64,
+	`driver_payment_cycle_buffer` Int64,
+	`driver_payment_reminder_interval` Int64,
+	`time_diff_from_utc` Int64,
+	`subscription` String,
+	`aadhaar_verification_required` String,
+	`rc_limit` Int64,
+	`automatic_r_c_activation_cut_off` Int64,
+	`enable_dashboard_sms` String,
+	`driver_auto_pay_notification_time` Int64,
+	`driver_auto_pay_execution_time` Int64,
+	`subscription_start_time` DateTime,
+	`mandate_validity` Int64,
+	`driver_location_accuracy_buffer` Int64,
+	`route_deviation_threshold` Int64,
+	`can_downgrade_to_sedan` String,
+	`can_downgrade_to_hatchback` String,
+	`can_downgrade_to_taxi` String,
+	`is_avoid_toll` String,
+	`special_zone_booking_otp_expiry` Int64,
+	`aadhaar_image_resize_config` String,
+	`bank_error_expiry` Int64,
+	`driver_fee_calculation_time` String,
+	`driver_fee_calculator_batch_size` String,
+	`driver_fee_calculator_batch_gap` String,
+	`driver_fee_mandate_notification_batch_size` Int64,
+	`driver_fee_mandate_execution_batch_size` Int64,
+	`mandate_notification_reschedule_interval` Int64,
+	`mandate_execution_reschedule_interval` Int64,
+	`is_plan_mandatory` String,
+	`free_trial_days` Int64,
+	`open_market_un_blocked` String,
+	`driver_fee_retry_threshold_config` Int64,
+	`update_notification_status_batch_size` Int64,
+	`update_order_status_batch_size` Int64,
+	`order_and_notification_status_check_time` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'pickup_loc_threshold'), 0) as pickup_loc_threshold,
+	ifNull(JSONExtractInt(message,'drop_loc_threshold'), 0) as drop_loc_threshold,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractInt(message,'ride_time_estimated_threshold'), 0) as ride_time_estimated_threshold,
+	ifNull(JSONExtractString(message,'fcm_url'),'') as fcm_url,
+	ifNull(JSONExtractString(message,'fcm_service_account'),'') as fcm_service_account,
+	ifNull(JSONExtractString(message,'fcm_token_key_prefix'),'') as fcm_token_key_prefix,
+	ifNull(JSONExtractString(message,'referral_link_password'),'') as referral_link_password,
+	ifNull(JSONExtractString(message,'popup_delay_to_add_as_penalty'),'') as popup_delay_to_add_as_penalty,
+	ifNull(JSONExtractString(message,'threshold_cancellation_score'),'') as threshold_cancellation_score,
+	ifNull(JSONExtractString(message,'min_rides_for_cancellation_score'),'') as min_rides_for_cancellation_score,
+	ifNull(JSONExtractInt(message,'onboarding_try_limit'), 0) as onboarding_try_limit,
+	ifNull(JSONExtractInt(message,'onboarding_retry_time_in_hours'), 0) as onboarding_retry_time_in_hours,
+	ifNull(JSONExtractString(message,'check_image_extraction_for_dashboard'),'') as check_image_extraction_for_dashboard,
+	ifNull(JSONExtractInt(message,'search_repeat_limit'), 0) as search_repeat_limit,
+	ifNull(JSONExtractInt(message,'default_popup_delay'), 0) as default_popup_delay,
+	ifNull(JSONExtractString(message,'media_file_url_pattern'),'') as media_file_url_pattern,
+	ifNull(JSONExtractInt(message,'media_file_size_upper_limit'), 0) as media_file_size_upper_limit,
+	ifNull(JSONExtractString(message,'include_driver_currently_on_ride'),'') as include_driver_currently_on_ride,
+	ifNull(JSONExtractFloat(message,'actual_ride_distance_diff_threshold'),0.0) as actual_ride_distance_diff_threshold,
+	ifNull(JSONExtractFloat(message,'upwards_recompute_buffer'),0.0) as upwards_recompute_buffer,
+	ifNull(JSONExtractFloat(message,'approx_ride_distance_diff_threshold'),0.0) as approx_ride_distance_diff_threshold,
+	ifNull(JSONExtractFloat(message,'min_location_accuracy'),0.0) as min_location_accuracy,
+	ifNull(JSONExtractString(message,'threshold_cancellation_percentage_to_unlist'),'') as threshold_cancellation_percentage_to_unlist,
+	ifNull(JSONExtractString(message,'min_rides_to_unlist'),'') as min_rides_to_unlist,
+	ifNull(JSONExtractInt(message,'driver_payment_cycle_duration'), 0) as driver_payment_cycle_duration,
+	ifNull(JSONExtractInt(message,'driver_payment_cycle_start_time'), 0) as driver_payment_cycle_start_time,
+	ifNull(JSONExtractInt(message,'driver_payment_cycle_buffer'), 0) as driver_payment_cycle_buffer,
+	ifNull(JSONExtractInt(message,'driver_payment_reminder_interval'), 0) as driver_payment_reminder_interval,
+	ifNull(JSONExtractInt(message,'time_diff_from_utc'), 0) as time_diff_from_utc,
+	ifNull(JSONExtractString(message,'subscription'),'') as subscription,
+	ifNull(JSONExtractString(message,'aadhaar_verification_required'),'') as aadhaar_verification_required,
+	ifNull(JSONExtractInt(message,'rc_limit'), 0) as rc_limit,
+	ifNull(JSONExtractInt(message,'automatic_r_c_activation_cut_off'), 0) as automatic_r_c_activation_cut_off,
+	ifNull(JSONExtractString(message,'enable_dashboard_sms'),'') as enable_dashboard_sms,
+	ifNull(JSONExtractInt(message,'driver_auto_pay_notification_time'), 0) as driver_auto_pay_notification_time,
+	ifNull(JSONExtractInt(message,'driver_auto_pay_execution_time'), 0) as driver_auto_pay_execution_time,
+	toDateTime(JSONExtractInt(message,'subscription_start_time')) as subscription_start_time,
+	ifNull(JSONExtractInt(message,'mandate_validity'), 0) as mandate_validity,
+	ifNull(JSONExtractInt(message,'driver_location_accuracy_buffer'), 0) as driver_location_accuracy_buffer,
+	ifNull(JSONExtractInt(message,'route_deviation_threshold'), 0) as route_deviation_threshold,
+	ifNull(JSONExtractString(message,'can_downgrade_to_sedan'),'') as can_downgrade_to_sedan,
+	ifNull(JSONExtractString(message,'can_downgrade_to_hatchback'),'') as can_downgrade_to_hatchback,
+	ifNull(JSONExtractString(message,'can_downgrade_to_taxi'),'') as can_downgrade_to_taxi,
+	ifNull(JSONExtractString(message,'is_avoid_toll'),'') as is_avoid_toll,
+	ifNull(JSONExtractInt(message,'special_zone_booking_otp_expiry'), 0) as special_zone_booking_otp_expiry,
+	ifNull(JSONExtractString(message,'aadhaar_image_resize_config'),'') as aadhaar_image_resize_config,
+	ifNull(JSONExtractInt(message,'bank_error_expiry'), 0) as bank_error_expiry,
+	ifNull(JSONExtractString(message,'driver_fee_calculation_time'),'') as driver_fee_calculation_time,
+	ifNull(JSONExtractString(message,'driver_fee_calculator_batch_size'),'') as driver_fee_calculator_batch_size,
+	ifNull(JSONExtractString(message,'driver_fee_calculator_batch_gap'),'') as driver_fee_calculator_batch_gap,
+	ifNull(JSONExtractInt(message,'driver_fee_mandate_notification_batch_size'), 0) as driver_fee_mandate_notification_batch_size,
+	ifNull(JSONExtractInt(message,'driver_fee_mandate_execution_batch_size'), 0) as driver_fee_mandate_execution_batch_size,
+	ifNull(JSONExtractInt(message,'mandate_notification_reschedule_interval'), 0) as mandate_notification_reschedule_interval,
+	ifNull(JSONExtractInt(message,'mandate_execution_reschedule_interval'), 0) as mandate_execution_reschedule_interval,
+	ifNull(JSONExtractString(message,'is_plan_mandatory'),'') as is_plan_mandatory,
+	ifNull(JSONExtractInt(message,'free_trial_days'), 0) as free_trial_days,
+	ifNull(JSONExtractString(message,'open_market_un_blocked'),'') as open_market_un_blocked,
+	ifNull(JSONExtractInt(message,'driver_fee_retry_threshold_config'), 0) as driver_fee_retry_threshold_config,
+	ifNull(JSONExtractInt(message,'update_notification_status_batch_size'), 0) as update_notification_status_batch_size,
+	ifNull(JSONExtractInt(message,'update_order_status_batch_size'), 0) as update_order_status_batch_size,
+	ifNull(JSONExtractInt(message,'order_and_notification_status_check_time'), 0) as order_and_notification_status_check_time,
+
+	FROM atlas_driver_offer_bpp.transporter_config_queue
+	where JSONExtractString(message,'tag') = 'TransporterConfigObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.vehicle_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `capacity` Nullable (String),
+    `category` Nullable (String),
+    `make` Nullable (String),
+    `model` Nullable (String),
+    `size` Nullable (String),
+    `variant` Nullable (String),
+    `color` Nullable (String),
+    `energy_type` Nullable (String),
+    `registration_no` Nullable (String),
+    `registration_category` Nullable (String),
+    `merchant_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `vehicle_class` Nullable (String),
+    `vehicle_name` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.vehicle ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.vehicle_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, vehicle_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.vehicle ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.vehicle
+(
+	`driver_id` String,
+	`capacity` String,
+	`category` String,
+	`make` String,
+	`model` String,
+	`size` String,
+	`variant` String,
+	`color` String,
+	`energy_type` String,
+	`registration_no` String,
+	`registration_category` String,
+	`merchant_id` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`vehicle_class` String,
+	`vehicle_name` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'capacity'),'') as capacity,
+	ifNull(JSONExtractString(message,'category'),'') as category,
+	ifNull(JSONExtractString(message,'make'),'') as make,
+	ifNull(JSONExtractString(message,'model'),'') as model,
+	ifNull(JSONExtractString(message,'size'),'') as size,
+	ifNull(JSONExtractString(message,'variant'),'') as variant,
+	ifNull(JSONExtractString(message,'color'),'') as color,
+	ifNull(JSONExtractString(message,'energy_type'),'') as energy_type,
+	ifNull(JSONExtractString(message,'registration_no'),'') as registration_no,
+	ifNull(JSONExtractString(message,'registration_category'),'') as registration_category,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'vehicle_class'),'') as vehicle_class,
+	ifNull(JSONExtractString(message,'vehicle_name'),'') as vehicle_name,
+
+	FROM atlas_driver_offer_bpp.vehicle_queue
+	where JSONExtractString(message,'tag') = 'VehicleObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.vehicle_registration_certificate_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `fitness_expiry` DateTime DEFAULT now(),
+    `permit_expiry` DateTime DEFAULT now(),
+    `vehicle_class` Nullable (String),
+    `insurance_validity` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `verification_status` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `puc_expiry` DateTime DEFAULT now(),
+    `vehicle_manufacturer` Nullable (String),
+    `failed_rules` Nullable (String),
+    `document_image_id` Nullable (String),
+    `certificate_number_hash` Nullable (String),
+    `certificate_number_encrypted` Nullable (String),
+    `vehicle_capacity` Nullable (String),
+    `vehicle_model` Nullable (String),
+    `vehicle_color` Nullable (String),
+    `vehicle_energy_type` Nullable (String),
+    `vehicle_variant` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.vehicle_registration_certificate ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.vehicle_registration_certificate_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, vehicle_registration_certificate_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.vehicle_registration_certificate ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.vehicle_registration_certificate
+(
+	`id` String,
+	`fitness_expiry` DateTime,
+	`permit_expiry` DateTime,
+	`vehicle_class` String,
+	`insurance_validity` DateTime,
+	`created_at` DateTime,
+	`verification_status` String,
+	`updated_at` DateTime,
+	`puc_expiry` DateTime,
+	`vehicle_manufacturer` String,
+	`failed_rules` String,
+	`document_image_id` String,
+	`certificate_number_hash` String,
+	`certificate_number_encrypted` String,
+	`vehicle_capacity` String,
+	`vehicle_model` String,
+	`vehicle_color` String,
+	`vehicle_energy_type` String,
+	`vehicle_variant` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	toDateTime(JSONExtractInt(message,'fitness_expiry')) as fitness_expiry,
+	toDateTime(JSONExtractInt(message,'permit_expiry')) as permit_expiry,
+	ifNull(JSONExtractString(message,'vehicle_class'),'') as vehicle_class,
+	toDateTime(JSONExtractInt(message,'insurance_validity')) as insurance_validity,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'verification_status'),'') as verification_status,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'puc_expiry')) as puc_expiry,
+	ifNull(JSONExtractString(message,'vehicle_manufacturer'),'') as vehicle_manufacturer,
+	ifNull(JSONExtractString(message,'failed_rules'),'') as failed_rules,
+	ifNull(JSONExtractString(message,'document_image_id'),'') as document_image_id,
+	ifNull(JSONExtractString(message,'certificate_number_hash'),'') as certificate_number_hash,
+	ifNull(JSONExtractString(message,'certificate_number_encrypted'),'') as certificate_number_encrypted,
+	ifNull(JSONExtractString(message,'vehicle_capacity'),'') as vehicle_capacity,
+	ifNull(JSONExtractString(message,'vehicle_model'),'') as vehicle_model,
+	ifNull(JSONExtractString(message,'vehicle_color'),'') as vehicle_color,
+	ifNull(JSONExtractString(message,'vehicle_energy_type'),'') as vehicle_energy_type,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+
+	FROM atlas_driver_offer_bpp.vehicle_registration_certificate_queue
+	where JSONExtractString(message,'tag') = 'VehicleRegistrationCertificateObject'
+
+
+CREATE TABLE atlas_app_helper.aadhaar_otp_req_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `person_id` Nullable (String),
+    `request_id` Nullable (String),
+    `status_code` Nullable (String),
+    `request_message` Nullable (String),
+    `transaction_id` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.aadhaar_otp_req ON CLUSTER `{cluster}` AS atlas_app_helper.aadhaar_otp_req_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, aadhaar_otp_req_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.aadhaar_otp_req ON CLUSTER `{cluster}` TO atlas_app.aadhaar_otp_req
+(
+	`id` String,
+	`person_id` String,
+	`request_id` String,
+	`status_code` String,
+	`request_message` String,
+	`transaction_id` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'status_code'),'') as status_code,
+	ifNull(JSONExtractString(message,'request_message'),'') as request_message,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.aadhaar_otp_req_queue
+	where JSONExtractString(message,'tag') = 'AadhaarOtpReqObject'
+
+
+CREATE TABLE atlas_app_helper.aadhaar_otp_verify_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `person_id` Nullable (String),
+    `request_id` Nullable (String),
+    `status_code` Nullable (String),
+    `request_message` Nullable (String),
+    `transaction_id` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.aadhaar_otp_verify ON CLUSTER `{cluster}` AS atlas_app_helper.aadhaar_otp_verify_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, aadhaar_otp_verify_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.aadhaar_otp_verify ON CLUSTER `{cluster}` TO atlas_app.aadhaar_otp_verify
+(
+	`id` String,
+	`person_id` String,
+	`request_id` String,
+	`status_code` String,
+	`request_message` String,
+	`transaction_id` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'status_code'),'') as status_code,
+	ifNull(JSONExtractString(message,'request_message'),'') as request_message,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.aadhaar_otp_verify_queue
+	where JSONExtractString(message,'tag') = 'AadhaarOtpVerifyObject'
+
+
+CREATE TABLE atlas_app_helper.aadhaar_verification_shard ON CLUSTER `{cluster}`
+    (
+    `person_id` Nullable (String),
+    `person_name` Nullable (String),
+    `person_gender` Nullable (String),
+    `person_dob` Nullable (String),
+    `person_image_path` Nullable (String),
+    `aadhaar_number_hash` Nullable (String),
+    `is_verified` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.aadhaar_verification ON CLUSTER `{cluster}` AS atlas_app_helper.aadhaar_verification_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, aadhaar_verification_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.aadhaar_verification ON CLUSTER `{cluster}` TO atlas_app.aadhaar_verification
+(
+	`person_id` String,
+	`person_name` String,
+	`person_gender` String,
+	`person_dob` String,
+	`person_image_path` String,
+	`aadhaar_number_hash` String,
+	`is_verified` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'person_name'),'') as person_name,
+	ifNull(JSONExtractString(message,'person_gender'),'') as person_gender,
+	ifNull(JSONExtractString(message,'person_dob'),'') as person_dob,
+	ifNull(JSONExtractString(message,'person_image_path'),'') as person_image_path,
+	ifNull(JSONExtractString(message,'aadhaar_number_hash'),'') as aadhaar_number_hash,
+	ifNull(JSONExtractString(message,'is_verified'),'') as is_verified,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.aadhaar_verification_queue
+	where JSONExtractString(message,'tag') = 'AadhaarVerificationObject'
+
+
+CREATE TABLE atlas_app_helper.app_installs_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `device_token` Nullable (String),
+    `source` Nullable (String),
+    `merchant_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `platform` Nullable (String),
+    `app_version` Nullable (String),
+    `bundle_version` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.app_installs ON CLUSTER `{cluster}` AS atlas_app_helper.app_installs_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, app_installs_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.app_installs ON CLUSTER `{cluster}` TO atlas_app.app_installs
+(
+	`id` String,
+	`device_token` String,
+	`source` String,
+	`merchant_id` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`platform` String,
+	`app_version` String,
+	`bundle_version` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'device_token'),'') as device_token,
+	ifNull(JSONExtractString(message,'source'),'') as source,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'platform'),'') as platform,
+	ifNull(JSONExtractString(message,'app_version'),'') as app_version,
+	ifNull(JSONExtractString(message,'bundle_version'),'') as bundle_version,
+
+	FROM atlas_app.app_installs_queue
+	where JSONExtractString(message,'tag') = 'AppInstallsObject'
+
+
+CREATE TABLE atlas_app_helper.beckn_request_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `beckn_request` Nullable (String),
+    `signature_header` Nullable (String),
+    `time_stamp` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.beckn_request ON CLUSTER `{cluster}` AS atlas_app_helper.beckn_request_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, beckn_request_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.beckn_request ON CLUSTER `{cluster}` TO atlas_app.beckn_request
+(
+	`id` String,
+	`beckn_request` String,
+	`signature_header` String,
+	`time_stamp` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'beckn_request'),'') as beckn_request,
+	ifNull(JSONExtractString(message,'signature_header'),'') as signature_header,
+	toDateTime(JSONExtractInt(message,'time_stamp')) as time_stamp,
+
+	FROM atlas_app.beckn_request_queue
+	where JSONExtractString(message,'tag') = 'BecknRequestObject'
+
+
+CREATE TABLE atlas_app_helper.black_list_org_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `subscriber_id` Nullable (String),
+    `type` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.black_list_org ON CLUSTER `{cluster}` AS atlas_app_helper.black_list_org_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, black_list_org_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.black_list_org ON CLUSTER `{cluster}` TO atlas_app.black_list_org
+(
+	`id` String,
+	`subscriber_id` String,
+	`type` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'subscriber_id'),'') as subscriber_id,
+	ifNull(JSONExtractString(message,'type'),'') as type,
+
+	FROM atlas_app.black_list_org_queue
+	where JSONExtractString(message,'tag') = 'BlackListOrgObject'
+
+
+CREATE TABLE atlas_app_helper.booking_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `status` Nullable (String),
+    `provider_id` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `rider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `estimated_fare` Nullable (String),
+    `discount` Nullable (String),
+    `estimated_total_fare` Nullable (String),
+    `distance` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `bpp_ride_booking_id` Nullable (String),
+    `provider_name` Nullable (String),
+    `provider_url` Nullable (String),
+    `reallocations_count` Nullable (Int64),
+    `fare_product_type` Nullable (String),
+    `trip_terms_id` Nullable (String),
+    `rental_slab_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `quote_id` Nullable (String),
+    `primary_exophone` Nullable (String),
+    `otp_code` Nullable (String),
+    `transaction_id` Nullable (String),
+    `special_location_tag` Nullable (String),
+    `payment_method_id` Nullable (String),
+    `payment_url` Nullable (String),
+    `fulfillment_id` Nullable (String),
+    `driver_id` Nullable (String),
+    `item_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.booking ON CLUSTER `{cluster}` AS atlas_app_helper.booking_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, booking_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.booking ON CLUSTER `{cluster}` TO atlas_app.booking
+(
+	`id` String,
+	`status` String,
+	`provider_id` String,
+	`provider_mobile_number` String,
+	`start_time` DateTime,
+	`rider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`estimated_fare` String,
+	`discount` String,
+	`estimated_total_fare` String,
+	`distance` String,
+	`vehicle_variant` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`bpp_ride_booking_id` String,
+	`provider_name` String,
+	`provider_url` String,
+	`reallocations_count` Int64,
+	`fare_product_type` String,
+	`trip_terms_id` String,
+	`rental_slab_id` String,
+	`merchant_id` String,
+	`quote_id` String,
+	`primary_exophone` String,
+	`otp_code` String,
+	`transaction_id` String,
+	`special_location_tag` String,
+	`payment_method_id` String,
+	`payment_url` String,
+	`fulfillment_id` String,
+	`driver_id` String,
+	`item_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractString(message,'estimated_fare'),'') as estimated_fare,
+	ifNull(JSONExtractString(message,'discount'),'') as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractString(message,'distance'),'') as distance,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'bpp_ride_booking_id'),'') as bpp_ride_booking_id,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+	ifNull(JSONExtractInt(message,'reallocations_count'), 0) as reallocations_count,
+	ifNull(JSONExtractString(message,'fare_product_type'),'') as fare_product_type,
+	ifNull(JSONExtractString(message,'trip_terms_id'),'') as trip_terms_id,
+	ifNull(JSONExtractString(message,'rental_slab_id'),'') as rental_slab_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+	ifNull(JSONExtractString(message,'primary_exophone'),'') as primary_exophone,
+	ifNull(JSONExtractString(message,'otp_code'),'') as otp_code,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+	ifNull(JSONExtractString(message,'payment_method_id'),'') as payment_method_id,
+	ifNull(JSONExtractString(message,'payment_url'),'') as payment_url,
+	ifNull(JSONExtractString(message,'fulfillment_id'),'') as fulfillment_id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'item_id'),'') as item_id,
+
+	FROM atlas_app.booking_queue
+	where JSONExtractString(message,'tag') = 'BookingObject'
+
+
+CREATE TABLE atlas_app_helper.booking_cancellation_reason_shard ON CLUSTER `{cluster}`
+    (
+    `booking_id` Nullable (String),
+    `source` Nullable (String),
+    `reason_code` Nullable (String),
+    `additional_info` Nullable (String),
+    `reason_stage` Nullable (String),
+    `ride_id` Nullable (String),
+    `driver_cancellation_location_lat` Nullable (Float64),
+    `driver_cancellation_location_lon` Nullable (Float64),
+    `driver_dist_to_pickup` Nullable (String),
+    `merchant_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.booking_cancellation_reason ON CLUSTER `{cluster}` AS atlas_app_helper.booking_cancellation_reason_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, booking_cancellation_reason_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.booking_cancellation_reason ON CLUSTER `{cluster}` TO atlas_app.booking_cancellation_reason
+(
+	`booking_id` String,
+	`source` String,
+	`reason_code` String,
+	`additional_info` String,
+	`reason_stage` String,
+	`ride_id` String,
+	`driver_cancellation_location_lat` Float64,
+	`driver_cancellation_location_lon` Float64,
+	`driver_dist_to_pickup` String,
+	`merchant_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'source'),'') as source,
+	ifNull(JSONExtractString(message,'reason_code'),'') as reason_code,
+	ifNull(JSONExtractString(message,'additional_info'),'') as additional_info,
+	ifNull(JSONExtractString(message,'reason_stage'),'') as reason_stage,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractFloat(message,'driver_cancellation_location_lat'),0.0) as driver_cancellation_location_lat,
+	ifNull(JSONExtractFloat(message,'driver_cancellation_location_lon'),0.0) as driver_cancellation_location_lon,
+	ifNull(JSONExtractString(message,'driver_dist_to_pickup'),'') as driver_dist_to_pickup,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+
+	FROM atlas_app.booking_cancellation_reason_queue
+	where JSONExtractString(message,'tag') = 'BookingCancellationReasonObject'
+
+
+CREATE TABLE atlas_app_helper.booking_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `street` Nullable (String),
+    `door` Nullable (String),
+    `building` Nullable (String),
+    `area_code` Nullable (String),
+    `area` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `ward` Nullable (String),
+    `place_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.booking_location ON CLUSTER `{cluster}` AS atlas_app_helper.booking_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, booking_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.booking_location ON CLUSTER `{cluster}` TO atlas_app.booking_location
+(
+	`id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`city` String,
+	`state` String,
+	`country` String,
+	`street` String,
+	`door` String,
+	`building` String,
+	`area_code` String,
+	`area` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`ward` String,
+	`place_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	ifNull(JSONExtractString(message,'street'),'') as street,
+	ifNull(JSONExtractString(message,'door'),'') as door,
+	ifNull(JSONExtractString(message,'building'),'') as building,
+	ifNull(JSONExtractString(message,'area_code'),'') as area_code,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'ward'),'') as ward,
+	ifNull(JSONExtractString(message,'place_id'),'') as place_id,
+
+	FROM atlas_app.booking_location_queue
+	where JSONExtractString(message,'tag') = 'BookingLocationObject'
+
+
+CREATE TABLE atlas_app_helper.call_status_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `call_id` Nullable (String),
+    `ride_id` Nullable (String),
+    `status` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `recording_url` Nullable (String),
+    `conversation_duration` Nullable (String),
+    `dtmf_number_used` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.call_status ON CLUSTER `{cluster}` AS atlas_app_helper.call_status_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, call_status_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.call_status ON CLUSTER `{cluster}` TO atlas_app.call_status
+(
+	`id` String,
+	`call_id` String,
+	`ride_id` String,
+	`status` String,
+	`created_at` DateTime,
+	`recording_url` String,
+	`conversation_duration` String,
+	`dtmf_number_used` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'call_id'),'') as call_id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'recording_url'),'') as recording_url,
+	ifNull(JSONExtractString(message,'conversation_duration'),'') as conversation_duration,
+	ifNull(JSONExtractString(message,'dtmf_number_used'),'') as dtmf_number_used,
+
+	FROM atlas_app.call_status_queue
+	where JSONExtractString(message,'tag') = 'CallStatusObject'
+
+
+CREATE TABLE atlas_app_helper.callback_request_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `customer_name` Nullable (String),
+    `customer_phone_encrypted` Nullable (String),
+    `customer_phone_hash` Nullable (String),
+    `customer_mobile_country_code` Nullable (String),
+    `status` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.callback_request ON CLUSTER `{cluster}` AS atlas_app_helper.callback_request_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, callback_request_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.callback_request ON CLUSTER `{cluster}` TO atlas_app.callback_request
+(
+	`id` String,
+	`merchant_id` String,
+	`customer_name` String,
+	`customer_phone_encrypted` String,
+	`customer_phone_hash` String,
+	`customer_mobile_country_code` String,
+	`status` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'customer_name'),'') as customer_name,
+	ifNull(JSONExtractString(message,'customer_phone_encrypted'),'') as customer_phone_encrypted,
+	ifNull(JSONExtractString(message,'customer_phone_hash'),'') as customer_phone_hash,
+	ifNull(JSONExtractString(message,'customer_mobile_country_code'),'') as customer_mobile_country_code,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.callback_request_queue
+	where JSONExtractString(message,'tag') = 'CallbackRequestObject'
+
+
+CREATE TABLE atlas_app_helper.cancellation_reason_shard ON CLUSTER `{cluster}`
+    (
+    `reason_code` Nullable (String),
+    `description` Nullable (String),
+    `enabled` Nullable (String),
+    `on_search` Nullable (String),
+    `on_confirm` Nullable (String),
+    `on_assign` Nullable (String),
+    `priority` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.cancellation_reason ON CLUSTER `{cluster}` AS atlas_app_helper.cancellation_reason_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, cancellation_reason_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.cancellation_reason ON CLUSTER `{cluster}` TO atlas_app.cancellation_reason
+(
+	`reason_code` String,
+	`description` String,
+	`enabled` String,
+	`on_search` String,
+	`on_confirm` String,
+	`on_assign` String,
+	`priority` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'reason_code'),'') as reason_code,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	ifNull(JSONExtractString(message,'on_search'),'') as on_search,
+	ifNull(JSONExtractString(message,'on_confirm'),'') as on_confirm,
+	ifNull(JSONExtractString(message,'on_assign'),'') as on_assign,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
+
+	FROM atlas_app.cancellation_reason_queue
+	where JSONExtractString(message,'tag') = 'CancellationReasonObject'
+
+
+CREATE TABLE atlas_app_helper.directions_cache_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `origin_hash` Nullable (String),
+    `dest_hash` Nullable (String),
+    `slot` Nullable (Int64),
+    `response` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.directions_cache ON CLUSTER `{cluster}` AS atlas_app_helper.directions_cache_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, directions_cache_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.directions_cache ON CLUSTER `{cluster}` TO atlas_app.directions_cache
+(
+	`id` String,
+	`origin_hash` String,
+	`dest_hash` String,
+	`slot` Int64,
+	`response` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'origin_hash'),'') as origin_hash,
+	ifNull(JSONExtractString(message,'dest_hash'),'') as dest_hash,
+	ifNull(JSONExtractInt(message,'slot'), 0) as slot,
+	ifNull(JSONExtractString(message,'response'),'') as response,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.directions_cache_queue
+	where JSONExtractString(message,'tag') = 'DirectionsCacheObject'
+
+
+CREATE TABLE atlas_app_helper.disability_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `tag` Nullable (String),
+    `description` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.disability ON CLUSTER `{cluster}` AS atlas_app_helper.disability_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, disability_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.disability ON CLUSTER `{cluster}` TO atlas_app.disability
+(
+	`id` String,
+	`tag` String,
+	`description` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'tag'),'') as tag,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+
+	FROM atlas_app.disability_queue
+	where JSONExtractString(message,'tag') = 'DisabilityObject'
+
+
+CREATE TABLE atlas_app_helper.disability_translation_shard ON CLUSTER `{cluster}`
+    (
+    `disability_id` Nullable (String),
+    `disability_tag` Nullable (String),
+    `translation` Nullable (String),
+    `language` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.disability_translation ON CLUSTER `{cluster}` AS atlas_app_helper.disability_translation_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, disability_translation_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.disability_translation ON CLUSTER `{cluster}` TO atlas_app.disability_translation
+(
+	`disability_id` String,
+	`disability_tag` String,
+	`translation` String,
+	`language` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'disability_id'),'') as disability_id,
+	ifNull(JSONExtractString(message,'disability_tag'),'') as disability_tag,
+	ifNull(JSONExtractString(message,'translation'),'') as translation,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+
+	FROM atlas_app.disability_translation_queue
+	where JSONExtractString(message,'tag') = 'DisabilityTranslationObject'
+
+
+CREATE TABLE atlas_app_helper.driver_offer_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `estimate_id` Nullable (String),
+    `driver_name` Nullable (String),
+    `distance_to_pickup` Nullable (Float64),
+    `duration_to_pickup` Nullable (Int64),
+    `valid_till` DateTime DEFAULT now(),
+    `rating` Nullable (Float64),
+    `bpp_quote_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `status` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `driver_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.driver_offer ON CLUSTER `{cluster}` AS atlas_app_helper.driver_offer_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, driver_offer_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.driver_offer ON CLUSTER `{cluster}` TO atlas_app.driver_offer
+(
+	`id` String,
+	`estimate_id` String,
+	`driver_name` String,
+	`distance_to_pickup` Float64,
+	`duration_to_pickup` Int64,
+	`valid_till` DateTime,
+	`rating` Float64,
+	`bpp_quote_id` String,
+	`merchant_id` String,
+	`status` String,
+	`updated_at` DateTime,
+	`driver_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'estimate_id'),'') as estimate_id,
+	ifNull(JSONExtractString(message,'driver_name'),'') as driver_name,
+	ifNull(JSONExtractFloat(message,'distance_to_pickup'),0.0) as distance_to_pickup,
+	ifNull(JSONExtractInt(message,'duration_to_pickup'), 0) as duration_to_pickup,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	ifNull(JSONExtractFloat(message,'rating'),0.0) as rating,
+	ifNull(JSONExtractString(message,'bpp_quote_id'),'') as bpp_quote_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+
+	FROM atlas_app.driver_offer_queue
+	where JSONExtractString(message,'tag') = 'DriverOfferObject'
+
+
+CREATE TABLE atlas_app_helper.estimate_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `request_id` Nullable (String),
+    `estimated_fare` Nullable (String),
+    `discount` Nullable (Float64),
+    `estimated_total_fare` Nullable (String),
+    `provider_id` Nullable (String),
+    `provider_url` Nullable (String),
+    `provider_name` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `provider_completed_rides_count` Nullable (Int64),
+    `vehicle_variant` Nullable (String),
+    `trip_terms_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `min_total_fare` Nullable (String),
+    `max_total_fare` Nullable (String),
+    `night_shift_multiplier` Nullable (String),
+    `night_shift_start` DateTime DEFAULT now(),
+    `night_shift_end` DateTime DEFAULT now(),
+    `drivers_location` Nullable (String),
+    `waiting_charge_per_min` Nullable (Float64),
+    `status` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `device` Nullable (String),
+    `estimated_duration` Nullable (String),
+    `estimated_distance` Nullable (String),
+    `bpp_estimate_id` Nullable (String),
+    `night_shift_charge` Nullable (String),
+    `special_location_tag` Nullable (String),
+    `merchant_id` Nullable (String),
+    `item_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.estimate ON CLUSTER `{cluster}` AS atlas_app_helper.estimate_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, estimate_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.estimate ON CLUSTER `{cluster}` TO atlas_app.estimate
+(
+	`id` String,
+	`request_id` String,
+	`estimated_fare` String,
+	`discount` Float64,
+	`estimated_total_fare` String,
+	`provider_id` String,
+	`provider_url` String,
+	`provider_name` String,
+	`provider_mobile_number` String,
+	`provider_completed_rides_count` Int64,
+	`vehicle_variant` String,
+	`trip_terms_id` String,
+	`created_at` DateTime,
+	`min_total_fare` String,
+	`max_total_fare` String,
+	`night_shift_multiplier` String,
+	`night_shift_start` DateTime,
+	`night_shift_end` DateTime,
+	`drivers_location` String,
+	`waiting_charge_per_min` Float64,
+	`status` String,
+	`updated_at` DateTime,
+	`device` String,
+	`estimated_duration` String,
+	`estimated_distance` String,
+	`bpp_estimate_id` String,
+	`night_shift_charge` String,
+	`special_location_tag` String,
+	`merchant_id` String,
+	`item_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'estimated_fare'),'') as estimated_fare,
+	ifNull(JSONExtractFloat(message,'discount'),0.0) as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	ifNull(JSONExtractInt(message,'provider_completed_rides_count'), 0) as provider_completed_rides_count,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractString(message,'trip_terms_id'),'') as trip_terms_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'min_total_fare'),'') as min_total_fare,
+	ifNull(JSONExtractString(message,'max_total_fare'),'') as max_total_fare,
+	ifNull(JSONExtractString(message,'night_shift_multiplier'),'') as night_shift_multiplier,
+	toDateTime(JSONExtractInt(message,'night_shift_start')) as night_shift_start,
+	toDateTime(JSONExtractInt(message,'night_shift_end')) as night_shift_end,
+	ifNull(JSONExtractString(message,'drivers_location'),'') as drivers_location,
+	ifNull(JSONExtractFloat(message,'waiting_charge_per_min'),0.0) as waiting_charge_per_min,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'device'),'') as device,
+	ifNull(JSONExtractString(message,'estimated_duration'),'') as estimated_duration,
+	ifNull(JSONExtractString(message,'estimated_distance'),'') as estimated_distance,
+	ifNull(JSONExtractString(message,'bpp_estimate_id'),'') as bpp_estimate_id,
+	ifNull(JSONExtractString(message,'night_shift_charge'),'') as night_shift_charge,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'item_id'),'') as item_id,
+
+	FROM atlas_app.estimate_queue
+	where JSONExtractString(message,'tag') = 'EstimateObject'
+
+
+CREATE TABLE atlas_app_helper.estimate_breakup_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `estimate_id` Nullable (String),
+    `title` Nullable (String),
+    `price_currency` Nullable (String),
+    `price_value` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.estimate_breakup ON CLUSTER `{cluster}` AS atlas_app_helper.estimate_breakup_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, estimate_breakup_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.estimate_breakup ON CLUSTER `{cluster}` TO atlas_app.estimate_breakup
+(
+	`id` String,
+	`estimate_id` String,
+	`title` String,
+	`price_currency` String,
+	`price_value` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'estimate_id'),'') as estimate_id,
+	ifNull(JSONExtractString(message,'title'),'') as title,
+	ifNull(JSONExtractString(message,'price_currency'),'') as price_currency,
+	ifNull(JSONExtractString(message,'price_value'),'') as price_value,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.estimate_breakup_queue
+	where JSONExtractString(message,'tag') = 'EstimateBreakupObject'
+
+
+CREATE TABLE atlas_app_helper.exophone_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `primary_phone` Nullable (String),
+    `backup_phone` Nullable (String),
+    `is_primary_down` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `call_service` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.exophone ON CLUSTER `{cluster}` AS atlas_app_helper.exophone_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, exophone_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.exophone ON CLUSTER `{cluster}` TO atlas_app.exophone
+(
+	`id` String,
+	`merchant_id` String,
+	`primary_phone` String,
+	`backup_phone` String,
+	`is_primary_down` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+	`call_service` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'primary_phone'),'') as primary_phone,
+	ifNull(JSONExtractString(message,'backup_phone'),'') as backup_phone,
+	ifNull(JSONExtractString(message,'is_primary_down'),'') as is_primary_down,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'call_service'),'') as call_service,
+
+	FROM atlas_app.exophone_queue
+	where JSONExtractString(message,'tag') = 'ExophoneObject'
+
+
+CREATE TABLE atlas_app_helper.fare_breakup_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `booking_id` Nullable (String),
+    `description` Nullable (String),
+    `amount` Nullable (Float64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.fare_breakup ON CLUSTER `{cluster}` AS atlas_app_helper.fare_breakup_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, fare_breakup_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.fare_breakup ON CLUSTER `{cluster}` TO atlas_app.fare_breakup
+(
+	`id` String,
+	`booking_id` String,
+	`description` String,
+	`amount` Float64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractFloat(message,'amount'),0.0) as amount,
+
+	FROM atlas_app.fare_breakup_queue
+	where JSONExtractString(message,'tag') = 'FareBreakupObject'
+
+
+CREATE TABLE atlas_app_helper.feedback_form_shard ON CLUSTER `{cluster}`
+    (
+    `category_name` Nullable (String),
+    `id` Nullable (String),
+    `rating` Nullable (String),
+    `question` Nullable (String),
+    `answer` Nullable (String),
+    `answer_type` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.feedback_form ON CLUSTER `{cluster}` AS atlas_app_helper.feedback_form_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, feedback_form_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.feedback_form ON CLUSTER `{cluster}` TO atlas_app.feedback_form
+(
+	`category_name` String,
+	`id` String,
+	`rating` String,
+	`question` String,
+	`answer` String,
+	`answer_type` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'category_name'),'') as category_name,
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'rating'),'') as rating,
+	ifNull(JSONExtractString(message,'question'),'') as question,
+	ifNull(JSONExtractString(message,'answer'),'') as answer,
+	ifNull(JSONExtractString(message,'answer_type'),'') as answer_type,
+
+	FROM atlas_app.feedback_form_queue
+	where JSONExtractString(message,'tag') = 'FeedbackFormObject'
+
+
+CREATE TABLE atlas_app_helper.geometry_shard ON CLUSTER `{cluster}`
+    (
+    `region` Nullable (String),
+    `geom` Nullable (String),
+    `id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.geometry ON CLUSTER `{cluster}` AS atlas_app_helper.geometry_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, geometry_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.geometry ON CLUSTER `{cluster}` TO atlas_app.geometry
+(
+	`region` String,
+	`geom` String,
+	`id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'region'),'') as region,
+	ifNull(JSONExtractString(message,'geom'),'') as geom,
+	ifNull(JSONExtractString(message,'id'),'') as id,
+
+	FROM atlas_app.geometry_queue
+	where JSONExtractString(message,'tag') = 'GeometryObject'
+
+
+CREATE TABLE atlas_app_helper.hot_spot_config_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `hot_spot_geo_hash_precision` Nullable (String),
+    `nearby_geohash_precision` Nullable (String),
+    `block_radius` Nullable (String),
+    `min_frequency_of_hot_spot` Nullable (String),
+    `weight_of_manual_pickup` Nullable (String),
+    `weight_of_manual_saved` Nullable (String),
+    `weight_of_auto_pickup` Nullable (String),
+    `weight_of_auto_saved` Nullable (String),
+    `weight_of_trip_start` Nullable (String),
+    `max_num_hot_spots_to_show` Nullable (String),
+    `weight_of_trip_end` Nullable (String),
+    `weight_of_special_location` Nullable (String),
+    `should_take_hot_spot` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.hot_spot_config ON CLUSTER `{cluster}` AS atlas_app_helper.hot_spot_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, hot_spot_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.hot_spot_config ON CLUSTER `{cluster}` TO atlas_app.hot_spot_config
+(
+	`id` String,
+	`hot_spot_geo_hash_precision` String,
+	`nearby_geohash_precision` String,
+	`block_radius` String,
+	`min_frequency_of_hot_spot` String,
+	`weight_of_manual_pickup` String,
+	`weight_of_manual_saved` String,
+	`weight_of_auto_pickup` String,
+	`weight_of_auto_saved` String,
+	`weight_of_trip_start` String,
+	`max_num_hot_spots_to_show` String,
+	`weight_of_trip_end` String,
+	`weight_of_special_location` String,
+	`should_take_hot_spot` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'hot_spot_geo_hash_precision'),'') as hot_spot_geo_hash_precision,
+	ifNull(JSONExtractString(message,'nearby_geohash_precision'),'') as nearby_geohash_precision,
+	ifNull(JSONExtractString(message,'block_radius'),'') as block_radius,
+	ifNull(JSONExtractString(message,'min_frequency_of_hot_spot'),'') as min_frequency_of_hot_spot,
+	ifNull(JSONExtractString(message,'weight_of_manual_pickup'),'') as weight_of_manual_pickup,
+	ifNull(JSONExtractString(message,'weight_of_manual_saved'),'') as weight_of_manual_saved,
+	ifNull(JSONExtractString(message,'weight_of_auto_pickup'),'') as weight_of_auto_pickup,
+	ifNull(JSONExtractString(message,'weight_of_auto_saved'),'') as weight_of_auto_saved,
+	ifNull(JSONExtractString(message,'weight_of_trip_start'),'') as weight_of_trip_start,
+	ifNull(JSONExtractString(message,'max_num_hot_spots_to_show'),'') as max_num_hot_spots_to_show,
+	ifNull(JSONExtractString(message,'weight_of_trip_end'),'') as weight_of_trip_end,
+	ifNull(JSONExtractString(message,'weight_of_special_location'),'') as weight_of_special_location,
+	ifNull(JSONExtractString(message,'should_take_hot_spot'),'') as should_take_hot_spot,
+
+	FROM atlas_app.hot_spot_config_queue
+	where JSONExtractString(message,'tag') = 'HotSpotConfigObject'
+
+
+CREATE TABLE atlas_app_helper.issue_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `customer_id` Nullable (String),
+    `booking_id` Nullable (String),
+    `contact_email` Nullable (String),
+    `reason` Nullable (String),
+    `description` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `ticket_id` Nullable (String),
+    `status` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.issue ON CLUSTER `{cluster}` AS atlas_app_helper.issue_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, issue_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.issue ON CLUSTER `{cluster}` TO atlas_app.issue
+(
+	`id` String,
+	`customer_id` String,
+	`booking_id` String,
+	`contact_email` String,
+	`reason` String,
+	`description` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`ticket_id` String,
+	`status` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'customer_id'),'') as customer_id,
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'contact_email'),'') as contact_email,
+	ifNull(JSONExtractString(message,'reason'),'') as reason,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'ticket_id'),'') as ticket_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+
+	FROM atlas_app.issue_queue
+	where JSONExtractString(message,'tag') = 'IssueObject'
+
+
+CREATE TABLE atlas_app_helper.location_backup_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `location_type` Nullable (String),
+    `lat` Nullable (Float64),
+    `long` Nullable (Float64),
+    `point` Nullable (String),
+    `ward` Nullable (String),
+    `district` Nullable (String),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `pincode` Nullable (String),
+    `address` Nullable (String),
+    `bound` Nullable (String),
+    `info` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.location_backup ON CLUSTER `{cluster}` AS atlas_app_helper.location_backup_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, location_backup_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.location_backup ON CLUSTER `{cluster}` TO atlas_app.location_backup
+(
+	`id` String,
+	`location_type` String,
+	`lat` Float64,
+	`long` Float64,
+	`point` String,
+	`ward` String,
+	`district` String,
+	`city` String,
+	`state` String,
+	`country` String,
+	`pincode` String,
+	`address` String,
+	`bound` String,
+	`info` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'location_type'),'') as location_type,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'long'),0.0) as long,
+	ifNull(JSONExtractString(message,'point'),'') as point,
+	ifNull(JSONExtractString(message,'ward'),'') as ward,
+	ifNull(JSONExtractString(message,'district'),'') as district,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	ifNull(JSONExtractString(message,'pincode'),'') as pincode,
+	ifNull(JSONExtractString(message,'address'),'') as address,
+	ifNull(JSONExtractString(message,'bound'),'') as bound,
+	ifNull(JSONExtractString(message,'info'),'') as info,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.location_backup_queue
+	where JSONExtractString(message,'tag') = 'LocationBackupObject'
+
+
+CREATE TABLE atlas_app_helper.merchant_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `short_id` Nullable (String),
+    `origin_restriction` Nullable (String),
+    `destination_restriction` Nullable (String),
+    `registry_url` Nullable (String),
+    `gateway_url` Nullable (String),
+    `name` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `driver_offer_base_url` Nullable (String),
+    `driver_offer_api_key` Nullable (String),
+    `driver_offer_merchant_id` Nullable (String),
+    `subscriber_id` Nullable (String),
+    `city` Nullable (String),
+    `geo_hash_precision_value` Nullable (Int64),
+    `signing_public_key` Nullable (String),
+    `signature_expiry` Nullable (Int64),
+    `cipher_text` Nullable (String),
+    `country` Nullable (String),
+    `bap_unique_key_id` Nullable (String),
+    `bap_id` Nullable (String),
+    `dir_cache_slot` Nullable (String),
+    `time_diff_from_utc` Nullable (Int64),
+    `distance_weightage` Nullable (Int64),
+    `minimum_driver_rates_count` Nullable (String),
+    `is_avoid_toll` Nullable (String),
+    `aadhaar_verification_try_limit` Nullable (Int64),
+    `aadhaar_key_expiry_time` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.merchant ON CLUSTER `{cluster}` AS atlas_app_helper.merchant_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, merchant_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.merchant ON CLUSTER `{cluster}` TO atlas_app.merchant
+(
+	`id` String,
+	`short_id` String,
+	`origin_restriction` String,
+	`destination_restriction` String,
+	`registry_url` String,
+	`gateway_url` String,
+	`name` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`driver_offer_base_url` String,
+	`driver_offer_api_key` String,
+	`driver_offer_merchant_id` String,
+	`subscriber_id` String,
+	`city` String,
+	`geo_hash_precision_value` Int64,
+	`signing_public_key` String,
+	`signature_expiry` Int64,
+	`cipher_text` String,
+	`country` String,
+	`bap_unique_key_id` String,
+	`bap_id` String,
+	`dir_cache_slot` String,
+	`time_diff_from_utc` Int64,
+	`distance_weightage` Int64,
+	`minimum_driver_rates_count` String,
+	`is_avoid_toll` String,
+	`aadhaar_verification_try_limit` Int64,
+	`aadhaar_key_expiry_time` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'origin_restriction'),'') as origin_restriction,
+	ifNull(JSONExtractString(message,'destination_restriction'),'') as destination_restriction,
+	ifNull(JSONExtractString(message,'registry_url'),'') as registry_url,
+	ifNull(JSONExtractString(message,'gateway_url'),'') as gateway_url,
+	ifNull(JSONExtractString(message,'name'),'') as name,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'driver_offer_base_url'),'') as driver_offer_base_url,
+	ifNull(JSONExtractString(message,'driver_offer_api_key'),'') as driver_offer_api_key,
+	ifNull(JSONExtractString(message,'driver_offer_merchant_id'),'') as driver_offer_merchant_id,
+	ifNull(JSONExtractString(message,'subscriber_id'),'') as subscriber_id,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractInt(message,'geo_hash_precision_value'), 0) as geo_hash_precision_value,
+	ifNull(JSONExtractString(message,'signing_public_key'),'') as signing_public_key,
+	ifNull(JSONExtractInt(message,'signature_expiry'), 0) as signature_expiry,
+	ifNull(JSONExtractString(message,'cipher_text'),'') as cipher_text,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	ifNull(JSONExtractString(message,'bap_unique_key_id'),'') as bap_unique_key_id,
+	ifNull(JSONExtractString(message,'bap_id'),'') as bap_id,
+	ifNull(JSONExtractString(message,'dir_cache_slot'),'') as dir_cache_slot,
+	ifNull(JSONExtractInt(message,'time_diff_from_utc'), 0) as time_diff_from_utc,
+	ifNull(JSONExtractInt(message,'distance_weightage'), 0) as distance_weightage,
+	ifNull(JSONExtractString(message,'minimum_driver_rates_count'),'') as minimum_driver_rates_count,
+	ifNull(JSONExtractString(message,'is_avoid_toll'),'') as is_avoid_toll,
+	ifNull(JSONExtractInt(message,'aadhaar_verification_try_limit'), 0) as aadhaar_verification_try_limit,
+	ifNull(JSONExtractInt(message,'aadhaar_key_expiry_time'), 0) as aadhaar_key_expiry_time,
+
+	FROM atlas_app.merchant_queue
+	where JSONExtractString(message,'tag') = 'MerchantObject'
+
+
+CREATE TABLE atlas_app_helper.merchant_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `fraud_booking_cancellation_count_threshold` Nullable (Int64),
+    `fraud_booking_total_count_threshold` Nullable (Int64),
+    `fraud_booking_cancellation_count_window` Nullable (String),
+    `fraud_booking_cancelled_by_driver_count_threshold` Nullable (Int64),
+    `fraud_booking_cancelled_by_driver_count_window` Nullable (String),
+    `fraud_search_count_threshold` Nullable (Int64),
+    `fraud_search_count_window` Nullable (String),
+    `id` Nullable (String),
+    `enabled` Nullable (String),
+    `fraud_ride_count_threshold` Nullable (Int64),
+    `fraud_ride_count_window` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.merchant_config ON CLUSTER `{cluster}` AS atlas_app_helper.merchant_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, merchant_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.merchant_config ON CLUSTER `{cluster}` TO atlas_app.merchant_config
+(
+	`merchant_id` String,
+	`fraud_booking_cancellation_count_threshold` Int64,
+	`fraud_booking_total_count_threshold` Int64,
+	`fraud_booking_cancellation_count_window` String,
+	`fraud_booking_cancelled_by_driver_count_threshold` Int64,
+	`fraud_booking_cancelled_by_driver_count_window` String,
+	`fraud_search_count_threshold` Int64,
+	`fraud_search_count_window` String,
+	`id` String,
+	`enabled` String,
+	`fraud_ride_count_threshold` Int64,
+	`fraud_ride_count_window` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'fraud_booking_cancellation_count_threshold'), 0) as fraud_booking_cancellation_count_threshold,
+	ifNull(JSONExtractInt(message,'fraud_booking_total_count_threshold'), 0) as fraud_booking_total_count_threshold,
+	ifNull(JSONExtractString(message,'fraud_booking_cancellation_count_window'),'') as fraud_booking_cancellation_count_window,
+	ifNull(JSONExtractInt(message,'fraud_booking_cancelled_by_driver_count_threshold'), 0) as fraud_booking_cancelled_by_driver_count_threshold,
+	ifNull(JSONExtractString(message,'fraud_booking_cancelled_by_driver_count_window'),'') as fraud_booking_cancelled_by_driver_count_window,
+	ifNull(JSONExtractInt(message,'fraud_search_count_threshold'), 0) as fraud_search_count_threshold,
+	ifNull(JSONExtractString(message,'fraud_search_count_window'),'') as fraud_search_count_window,
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	ifNull(JSONExtractInt(message,'fraud_ride_count_threshold'), 0) as fraud_ride_count_threshold,
+	ifNull(JSONExtractString(message,'fraud_ride_count_window'),'') as fraud_ride_count_window,
+
+	FROM atlas_app.merchant_config_queue
+	where JSONExtractString(message,'tag') = 'MerchantConfigObject'
+
+
+CREATE TABLE atlas_app_helper.merchant_message_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `message_key` Nullable (String),
+    `message` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.merchant_message ON CLUSTER `{cluster}` AS atlas_app_helper.merchant_message_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, merchant_message_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.merchant_message ON CLUSTER `{cluster}` TO atlas_app.merchant_message
+(
+	`merchant_id` String,
+	`message_key` String,
+	`message` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'message_key'),'') as message_key,
+	ifNull(JSONExtractString(message,'message'),'') as message,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.merchant_message_queue
+	where JSONExtractString(message,'tag') = 'MerchantMessageObject'
+
+
+CREATE TABLE atlas_app_helper.merchant_payment_method_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `payment_type` Nullable (String),
+    `payment_instrument` Nullable (String),
+    `collected_by` Nullable (String),
+    `priority` Nullable (Int64),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.merchant_payment_method ON CLUSTER `{cluster}` AS atlas_app_helper.merchant_payment_method_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, merchant_payment_method_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.merchant_payment_method ON CLUSTER `{cluster}` TO atlas_app.merchant_payment_method
+(
+	`id` String,
+	`merchant_id` String,
+	`payment_type` String,
+	`payment_instrument` String,
+	`collected_by` String,
+	`priority` Int64,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'payment_type'),'') as payment_type,
+	ifNull(JSONExtractString(message,'payment_instrument'),'') as payment_instrument,
+	ifNull(JSONExtractString(message,'collected_by'),'') as collected_by,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.merchant_payment_method_queue
+	where JSONExtractString(message,'tag') = 'MerchantPaymentMethodObject'
+
+
+CREATE TABLE atlas_app_helper.merchant_service_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `service_name` Nullable (String),
+    `config_json` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.merchant_service_config ON CLUSTER `{cluster}` AS atlas_app_helper.merchant_service_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, merchant_service_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.merchant_service_config ON CLUSTER `{cluster}` TO atlas_app.merchant_service_config
+(
+	`merchant_id` String,
+	`service_name` String,
+	`config_json` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'service_name'),'') as service_name,
+	ifNull(JSONExtractString(message,'config_json'),'') as config_json,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.merchant_service_config_queue
+	where JSONExtractString(message,'tag') = 'MerchantServiceConfigObject'
+
+
+CREATE TABLE atlas_app_helper.merchant_service_usage_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `get_distances` Nullable (String),
+    `get_routes` Nullable (String),
+    `snap_to_road` Nullable (String),
+    `get_place_name` Nullable (String),
+    `get_place_details` Nullable (String),
+    `auto_complete` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `sms_providers_priority_list` Nullable (String),
+    `whatsapp_providers_priority_list` Nullable (String),
+    `initiate_call` Nullable (String),
+    `get_pickup_routes` Nullable (String),
+    `get_trip_routes` Nullable (String),
+    `use_fraud_detection` Nullable (String),
+    `notify_person` Nullable (String),
+    `get_distances_for_cancel_ride` Nullable (String),
+    `enable_dashboard_sms` Nullable (String),
+    `issue_ticket_service` Nullable (String),
+    `get_exophone` Nullable (String),
+    `aadhaar_verification_service` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.merchant_service_usage_config ON CLUSTER `{cluster}` AS atlas_app_helper.merchant_service_usage_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, merchant_service_usage_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.merchant_service_usage_config ON CLUSTER `{cluster}` TO atlas_app.merchant_service_usage_config
+(
+	`merchant_id` String,
+	`get_distances` String,
+	`get_routes` String,
+	`snap_to_road` String,
+	`get_place_name` String,
+	`get_place_details` String,
+	`auto_complete` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+	`sms_providers_priority_list` String,
+	`whatsapp_providers_priority_list` String,
+	`initiate_call` String,
+	`get_pickup_routes` String,
+	`get_trip_routes` String,
+	`use_fraud_detection` String,
+	`notify_person` String,
+	`get_distances_for_cancel_ride` String,
+	`enable_dashboard_sms` String,
+	`issue_ticket_service` String,
+	`get_exophone` String,
+	`aadhaar_verification_service` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'get_distances'),'') as get_distances,
+	ifNull(JSONExtractString(message,'get_routes'),'') as get_routes,
+	ifNull(JSONExtractString(message,'snap_to_road'),'') as snap_to_road,
+	ifNull(JSONExtractString(message,'get_place_name'),'') as get_place_name,
+	ifNull(JSONExtractString(message,'get_place_details'),'') as get_place_details,
+	ifNull(JSONExtractString(message,'auto_complete'),'') as auto_complete,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'sms_providers_priority_list'),'') as sms_providers_priority_list,
+	ifNull(JSONExtractString(message,'whatsapp_providers_priority_list'),'') as whatsapp_providers_priority_list,
+	ifNull(JSONExtractString(message,'initiate_call'),'') as initiate_call,
+	ifNull(JSONExtractString(message,'get_pickup_routes'),'') as get_pickup_routes,
+	ifNull(JSONExtractString(message,'get_trip_routes'),'') as get_trip_routes,
+	ifNull(JSONExtractString(message,'use_fraud_detection'),'') as use_fraud_detection,
+	ifNull(JSONExtractString(message,'notify_person'),'') as notify_person,
+	ifNull(JSONExtractString(message,'get_distances_for_cancel_ride'),'') as get_distances_for_cancel_ride,
+	ifNull(JSONExtractString(message,'enable_dashboard_sms'),'') as enable_dashboard_sms,
+	ifNull(JSONExtractString(message,'issue_ticket_service'),'') as issue_ticket_service,
+	ifNull(JSONExtractString(message,'get_exophone'),'') as get_exophone,
+	ifNull(JSONExtractString(message,'aadhaar_verification_service'),'') as aadhaar_verification_service,
+
+	FROM atlas_app.merchant_service_usage_config_queue
+	where JSONExtractString(message,'tag') = 'MerchantServiceUsageConfigObject'
+
+
+CREATE TABLE atlas_app_helper.on_search_event_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `bpp_id` Nullable (String),
+    `message_id` Nullable (String),
+    `error_code` Nullable (String),
+    `error_type` Nullable (String),
+    `error_message` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.on_search_event ON CLUSTER `{cluster}` AS atlas_app_helper.on_search_event_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, on_search_event_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.on_search_event ON CLUSTER `{cluster}` TO atlas_app.on_search_event
+(
+	`id` String,
+	`bpp_id` String,
+	`message_id` String,
+	`error_code` String,
+	`error_type` String,
+	`error_message` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'bpp_id'),'') as bpp_id,
+	ifNull(JSONExtractString(message,'message_id'),'') as message_id,
+	ifNull(JSONExtractString(message,'error_code'),'') as error_code,
+	ifNull(JSONExtractString(message,'error_type'),'') as error_type,
+	ifNull(JSONExtractString(message,'error_message'),'') as error_message,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.on_search_event_queue
+	where JSONExtractString(message,'tag') = 'OnSearchEventObject'
+
+
+CREATE TABLE atlas_app_helper.payment_order_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `short_id` Nullable (String),
+    `person_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `amount` Nullable (Int64),
+    `currency` Nullable (String),
+    `status` Nullable (String),
+    `web_payment_link` Nullable (String),
+    `iframe_payment_link` Nullable (String),
+    `mobile_payment_link` Nullable (String),
+    `client_auth_token_encrypted` Nullable (String),
+    `client_auth_token_hash` Nullable (String),
+    `client_auth_token_expiry` DateTime DEFAULT now(),
+    `get_upi_deep_links_option` Nullable (String),
+    `environment` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `payment_service_order_id` Nullable (String),
+    `service` Nullable (String),
+    `client_id` Nullable (String),
+    `description` Nullable (String),
+    `return_url` Nullable (String),
+    `action` Nullable (String),
+    `request_id` Nullable (String),
+    `payment_merchant_id` Nullable (String),
+    `create_mandate` Nullable (String),
+    `mandate_max_amount` Nullable (String),
+    `mandate_start_date` DateTime DEFAULT now(),
+    `mandate_end_date` DateTime DEFAULT now(),
+    `bank_error_message` Nullable (String),
+    `bank_error_code` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.payment_order ON CLUSTER `{cluster}` AS atlas_app_helper.payment_order_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, payment_order_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.payment_order ON CLUSTER `{cluster}` TO atlas_app.payment_order
+(
+	`id` String,
+	`short_id` String,
+	`person_id` String,
+	`merchant_id` String,
+	`amount` Int64,
+	`currency` String,
+	`status` String,
+	`web_payment_link` String,
+	`iframe_payment_link` String,
+	`mobile_payment_link` String,
+	`client_auth_token_encrypted` String,
+	`client_auth_token_hash` String,
+	`client_auth_token_expiry` DateTime,
+	`get_upi_deep_links_option` String,
+	`environment` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`payment_service_order_id` String,
+	`service` String,
+	`client_id` String,
+	`description` String,
+	`return_url` String,
+	`action` String,
+	`request_id` String,
+	`payment_merchant_id` String,
+	`create_mandate` String,
+	`mandate_max_amount` String,
+	`mandate_start_date` DateTime,
+	`mandate_end_date` DateTime,
+	`bank_error_message` String,
+	`bank_error_code` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'amount'), 0) as amount,
+	ifNull(JSONExtractString(message,'currency'),'') as currency,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'web_payment_link'),'') as web_payment_link,
+	ifNull(JSONExtractString(message,'iframe_payment_link'),'') as iframe_payment_link,
+	ifNull(JSONExtractString(message,'mobile_payment_link'),'') as mobile_payment_link,
+	ifNull(JSONExtractString(message,'client_auth_token_encrypted'),'') as client_auth_token_encrypted,
+	ifNull(JSONExtractString(message,'client_auth_token_hash'),'') as client_auth_token_hash,
+	toDateTime(JSONExtractInt(message,'client_auth_token_expiry')) as client_auth_token_expiry,
+	ifNull(JSONExtractString(message,'get_upi_deep_links_option'),'') as get_upi_deep_links_option,
+	ifNull(JSONExtractString(message,'environment'),'') as environment,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'payment_service_order_id'),'') as payment_service_order_id,
+	ifNull(JSONExtractString(message,'service'),'') as service,
+	ifNull(JSONExtractString(message,'client_id'),'') as client_id,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'return_url'),'') as return_url,
+	ifNull(JSONExtractString(message,'action'),'') as action,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'payment_merchant_id'),'') as payment_merchant_id,
+	ifNull(JSONExtractString(message,'create_mandate'),'') as create_mandate,
+	ifNull(JSONExtractString(message,'mandate_max_amount'),'') as mandate_max_amount,
+	toDateTime(JSONExtractInt(message,'mandate_start_date')) as mandate_start_date,
+	toDateTime(JSONExtractInt(message,'mandate_end_date')) as mandate_end_date,
+	ifNull(JSONExtractString(message,'bank_error_message'),'') as bank_error_message,
+	ifNull(JSONExtractString(message,'bank_error_code'),'') as bank_error_code,
+
+	FROM atlas_app.payment_order_queue
+	where JSONExtractString(message,'tag') = 'PaymentOrderObject'
+
+
+CREATE TABLE atlas_app_helper.payment_transaction_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `txn_uuid` Nullable (String),
+    `payment_method_type` Nullable (String),
+    `payment_method` Nullable (String),
+    `resp_message` Nullable (String),
+    `resp_code` Nullable (String),
+    `gateway_reference_id` Nullable (String),
+    `order_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `amount` Nullable (String),
+    `currency` Nullable (String),
+    `date_created` DateTime DEFAULT now(),
+    `status_id` Nullable (Int64),
+    `status` Nullable (String),
+    `juspay_response` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `mandate_id` Nullable (String),
+    `mandate_max_amount` Nullable (String),
+    `mandate_frequency` Nullable (String),
+    `mandate_status` Nullable (String),
+    `mandate_start_date` DateTime DEFAULT now(),
+    `mandate_end_date` DateTime DEFAULT now(),
+    `bank_error_message` Nullable (String),
+    `bank_error_code` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.payment_transaction ON CLUSTER `{cluster}` AS atlas_app_helper.payment_transaction_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, payment_transaction_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.payment_transaction ON CLUSTER `{cluster}` TO atlas_app.payment_transaction
+(
+	`id` String,
+	`txn_uuid` String,
+	`payment_method_type` String,
+	`payment_method` String,
+	`resp_message` String,
+	`resp_code` String,
+	`gateway_reference_id` String,
+	`order_id` String,
+	`merchant_id` String,
+	`amount` String,
+	`currency` String,
+	`date_created` DateTime,
+	`status_id` Int64,
+	`status` String,
+	`juspay_response` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`mandate_id` String,
+	`mandate_max_amount` String,
+	`mandate_frequency` String,
+	`mandate_status` String,
+	`mandate_start_date` DateTime,
+	`mandate_end_date` DateTime,
+	`bank_error_message` String,
+	`bank_error_code` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'txn_uuid'),'') as txn_uuid,
+	ifNull(JSONExtractString(message,'payment_method_type'),'') as payment_method_type,
+	ifNull(JSONExtractString(message,'payment_method'),'') as payment_method,
+	ifNull(JSONExtractString(message,'resp_message'),'') as resp_message,
+	ifNull(JSONExtractString(message,'resp_code'),'') as resp_code,
+	ifNull(JSONExtractString(message,'gateway_reference_id'),'') as gateway_reference_id,
+	ifNull(JSONExtractString(message,'order_id'),'') as order_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'amount'),'') as amount,
+	ifNull(JSONExtractString(message,'currency'),'') as currency,
+	toDateTime(JSONExtractInt(message,'date_created')) as date_created,
+	ifNull(JSONExtractInt(message,'status_id'), 0) as status_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'juspay_response'),'') as juspay_response,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'mandate_id'),'') as mandate_id,
+	ifNull(JSONExtractString(message,'mandate_max_amount'),'') as mandate_max_amount,
+	ifNull(JSONExtractString(message,'mandate_frequency'),'') as mandate_frequency,
+	ifNull(JSONExtractString(message,'mandate_status'),'') as mandate_status,
+	toDateTime(JSONExtractInt(message,'mandate_start_date')) as mandate_start_date,
+	toDateTime(JSONExtractInt(message,'mandate_end_date')) as mandate_end_date,
+	ifNull(JSONExtractString(message,'bank_error_message'),'') as bank_error_message,
+	ifNull(JSONExtractString(message,'bank_error_code'),'') as bank_error_code,
+
+	FROM atlas_app.payment_transaction_queue
+	where JSONExtractString(message,'tag') = 'PaymentTransactionObject'
+
+
+CREATE TABLE atlas_app_helper.person_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `first_name` Nullable (String),
+    `middle_name` Nullable (String),
+    `last_name` Nullable (String),
+    `role` Nullable (String),
+    `gender` Nullable (String),
+    `identifier_type` Nullable (String),
+    `password_hash` Nullable (String),
+    `mobile_number_encrypted` Nullable (String),
+    `mobile_number_hash` Nullable (String),
+    `mobile_country_code` Nullable (String),
+    `identifier` Nullable (String),
+    `rating` Nullable (String),
+    `is_new` Nullable (String),
+    `udf1` Nullable (String),
+    `udf2` Nullable (String),
+    `device_token` Nullable (String),
+    `description` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `merchant_id` Nullable (String),
+    `email_encrypted` Nullable (String),
+    `email_hash` Nullable (String),
+    `enabled` Nullable (String),
+    `client_version` Nullable (String),
+    `bundle_version` Nullable (String),
+    `whatsapp_notification_enroll_status` Nullable (String),
+    `unencrypted_mobile_number` Nullable (String),
+    `referral_code` Nullable (String),
+    `referred_at` DateTime DEFAULT now(),
+    `has_taken_valid_ride` Nullable (String),
+    `language` Nullable (String),
+    `blocked` Nullable (String),
+    `blocked_at` DateTime DEFAULT now(),
+    `notification_token` Nullable (String),
+    `blocked_by_rule_id` Nullable (String),
+    `total_ratings` Nullable (Int64),
+    `total_rating_score` Nullable (Int64),
+    `is_valid_rating` Nullable (String),
+    `has_disability` Nullable (String),
+    `aadhaar_verified` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.person ON CLUSTER `{cluster}` AS atlas_app_helper.person_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, person_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.person ON CLUSTER `{cluster}` TO atlas_app.person
+(
+	`id` String,
+	`first_name` String,
+	`middle_name` String,
+	`last_name` String,
+	`role` String,
+	`gender` String,
+	`identifier_type` String,
+	`password_hash` String,
+	`mobile_number_encrypted` String,
+	`mobile_number_hash` String,
+	`mobile_country_code` String,
+	`identifier` String,
+	`rating` String,
+	`is_new` String,
+	`udf1` String,
+	`udf2` String,
+	`device_token` String,
+	`description` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`merchant_id` String,
+	`email_encrypted` String,
+	`email_hash` String,
+	`enabled` String,
+	`client_version` String,
+	`bundle_version` String,
+	`whatsapp_notification_enroll_status` String,
+	`unencrypted_mobile_number` String,
+	`referral_code` String,
+	`referred_at` DateTime,
+	`has_taken_valid_ride` String,
+	`language` String,
+	`blocked` String,
+	`blocked_at` DateTime,
+	`notification_token` String,
+	`blocked_by_rule_id` String,
+	`total_ratings` Int64,
+	`total_rating_score` Int64,
+	`is_valid_rating` String,
+	`has_disability` String,
+	`aadhaar_verified` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'first_name'),'') as first_name,
+	ifNull(JSONExtractString(message,'middle_name'),'') as middle_name,
+	ifNull(JSONExtractString(message,'last_name'),'') as last_name,
+	ifNull(JSONExtractString(message,'role'),'') as role,
+	ifNull(JSONExtractString(message,'gender'),'') as gender,
+	ifNull(JSONExtractString(message,'identifier_type'),'') as identifier_type,
+	ifNull(JSONExtractString(message,'password_hash'),'') as password_hash,
+	ifNull(JSONExtractString(message,'mobile_number_encrypted'),'') as mobile_number_encrypted,
+	ifNull(JSONExtractString(message,'mobile_number_hash'),'') as mobile_number_hash,
+	ifNull(JSONExtractString(message,'mobile_country_code'),'') as mobile_country_code,
+	ifNull(JSONExtractString(message,'identifier'),'') as identifier,
+	ifNull(JSONExtractString(message,'rating'),'') as rating,
+	ifNull(JSONExtractString(message,'is_new'),'') as is_new,
+	ifNull(JSONExtractString(message,'udf1'),'') as udf1,
+	ifNull(JSONExtractString(message,'udf2'),'') as udf2,
+	ifNull(JSONExtractString(message,'device_token'),'') as device_token,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'email_encrypted'),'') as email_encrypted,
+	ifNull(JSONExtractString(message,'email_hash'),'') as email_hash,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	ifNull(JSONExtractString(message,'client_version'),'') as client_version,
+	ifNull(JSONExtractString(message,'bundle_version'),'') as bundle_version,
+	ifNull(JSONExtractString(message,'whatsapp_notification_enroll_status'),'') as whatsapp_notification_enroll_status,
+	ifNull(JSONExtractString(message,'unencrypted_mobile_number'),'') as unencrypted_mobile_number,
+	ifNull(JSONExtractString(message,'referral_code'),'') as referral_code,
+	toDateTime(JSONExtractInt(message,'referred_at')) as referred_at,
+	ifNull(JSONExtractString(message,'has_taken_valid_ride'),'') as has_taken_valid_ride,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+	ifNull(JSONExtractString(message,'blocked'),'') as blocked,
+	toDateTime(JSONExtractInt(message,'blocked_at')) as blocked_at,
+	ifNull(JSONExtractString(message,'notification_token'),'') as notification_token,
+	ifNull(JSONExtractString(message,'blocked_by_rule_id'),'') as blocked_by_rule_id,
+	ifNull(JSONExtractInt(message,'total_ratings'), 0) as total_ratings,
+	ifNull(JSONExtractInt(message,'total_rating_score'), 0) as total_rating_score,
+	ifNull(JSONExtractString(message,'is_valid_rating'),'') as is_valid_rating,
+	ifNull(JSONExtractString(message,'has_disability'),'') as has_disability,
+	ifNull(JSONExtractString(message,'aadhaar_verified'),'') as aadhaar_verified,
+
+	FROM atlas_app.person_queue
+	where JSONExtractString(message,'tag') = 'PersonObject'
+
+
+CREATE TABLE atlas_app_helper.person_default_emergency_number_shard ON CLUSTER `{cluster}`
+    (
+    `person_id` Nullable (String),
+    `name` Nullable (String),
+    `mobile_country_code` Nullable (String),
+    `mobile_number_encrypted` Nullable (String),
+    `mobile_number_hash` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.person_default_emergency_number ON CLUSTER `{cluster}` AS atlas_app_helper.person_default_emergency_number_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, person_default_emergency_number_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.person_default_emergency_number ON CLUSTER `{cluster}` TO atlas_app.person_default_emergency_number
+(
+	`person_id` String,
+	`name` String,
+	`mobile_country_code` String,
+	`mobile_number_encrypted` String,
+	`mobile_number_hash` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'name'),'') as name,
+	ifNull(JSONExtractString(message,'mobile_country_code'),'') as mobile_country_code,
+	ifNull(JSONExtractString(message,'mobile_number_encrypted'),'') as mobile_number_encrypted,
+	ifNull(JSONExtractString(message,'mobile_number_hash'),'') as mobile_number_hash,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.person_default_emergency_number_queue
+	where JSONExtractString(message,'tag') = 'PersonDefaultEmergencyNumberObject'
+
+
+CREATE TABLE atlas_app_helper.person_disability_shard ON CLUSTER `{cluster}`
+    (
+    `person_id` Nullable (String),
+    `disability_id` Nullable (String),
+    `tag` Nullable (String),
+    `description` Nullable (String),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.person_disability ON CLUSTER `{cluster}` AS atlas_app_helper.person_disability_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, person_disability_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.person_disability ON CLUSTER `{cluster}` TO atlas_app.person_disability
+(
+	`person_id` String,
+	`disability_id` String,
+	`tag` String,
+	`description` String,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'disability_id'),'') as disability_id,
+	ifNull(JSONExtractString(message,'tag'),'') as tag,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.person_disability_queue
+	where JSONExtractString(message,'tag') = 'PersonDisabilityObject'
+
+
+CREATE TABLE atlas_app_helper.person_flow_status_shard ON CLUSTER `{cluster}`
+    (
+    `person_id` Nullable (String),
+    `flow_status` Nullable (String),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.person_flow_status ON CLUSTER `{cluster}` AS atlas_app_helper.person_flow_status_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, person_flow_status_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.person_flow_status ON CLUSTER `{cluster}` TO atlas_app.person_flow_status
+(
+	`person_id` String,
+	`flow_status` String,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'flow_status'),'') as flow_status,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.person_flow_status_queue
+	where JSONExtractString(message,'tag') = 'PersonFlowStatusObject'
+
+
+CREATE TABLE atlas_app_helper.person_stats_shard ON CLUSTER `{cluster}`
+    (
+    `person_id` Nullable (String),
+    `user_cancelled_rides` Nullable (Int64),
+    `driver_cancelled_rides` Nullable (Int64),
+    `completed_rides` Nullable (Int64),
+    `weekend_rides` Nullable (Int64),
+    `weekday_rides` Nullable (Int64),
+    `off_peak_rides` Nullable (Int64),
+    `evening_peak_rides` Nullable (Int64),
+    `morning_peak_rides` Nullable (Int64),
+    `weekend_peak_rides` Nullable (Int64),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.person_stats ON CLUSTER `{cluster}` AS atlas_app_helper.person_stats_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, person_stats_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.person_stats ON CLUSTER `{cluster}` TO atlas_app.person_stats
+(
+	`person_id` String,
+	`user_cancelled_rides` Int64,
+	`driver_cancelled_rides` Int64,
+	`completed_rides` Int64,
+	`weekend_rides` Int64,
+	`weekday_rides` Int64,
+	`off_peak_rides` Int64,
+	`evening_peak_rides` Int64,
+	`morning_peak_rides` Int64,
+	`weekend_peak_rides` Int64,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractInt(message,'user_cancelled_rides'), 0) as user_cancelled_rides,
+	ifNull(JSONExtractInt(message,'driver_cancelled_rides'), 0) as driver_cancelled_rides,
+	ifNull(JSONExtractInt(message,'completed_rides'), 0) as completed_rides,
+	ifNull(JSONExtractInt(message,'weekend_rides'), 0) as weekend_rides,
+	ifNull(JSONExtractInt(message,'weekday_rides'), 0) as weekday_rides,
+	ifNull(JSONExtractInt(message,'off_peak_rides'), 0) as off_peak_rides,
+	ifNull(JSONExtractInt(message,'evening_peak_rides'), 0) as evening_peak_rides,
+	ifNull(JSONExtractInt(message,'morning_peak_rides'), 0) as morning_peak_rides,
+	ifNull(JSONExtractInt(message,'weekend_peak_rides'), 0) as weekend_peak_rides,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.person_stats_queue
+	where JSONExtractString(message,'tag') = 'PersonStatsObject'
+
+
+CREATE TABLE atlas_app_helper.place_name_cache_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `formatted_address` Nullable (String),
+    `plus_code` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `place_id` Nullable (String),
+    `address_components` Nullable (String),
+    `geo_hash` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.place_name_cache ON CLUSTER `{cluster}` AS atlas_app_helper.place_name_cache_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, place_name_cache_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.place_name_cache ON CLUSTER `{cluster}` TO atlas_app.place_name_cache
+(
+	`id` String,
+	`formatted_address` String,
+	`plus_code` String,
+	`lat` Float64,
+	`lon` Float64,
+	`place_id` String,
+	`address_components` String,
+	`geo_hash` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'formatted_address'),'') as formatted_address,
+	ifNull(JSONExtractString(message,'plus_code'),'') as plus_code,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'place_id'),'') as place_id,
+	ifNull(JSONExtractString(message,'address_components'),'') as address_components,
+	ifNull(JSONExtractString(message,'geo_hash'),'') as geo_hash,
+
+	FROM atlas_app.place_name_cache_queue
+	where JSONExtractString(message,'tag') = 'PlaceNameCacheObject'
+
+
+CREATE TABLE atlas_app_helper.product_instance_backup_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `case_id` Nullable (String),
+    `product_id` Nullable (String),
+    `person_id` Nullable (String),
+    `person_updated_at` DateTime DEFAULT now(),
+    `short_id` Nullable (String),
+    `entity_id` Nullable (String),
+    `entity_type` Nullable (String),
+    `quantity` Nullable (String),
+    `price` Nullable (String),
+    `type` Nullable (String),
+    `status` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `end_time` DateTime DEFAULT now(),
+    `valid_till` DateTime DEFAULT now(),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `organization_id` Nullable (String),
+    `parent_id` Nullable (String),
+    `info` Nullable (String),
+    `udf1` Nullable (String),
+    `udf2` Nullable (String),
+    `udf3` Nullable (String),
+    `udf4` Nullable (String),
+    `udf5` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `actual_distance` Nullable (Float64),
+    `actual_price` Nullable (Float64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.product_instance_backup ON CLUSTER `{cluster}` AS atlas_app_helper.product_instance_backup_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, product_instance_backup_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.product_instance_backup ON CLUSTER `{cluster}` TO atlas_app.product_instance_backup
+(
+	`id` String,
+	`case_id` String,
+	`product_id` String,
+	`person_id` String,
+	`person_updated_at` DateTime,
+	`short_id` String,
+	`entity_id` String,
+	`entity_type` String,
+	`quantity` String,
+	`price` String,
+	`type` String,
+	`status` String,
+	`start_time` DateTime,
+	`end_time` DateTime,
+	`valid_till` DateTime,
+	`from_location_id` String,
+	`to_location_id` String,
+	`organization_id` String,
+	`parent_id` String,
+	`info` String,
+	`udf1` String,
+	`udf2` String,
+	`udf3` String,
+	`udf4` String,
+	`udf5` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`actual_distance` Float64,
+	`actual_price` Float64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'case_id'),'') as case_id,
+	ifNull(JSONExtractString(message,'product_id'),'') as product_id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	toDateTime(JSONExtractInt(message,'person_updated_at')) as person_updated_at,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'entity_id'),'') as entity_id,
+	ifNull(JSONExtractString(message,'entity_type'),'') as entity_type,
+	ifNull(JSONExtractString(message,'quantity'),'') as quantity,
+	ifNull(JSONExtractString(message,'price'),'') as price,
+	ifNull(JSONExtractString(message,'type'),'') as type,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	toDateTime(JSONExtractInt(message,'end_time')) as end_time,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractString(message,'organization_id'),'') as organization_id,
+	ifNull(JSONExtractString(message,'parent_id'),'') as parent_id,
+	ifNull(JSONExtractString(message,'info'),'') as info,
+	ifNull(JSONExtractString(message,'udf1'),'') as udf1,
+	ifNull(JSONExtractString(message,'udf2'),'') as udf2,
+	ifNull(JSONExtractString(message,'udf3'),'') as udf3,
+	ifNull(JSONExtractString(message,'udf4'),'') as udf4,
+	ifNull(JSONExtractString(message,'udf5'),'') as udf5,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractFloat(message,'actual_distance'),0.0) as actual_distance,
+	ifNull(JSONExtractFloat(message,'actual_price'),0.0) as actual_price,
+
+	FROM atlas_app.product_instance_backup_queue
+	where JSONExtractString(message,'tag') = 'ProductInstanceBackupObject'
+
+
+CREATE TABLE atlas_app_helper.quote_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `request_id` Nullable (String),
+    `estimated_fare` Nullable (String),
+    `provider_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `vehicle_variant` Nullable (String),
+    `discount` Nullable (String),
+    `estimated_total_fare` Nullable (String),
+    `total_fare` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `distance_to_nearest_driver` Nullable (String),
+    `provider_name` Nullable (String),
+    `provider_completed_rides_count` Nullable (Int64),
+    `provider_url` Nullable (String),
+    `rental_slab_id` Nullable (String),
+    `trip_terms_id` Nullable (String),
+    `fare_product_type` Nullable (String),
+    `driver_offer_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `special_zone_quote_id` Nullable (String),
+    `special_location_tag` Nullable (String),
+    `item_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.quote ON CLUSTER `{cluster}` AS atlas_app_helper.quote_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, quote_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.quote ON CLUSTER `{cluster}` TO atlas_app.quote
+(
+	`id` String,
+	`request_id` String,
+	`estimated_fare` String,
+	`provider_id` String,
+	`created_at` DateTime,
+	`vehicle_variant` String,
+	`discount` String,
+	`estimated_total_fare` String,
+	`total_fare` String,
+	`provider_mobile_number` String,
+	`distance_to_nearest_driver` String,
+	`provider_name` String,
+	`provider_completed_rides_count` Int64,
+	`provider_url` String,
+	`rental_slab_id` String,
+	`trip_terms_id` String,
+	`fare_product_type` String,
+	`driver_offer_id` String,
+	`merchant_id` String,
+	`special_zone_quote_id` String,
+	`special_location_tag` String,
+	`item_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'estimated_fare'),'') as estimated_fare,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractString(message,'discount'),'') as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractString(message,'total_fare'),'') as total_fare,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	ifNull(JSONExtractString(message,'distance_to_nearest_driver'),'') as distance_to_nearest_driver,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractInt(message,'provider_completed_rides_count'), 0) as provider_completed_rides_count,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+	ifNull(JSONExtractString(message,'rental_slab_id'),'') as rental_slab_id,
+	ifNull(JSONExtractString(message,'trip_terms_id'),'') as trip_terms_id,
+	ifNull(JSONExtractString(message,'fare_product_type'),'') as fare_product_type,
+	ifNull(JSONExtractString(message,'driver_offer_id'),'') as driver_offer_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'special_zone_quote_id'),'') as special_zone_quote_id,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+	ifNull(JSONExtractString(message,'item_id'),'') as item_id,
+
+	FROM atlas_app.quote_queue
+	where JSONExtractString(message,'tag') = 'QuoteObject'
+
+
+CREATE TABLE atlas_app_helper.quote_bak_1022_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `request_id` Nullable (String),
+    `estimated_fare` Nullable (String),
+    `provider_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `vehicle_variant` Nullable (String),
+    `discount` Nullable (Float64),
+    `estimated_total_fare` Nullable (String),
+    `total_fare` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `distance_to_nearest_driver` Nullable (Float64),
+    `provider_name` Nullable (String),
+    `provider_completed_rides_count` Nullable (String),
+    `bpp_quote_id` Nullable (String),
+    `provider_url` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.quote_bak_1022 ON CLUSTER `{cluster}` AS atlas_app_helper.quote_bak_1022_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, quote_bak_1022_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.quote_bak_1022 ON CLUSTER `{cluster}` TO atlas_app.quote_bak_1022
+(
+	`id` String,
+	`request_id` String,
+	`estimated_fare` String,
+	`provider_id` String,
+	`created_at` DateTime,
+	`vehicle_variant` String,
+	`discount` Float64,
+	`estimated_total_fare` String,
+	`total_fare` String,
+	`provider_mobile_number` String,
+	`distance_to_nearest_driver` Float64,
+	`provider_name` String,
+	`provider_completed_rides_count` String,
+	`bpp_quote_id` String,
+	`provider_url` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'estimated_fare'),'') as estimated_fare,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractFloat(message,'discount'),0.0) as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractString(message,'total_fare'),'') as total_fare,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	ifNull(JSONExtractFloat(message,'distance_to_nearest_driver'),0.0) as distance_to_nearest_driver,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'provider_completed_rides_count'),'') as provider_completed_rides_count,
+	ifNull(JSONExtractString(message,'bpp_quote_id'),'') as bpp_quote_id,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+
+	FROM atlas_app.quote_bak_1022_queue
+	where JSONExtractString(message,'tag') = 'QuoteBak1022Object'
+
+
+CREATE TABLE atlas_app_helper.quote_bak_1026_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `request_id` Nullable (String),
+    `estimated_fare` Nullable (String),
+    `provider_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `vehicle_variant` Nullable (String),
+    `discount` Nullable (Float64),
+    `estimated_total_fare` Nullable (String),
+    `total_fare` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `distance_to_nearest_driver` Nullable (Float64),
+    `provider_name` Nullable (String),
+    `provider_completed_rides_count` Nullable (String),
+    `bpp_quote_id` Nullable (String),
+    `provider_url` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.quote_bak_1026 ON CLUSTER `{cluster}` AS atlas_app_helper.quote_bak_1026_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, quote_bak_1026_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.quote_bak_1026 ON CLUSTER `{cluster}` TO atlas_app.quote_bak_1026
+(
+	`id` String,
+	`request_id` String,
+	`estimated_fare` String,
+	`provider_id` String,
+	`created_at` DateTime,
+	`vehicle_variant` String,
+	`discount` Float64,
+	`estimated_total_fare` String,
+	`total_fare` String,
+	`provider_mobile_number` String,
+	`distance_to_nearest_driver` Float64,
+	`provider_name` String,
+	`provider_completed_rides_count` String,
+	`bpp_quote_id` String,
+	`provider_url` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'estimated_fare'),'') as estimated_fare,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractFloat(message,'discount'),0.0) as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractString(message,'total_fare'),'') as total_fare,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	ifNull(JSONExtractFloat(message,'distance_to_nearest_driver'),0.0) as distance_to_nearest_driver,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'provider_completed_rides_count'),'') as provider_completed_rides_count,
+	ifNull(JSONExtractString(message,'bpp_quote_id'),'') as bpp_quote_id,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+
+	FROM atlas_app.quote_bak_1026_queue
+	where JSONExtractString(message,'tag') = 'QuoteBak1026Object'
+
+
+CREATE TABLE atlas_app_helper.quote_terms_bak_1027_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `quote_id` Nullable (String),
+    `description` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.quote_terms_bak_1027 ON CLUSTER `{cluster}` AS atlas_app_helper.quote_terms_bak_1027_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, quote_terms_bak_1027_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.quote_terms_bak_1027 ON CLUSTER `{cluster}` TO atlas_app.quote_terms_bak_1027
+(
+	`id` String,
+	`quote_id` String,
+	`description` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+
+	FROM atlas_app.quote_terms_bak_1027_queue
+	where JSONExtractString(message,'tag') = 'QuoteTermsBak1027Object'
+
+
+CREATE TABLE atlas_app_helper.rating_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `ride_id` Nullable (String),
+    `rating_value` Nullable (Int64),
+    `feedback_details` Nullable (String),
+    `rider_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.rating ON CLUSTER `{cluster}` AS atlas_app_helper.rating_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, rating_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.rating ON CLUSTER `{cluster}` TO atlas_app.rating
+(
+	`id` String,
+	`ride_id` String,
+	`rating_value` Int64,
+	`feedback_details` String,
+	`rider_id` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractInt(message,'rating_value'), 0) as rating_value,
+	ifNull(JSONExtractString(message,'feedback_details'),'') as feedback_details,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.rating_queue
+	where JSONExtractString(message,'tag') = 'RatingObject'
+
+
+CREATE TABLE atlas_app_helper.registration_token_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `auth_medium` Nullable (String),
+    `auth_type` Nullable (String),
+    `auth_value_hash` Nullable (String),
+    `token` Nullable (String),
+    `verified` Nullable (String),
+    `auth_expiry` Nullable (Int64),
+    `token_expiry` Nullable (Int64),
+    `attempts` Nullable (Int64),
+    `entity_id` Nullable (String),
+    `entity_type` Nullable (String),
+    `info` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `merchant_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.registration_token ON CLUSTER `{cluster}` AS atlas_app_helper.registration_token_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, registration_token_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.registration_token ON CLUSTER `{cluster}` TO atlas_app.registration_token
+(
+	`id` String,
+	`auth_medium` String,
+	`auth_type` String,
+	`auth_value_hash` String,
+	`token` String,
+	`verified` String,
+	`auth_expiry` Int64,
+	`token_expiry` Int64,
+	`attempts` Int64,
+	`entity_id` String,
+	`entity_type` String,
+	`info` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`merchant_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'auth_medium'),'') as auth_medium,
+	ifNull(JSONExtractString(message,'auth_type'),'') as auth_type,
+	ifNull(JSONExtractString(message,'auth_value_hash'),'') as auth_value_hash,
+	ifNull(JSONExtractString(message,'token'),'') as token,
+	ifNull(JSONExtractString(message,'verified'),'') as verified,
+	ifNull(JSONExtractInt(message,'auth_expiry'), 0) as auth_expiry,
+	ifNull(JSONExtractInt(message,'token_expiry'), 0) as token_expiry,
+	ifNull(JSONExtractInt(message,'attempts'), 0) as attempts,
+	ifNull(JSONExtractString(message,'entity_id'),'') as entity_id,
+	ifNull(JSONExtractString(message,'entity_type'),'') as entity_type,
+	ifNull(JSONExtractString(message,'info'),'') as info,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+
+	FROM atlas_app.registration_token_queue
+	where JSONExtractString(message,'tag') = 'RegistrationTokenObject'
+
+
+CREATE TABLE atlas_app_helper.rental_quote_bak_1027_shard ON CLUSTER `{cluster}`
+    (
+    `quote_id` Nullable (String),
+    `base_distance` Nullable (String),
+    `base_duration_hr` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.rental_quote_bak_1027 ON CLUSTER `{cluster}` AS atlas_app_helper.rental_quote_bak_1027_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, rental_quote_bak_1027_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.rental_quote_bak_1027 ON CLUSTER `{cluster}` TO atlas_app.rental_quote_bak_1027
+(
+	`quote_id` String,
+	`base_distance` String,
+	`base_duration_hr` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+	ifNull(JSONExtractString(message,'base_distance'),'') as base_distance,
+	ifNull(JSONExtractInt(message,'base_duration_hr'), 0) as base_duration_hr,
+
+	FROM atlas_app.rental_quote_bak_1027_queue
+	where JSONExtractString(message,'tag') = 'RentalQuoteBak1027Object'
+
+
+CREATE TABLE atlas_app_helper.rental_slab_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `base_distance` Nullable (Int64),
+    `base_duration` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.rental_slab ON CLUSTER `{cluster}` AS atlas_app_helper.rental_slab_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, rental_slab_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.rental_slab ON CLUSTER `{cluster}` TO atlas_app.rental_slab
+(
+	`id` String,
+	`base_distance` Int64,
+	`base_duration` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractInt(message,'base_distance'), 0) as base_distance,
+	ifNull(JSONExtractInt(message,'base_duration'), 0) as base_duration,
+
+	FROM atlas_app.rental_slab_queue
+	where JSONExtractString(message,'tag') = 'RentalSlabObject'
+
+
+CREATE TABLE atlas_app_helper.ride_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `booking_id` Nullable (String),
+    `short_id` Nullable (String),
+    `status` Nullable (String),
+    `driver_name` Nullable (String),
+    `driver_rating` Nullable (String),
+    `driver_mobile_number` Nullable (String),
+    `driver_registered_at` DateTime DEFAULT now(),
+    `vehicle_number` Nullable (String),
+    `vehicle_model` Nullable (String),
+    `vehicle_color` Nullable (String),
+    `otp` Nullable (String),
+    `tracking_url` Nullable (String),
+    `fare` Nullable (String),
+    `total_fare` Nullable (String),
+    `chargeable_distance` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `bpp_ride_id` Nullable (String),
+    `ride_start_time` DateTime DEFAULT now(),
+    `ride_end_time` DateTime DEFAULT now(),
+    `ride_rating` Nullable (String),
+    `driver_arrival_time` DateTime DEFAULT now(),
+    `merchant_id` Nullable (String),
+    `traveled_distance` Nullable (String),
+    `driver_mobile_country_code` Nullable (String),
+    `driver_image` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.ride ON CLUSTER `{cluster}` AS atlas_app_helper.ride_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, ride_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.ride ON CLUSTER `{cluster}` TO atlas_app.ride
+(
+	`id` String,
+	`booking_id` String,
+	`short_id` String,
+	`status` String,
+	`driver_name` String,
+	`driver_rating` String,
+	`driver_mobile_number` String,
+	`driver_registered_at` DateTime,
+	`vehicle_number` String,
+	`vehicle_model` String,
+	`vehicle_color` String,
+	`otp` String,
+	`tracking_url` String,
+	`fare` String,
+	`total_fare` String,
+	`chargeable_distance` String,
+	`vehicle_variant` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`bpp_ride_id` String,
+	`ride_start_time` DateTime,
+	`ride_end_time` DateTime,
+	`ride_rating` String,
+	`driver_arrival_time` DateTime,
+	`merchant_id` String,
+	`traveled_distance` String,
+	`driver_mobile_country_code` String,
+	`driver_image` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'driver_name'),'') as driver_name,
+	ifNull(JSONExtractString(message,'driver_rating'),'') as driver_rating,
+	ifNull(JSONExtractString(message,'driver_mobile_number'),'') as driver_mobile_number,
+	toDateTime(JSONExtractInt(message,'driver_registered_at')) as driver_registered_at,
+	ifNull(JSONExtractString(message,'vehicle_number'),'') as vehicle_number,
+	ifNull(JSONExtractString(message,'vehicle_model'),'') as vehicle_model,
+	ifNull(JSONExtractString(message,'vehicle_color'),'') as vehicle_color,
+	ifNull(JSONExtractString(message,'otp'),'') as otp,
+	ifNull(JSONExtractString(message,'tracking_url'),'') as tracking_url,
+	ifNull(JSONExtractString(message,'fare'),'') as fare,
+	ifNull(JSONExtractString(message,'total_fare'),'') as total_fare,
+	ifNull(JSONExtractString(message,'chargeable_distance'),'') as chargeable_distance,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'bpp_ride_id'),'') as bpp_ride_id,
+	toDateTime(JSONExtractInt(message,'ride_start_time')) as ride_start_time,
+	toDateTime(JSONExtractInt(message,'ride_end_time')) as ride_end_time,
+	ifNull(JSONExtractString(message,'ride_rating'),'') as ride_rating,
+	toDateTime(JSONExtractInt(message,'driver_arrival_time')) as driver_arrival_time,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'traveled_distance'),'') as traveled_distance,
+	ifNull(JSONExtractString(message,'driver_mobile_country_code'),'') as driver_mobile_country_code,
+	ifNull(JSONExtractString(message,'driver_image'),'') as driver_image,
+
+	FROM atlas_app.ride_queue
+	where JSONExtractString(message,'tag') = 'RideObject'
+
+
+CREATE TABLE atlas_app_helper.ride_booking_bak_1022_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `request_id` Nullable (String),
+    `quote_id` Nullable (String),
+    `status` Nullable (String),
+    `provider_id` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `rider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `estimated_fare` Nullable (Float64),
+    `discount` Nullable (Float64),
+    `estimated_total_fare` Nullable (String),
+    `distance` Nullable (Float64),
+    `vehicle_variant` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `bpp_ride_booking_id` Nullable (String),
+    `provider_name` Nullable (String),
+    `provider_url` Nullable (String),
+    `reallocations_count` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.ride_booking_bak_1022 ON CLUSTER `{cluster}` AS atlas_app_helper.ride_booking_bak_1022_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, ride_booking_bak_1022_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.ride_booking_bak_1022 ON CLUSTER `{cluster}` TO atlas_app.ride_booking_bak_1022
+(
+	`id` String,
+	`request_id` String,
+	`quote_id` String,
+	`status` String,
+	`provider_id` String,
+	`provider_mobile_number` String,
+	`start_time` DateTime,
+	`rider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`estimated_fare` Float64,
+	`discount` Float64,
+	`estimated_total_fare` String,
+	`distance` Float64,
+	`vehicle_variant` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`bpp_ride_booking_id` String,
+	`provider_name` String,
+	`provider_url` String,
+	`reallocations_count` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractFloat(message,'estimated_fare'),0.0) as estimated_fare,
+	ifNull(JSONExtractFloat(message,'discount'),0.0) as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractFloat(message,'distance'),0.0) as distance,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'bpp_ride_booking_id'),'') as bpp_ride_booking_id,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+	ifNull(JSONExtractInt(message,'reallocations_count'), 0) as reallocations_count,
+
+	FROM atlas_app.ride_booking_bak_1022_queue
+	where JSONExtractString(message,'tag') = 'RideBookingBak1022Object'
+
+
+CREATE TABLE atlas_app_helper.ride_booking_bak_1026_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `request_id` Nullable (String),
+    `quote_id` Nullable (String),
+    `status` Nullable (String),
+    `provider_id` Nullable (String),
+    `provider_mobile_number` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `rider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `estimated_fare` Nullable (Float64),
+    `discount` Nullable (Float64),
+    `estimated_total_fare` Nullable (String),
+    `distance` Nullable (Float64),
+    `vehicle_variant` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `bpp_ride_booking_id` Nullable (String),
+    `provider_name` Nullable (String),
+    `provider_url` Nullable (String),
+    `reallocations_count` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.ride_booking_bak_1026 ON CLUSTER `{cluster}` AS atlas_app_helper.ride_booking_bak_1026_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, ride_booking_bak_1026_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.ride_booking_bak_1026 ON CLUSTER `{cluster}` TO atlas_app.ride_booking_bak_1026
+(
+	`id` String,
+	`request_id` String,
+	`quote_id` String,
+	`status` String,
+	`provider_id` String,
+	`provider_mobile_number` String,
+	`start_time` DateTime,
+	`rider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`estimated_fare` Float64,
+	`discount` Float64,
+	`estimated_total_fare` String,
+	`distance` Float64,
+	`vehicle_variant` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`bpp_ride_booking_id` String,
+	`provider_name` String,
+	`provider_url` String,
+	`reallocations_count` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'provider_mobile_number'),'') as provider_mobile_number,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractFloat(message,'estimated_fare'),0.0) as estimated_fare,
+	ifNull(JSONExtractFloat(message,'discount'),0.0) as discount,
+	ifNull(JSONExtractString(message,'estimated_total_fare'),'') as estimated_total_fare,
+	ifNull(JSONExtractFloat(message,'distance'),0.0) as distance,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'bpp_ride_booking_id'),'') as bpp_ride_booking_id,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'provider_url'),'') as provider_url,
+	ifNull(JSONExtractInt(message,'reallocations_count'), 0) as reallocations_count,
+
+	FROM atlas_app.ride_booking_bak_1026_queue
+	where JSONExtractString(message,'tag') = 'RideBookingBak1026Object'
+
+
+CREATE TABLE atlas_app_helper.saved_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `street` Nullable (String),
+    `door` Nullable (String),
+    `building` Nullable (String),
+    `area_code` Nullable (String),
+    `area` Nullable (String),
+    `tag` Nullable (String),
+    `rider_id` Nullable (String),
+    `place_id` Nullable (String),
+    `ward` Nullable (String),
+    `is_moved` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.saved_location ON CLUSTER `{cluster}` AS atlas_app_helper.saved_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, saved_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.saved_location ON CLUSTER `{cluster}` TO atlas_app.saved_location
+(
+	`id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`city` String,
+	`state` String,
+	`country` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`street` String,
+	`door` String,
+	`building` String,
+	`area_code` String,
+	`area` String,
+	`tag` String,
+	`rider_id` String,
+	`place_id` String,
+	`ward` String,
+	`is_moved` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'street'),'') as street,
+	ifNull(JSONExtractString(message,'door'),'') as door,
+	ifNull(JSONExtractString(message,'building'),'') as building,
+	ifNull(JSONExtractString(message,'area_code'),'') as area_code,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	ifNull(JSONExtractString(message,'tag'),'') as tag,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'place_id'),'') as place_id,
+	ifNull(JSONExtractString(message,'ward'),'') as ward,
+	ifNull(JSONExtractString(message,'is_moved'),'') as is_moved,
+
+	FROM atlas_app.saved_location_queue
+	where JSONExtractString(message,'tag') = 'SavedLocationObject'
+
+
+CREATE TABLE atlas_app_helper.schema_migrations_shard ON CLUSTER `{cluster}`
+    (
+    `filename` Nullable (String),
+    `checksum` Nullable (String),
+    `executed_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.schema_migrations ON CLUSTER `{cluster}` AS atlas_app_helper.schema_migrations_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, schema_migrations_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.schema_migrations ON CLUSTER `{cluster}` TO atlas_app.schema_migrations
+(
+	`filename` String,
+	`checksum` String,
+	`executed_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'filename'),'') as filename,
+	ifNull(JSONExtractString(message,'checksum'),'') as checksum,
+	toDateTime(JSONExtractInt(message,'executed_at')) as executed_at,
+
+	FROM atlas_app.schema_migrations_queue
+	where JSONExtractString(message,'tag') = 'SchemaMigrationsObject'
+
+
+CREATE TABLE atlas_app_helper.search_request_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `valid_till` DateTime DEFAULT now(),
+    `rider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `distance` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `merchant_id` Nullable (String),
+    `bundle_version` Nullable (String),
+    `client_version` Nullable (String),
+    `language` Nullable (String),
+    `max_distance` Nullable (Float64),
+    `device` Nullable (String),
+    `estimated_ride_duration` Nullable (String),
+    `customer_extra_fee` Nullable (String),
+    `auto_assign_enabled` Nullable (String),
+    `auto_assign_enabled_v2` Nullable (String),
+    `available_payment_methods` Nullable (String),
+    `selected_payment_method_id` Nullable (String),
+    `disability_tag` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.search_request ON CLUSTER `{cluster}` AS atlas_app_helper.search_request_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, search_request_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.search_request ON CLUSTER `{cluster}` TO atlas_app.search_request
+(
+	`id` String,
+	`start_time` DateTime,
+	`valid_till` DateTime,
+	`rider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`distance` String,
+	`created_at` DateTime,
+	`merchant_id` String,
+	`bundle_version` String,
+	`client_version` String,
+	`language` String,
+	`max_distance` Float64,
+	`device` String,
+	`estimated_ride_duration` String,
+	`customer_extra_fee` String,
+	`auto_assign_enabled` String,
+	`auto_assign_enabled_v2` String,
+	`available_payment_methods` String,
+	`selected_payment_method_id` String,
+	`disability_tag` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractString(message,'distance'),'') as distance,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'bundle_version'),'') as bundle_version,
+	ifNull(JSONExtractString(message,'client_version'),'') as client_version,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+	ifNull(JSONExtractFloat(message,'max_distance'),0.0) as max_distance,
+	ifNull(JSONExtractString(message,'device'),'') as device,
+	ifNull(JSONExtractString(message,'estimated_ride_duration'),'') as estimated_ride_duration,
+	ifNull(JSONExtractString(message,'customer_extra_fee'),'') as customer_extra_fee,
+	ifNull(JSONExtractString(message,'auto_assign_enabled'),'') as auto_assign_enabled,
+	ifNull(JSONExtractString(message,'auto_assign_enabled_v2'),'') as auto_assign_enabled_v2,
+	ifNull(JSONExtractString(message,'available_payment_methods'),'') as available_payment_methods,
+	ifNull(JSONExtractString(message,'selected_payment_method_id'),'') as selected_payment_method_id,
+	ifNull(JSONExtractString(message,'disability_tag'),'') as disability_tag,
+
+	FROM atlas_app.search_request_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestObject'
+
+
+CREATE TABLE atlas_app_helper.search_request_bak_1022_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `valid_till` DateTime DEFAULT now(),
+    `rider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `distance` Nullable (Float64),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.search_request_bak_1022 ON CLUSTER `{cluster}` AS atlas_app_helper.search_request_bak_1022_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, search_request_bak_1022_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.search_request_bak_1022 ON CLUSTER `{cluster}` TO atlas_app.search_request_bak_1022
+(
+	`id` String,
+	`start_time` DateTime,
+	`valid_till` DateTime,
+	`rider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`distance` Float64,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractFloat(message,'distance'),0.0) as distance,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.search_request_bak_1022_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestBak1022Object'
+
+
+CREATE TABLE atlas_app_helper.search_request_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `street` Nullable (String),
+    `door` Nullable (String),
+    `building` Nullable (String),
+    `area_code` Nullable (String),
+    `area` Nullable (String),
+    `ward` Nullable (String),
+    `place_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.search_request_location ON CLUSTER `{cluster}` AS atlas_app_helper.search_request_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, search_request_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.search_request_location ON CLUSTER `{cluster}` TO atlas_app.search_request_location
+(
+	`id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`city` String,
+	`state` String,
+	`country` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`street` String,
+	`door` String,
+	`building` String,
+	`area_code` String,
+	`area` String,
+	`ward` String,
+	`place_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'street'),'') as street,
+	ifNull(JSONExtractString(message,'door'),'') as door,
+	ifNull(JSONExtractString(message,'building'),'') as building,
+	ifNull(JSONExtractString(message,'area_code'),'') as area_code,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	ifNull(JSONExtractString(message,'ward'),'') as ward,
+	ifNull(JSONExtractString(message,'place_id'),'') as place_id,
+
+	FROM atlas_app.search_request_location_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestLocationObject'
+
+
+CREATE TABLE atlas_app_helper.search_request_location_1026_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `street` Nullable (String),
+    `door` Nullable (String),
+    `building` Nullable (String),
+    `area_code` Nullable (String),
+    `area` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.search_request_location_1026 ON CLUSTER `{cluster}` AS atlas_app_helper.search_request_location_1026_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, search_request_location_1026_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.search_request_location_1026 ON CLUSTER `{cluster}` TO atlas_app.search_request_location_1026
+(
+	`id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`city` String,
+	`state` String,
+	`country` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`street` String,
+	`door` String,
+	`building` String,
+	`area_code` String,
+	`area` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'street'),'') as street,
+	ifNull(JSONExtractString(message,'door'),'') as door,
+	ifNull(JSONExtractString(message,'building'),'') as building,
+	ifNull(JSONExtractString(message,'area_code'),'') as area_code,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+
+	FROM atlas_app.search_request_location_1026_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestLocation1026Object'
+
+
+CREATE TABLE atlas_app_helper.sos_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `flow` Nullable (String),
+    `status` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `person_id` Nullable (String),
+    `ride_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.sos ON CLUSTER `{cluster}` AS atlas_app_helper.sos_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, sos_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.sos ON CLUSTER `{cluster}` TO atlas_app.sos
+(
+	`id` String,
+	`flow` String,
+	`status` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`person_id` String,
+	`ride_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'flow'),'') as flow,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+
+	FROM atlas_app.sos_queue
+	where JSONExtractString(message,'tag') = 'SosObject'
+
+
+CREATE TABLE atlas_app_helper.special_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `location_name` Nullable (String),
+    `category` Nullable (String),
+    `gates` Nullable (String),
+    `geom` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.special_location ON CLUSTER `{cluster}` AS atlas_app_helper.special_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, special_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.special_location ON CLUSTER `{cluster}` TO atlas_app.special_location
+(
+	`id` String,
+	`location_name` String,
+	`category` String,
+	`gates` String,
+	`geom` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'location_name'),'') as location_name,
+	ifNull(JSONExtractString(message,'category'),'') as category,
+	ifNull(JSONExtractString(message,'gates'),'') as gates,
+	ifNull(JSONExtractString(message,'geom'),'') as geom,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.special_location_queue
+	where JSONExtractString(message,'tag') = 'SpecialLocationObject'
+
+
+CREATE TABLE atlas_app_helper.special_zone_quote_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `quote_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.special_zone_quote ON CLUSTER `{cluster}` AS atlas_app_helper.special_zone_quote_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, special_zone_quote_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.special_zone_quote ON CLUSTER `{cluster}` TO atlas_app.special_zone_quote
+(
+	`id` String,
+	`quote_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+
+	FROM atlas_app.special_zone_quote_queue
+	where JSONExtractString(message,'tag') = 'SpecialZoneQuoteObject'
+
+
+CREATE TABLE atlas_app_helper.tag_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `created_by` Nullable (String),
+    `created_by_entity_type` Nullable (String),
+    `tag_type` Nullable (String),
+    `tag` Nullable (String),
+    `info` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.tag ON CLUSTER `{cluster}` AS atlas_app_helper.tag_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, tag_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.tag ON CLUSTER `{cluster}` TO atlas_app.tag
+(
+	`id` String,
+	`created_by` String,
+	`created_by_entity_type` String,
+	`tag_type` String,
+	`tag` String,
+	`info` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'created_by'),'') as created_by,
+	ifNull(JSONExtractString(message,'created_by_entity_type'),'') as created_by_entity_type,
+	ifNull(JSONExtractString(message,'tag_type'),'') as tag_type,
+	ifNull(JSONExtractString(message,'tag'),'') as tag,
+	ifNull(JSONExtractString(message,'info'),'') as info,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.tag_queue
+	where JSONExtractString(message,'tag') = 'TagObject'
+
+
+CREATE TABLE atlas_app_helper.tag_category_mapping_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `tag` Nullable (String),
+    `category` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.tag_category_mapping ON CLUSTER `{cluster}` AS atlas_app_helper.tag_category_mapping_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, tag_category_mapping_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.tag_category_mapping ON CLUSTER `{cluster}` TO atlas_app.tag_category_mapping
+(
+	`id` String,
+	`tag` String,
+	`category` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'tag'),'') as tag,
+	ifNull(JSONExtractString(message,'category'),'') as category,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.tag_category_mapping_queue
+	where JSONExtractString(message,'tag') = 'TagCategoryMappingObject'
+
+
+CREATE TABLE atlas_app_helper.trip_terms_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `descriptions` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.trip_terms ON CLUSTER `{cluster}` AS atlas_app_helper.trip_terms_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, trip_terms_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.trip_terms ON CLUSTER `{cluster}` TO atlas_app.trip_terms
+(
+	`id` String,
+	`descriptions` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'descriptions'),'') as descriptions,
+
+	FROM atlas_app.trip_terms_queue
+	where JSONExtractString(message,'tag') = 'TripTermsObject'
+
+
+CREATE TABLE atlas_app_helper.webengage_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `version` Nullable (String),
+    `content_template_id` Nullable (String),
+    `principal_entity_id` Nullable (String),
+    `info_message_id` Nullable (String),
+    `web_message_id` Nullable (String),
+    `to_number` Nullable (String),
+    `status` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.webengage ON CLUSTER `{cluster}` AS atlas_app_helper.webengage_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, webengage_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.webengage ON CLUSTER `{cluster}` TO atlas_app.webengage
+(
+	`id` String,
+	`version` String,
+	`content_template_id` String,
+	`principal_entity_id` String,
+	`info_message_id` String,
+	`web_message_id` String,
+	`to_number` String,
+	`status` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'version'),'') as version,
+	ifNull(JSONExtractString(message,'content_template_id'),'') as content_template_id,
+	ifNull(JSONExtractString(message,'principal_entity_id'),'') as principal_entity_id,
+	ifNull(JSONExtractString(message,'info_message_id'),'') as info_message_id,
+	ifNull(JSONExtractString(message,'web_message_id'),'') as web_message_id,
+	ifNull(JSONExtractString(message,'to_number'),'') as to_number,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+
+	FROM atlas_app.webengage_queue
+	where JSONExtractString(message,'tag') = 'WebengageObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.aadhaar_otp_req_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `request_id` Nullable (String),
+    `status_code` Nullable (String),
+    `request_message` Nullable (String),
+    `transaction_id` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.aadhaar_otp_req ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.aadhaar_otp_req_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, aadhaar_otp_req_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.aadhaar_otp_req ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.aadhaar_otp_req
+(
+	`id` String,
+	`driver_id` String,
+	`request_id` String,
+	`status_code` String,
+	`request_message` String,
+	`transaction_id` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'status_code'),'') as status_code,
+	ifNull(JSONExtractString(message,'request_message'),'') as request_message,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.aadhaar_otp_req_queue
+	where JSONExtractString(message,'tag') = 'AadhaarOtpReqObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.aadhaar_otp_verify_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `request_id` Nullable (String),
+    `status_code` Nullable (String),
+    `request_message` Nullable (String),
+    `transaction_id` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.aadhaar_otp_verify ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.aadhaar_otp_verify_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, aadhaar_otp_verify_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.aadhaar_otp_verify ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.aadhaar_otp_verify
+(
+	`id` String,
+	`driver_id` String,
+	`request_id` String,
+	`status_code` String,
+	`request_message` String,
+	`transaction_id` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'status_code'),'') as status_code,
+	ifNull(JSONExtractString(message,'request_message'),'') as request_message,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.aadhaar_otp_verify_queue
+	where JSONExtractString(message,'tag') = 'AadhaarOtpVerifyObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.aadhaar_verification_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `driver_name` Nullable (String),
+    `driver_gender` Nullable (String),
+    `driver_dob` Nullable (String),
+    `driver_image` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `aadhaar_number_hash` Nullable (String),
+    `is_verified` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `driver_image_path` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.aadhaar_verification ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.aadhaar_verification_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, aadhaar_verification_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.aadhaar_verification ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.aadhaar_verification
+(
+	`driver_id` String,
+	`driver_name` String,
+	`driver_gender` String,
+	`driver_dob` String,
+	`driver_image` String,
+	`created_at` DateTime,
+	`aadhaar_number_hash` String,
+	`is_verified` String,
+	`updated_at` DateTime,
+	`driver_image_path` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'driver_name'),'') as driver_name,
+	ifNull(JSONExtractString(message,'driver_gender'),'') as driver_gender,
+	ifNull(JSONExtractString(message,'driver_dob'),'') as driver_dob,
+	ifNull(JSONExtractString(message,'driver_image'),'') as driver_image,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'aadhaar_number_hash'),'') as aadhaar_number_hash,
+	ifNull(JSONExtractString(message,'is_verified'),'') as is_verified,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'driver_image_path'),'') as driver_image_path,
+
+	FROM atlas_driver_offer_bpp.aadhaar_verification_queue
+	where JSONExtractString(message,'tag') = 'AadhaarVerificationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.bap_metadata_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `name` Nullable (String),
+    `logo_url` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.bap_metadata ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.bap_metadata_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, bap_metadata_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.bap_metadata ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.bap_metadata
+(
+	`id` String,
+	`name` String,
+	`logo_url` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'name'),'') as name,
+	ifNull(JSONExtractString(message,'logo_url'),'') as logo_url,
+
+	FROM atlas_driver_offer_bpp.bap_metadata_queue
+	where JSONExtractString(message,'tag') = 'BapMetadataObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.beckn_request_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `beckn_request` Nullable (String),
+    `signature_header` Nullable (String),
+    `time_stamp` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.beckn_request ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.beckn_request_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, beckn_request_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.beckn_request ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.beckn_request
+(
+	`id` String,
+	`beckn_request` String,
+	`signature_header` String,
+	`time_stamp` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'beckn_request'),'') as beckn_request,
+	ifNull(JSONExtractString(message,'signature_header'),'') as signature_header,
+	toDateTime(JSONExtractInt(message,'time_stamp')) as time_stamp,
+
+	FROM atlas_driver_offer_bpp.beckn_request_queue
+	where JSONExtractString(message,'tag') = 'BecknRequestObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.booking_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `status` Nullable (String),
+    `provider_id` Nullable (String),
+    `bap_id` Nullable (String),
+    `bap_uri` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `rider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `estimated_distance` Nullable (Int64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `quote_id` Nullable (String),
+    `fare_parameters_id` Nullable (String),
+    `estimated_fare` Nullable (Float64),
+    `rider_name` Nullable (String),
+    `estimated_duration` Nullable (Int64),
+    `primary_exophone` Nullable (String),
+    `booking_type` Nullable (String),
+    `special_zone_otp_code` Nullable (String),
+    `transaction_id` Nullable (String),
+    `max_estimated_distance` Nullable (Float64),
+    `area` Nullable (String),
+    `special_location_tag` Nullable (String),
+    `payment_method_id` Nullable (String),
+    `bap_city` Nullable (String),
+    `bap_country` Nullable (String),
+    `payment_url` Nullable (String),
+    `disability_tag` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.booking ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.booking_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, booking_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.booking ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.booking
+(
+	`id` String,
+	`status` String,
+	`provider_id` String,
+	`bap_id` String,
+	`bap_uri` String,
+	`start_time` DateTime,
+	`rider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`vehicle_variant` String,
+	`estimated_distance` Int64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`quote_id` String,
+	`fare_parameters_id` String,
+	`estimated_fare` Float64,
+	`rider_name` String,
+	`estimated_duration` Int64,
+	`primary_exophone` String,
+	`booking_type` String,
+	`special_zone_otp_code` String,
+	`transaction_id` String,
+	`max_estimated_distance` Float64,
+	`area` String,
+	`special_location_tag` String,
+	`payment_method_id` String,
+	`bap_city` String,
+	`bap_country` String,
+	`payment_url` String,
+	`disability_tag` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'bap_id'),'') as bap_id,
+	ifNull(JSONExtractString(message,'bap_uri'),'') as bap_uri,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	ifNull(JSONExtractString(message,'rider_id'),'') as rider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractInt(message,'estimated_distance'), 0) as estimated_distance,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'quote_id'),'') as quote_id,
+	ifNull(JSONExtractString(message,'fare_parameters_id'),'') as fare_parameters_id,
+	ifNull(JSONExtractFloat(message,'estimated_fare'),0.0) as estimated_fare,
+	ifNull(JSONExtractString(message,'rider_name'),'') as rider_name,
+	ifNull(JSONExtractInt(message,'estimated_duration'), 0) as estimated_duration,
+	ifNull(JSONExtractString(message,'primary_exophone'),'') as primary_exophone,
+	ifNull(JSONExtractString(message,'booking_type'),'') as booking_type,
+	ifNull(JSONExtractString(message,'special_zone_otp_code'),'') as special_zone_otp_code,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	ifNull(JSONExtractFloat(message,'max_estimated_distance'),0.0) as max_estimated_distance,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+	ifNull(JSONExtractString(message,'payment_method_id'),'') as payment_method_id,
+	ifNull(JSONExtractString(message,'bap_city'),'') as bap_city,
+	ifNull(JSONExtractString(message,'bap_country'),'') as bap_country,
+	ifNull(JSONExtractString(message,'payment_url'),'') as payment_url,
+	ifNull(JSONExtractString(message,'disability_tag'),'') as disability_tag,
+
+	FROM atlas_driver_offer_bpp.booking_queue
+	where JSONExtractString(message,'tag') = 'BookingObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.booking_cancellation_reason_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `booking_id` Nullable (String),
+    `ride_id` Nullable (String),
+    `source` Nullable (String),
+    `reason_code` Nullable (String),
+    `additional_info` Nullable (String),
+    `driver_cancellation_location_lat` Nullable (Float64),
+    `driver_cancellation_location_lon` Nullable (Float64),
+    `driver_dist_to_pickup` Nullable (String),
+    `merchant_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.booking_cancellation_reason ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.booking_cancellation_reason_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, booking_cancellation_reason_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.booking_cancellation_reason ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.booking_cancellation_reason
+(
+	`driver_id` String,
+	`booking_id` String,
+	`ride_id` String,
+	`source` String,
+	`reason_code` String,
+	`additional_info` String,
+	`driver_cancellation_location_lat` Float64,
+	`driver_cancellation_location_lon` Float64,
+	`driver_dist_to_pickup` String,
+	`merchant_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractString(message,'source'),'') as source,
+	ifNull(JSONExtractString(message,'reason_code'),'') as reason_code,
+	ifNull(JSONExtractString(message,'additional_info'),'') as additional_info,
+	ifNull(JSONExtractFloat(message,'driver_cancellation_location_lat'),0.0) as driver_cancellation_location_lat,
+	ifNull(JSONExtractFloat(message,'driver_cancellation_location_lon'),0.0) as driver_cancellation_location_lon,
+	ifNull(JSONExtractString(message,'driver_dist_to_pickup'),'') as driver_dist_to_pickup,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+
+	FROM atlas_driver_offer_bpp.booking_cancellation_reason_queue
+	where JSONExtractString(message,'tag') = 'BookingCancellationReasonObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.booking_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `street` Nullable (String),
+    `building` Nullable (String),
+    `area_code` Nullable (String),
+    `area` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `door` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.booking_location ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.booking_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, booking_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.booking_location ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.booking_location
+(
+	`id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`city` String,
+	`state` String,
+	`country` String,
+	`street` String,
+	`building` String,
+	`area_code` String,
+	`area` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`door` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	ifNull(JSONExtractString(message,'street'),'') as street,
+	ifNull(JSONExtractString(message,'building'),'') as building,
+	ifNull(JSONExtractString(message,'area_code'),'') as area_code,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'door'),'') as door,
+
+	FROM atlas_driver_offer_bpp.booking_location_queue
+	where JSONExtractString(message,'tag') = 'BookingLocationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.business_event_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `event_type` Nullable (String),
+    `time_stamp` DateTime DEFAULT now(),
+    `booking_id` Nullable (String),
+    `when_pool_was_computed` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `distance` Nullable (Float64),
+    `duration` Nullable (Float64),
+    `ride_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.business_event ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.business_event_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, business_event_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.business_event ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.business_event
+(
+	`id` String,
+	`driver_id` String,
+	`event_type` String,
+	`time_stamp` DateTime,
+	`booking_id` String,
+	`when_pool_was_computed` String,
+	`vehicle_variant` String,
+	`distance` Float64,
+	`duration` Float64,
+	`ride_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'event_type'),'') as event_type,
+	toDateTime(JSONExtractInt(message,'time_stamp')) as time_stamp,
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'when_pool_was_computed'),'') as when_pool_was_computed,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractFloat(message,'distance'),0.0) as distance,
+	ifNull(JSONExtractFloat(message,'duration'),0.0) as duration,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+
+	FROM atlas_driver_offer_bpp.business_event_queue
+	where JSONExtractString(message,'tag') = 'BusinessEventObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.call_status_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `call_id` Nullable (String),
+    `recording_url` Nullable (String),
+    `status` Nullable (String),
+    `conversation_duration` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `dtmf_number_used` Nullable (String),
+    `entity_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.call_status ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.call_status_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, call_status_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.call_status ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.call_status
+(
+	`id` String,
+	`call_id` String,
+	`recording_url` String,
+	`status` String,
+	`conversation_duration` String,
+	`created_at` DateTime,
+	`dtmf_number_used` String,
+	`entity_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'call_id'),'') as call_id,
+	ifNull(JSONExtractString(message,'recording_url'),'') as recording_url,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'conversation_duration'),'') as conversation_duration,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'dtmf_number_used'),'') as dtmf_number_used,
+	ifNull(JSONExtractString(message,'entity_id'),'') as entity_id,
+
+	FROM atlas_driver_offer_bpp.call_status_queue
+	where JSONExtractString(message,'tag') = 'CallStatusObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.cancellation_reason_shard ON CLUSTER `{cluster}`
+    (
+    `reason_code` Nullable (String),
+    `description` Nullable (String),
+    `enabled` Nullable (String),
+    `priority` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.cancellation_reason ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.cancellation_reason_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, cancellation_reason_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.cancellation_reason ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.cancellation_reason
+(
+	`reason_code` String,
+	`description` String,
+	`enabled` String,
+	`priority` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'reason_code'),'') as reason_code,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
+
+	FROM atlas_driver_offer_bpp.cancellation_reason_queue
+	where JSONExtractString(message,'tag') = 'CancellationReasonObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.comment_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `issue_report_id` Nullable (String),
+    `comment` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `author_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.comment ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.comment_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, comment_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.comment ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.comment
+(
+	`id` String,
+	`issue_report_id` String,
+	`comment` String,
+	`created_at` DateTime,
+	`author_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'issue_report_id'),'') as issue_report_id,
+	ifNull(JSONExtractString(message,'comment'),'') as comment,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'author_id'),'') as author_id,
+
+	FROM atlas_driver_offer_bpp.comment_queue
+	where JSONExtractString(message,'tag') = 'CommentObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_availability_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `total_available_time` Nullable (Int64),
+    `last_available_time` DateTime DEFAULT now(),
+    `bucket_start_time` DateTime DEFAULT now(),
+    `bucket_end_time` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_availability ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_availability_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_availability_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_availability ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_availability
+(
+	`id` String,
+	`driver_id` String,
+	`merchant_id` String,
+	`total_available_time` Int64,
+	`last_available_time` DateTime,
+	`bucket_start_time` DateTime,
+	`bucket_end_time` DateTime,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'total_available_time'), 0) as total_available_time,
+	toDateTime(JSONExtractInt(message,'last_available_time')) as last_available_time,
+	toDateTime(JSONExtractInt(message,'bucket_start_time')) as bucket_start_time,
+	toDateTime(JSONExtractInt(message,'bucket_end_time')) as bucket_end_time,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.driver_availability_queue
+	where JSONExtractString(message,'tag') = 'DriverAvailabilityObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_block_reason_shard ON CLUSTER `{cluster}`
+    (
+    `reason_code` Nullable (String),
+    `block_reason` Nullable (String),
+    `block_time_in_hours` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_block_reason ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_block_reason_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_block_reason_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_block_reason ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_block_reason
+(
+	`reason_code` String,
+	`block_reason` String,
+	`block_time_in_hours` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'reason_code'),'') as reason_code,
+	ifNull(JSONExtractString(message,'block_reason'),'') as block_reason,
+	ifNull(JSONExtractInt(message,'block_time_in_hours'), 0) as block_time_in_hours,
+
+	FROM atlas_driver_offer_bpp.driver_block_reason_queue
+	where JSONExtractString(message,'tag') = 'DriverBlockReasonObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_fee_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `total_earnings` Nullable (Int64),
+    `num_rides` Nullable (Int64),
+    `govt_charges` Nullable (Int64),
+    `platform_fee` Nullable (String),
+    `cgst` Nullable (String),
+    `sgst` Nullable (String),
+    `pay_by` DateTime DEFAULT now(),
+    `start_time` DateTime DEFAULT now(),
+    `end_time` DateTime DEFAULT now(),
+    `status` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `collected_by` Nullable (String),
+    `fee_type` Nullable (String),
+    `merchant_id` Nullable (String),
+    `offer_id` Nullable (String),
+    `plan_offer_title` Nullable (String),
+    `stage_updated_at` DateTime DEFAULT now(),
+    `bill_number` Nullable (String),
+    `autopay_payment_stage` Nullable (String),
+    `fee_without_discount` Nullable (String),
+    `collected_at` DateTime DEFAULT now(),
+    `scheduler_try_count` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_fee ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_fee_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_fee_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_fee ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_fee
+(
+	`id` String,
+	`driver_id` String,
+	`total_earnings` Int64,
+	`num_rides` Int64,
+	`govt_charges` Int64,
+	`platform_fee` String,
+	`cgst` String,
+	`sgst` String,
+	`pay_by` DateTime,
+	`start_time` DateTime,
+	`end_time` DateTime,
+	`status` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`collected_by` String,
+	`fee_type` String,
+	`merchant_id` String,
+	`offer_id` String,
+	`plan_offer_title` String,
+	`stage_updated_at` DateTime,
+	`bill_number` String,
+	`autopay_payment_stage` String,
+	`fee_without_discount` String,
+	`collected_at` DateTime,
+	`scheduler_try_count` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractInt(message,'total_earnings'), 0) as total_earnings,
+	ifNull(JSONExtractInt(message,'num_rides'), 0) as num_rides,
+	ifNull(JSONExtractInt(message,'govt_charges'), 0) as govt_charges,
+	ifNull(JSONExtractString(message,'platform_fee'),'') as platform_fee,
+	ifNull(JSONExtractString(message,'cgst'),'') as cgst,
+	ifNull(JSONExtractString(message,'sgst'),'') as sgst,
+	toDateTime(JSONExtractInt(message,'pay_by')) as pay_by,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	toDateTime(JSONExtractInt(message,'end_time')) as end_time,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'collected_by'),'') as collected_by,
+	ifNull(JSONExtractString(message,'fee_type'),'') as fee_type,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'offer_id'),'') as offer_id,
+	ifNull(JSONExtractString(message,'plan_offer_title'),'') as plan_offer_title,
+	toDateTime(JSONExtractInt(message,'stage_updated_at')) as stage_updated_at,
+	ifNull(JSONExtractString(message,'bill_number'),'') as bill_number,
+	ifNull(JSONExtractString(message,'autopay_payment_stage'),'') as autopay_payment_stage,
+	ifNull(JSONExtractString(message,'fee_without_discount'),'') as fee_without_discount,
+	toDateTime(JSONExtractInt(message,'collected_at')) as collected_at,
+	ifNull(JSONExtractInt(message,'scheduler_try_count'), 0) as scheduler_try_count,
+
+	FROM atlas_driver_offer_bpp.driver_fee_queue
+	where JSONExtractString(message,'tag') = 'DriverFeeObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_flow_status_shard ON CLUSTER `{cluster}`
+    (
+    `person_id` Nullable (String),
+    `flow_status` Nullable (String),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_flow_status ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_flow_status_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_flow_status_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_flow_status ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_flow_status
+(
+	`person_id` String,
+	`flow_status` String,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'flow_status'),'') as flow_status,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.driver_flow_status_queue
+	where JSONExtractString(message,'tag') = 'DriverFlowStatusObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_go_home_request_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `point` Nullable (String),
+    `status` Nullable (String),
+    `num_cancellation` Nullable (Int64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `reached_home` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_go_home_request ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_go_home_request_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_go_home_request_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_go_home_request ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_go_home_request
+(
+	`id` String,
+	`driver_id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`point` String,
+	`status` String,
+	`num_cancellation` Int64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`reached_home` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'point'),'') as point,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractInt(message,'num_cancellation'), 0) as num_cancellation,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'reached_home'),'') as reached_home,
+
+	FROM atlas_driver_offer_bpp.driver_go_home_request_queue
+	where JSONExtractString(message,'tag') = 'DriverGoHomeRequestObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_home_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `home_address` Nullable (String),
+    `tag` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_home_location ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_home_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_home_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_home_location ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_home_location
+(
+	`id` String,
+	`driver_id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`home_address` String,
+	`tag` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'home_address'),'') as home_address,
+	ifNull(JSONExtractString(message,'tag'),'') as tag,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.driver_home_location_queue
+	where JSONExtractString(message,'tag') = 'DriverHomeLocationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_information_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `active` Nullable (String),
+    `on_ride` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `enabled` Nullable (String),
+    `verified` Nullable (String),
+    `referral_code` Nullable (String),
+    `admin_id` Nullable (String),
+    `blocked` Nullable (String),
+    `last_enabled_on` DateTime DEFAULT now(),
+    `can_downgrade_to_hatchback` Nullable (String),
+    `can_downgrade_to_sedan` Nullable (String),
+    `can_downgrade_to_taxi` Nullable (String),
+    `mode` Nullable (String),
+    `merchant_id` Nullable (String),
+    `num_of_locks` Nullable (Int64),
+    `aadhaar_verified` Nullable (String),
+    `subscribed` Nullable (String),
+    `payment_pending` Nullable (String),
+    `blocked_reason` Nullable (String),
+    `block_expiry_time` DateTime DEFAULT now(),
+    `auto_pay_status` Nullable (String),
+    `comp_aadhaar_image_path` Nullable (String),
+    `available_upi_apps` Nullable (String),
+    `payer_vpa` Nullable (String),
+    `enabled_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_information ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_information_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_information_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_information ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_information
+(
+	`driver_id` String,
+	`active` String,
+	`on_ride` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`enabled` String,
+	`verified` String,
+	`referral_code` String,
+	`admin_id` String,
+	`blocked` String,
+	`last_enabled_on` DateTime,
+	`can_downgrade_to_hatchback` String,
+	`can_downgrade_to_sedan` String,
+	`can_downgrade_to_taxi` String,
+	`mode` String,
+	`merchant_id` String,
+	`num_of_locks` Int64,
+	`aadhaar_verified` String,
+	`subscribed` String,
+	`payment_pending` String,
+	`blocked_reason` String,
+	`block_expiry_time` DateTime,
+	`auto_pay_status` String,
+	`comp_aadhaar_image_path` String,
+	`available_upi_apps` String,
+	`payer_vpa` String,
+	`enabled_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'active'),'') as active,
+	ifNull(JSONExtractString(message,'on_ride'),'') as on_ride,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	ifNull(JSONExtractString(message,'verified'),'') as verified,
+	ifNull(JSONExtractString(message,'referral_code'),'') as referral_code,
+	ifNull(JSONExtractString(message,'admin_id'),'') as admin_id,
+	ifNull(JSONExtractString(message,'blocked'),'') as blocked,
+	toDateTime(JSONExtractInt(message,'last_enabled_on')) as last_enabled_on,
+	ifNull(JSONExtractString(message,'can_downgrade_to_hatchback'),'') as can_downgrade_to_hatchback,
+	ifNull(JSONExtractString(message,'can_downgrade_to_sedan'),'') as can_downgrade_to_sedan,
+	ifNull(JSONExtractString(message,'can_downgrade_to_taxi'),'') as can_downgrade_to_taxi,
+	ifNull(JSONExtractString(message,'mode'),'') as mode,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'num_of_locks'), 0) as num_of_locks,
+	ifNull(JSONExtractString(message,'aadhaar_verified'),'') as aadhaar_verified,
+	ifNull(JSONExtractString(message,'subscribed'),'') as subscribed,
+	ifNull(JSONExtractString(message,'payment_pending'),'') as payment_pending,
+	ifNull(JSONExtractString(message,'blocked_reason'),'') as blocked_reason,
+	toDateTime(JSONExtractInt(message,'block_expiry_time')) as block_expiry_time,
+	ifNull(JSONExtractString(message,'auto_pay_status'),'') as auto_pay_status,
+	ifNull(JSONExtractString(message,'comp_aadhaar_image_path'),'') as comp_aadhaar_image_path,
+	ifNull(JSONExtractString(message,'available_upi_apps'),'') as available_upi_apps,
+	ifNull(JSONExtractString(message,'payer_vpa'),'') as payer_vpa,
+	toDateTime(JSONExtractInt(message,'enabled_at')) as enabled_at,
+
+	FROM atlas_driver_offer_bpp.driver_information_queue
+	where JSONExtractString(message,'tag') = 'DriverInformationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_intelligent_pool_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `availability_time_weightage` Nullable (Int64),
+    `acceptance_ratio_weightage` Nullable (Int64),
+    `cancellation_ratio_weightage` Nullable (Int64),
+    `availability_time_window_option` Nullable (String),
+    `acceptance_ratio_window_option` Nullable (String),
+    `cancellation_ratio_window_option` Nullable (String),
+    `min_quotes_to_qualify_for_intelligent_pool` Nullable (Int64),
+    `min_quotes_to_qualify_for_intelligent_pool_window_option` Nullable (String),
+    `intelligent_pool_percentage` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `speed_normalizer` Nullable (Float64),
+    `driver_speed_weightage` Nullable (Int64),
+    `location_update_sample_time` Nullable (Int64),
+    `min_location_updates` Nullable (Int64),
+    `default_driver_speed` Nullable (Float64),
+    `actual_pickup_distance_weightage` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_intelligent_pool_config ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_intelligent_pool_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_intelligent_pool_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_intelligent_pool_config ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_intelligent_pool_config
+(
+	`merchant_id` String,
+	`availability_time_weightage` Int64,
+	`acceptance_ratio_weightage` Int64,
+	`cancellation_ratio_weightage` Int64,
+	`availability_time_window_option` String,
+	`acceptance_ratio_window_option` String,
+	`cancellation_ratio_window_option` String,
+	`min_quotes_to_qualify_for_intelligent_pool` Int64,
+	`min_quotes_to_qualify_for_intelligent_pool_window_option` String,
+	`intelligent_pool_percentage` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`speed_normalizer` Float64,
+	`driver_speed_weightage` Int64,
+	`location_update_sample_time` Int64,
+	`min_location_updates` Int64,
+	`default_driver_speed` Float64,
+	`actual_pickup_distance_weightage` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'availability_time_weightage'), 0) as availability_time_weightage,
+	ifNull(JSONExtractInt(message,'acceptance_ratio_weightage'), 0) as acceptance_ratio_weightage,
+	ifNull(JSONExtractInt(message,'cancellation_ratio_weightage'), 0) as cancellation_ratio_weightage,
+	ifNull(JSONExtractString(message,'availability_time_window_option'),'') as availability_time_window_option,
+	ifNull(JSONExtractString(message,'acceptance_ratio_window_option'),'') as acceptance_ratio_window_option,
+	ifNull(JSONExtractString(message,'cancellation_ratio_window_option'),'') as cancellation_ratio_window_option,
+	ifNull(JSONExtractInt(message,'min_quotes_to_qualify_for_intelligent_pool'), 0) as min_quotes_to_qualify_for_intelligent_pool,
+	ifNull(JSONExtractString(message,'min_quotes_to_qualify_for_intelligent_pool_window_option'),'') as min_quotes_to_qualify_for_intelligent_pool_window_option,
+	ifNull(JSONExtractString(message,'intelligent_pool_percentage'),'') as intelligent_pool_percentage,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractFloat(message,'speed_normalizer'),0.0) as speed_normalizer,
+	ifNull(JSONExtractInt(message,'driver_speed_weightage'), 0) as driver_speed_weightage,
+	ifNull(JSONExtractInt(message,'location_update_sample_time'), 0) as location_update_sample_time,
+	ifNull(JSONExtractInt(message,'min_location_updates'), 0) as min_location_updates,
+	ifNull(JSONExtractFloat(message,'default_driver_speed'),0.0) as default_driver_speed,
+	ifNull(JSONExtractInt(message,'actual_pickup_distance_weightage'), 0) as actual_pickup_distance_weightage,
+
+	FROM atlas_driver_offer_bpp.driver_intelligent_pool_config_queue
+	where JSONExtractString(message,'tag') = 'DriverIntelligentPoolConfigObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_license_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `driver_dob` DateTime DEFAULT now(),
+    `license_expiry` DateTime DEFAULT now(),
+    `class_of_vehicles` Nullable (String),
+    `verification_status` Nullable (String),
+    `consent` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `consent_timestamp` DateTime DEFAULT now(),
+    `failed_rules` Nullable (String),
+    `driver_name` Nullable (String),
+    `document_image_id1` Nullable (String),
+    `document_image_id2` Nullable (String),
+    `license_number_hash` Nullable (String),
+    `license_number_encrypted` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_license ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_license_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_license_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_license ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_license
+(
+	`id` String,
+	`driver_id` String,
+	`driver_dob` DateTime,
+	`license_expiry` DateTime,
+	`class_of_vehicles` String,
+	`verification_status` String,
+	`consent` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`consent_timestamp` DateTime,
+	`failed_rules` String,
+	`driver_name` String,
+	`document_image_id1` String,
+	`document_image_id2` String,
+	`license_number_hash` String,
+	`license_number_encrypted` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	toDateTime(JSONExtractInt(message,'driver_dob')) as driver_dob,
+	toDateTime(JSONExtractInt(message,'license_expiry')) as license_expiry,
+	ifNull(JSONExtractString(message,'class_of_vehicles'),'') as class_of_vehicles,
+	ifNull(JSONExtractString(message,'verification_status'),'') as verification_status,
+	ifNull(JSONExtractString(message,'consent'),'') as consent,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'consent_timestamp')) as consent_timestamp,
+	ifNull(JSONExtractString(message,'failed_rules'),'') as failed_rules,
+	ifNull(JSONExtractString(message,'driver_name'),'') as driver_name,
+	ifNull(JSONExtractString(message,'document_image_id1'),'') as document_image_id1,
+	ifNull(JSONExtractString(message,'document_image_id2'),'') as document_image_id2,
+	ifNull(JSONExtractString(message,'license_number_hash'),'') as license_number_hash,
+	ifNull(JSONExtractString(message,'license_number_encrypted'),'') as license_number_encrypted,
+
+	FROM atlas_driver_offer_bpp.driver_license_queue
+	where JSONExtractString(message,'tag') = 'DriverLicenseObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_location_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `point` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `coordinates_calculated_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `merchant_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_location ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_location ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_location
+(
+	`driver_id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`point` String,
+	`created_at` DateTime,
+	`coordinates_calculated_at` DateTime,
+	`updated_at` DateTime,
+	`merchant_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'point'),'') as point,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'coordinates_calculated_at')) as coordinates_calculated_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+
+	FROM atlas_driver_offer_bpp.driver_location_queue
+	where JSONExtractString(message,'tag') = 'DriverLocationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_plan_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `plan_id` Nullable (String),
+    `plan_type` Nullable (String),
+    `mandate_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `mandate_setup_date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_plan ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_plan_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_plan_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_plan ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_plan
+(
+	`driver_id` String,
+	`plan_id` String,
+	`plan_type` String,
+	`mandate_id` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`mandate_setup_date` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'plan_id'),'') as plan_id,
+	ifNull(JSONExtractString(message,'plan_type'),'') as plan_type,
+	ifNull(JSONExtractString(message,'mandate_id'),'') as mandate_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'mandate_setup_date')) as mandate_setup_date,
+
+	FROM atlas_driver_offer_bpp.driver_plan_queue
+	where JSONExtractString(message,'tag') = 'DriverPlanObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_pool_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `min_radius_of_search` Nullable (Int64),
+    `max_radius_of_search` Nullable (Int64),
+    `radius_step_size` Nullable (Int64),
+    `driver_position_info_expiry` Nullable (String),
+    `actual_distance_threshold` Nullable (String),
+    `max_driver_quotes_required` Nullable (String),
+    `driver_quote_limit` Nullable (String),
+    `driver_request_count_limit` Nullable (String),
+    `driver_batch_size` Nullable (Int64),
+    `max_number_of_batches` Nullable (Int64),
+    `max_parallel_search_requests` Nullable (Int64),
+    `pool_sorting_type` Nullable (String),
+    `single_batch_process_time` Nullable (String),
+    `trip_distance` Nullable (Int64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `radius_shrink_value_for_drivers_on_ride` Nullable (Int64),
+    `driver_to_destination_distance_threshold` Nullable (Int64),
+    `driver_to_destination_duration` Nullable (Int64),
+    `distance_based_batch_split` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_pool_config ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_pool_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_pool_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_pool_config ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_pool_config
+(
+	`merchant_id` String,
+	`min_radius_of_search` Int64,
+	`max_radius_of_search` Int64,
+	`radius_step_size` Int64,
+	`driver_position_info_expiry` String,
+	`actual_distance_threshold` String,
+	`max_driver_quotes_required` String,
+	`driver_quote_limit` String,
+	`driver_request_count_limit` String,
+	`driver_batch_size` Int64,
+	`max_number_of_batches` Int64,
+	`max_parallel_search_requests` Int64,
+	`pool_sorting_type` String,
+	`single_batch_process_time` String,
+	`trip_distance` Int64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`radius_shrink_value_for_drivers_on_ride` Int64,
+	`driver_to_destination_distance_threshold` Int64,
+	`driver_to_destination_duration` Int64,
+	`distance_based_batch_split` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'min_radius_of_search'), 0) as min_radius_of_search,
+	ifNull(JSONExtractInt(message,'max_radius_of_search'), 0) as max_radius_of_search,
+	ifNull(JSONExtractInt(message,'radius_step_size'), 0) as radius_step_size,
+	ifNull(JSONExtractString(message,'driver_position_info_expiry'),'') as driver_position_info_expiry,
+	ifNull(JSONExtractString(message,'actual_distance_threshold'),'') as actual_distance_threshold,
+	ifNull(JSONExtractString(message,'max_driver_quotes_required'),'') as max_driver_quotes_required,
+	ifNull(JSONExtractString(message,'driver_quote_limit'),'') as driver_quote_limit,
+	ifNull(JSONExtractString(message,'driver_request_count_limit'),'') as driver_request_count_limit,
+	ifNull(JSONExtractInt(message,'driver_batch_size'), 0) as driver_batch_size,
+	ifNull(JSONExtractInt(message,'max_number_of_batches'), 0) as max_number_of_batches,
+	ifNull(JSONExtractInt(message,'max_parallel_search_requests'), 0) as max_parallel_search_requests,
+	ifNull(JSONExtractString(message,'pool_sorting_type'),'') as pool_sorting_type,
+	ifNull(JSONExtractString(message,'single_batch_process_time'),'') as single_batch_process_time,
+	ifNull(JSONExtractInt(message,'trip_distance'), 0) as trip_distance,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractInt(message,'radius_shrink_value_for_drivers_on_ride'), 0) as radius_shrink_value_for_drivers_on_ride,
+	ifNull(JSONExtractInt(message,'driver_to_destination_distance_threshold'), 0) as driver_to_destination_distance_threshold,
+	ifNull(JSONExtractInt(message,'driver_to_destination_duration'), 0) as driver_to_destination_duration,
+	ifNull(JSONExtractString(message,'distance_based_batch_split'),'') as distance_based_batch_split,
+
+	FROM atlas_driver_offer_bpp.driver_pool_config_queue
+	where JSONExtractString(message,'tag') = 'DriverPoolConfigObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_quote_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `status` Nullable (String),
+    `search_request_id` Nullable (String),
+    `driver_id` Nullable (String),
+    `distance_to_pickup` Nullable (Int64),
+    `duration_to_pickup` Nullable (Int64),
+    `vehicle_variant` Nullable (String),
+    `valid_till` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `driver_name` Nullable (String),
+    `driver_rating` Nullable (Float64),
+    `distance` Nullable (Int64),
+    `fare_parameters_id` Nullable (String),
+    `estimated_fare` Nullable (Float64),
+    `search_request_for_driver_id` Nullable (String),
+    `provider_id` Nullable (String),
+    `search_try_id` Nullable (String),
+    `special_location_tag` Nullable (String),
+    `estimate_id` Nullable (String),
+    `go_home_request_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_quote ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_quote_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_quote_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_quote ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_quote
+(
+	`id` String,
+	`status` String,
+	`search_request_id` String,
+	`driver_id` String,
+	`distance_to_pickup` Int64,
+	`duration_to_pickup` Int64,
+	`vehicle_variant` String,
+	`valid_till` DateTime,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`driver_name` String,
+	`driver_rating` Float64,
+	`distance` Int64,
+	`fare_parameters_id` String,
+	`estimated_fare` Float64,
+	`search_request_for_driver_id` String,
+	`provider_id` String,
+	`search_try_id` String,
+	`special_location_tag` String,
+	`estimate_id` String,
+	`go_home_request_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'search_request_id'),'') as search_request_id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractInt(message,'distance_to_pickup'), 0) as distance_to_pickup,
+	ifNull(JSONExtractInt(message,'duration_to_pickup'), 0) as duration_to_pickup,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'driver_name'),'') as driver_name,
+	ifNull(JSONExtractFloat(message,'driver_rating'),0.0) as driver_rating,
+	ifNull(JSONExtractInt(message,'distance'), 0) as distance,
+	ifNull(JSONExtractString(message,'fare_parameters_id'),'') as fare_parameters_id,
+	ifNull(JSONExtractFloat(message,'estimated_fare'),0.0) as estimated_fare,
+	ifNull(JSONExtractString(message,'search_request_for_driver_id'),'') as search_request_for_driver_id,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'search_try_id'),'') as search_try_id,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+	ifNull(JSONExtractString(message,'estimate_id'),'') as estimate_id,
+	ifNull(JSONExtractString(message,'go_home_request_id'),'') as go_home_request_id,
+
+	FROM atlas_driver_offer_bpp.driver_quote_queue
+	where JSONExtractString(message,'tag') = 'DriverQuoteObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_rc_association_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `rc_id` Nullable (String),
+    `associated_on` DateTime DEFAULT now(),
+    `associated_till` DateTime DEFAULT now(),
+    `consent` Nullable (String),
+    `consent_timestamp` DateTime DEFAULT now(),
+    `is_rc_active` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_rc_association ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_rc_association_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_rc_association_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_rc_association ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_rc_association
+(
+	`id` String,
+	`driver_id` String,
+	`rc_id` String,
+	`associated_on` DateTime,
+	`associated_till` DateTime,
+	`consent` String,
+	`consent_timestamp` DateTime,
+	`is_rc_active` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'rc_id'),'') as rc_id,
+	toDateTime(JSONExtractInt(message,'associated_on')) as associated_on,
+	toDateTime(JSONExtractInt(message,'associated_till')) as associated_till,
+	ifNull(JSONExtractString(message,'consent'),'') as consent,
+	toDateTime(JSONExtractInt(message,'consent_timestamp')) as consent_timestamp,
+	ifNull(JSONExtractString(message,'is_rc_active'),'') as is_rc_active,
+
+	FROM atlas_driver_offer_bpp.driver_rc_association_queue
+	where JSONExtractString(message,'tag') = 'DriverRcAssociationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_referral_shard ON CLUSTER `{cluster}`
+    (
+    `referral_code` Nullable (String),
+    `driver_id` Nullable (String),
+    `linked_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_referral ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_referral_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_referral_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_referral ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_referral
+(
+	`referral_code` String,
+	`driver_id` String,
+	`linked_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'referral_code'),'') as referral_code,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	toDateTime(JSONExtractInt(message,'linked_at')) as linked_at,
+
+	FROM atlas_driver_offer_bpp.driver_referral_queue
+	where JSONExtractString(message,'tag') = 'DriverReferralObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.driver_stats_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `idle_since` DateTime DEFAULT now(),
+    `total_rides` Nullable (Int64),
+    `total_distance` Nullable (Float64),
+    `rides_cancelled` Nullable (String),
+    `total_rides_assigned` Nullable (String),
+    `total_earnings` Nullable (Int64),
+    `bonus_earned` Nullable (Int64),
+    `late_night_trips` Nullable (Int64),
+    `earnings_missed` Nullable (Int64),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.driver_stats ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.driver_stats_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, driver_stats_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_stats ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.driver_stats
+(
+	`driver_id` String,
+	`idle_since` DateTime,
+	`total_rides` Int64,
+	`total_distance` Float64,
+	`rides_cancelled` String,
+	`total_rides_assigned` String,
+	`total_earnings` Int64,
+	`bonus_earned` Int64,
+	`late_night_trips` Int64,
+	`earnings_missed` Int64,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	toDateTime(JSONExtractInt(message,'idle_since')) as idle_since,
+	ifNull(JSONExtractInt(message,'total_rides'), 0) as total_rides,
+	ifNull(JSONExtractFloat(message,'total_distance'),0.0) as total_distance,
+	ifNull(JSONExtractString(message,'rides_cancelled'),'') as rides_cancelled,
+	ifNull(JSONExtractString(message,'total_rides_assigned'),'') as total_rides_assigned,
+	ifNull(JSONExtractInt(message,'total_earnings'), 0) as total_earnings,
+	ifNull(JSONExtractInt(message,'bonus_earned'), 0) as bonus_earned,
+	ifNull(JSONExtractInt(message,'late_night_trips'), 0) as late_night_trips,
+	ifNull(JSONExtractInt(message,'earnings_missed'), 0) as earnings_missed,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.driver_stats_queue
+	where JSONExtractString(message,'tag') = 'DriverStatsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.estimate_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `min_fare` Nullable (Int64),
+    `max_fare` Nullable (Int64),
+    `estimate_breakup_list` Nullable (String),
+    `night_shift_multiplier` Nullable (String),
+    `night_shift_start` Nullable (String),
+    `night_shift_end` Nullable (String),
+    `waiting_charge_per_min` Nullable (String),
+    `waiting_or_pickup_charges` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `night_shift_charge` Nullable (String),
+    `request_id` Nullable (String),
+    `special_location_tag` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.estimate ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.estimate_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, estimate_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.estimate ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.estimate
+(
+	`id` String,
+	`vehicle_variant` String,
+	`min_fare` Int64,
+	`max_fare` Int64,
+	`estimate_breakup_list` String,
+	`night_shift_multiplier` String,
+	`night_shift_start` String,
+	`night_shift_end` String,
+	`waiting_charge_per_min` String,
+	`waiting_or_pickup_charges` String,
+	`created_at` DateTime,
+	`night_shift_charge` String,
+	`request_id` String,
+	`special_location_tag` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractInt(message,'min_fare'), 0) as min_fare,
+	ifNull(JSONExtractInt(message,'max_fare'), 0) as max_fare,
+	ifNull(JSONExtractString(message,'estimate_breakup_list'),'') as estimate_breakup_list,
+	ifNull(JSONExtractString(message,'night_shift_multiplier'),'') as night_shift_multiplier,
+	ifNull(JSONExtractString(message,'night_shift_start'),'') as night_shift_start,
+	ifNull(JSONExtractString(message,'night_shift_end'),'') as night_shift_end,
+	ifNull(JSONExtractString(message,'waiting_charge_per_min'),'') as waiting_charge_per_min,
+	ifNull(JSONExtractString(message,'waiting_or_pickup_charges'),'') as waiting_or_pickup_charges,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'night_shift_charge'),'') as night_shift_charge,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+
+	FROM atlas_driver_offer_bpp.estimate_queue
+	where JSONExtractString(message,'tag') = 'EstimateObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.exophone_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `primary_phone` Nullable (String),
+    `backup_phone` Nullable (String),
+    `is_primary_down` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `exophone_type` Nullable (String),
+    `call_service` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.exophone ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.exophone_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, exophone_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.exophone ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.exophone
+(
+	`id` String,
+	`merchant_id` String,
+	`primary_phone` String,
+	`backup_phone` String,
+	`is_primary_down` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+	`exophone_type` String,
+	`call_service` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'primary_phone'),'') as primary_phone,
+	ifNull(JSONExtractString(message,'backup_phone'),'') as backup_phone,
+	ifNull(JSONExtractString(message,'is_primary_down'),'') as is_primary_down,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'exophone_type'),'') as exophone_type,
+	ifNull(JSONExtractString(message,'call_service'),'') as call_service,
+
+	FROM atlas_driver_offer_bpp.exophone_queue
+	where JSONExtractString(message,'tag') = 'ExophoneObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_parameters_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_selected_fare` Nullable (String),
+    `base_fare` Nullable (Int64),
+    `service_charge` Nullable (String),
+    `customer_extra_fee` Nullable (String),
+    `fare_parameters_type` Nullable (String),
+    `govt_charges` Nullable (String),
+    `waiting_charge` Nullable (String),
+    `night_shift_charge` Nullable (String),
+    `night_shift_rate_if_applies` Nullable (Float64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_parameters ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_parameters_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_parameters_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_parameters ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_parameters
+(
+	`id` String,
+	`driver_selected_fare` String,
+	`base_fare` Int64,
+	`service_charge` String,
+	`customer_extra_fee` String,
+	`fare_parameters_type` String,
+	`govt_charges` String,
+	`waiting_charge` String,
+	`night_shift_charge` String,
+	`night_shift_rate_if_applies` Float64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_selected_fare'),'') as driver_selected_fare,
+	ifNull(JSONExtractInt(message,'base_fare'), 0) as base_fare,
+	ifNull(JSONExtractString(message,'service_charge'),'') as service_charge,
+	ifNull(JSONExtractString(message,'customer_extra_fee'),'') as customer_extra_fee,
+	ifNull(JSONExtractString(message,'fare_parameters_type'),'') as fare_parameters_type,
+	ifNull(JSONExtractString(message,'govt_charges'),'') as govt_charges,
+	ifNull(JSONExtractString(message,'waiting_charge'),'') as waiting_charge,
+	ifNull(JSONExtractString(message,'night_shift_charge'),'') as night_shift_charge,
+	ifNull(JSONExtractFloat(message,'night_shift_rate_if_applies'),0.0) as night_shift_rate_if_applies,
+
+	FROM atlas_driver_offer_bpp.fare_parameters_queue
+	where JSONExtractString(message,'tag') = 'FareParametersObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_parameters_progressive_details_shard ON CLUSTER `{cluster}`
+    (
+    `fare_parameters_id` Nullable (String),
+    `dead_km_fare` Nullable (Int64),
+    `extra_km_fare` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_parameters_progressive_details ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_parameters_progressive_details_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_parameters_progressive_details_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_parameters_progressive_details ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_parameters_progressive_details
+(
+	`fare_parameters_id` String,
+	`dead_km_fare` Int64,
+	`extra_km_fare` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'fare_parameters_id'),'') as fare_parameters_id,
+	ifNull(JSONExtractInt(message,'dead_km_fare'), 0) as dead_km_fare,
+	ifNull(JSONExtractInt(message,'extra_km_fare'), 0) as extra_km_fare,
+
+	FROM atlas_driver_offer_bpp.fare_parameters_progressive_details_queue
+	where JSONExtractString(message,'tag') = 'FareParametersProgressiveDetailsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_parameters_slab_details_shard ON CLUSTER `{cluster}`
+    (
+    `fare_parameters_id` Nullable (String),
+    `platform_fee` Nullable (String),
+    `sgst` Nullable (String),
+    `cgst` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_parameters_slab_details ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_parameters_slab_details_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_parameters_slab_details_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_parameters_slab_details ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_parameters_slab_details
+(
+	`fare_parameters_id` String,
+	`platform_fee` String,
+	`sgst` String,
+	`cgst` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'fare_parameters_id'),'') as fare_parameters_id,
+	ifNull(JSONExtractString(message,'platform_fee'),'') as platform_fee,
+	ifNull(JSONExtractString(message,'sgst'),'') as sgst,
+	ifNull(JSONExtractString(message,'cgst'),'') as cgst,
+
+	FROM atlas_driver_offer_bpp.fare_parameters_slab_details_queue
+	where JSONExtractString(message,'tag') = 'FareParametersSlabDetailsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `night_shift_start` DateTime DEFAULT now(),
+    `night_shift_end` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `min_allowed_trip_distance` Nullable (String),
+    `max_allowed_trip_distance` Nullable (String),
+    `service_charge` Nullable (String),
+    `govt_charges` Nullable (Float64),
+    `fare_policy_type` Nullable (String),
+    `description` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_policy ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_policy_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_policy_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_policy
+(
+	`id` String,
+	`night_shift_start` DateTime,
+	`night_shift_end` DateTime,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`min_allowed_trip_distance` String,
+	`max_allowed_trip_distance` String,
+	`service_charge` String,
+	`govt_charges` Float64,
+	`fare_policy_type` String,
+	`description` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	toDateTime(JSONExtractInt(message,'night_shift_start')) as night_shift_start,
+	toDateTime(JSONExtractInt(message,'night_shift_end')) as night_shift_end,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'min_allowed_trip_distance'),'') as min_allowed_trip_distance,
+	ifNull(JSONExtractString(message,'max_allowed_trip_distance'),'') as max_allowed_trip_distance,
+	ifNull(JSONExtractString(message,'service_charge'),'') as service_charge,
+	ifNull(JSONExtractFloat(message,'govt_charges'),0.0) as govt_charges,
+	ifNull(JSONExtractString(message,'fare_policy_type'),'') as fare_policy_type,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+
+	FROM atlas_driver_offer_bpp.fare_policy_queue
+	where JSONExtractString(message,'tag') = 'FarePolicyObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_27_07_bak_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `organization_id` Nullable (String),
+    `fare_for_pickup` Nullable (Float64),
+    `night_shift_start` DateTime DEFAULT now(),
+    `night_shift_end` DateTime DEFAULT now(),
+    `night_shift_rate` Nullable (Float64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `fare_per_km` Nullable (Float64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_policy_27_07_bak ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_policy_27_07_bak_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_policy_27_07_bak_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_27_07_bak ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_policy_27_07_bak
+(
+	`id` String,
+	`organization_id` String,
+	`fare_for_pickup` Float64,
+	`night_shift_start` DateTime,
+	`night_shift_end` DateTime,
+	`night_shift_rate` Float64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`fare_per_km` Float64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'organization_id'),'') as organization_id,
+	ifNull(JSONExtractFloat(message,'fare_for_pickup'),0.0) as fare_for_pickup,
+	toDateTime(JSONExtractInt(message,'night_shift_start')) as night_shift_start,
+	toDateTime(JSONExtractInt(message,'night_shift_end')) as night_shift_end,
+	ifNull(JSONExtractFloat(message,'night_shift_rate'),0.0) as night_shift_rate,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractFloat(message,'fare_per_km'),0.0) as fare_per_km,
+
+	FROM atlas_driver_offer_bpp.fare_policy_27_07_bak_queue
+	where JSONExtractString(message,'tag') = 'FarePolicy2707BakObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_driver_extra_fee_bounds_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (Int64),
+    `fare_policy_id` Nullable (String),
+    `start_distance` Nullable (Int64),
+    `min_fee` Nullable (Int64),
+    `max_fee` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_policy_driver_extra_fee_bounds ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_policy_driver_extra_fee_bounds_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_policy_driver_extra_fee_bounds_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_driver_extra_fee_bounds ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_policy_driver_extra_fee_bounds
+(
+	`id` Int64,
+	`fare_policy_id` String,
+	`start_distance` Int64,
+	`min_fee` Int64,
+	`max_fee` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractInt(message,'id'), 0) as id,
+	ifNull(JSONExtractString(message,'fare_policy_id'),'') as fare_policy_id,
+	ifNull(JSONExtractInt(message,'start_distance'), 0) as start_distance,
+	ifNull(JSONExtractInt(message,'min_fee'), 0) as min_fee,
+	ifNull(JSONExtractInt(message,'max_fee'), 0) as max_fee,
+
+	FROM atlas_driver_offer_bpp.fare_policy_driver_extra_fee_bounds_queue
+	where JSONExtractString(message,'tag') = 'FarePolicyDriverExtraFeeBoundsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_progressive_details_shard ON CLUSTER `{cluster}`
+    (
+    `fare_policy_id` Nullable (String),
+    `base_distance` Nullable (Int64),
+    `base_fare` Nullable (Int64),
+    `dead_km_fare` Nullable (Int64),
+    `waiting_charge` Nullable (String),
+    `night_shift_charge` Nullable (String),
+    `free_wating_time` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_policy_progressive_details ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_policy_progressive_details_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_policy_progressive_details_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_progressive_details ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_policy_progressive_details
+(
+	`fare_policy_id` String,
+	`base_distance` Int64,
+	`base_fare` Int64,
+	`dead_km_fare` Int64,
+	`waiting_charge` String,
+	`night_shift_charge` String,
+	`free_wating_time` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'fare_policy_id'),'') as fare_policy_id,
+	ifNull(JSONExtractInt(message,'base_distance'), 0) as base_distance,
+	ifNull(JSONExtractInt(message,'base_fare'), 0) as base_fare,
+	ifNull(JSONExtractInt(message,'dead_km_fare'), 0) as dead_km_fare,
+	ifNull(JSONExtractString(message,'waiting_charge'),'') as waiting_charge,
+	ifNull(JSONExtractString(message,'night_shift_charge'),'') as night_shift_charge,
+	ifNull(JSONExtractInt(message,'free_wating_time'), 0) as free_wating_time,
+
+	FROM atlas_driver_offer_bpp.fare_policy_progressive_details_queue
+	where JSONExtractString(message,'tag') = 'FarePolicyProgressiveDetailsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_progressive_details_per_extra_km_rate_section_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (Int64),
+    `fare_policy_id` Nullable (String),
+    `start_distance` Nullable (Int64),
+    `per_extra_km_rate` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_policy_progressive_details_per_extra_km_rate_section ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_policy_progressive_details_per_extra_km_rate_section_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_policy_progressive_details_per_extra_km_rate_section_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_progressive_details_per_extra_km_rate_section ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_policy_progressive_details_per_extra_km_rate_section
+(
+	`id` Int64,
+	`fare_policy_id` String,
+	`start_distance` Int64,
+	`per_extra_km_rate` String,
+)
+	AS SELECT
+	ifNull(JSONExtractInt(message,'id'), 0) as id,
+	ifNull(JSONExtractString(message,'fare_policy_id'),'') as fare_policy_id,
+	ifNull(JSONExtractInt(message,'start_distance'), 0) as start_distance,
+	ifNull(JSONExtractString(message,'per_extra_km_rate'),'') as per_extra_km_rate,
+
+	FROM atlas_driver_offer_bpp.fare_policy_progressive_details_per_extra_km_rate_section_queue
+	where JSONExtractString(message,'tag') = 'FarePolicyProgressiveDetailsPerExtraKmRateSectionObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_policy_slabs_details_slab_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (Int64),
+    `fare_policy_id` Nullable (String),
+    `start_distance` Nullable (Int64),
+    `base_fare` Nullable (Int64),
+    `waiting_charge` Nullable (String),
+    `night_shift_charge` Nullable (String),
+    `free_wating_time` Nullable (Int64),
+    `platform_fee_charge` Nullable (String),
+    `platform_fee_cgst` Nullable (String),
+    `platform_fee_sgst` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_policy_slabs_details_slab ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_policy_slabs_details_slab_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_policy_slabs_details_slab_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_policy_slabs_details_slab ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_policy_slabs_details_slab
+(
+	`id` Int64,
+	`fare_policy_id` String,
+	`start_distance` Int64,
+	`base_fare` Int64,
+	`waiting_charge` String,
+	`night_shift_charge` String,
+	`free_wating_time` Int64,
+	`platform_fee_charge` String,
+	`platform_fee_cgst` String,
+	`platform_fee_sgst` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractInt(message,'id'), 0) as id,
+	ifNull(JSONExtractString(message,'fare_policy_id'),'') as fare_policy_id,
+	ifNull(JSONExtractInt(message,'start_distance'), 0) as start_distance,
+	ifNull(JSONExtractInt(message,'base_fare'), 0) as base_fare,
+	ifNull(JSONExtractString(message,'waiting_charge'),'') as waiting_charge,
+	ifNull(JSONExtractString(message,'night_shift_charge'),'') as night_shift_charge,
+	ifNull(JSONExtractInt(message,'free_wating_time'), 0) as free_wating_time,
+	ifNull(JSONExtractString(message,'platform_fee_charge'),'') as platform_fee_charge,
+	ifNull(JSONExtractString(message,'platform_fee_cgst'),'') as platform_fee_cgst,
+	ifNull(JSONExtractInt(message,'platform_fee_sgst'), 0) as platform_fee_sgst,
+
+	FROM atlas_driver_offer_bpp.fare_policy_slabs_details_slab_queue
+	where JSONExtractString(message,'tag') = 'FarePolicySlabsDetailsSlabObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.fare_product_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `fare_policy_id` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `area` Nullable (String),
+    `flow` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.fare_product ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.fare_product_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, fare_product_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_product ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.fare_product
+(
+	`id` String,
+	`merchant_id` String,
+	`fare_policy_id` String,
+	`vehicle_variant` String,
+	`area` String,
+	`flow` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'fare_policy_id'),'') as fare_policy_id,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	ifNull(JSONExtractString(message,'flow'),'') as flow,
+
+	FROM atlas_driver_offer_bpp.fare_product_queue
+	where JSONExtractString(message,'tag') = 'FareProductObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.feedback_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `ride_id` Nullable (String),
+    `badge` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.feedback ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.feedback_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, feedback_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.feedback ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.feedback
+(
+	`id` String,
+	`driver_id` String,
+	`ride_id` String,
+	`badge` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractString(message,'badge'),'') as badge,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.feedback_queue
+	where JSONExtractString(message,'tag') = 'FeedbackObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.feedback_badge_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `badge` Nullable (String),
+    `badge_count` Nullable (Int64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.feedback_badge ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.feedback_badge_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, feedback_badge_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.feedback_badge ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.feedback_badge
+(
+	`id` String,
+	`driver_id` String,
+	`badge` String,
+	`badge_count` Int64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'badge'),'') as badge,
+	ifNull(JSONExtractInt(message,'badge_count'), 0) as badge_count,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.feedback_badge_queue
+	where JSONExtractString(message,'tag') = 'FeedbackBadgeObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.feedback_form_shard ON CLUSTER `{cluster}`
+    (
+    `category_name` Nullable (String),
+    `id` Nullable (String),
+    `rating` Nullable (String),
+    `question` Nullable (String),
+    `answer` Nullable (String),
+    `answer_type` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.feedback_form ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.feedback_form_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, feedback_form_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.feedback_form ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.feedback_form
+(
+	`category_name` String,
+	`id` String,
+	`rating` String,
+	`question` String,
+	`answer` String,
+	`answer_type` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'category_name'),'') as category_name,
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'rating'),'') as rating,
+	ifNull(JSONExtractString(message,'question'),'') as question,
+	ifNull(JSONExtractString(message,'answer'),'') as answer,
+	ifNull(JSONExtractString(message,'answer_type'),'') as answer_type,
+
+	FROM atlas_driver_offer_bpp.feedback_form_queue
+	where JSONExtractString(message,'tag') = 'FeedbackFormObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.geometry_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `region` Nullable (String),
+    `geom` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.geometry ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.geometry_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, geometry_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.geometry ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.geometry
+(
+	`id` String,
+	`region` String,
+	`geom` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'region'),'') as region,
+	ifNull(JSONExtractString(message,'geom'),'') as geom,
+
+	FROM atlas_driver_offer_bpp.geometry_queue
+	where JSONExtractString(message,'tag') = 'GeometryObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.go_home_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `enable_go_home` Nullable (String),
+    `start_cnt` Nullable (Int64),
+    `dest_radius_meters` Nullable (Int64),
+    `active_time` Nullable (Int64),
+    `update_home_location_after_sec` Nullable (Int64),
+    `cancellation_cnt` Nullable (Int64),
+    `num_home_locations` Nullable (Int64),
+    `go_home_from_location_radius` Nullable (Int64),
+    `go_home_way_point_radius` Nullable (Int64),
+    `num_drivers_for_dir_check` Nullable (Int64),
+    `go_home_batch_delay` Nullable (Int64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `ignore_waypoints_till` Nullable (Int64),
+    `add_start_waypoint_at` Nullable (Int64),
+    `new_loc_allowed_radius` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.go_home_config ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.go_home_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, go_home_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.go_home_config ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.go_home_config
+(
+	`merchant_id` String,
+	`enable_go_home` String,
+	`start_cnt` Int64,
+	`dest_radius_meters` Int64,
+	`active_time` Int64,
+	`update_home_location_after_sec` Int64,
+	`cancellation_cnt` Int64,
+	`num_home_locations` Int64,
+	`go_home_from_location_radius` Int64,
+	`go_home_way_point_radius` Int64,
+	`num_drivers_for_dir_check` Int64,
+	`go_home_batch_delay` Int64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`ignore_waypoints_till` Int64,
+	`add_start_waypoint_at` Int64,
+	`new_loc_allowed_radius` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'enable_go_home'),'') as enable_go_home,
+	ifNull(JSONExtractInt(message,'start_cnt'), 0) as start_cnt,
+	ifNull(JSONExtractInt(message,'dest_radius_meters'), 0) as dest_radius_meters,
+	ifNull(JSONExtractInt(message,'active_time'), 0) as active_time,
+	ifNull(JSONExtractInt(message,'update_home_location_after_sec'), 0) as update_home_location_after_sec,
+	ifNull(JSONExtractInt(message,'cancellation_cnt'), 0) as cancellation_cnt,
+	ifNull(JSONExtractInt(message,'num_home_locations'), 0) as num_home_locations,
+	ifNull(JSONExtractInt(message,'go_home_from_location_radius'), 0) as go_home_from_location_radius,
+	ifNull(JSONExtractInt(message,'go_home_way_point_radius'), 0) as go_home_way_point_radius,
+	ifNull(JSONExtractInt(message,'num_drivers_for_dir_check'), 0) as num_drivers_for_dir_check,
+	ifNull(JSONExtractInt(message,'go_home_batch_delay'), 0) as go_home_batch_delay,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractInt(message,'ignore_waypoints_till'), 0) as ignore_waypoints_till,
+	ifNull(JSONExtractInt(message,'add_start_waypoint_at'), 0) as add_start_waypoint_at,
+	ifNull(JSONExtractInt(message,'new_loc_allowed_radius'), 0) as new_loc_allowed_radius,
+
+	FROM atlas_driver_offer_bpp.go_home_config_queue
+	where JSONExtractString(message,'tag') = 'GoHomeConfigObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.idfy_verification_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `request_id` Nullable (String),
+    `doc_type` Nullable (String),
+    `status` Nullable (String),
+    `idfy_response` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `document_image_id1` Nullable (String),
+    `document_image_id2` Nullable (String),
+    `issue_date_on_doc` DateTime DEFAULT now(),
+    `document_number_encrypted` Nullable (String),
+    `document_number_hash` Nullable (String),
+    `image_extraction_validation` Nullable (String),
+    `driver_date_of_birth` DateTime DEFAULT now(),
+    `multiple_r_c` Nullable (String),
+    `dashboard_passed_vehicle_variant` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.idfy_verification ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.idfy_verification_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, idfy_verification_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.idfy_verification ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.idfy_verification
+(
+	`id` String,
+	`driver_id` String,
+	`request_id` String,
+	`doc_type` String,
+	`status` String,
+	`idfy_response` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`document_image_id1` String,
+	`document_image_id2` String,
+	`issue_date_on_doc` DateTime,
+	`document_number_encrypted` String,
+	`document_number_hash` String,
+	`image_extraction_validation` String,
+	`driver_date_of_birth` DateTime,
+	`multiple_r_c` String,
+	`dashboard_passed_vehicle_variant` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'doc_type'),'') as doc_type,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'idfy_response'),'') as idfy_response,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'document_image_id1'),'') as document_image_id1,
+	ifNull(JSONExtractString(message,'document_image_id2'),'') as document_image_id2,
+	toDateTime(JSONExtractInt(message,'issue_date_on_doc')) as issue_date_on_doc,
+	ifNull(JSONExtractString(message,'document_number_encrypted'),'') as document_number_encrypted,
+	ifNull(JSONExtractString(message,'document_number_hash'),'') as document_number_hash,
+	ifNull(JSONExtractString(message,'image_extraction_validation'),'') as image_extraction_validation,
+	toDateTime(JSONExtractInt(message,'driver_date_of_birth')) as driver_date_of_birth,
+	ifNull(JSONExtractString(message,'multiple_r_c'),'') as multiple_r_c,
+	ifNull(JSONExtractString(message,'dashboard_passed_vehicle_variant'),'') as dashboard_passed_vehicle_variant,
+
+	FROM atlas_driver_offer_bpp.idfy_verification_queue
+	where JSONExtractString(message,'tag') = 'IdfyVerificationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.image_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `person_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `s3_path` Nullable (String),
+    `image_type` Nullable (String),
+    `is_valid` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `failure_reason` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.image ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.image_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, image_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.image ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.image
+(
+	`id` String,
+	`person_id` String,
+	`merchant_id` String,
+	`s3_path` String,
+	`image_type` String,
+	`is_valid` String,
+	`created_at` DateTime,
+	`failure_reason` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'s3_path'),'') as s3_path,
+	ifNull(JSONExtractString(message,'image_type'),'') as image_type,
+	ifNull(JSONExtractString(message,'is_valid'),'') as is_valid,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'failure_reason'),'') as failure_reason,
+
+	FROM atlas_driver_offer_bpp.image_queue
+	where JSONExtractString(message,'tag') = 'ImageObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.invoice_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `invoice_short_id` Nullable (String),
+    `driver_fee_id` Nullable (String),
+    `invoice_status` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `max_mandate_amount` Nullable (String),
+    `payment_mode` Nullable (String),
+    `bank_error_message` Nullable (String),
+    `bank_error_code` Nullable (String),
+    `bank_error_updated_at` DateTime DEFAULT now(),
+    `driver_id` Nullable (String),
+    `last_status_checked_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.invoice ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.invoice_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, invoice_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.invoice ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.invoice
+(
+	`id` String,
+	`invoice_short_id` String,
+	`driver_fee_id` String,
+	`invoice_status` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`max_mandate_amount` String,
+	`payment_mode` String,
+	`bank_error_message` String,
+	`bank_error_code` String,
+	`bank_error_updated_at` DateTime,
+	`driver_id` String,
+	`last_status_checked_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'invoice_short_id'),'') as invoice_short_id,
+	ifNull(JSONExtractString(message,'driver_fee_id'),'') as driver_fee_id,
+	ifNull(JSONExtractString(message,'invoice_status'),'') as invoice_status,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'max_mandate_amount'),'') as max_mandate_amount,
+	ifNull(JSONExtractString(message,'payment_mode'),'') as payment_mode,
+	ifNull(JSONExtractString(message,'bank_error_message'),'') as bank_error_message,
+	ifNull(JSONExtractString(message,'bank_error_code'),'') as bank_error_code,
+	toDateTime(JSONExtractInt(message,'bank_error_updated_at')) as bank_error_updated_at,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	toDateTime(JSONExtractInt(message,'last_status_checked_at')) as last_status_checked_at,
+
+	FROM atlas_driver_offer_bpp.invoice_queue
+	where JSONExtractString(message,'tag') = 'InvoiceObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_category_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `category` Nullable (String),
+    `logo_url` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.issue_category ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.issue_category_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, issue_category_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_category ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.issue_category
+(
+	`id` String,
+	`category` String,
+	`logo_url` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'category'),'') as category,
+	ifNull(JSONExtractString(message,'logo_url'),'') as logo_url,
+
+	FROM atlas_driver_offer_bpp.issue_category_queue
+	where JSONExtractString(message,'tag') = 'IssueCategoryObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_option_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `issue_category_id` Nullable (String),
+    `option` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.issue_option ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.issue_option_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, issue_option_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_option ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.issue_option
+(
+	`id` String,
+	`issue_category_id` String,
+	`option` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'issue_category_id'),'') as issue_category_id,
+	ifNull(JSONExtractString(message,'option'),'') as option,
+
+	FROM atlas_driver_offer_bpp.issue_option_queue
+	where JSONExtractString(message,'tag') = 'IssueOptionObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_report_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_id` Nullable (String),
+    `ride_id` Nullable (String),
+    `description` Nullable (String),
+    `assignee` Nullable (String),
+    `status` Nullable (String),
+    `deleted` Nullable (String),
+    `media_files` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `category_id` Nullable (String),
+    `option_id` Nullable (String),
+    `ticket_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.issue_report ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.issue_report_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, issue_report_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_report ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.issue_report
+(
+	`id` String,
+	`driver_id` String,
+	`ride_id` String,
+	`description` String,
+	`assignee` String,
+	`status` String,
+	`deleted` String,
+	`media_files` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`category_id` String,
+	`option_id` String,
+	`ticket_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'assignee'),'') as assignee,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'deleted'),'') as deleted,
+	ifNull(JSONExtractString(message,'media_files'),'') as media_files,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'category_id'),'') as category_id,
+	ifNull(JSONExtractString(message,'option_id'),'') as option_id,
+	ifNull(JSONExtractString(message,'ticket_id'),'') as ticket_id,
+
+	FROM atlas_driver_offer_bpp.issue_report_queue
+	where JSONExtractString(message,'tag') = 'IssueReportObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_translation_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `sentence` Nullable (String),
+    `translation` Nullable (String),
+    `language` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.issue_translation ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.issue_translation_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, issue_translation_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_translation ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.issue_translation
+(
+	`id` String,
+	`sentence` String,
+	`translation` String,
+	`language` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'sentence'),'') as sentence,
+	ifNull(JSONExtractString(message,'translation'),'') as translation,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+
+	FROM atlas_driver_offer_bpp.issue_translation_queue
+	where JSONExtractString(message,'tag') = 'IssueTranslationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.kiosk_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `address` Nullable (String),
+    `landmark` Nullable (String),
+    `contact` Nullable (String),
+    `longitude` Nullable (Float64),
+    `latitude` Nullable (Float64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.kiosk_location ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.kiosk_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, kiosk_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.kiosk_location ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.kiosk_location
+(
+	`id` String,
+	`merchant_id` String,
+	`address` String,
+	`landmark` String,
+	`contact` String,
+	`longitude` Float64,
+	`latitude` Float64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'address'),'') as address,
+	ifNull(JSONExtractString(message,'landmark'),'') as landmark,
+	ifNull(JSONExtractString(message,'contact'),'') as contact,
+	ifNull(JSONExtractFloat(message,'longitude'),0.0) as longitude,
+	ifNull(JSONExtractFloat(message,'latitude'),0.0) as latitude,
+
+	FROM atlas_driver_offer_bpp.kiosk_location_queue
+	where JSONExtractString(message,'tag') = 'KioskLocationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.kiosk_location_translation_shard ON CLUSTER `{cluster}`
+    (
+    `kiosk_location_id` Nullable (String),
+    `language` Nullable (String),
+    `landmark` Nullable (String),
+    `address` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.kiosk_location_translation ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.kiosk_location_translation_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, kiosk_location_translation_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.kiosk_location_translation ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.kiosk_location_translation
+(
+	`kiosk_location_id` String,
+	`language` String,
+	`landmark` String,
+	`address` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'kiosk_location_id'),'') as kiosk_location_id,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+	ifNull(JSONExtractString(message,'landmark'),'') as landmark,
+	ifNull(JSONExtractString(message,'address'),'') as address,
+
+	FROM atlas_driver_offer_bpp.kiosk_location_translation_queue
+	where JSONExtractString(message,'tag') = 'KioskLocationTranslationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.leader_board_configs_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `leader_board_type` Nullable (String),
+    `number_of_sets` Nullable (Int64),
+    `leader_board_expiry` Nullable (Int64),
+    `z_score_base` Nullable (Int64),
+    `leader_board_length_limit` Nullable (Int64),
+    `merchant_id` Nullable (String),
+    `is_enabled` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.leader_board_configs ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.leader_board_configs_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, leader_board_configs_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.leader_board_configs ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.leader_board_configs
+(
+	`id` String,
+	`leader_board_type` String,
+	`number_of_sets` Int64,
+	`leader_board_expiry` Int64,
+	`z_score_base` Int64,
+	`leader_board_length_limit` Int64,
+	`merchant_id` String,
+	`is_enabled` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'leader_board_type'),'') as leader_board_type,
+	ifNull(JSONExtractInt(message,'number_of_sets'), 0) as number_of_sets,
+	ifNull(JSONExtractInt(message,'leader_board_expiry'), 0) as leader_board_expiry,
+	ifNull(JSONExtractInt(message,'z_score_base'), 0) as z_score_base,
+	ifNull(JSONExtractInt(message,'leader_board_length_limit'), 0) as leader_board_length_limit,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'is_enabled'),'') as is_enabled,
+
+	FROM atlas_driver_offer_bpp.leader_board_configs_queue
+	where JSONExtractString(message,'tag') = 'LeaderBoardConfigsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.mandate_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `max_amount` Nullable (Int64),
+    `status` Nullable (String),
+    `payer_vpa` Nullable (String),
+    `start_date` DateTime DEFAULT now(),
+    `end_date` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `payer_app` Nullable (String),
+    `payer_app_name` Nullable (String),
+    `mandate_payment_flow` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.mandate ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.mandate_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, mandate_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.mandate ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.mandate
+(
+	`id` String,
+	`max_amount` Int64,
+	`status` String,
+	`payer_vpa` String,
+	`start_date` DateTime,
+	`end_date` DateTime,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`payer_app` String,
+	`payer_app_name` String,
+	`mandate_payment_flow` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractInt(message,'max_amount'), 0) as max_amount,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'payer_vpa'),'') as payer_vpa,
+	toDateTime(JSONExtractInt(message,'start_date')) as start_date,
+	toDateTime(JSONExtractInt(message,'end_date')) as end_date,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'payer_app'),'') as payer_app,
+	ifNull(JSONExtractString(message,'payer_app_name'),'') as payer_app_name,
+	ifNull(JSONExtractString(message,'mandate_payment_flow'),'') as mandate_payment_flow,
+
+	FROM atlas_driver_offer_bpp.mandate_queue
+	where JSONExtractString(message,'tag') = 'MandateObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.media_file_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `type` Nullable (String),
+    `url` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.media_file ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.media_file_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, media_file_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.media_file ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.media_file
+(
+	`id` String,
+	`type` String,
+	`url` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'type'),'') as type,
+	ifNull(JSONExtractString(message,'url'),'') as url,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.media_file_queue
+	where JSONExtractString(message,'tag') = 'MediaFileObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `name` Nullable (String),
+    `subscriber_id` Nullable (String),
+    `gstin` Nullable (String),
+    `status` Nullable (String),
+    `verified` Nullable (String),
+    `enabled` Nullable (String),
+    `description` Nullable (String),
+    `mobile_number` Nullable (String),
+    `mobile_country_code` Nullable (String),
+    `from_time` DateTime DEFAULT now(),
+    `to_time` DateTime DEFAULT now(),
+    `api_key` Nullable (String),
+    `head_count` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `info` Nullable (String),
+    `unique_key_id` Nullable (String),
+    `short_id` Nullable (String),
+    `origin_restriction` Nullable (String),
+    `destination_restriction` Nullable (String),
+    `internal_api_key` Nullable (String),
+    `city` Nullable (String),
+    `geo_hash_precision_value` Nullable (Int64),
+    `country` Nullable (String),
+    `minimum_driver_rates_count` Nullable (Int64),
+    `registry_url` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.merchant ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.merchant_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, merchant_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.merchant
+(
+	`id` String,
+	`name` String,
+	`subscriber_id` String,
+	`gstin` String,
+	`status` String,
+	`verified` String,
+	`enabled` String,
+	`description` String,
+	`mobile_number` String,
+	`mobile_country_code` String,
+	`from_time` DateTime,
+	`to_time` DateTime,
+	`api_key` String,
+	`head_count` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`info` String,
+	`unique_key_id` String,
+	`short_id` String,
+	`origin_restriction` String,
+	`destination_restriction` String,
+	`internal_api_key` String,
+	`city` String,
+	`geo_hash_precision_value` Int64,
+	`country` String,
+	`minimum_driver_rates_count` Int64,
+	`registry_url` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'name'),'') as name,
+	ifNull(JSONExtractString(message,'subscriber_id'),'') as subscriber_id,
+	ifNull(JSONExtractString(message,'gstin'),'') as gstin,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'verified'),'') as verified,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'mobile_number'),'') as mobile_number,
+	ifNull(JSONExtractString(message,'mobile_country_code'),'') as mobile_country_code,
+	toDateTime(JSONExtractInt(message,'from_time')) as from_time,
+	toDateTime(JSONExtractInt(message,'to_time')) as to_time,
+	ifNull(JSONExtractString(message,'api_key'),'') as api_key,
+	ifNull(JSONExtractString(message,'head_count'),'') as head_count,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'info'),'') as info,
+	ifNull(JSONExtractString(message,'unique_key_id'),'') as unique_key_id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'origin_restriction'),'') as origin_restriction,
+	ifNull(JSONExtractString(message,'destination_restriction'),'') as destination_restriction,
+	ifNull(JSONExtractString(message,'internal_api_key'),'') as internal_api_key,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractInt(message,'geo_hash_precision_value'), 0) as geo_hash_precision_value,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	ifNull(JSONExtractInt(message,'minimum_driver_rates_count'), 0) as minimum_driver_rates_count,
+	ifNull(JSONExtractString(message,'registry_url'),'') as registry_url,
+
+	FROM atlas_driver_offer_bpp.merchant_queue
+	where JSONExtractString(message,'tag') = 'MerchantObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_message_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `message_key` Nullable (String),
+    `message` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.merchant_message ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.merchant_message_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, merchant_message_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_message ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.merchant_message
+(
+	`merchant_id` String,
+	`message_key` String,
+	`message` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'message_key'),'') as message_key,
+	ifNull(JSONExtractString(message,'message'),'') as message,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.merchant_message_queue
+	where JSONExtractString(message,'tag') = 'MerchantMessageObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_payment_method_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `payment_type` Nullable (String),
+    `payment_instrument` Nullable (String),
+    `collected_by` Nullable (String),
+    `priority` Nullable (Int64),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.merchant_payment_method ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.merchant_payment_method_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, merchant_payment_method_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_payment_method ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.merchant_payment_method
+(
+	`id` String,
+	`merchant_id` String,
+	`payment_type` String,
+	`payment_instrument` String,
+	`collected_by` String,
+	`priority` Int64,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'payment_type'),'') as payment_type,
+	ifNull(JSONExtractString(message,'payment_instrument'),'') as payment_instrument,
+	ifNull(JSONExtractString(message,'collected_by'),'') as collected_by,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.merchant_payment_method_queue
+	where JSONExtractString(message,'tag') = 'MerchantPaymentMethodObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_service_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `service_name` Nullable (String),
+    `config_json` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.merchant_service_config ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.merchant_service_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, merchant_service_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_service_config ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.merchant_service_config
+(
+	`merchant_id` String,
+	`service_name` String,
+	`config_json` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'service_name'),'') as service_name,
+	ifNull(JSONExtractString(message,'config_json'),'') as config_json,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.merchant_service_config_queue
+	where JSONExtractString(message,'tag') = 'MerchantServiceConfigObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_service_usage_config_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `get_distances` Nullable (String),
+    `get_routes` Nullable (String),
+    `snap_to_road` Nullable (String),
+    `get_place_name` Nullable (String),
+    `get_place_details` Nullable (String),
+    `auto_complete` Nullable (String),
+    `updated_at` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `sms_providers_priority_list` Nullable (String),
+    `get_estimated_pickup_distances` Nullable (String),
+    `whatsapp_providers_priority_list` Nullable (String),
+    `get_pickup_routes` Nullable (String),
+    `get_trip_routes` Nullable (String),
+    `verification_service` Nullable (String),
+    `initiate_call` Nullable (String),
+    `get_distances_for_cancel_ride` Nullable (String),
+    `aadhaar_verification_service` Nullable (String),
+    `face_verification_service` Nullable (String),
+    `issue_ticket_service` Nullable (String),
+    `get_exophone` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.merchant_service_usage_config ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.merchant_service_usage_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, merchant_service_usage_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_service_usage_config ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.merchant_service_usage_config
+(
+	`merchant_id` String,
+	`get_distances` String,
+	`get_routes` String,
+	`snap_to_road` String,
+	`get_place_name` String,
+	`get_place_details` String,
+	`auto_complete` String,
+	`updated_at` DateTime,
+	`created_at` DateTime,
+	`sms_providers_priority_list` String,
+	`get_estimated_pickup_distances` String,
+	`whatsapp_providers_priority_list` String,
+	`get_pickup_routes` String,
+	`get_trip_routes` String,
+	`verification_service` String,
+	`initiate_call` String,
+	`get_distances_for_cancel_ride` String,
+	`aadhaar_verification_service` String,
+	`face_verification_service` String,
+	`issue_ticket_service` String,
+	`get_exophone` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'get_distances'),'') as get_distances,
+	ifNull(JSONExtractString(message,'get_routes'),'') as get_routes,
+	ifNull(JSONExtractString(message,'snap_to_road'),'') as snap_to_road,
+	ifNull(JSONExtractString(message,'get_place_name'),'') as get_place_name,
+	ifNull(JSONExtractString(message,'get_place_details'),'') as get_place_details,
+	ifNull(JSONExtractString(message,'auto_complete'),'') as auto_complete,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'sms_providers_priority_list'),'') as sms_providers_priority_list,
+	ifNull(JSONExtractString(message,'get_estimated_pickup_distances'),'') as get_estimated_pickup_distances,
+	ifNull(JSONExtractString(message,'whatsapp_providers_priority_list'),'') as whatsapp_providers_priority_list,
+	ifNull(JSONExtractString(message,'get_pickup_routes'),'') as get_pickup_routes,
+	ifNull(JSONExtractString(message,'get_trip_routes'),'') as get_trip_routes,
+	ifNull(JSONExtractString(message,'verification_service'),'') as verification_service,
+	ifNull(JSONExtractString(message,'initiate_call'),'') as initiate_call,
+	ifNull(JSONExtractString(message,'get_distances_for_cancel_ride'),'') as get_distances_for_cancel_ride,
+	ifNull(JSONExtractString(message,'aadhaar_verification_service'),'') as aadhaar_verification_service,
+	ifNull(JSONExtractString(message,'face_verification_service'),'') as face_verification_service,
+	ifNull(JSONExtractString(message,'issue_ticket_service'),'') as issue_ticket_service,
+	ifNull(JSONExtractString(message,'get_exophone'),'') as get_exophone,
+
+	FROM atlas_driver_offer_bpp.merchant_service_usage_config_queue
+	where JSONExtractString(message,'tag') = 'MerchantServiceUsageConfigObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.message_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `type` Nullable (String),
+    `title` Nullable (String),
+    `description` Nullable (String),
+    `media_files` Nullable (String),
+    `merchant_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `label` Nullable (String),
+    `like_count` Nullable (Int64),
+    `short_description` Nullable (String),
+    `view_count` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.message ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.message_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, message_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.message ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.message
+(
+	`id` String,
+	`type` String,
+	`title` String,
+	`description` String,
+	`media_files` String,
+	`merchant_id` String,
+	`created_at` DateTime,
+	`label` String,
+	`like_count` Int64,
+	`short_description` String,
+	`view_count` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'type'),'') as type,
+	ifNull(JSONExtractString(message,'title'),'') as title,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'media_files'),'') as media_files,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'label'),'') as label,
+	ifNull(JSONExtractInt(message,'like_count'), 0) as like_count,
+	ifNull(JSONExtractString(message,'short_description'),'') as short_description,
+	ifNull(JSONExtractInt(message,'view_count'), 0) as view_count,
+
+	FROM atlas_driver_offer_bpp.message_queue
+	where JSONExtractString(message,'tag') = 'MessageObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.message_report_shard ON CLUSTER `{cluster}`
+    (
+    `message_id` Nullable (String),
+    `driver_id` Nullable (String),
+    `delivery_status` Nullable (String),
+    `read_status` Nullable (String),
+    `reply` Nullable (String),
+    `message_dynamic_fields` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `like_status` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.message_report ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.message_report_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, message_report_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.message_report ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.message_report
+(
+	`message_id` String,
+	`driver_id` String,
+	`delivery_status` String,
+	`read_status` String,
+	`reply` String,
+	`message_dynamic_fields` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`like_status` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'message_id'),'') as message_id,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'delivery_status'),'') as delivery_status,
+	ifNull(JSONExtractString(message,'read_status'),'') as read_status,
+	ifNull(JSONExtractString(message,'reply'),'') as reply,
+	ifNull(JSONExtractString(message,'message_dynamic_fields'),'') as message_dynamic_fields,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'like_status'),'') as like_status,
+
+	FROM atlas_driver_offer_bpp.message_report_queue
+	where JSONExtractString(message,'tag') = 'MessageReportObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.message_translation_shard ON CLUSTER `{cluster}`
+    (
+    `message_id` Nullable (String),
+    `language` Nullable (String),
+    `title` Nullable (String),
+    `description` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `label` Nullable (String),
+    `short_description` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.message_translation ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.message_translation_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, message_translation_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.message_translation ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.message_translation
+(
+	`message_id` String,
+	`language` String,
+	`title` String,
+	`description` String,
+	`created_at` DateTime,
+	`label` String,
+	`short_description` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'message_id'),'') as message_id,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+	ifNull(JSONExtractString(message,'title'),'') as title,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'label'),'') as label,
+	ifNull(JSONExtractString(message,'short_description'),'') as short_description,
+
+	FROM atlas_driver_offer_bpp.message_translation_queue
+	where JSONExtractString(message,'tag') = 'MessageTranslationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.meta_data_shard ON CLUSTER `{cluster}`
+    (
+    `driver_id` Nullable (String),
+    `device` Nullable (String),
+    `device_o_s` Nullable (String),
+    `device_date_time` DateTime DEFAULT now(),
+    `app_permissions` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.meta_data ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.meta_data_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, meta_data_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.meta_data ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.meta_data
+(
+	`driver_id` String,
+	`device` String,
+	`device_o_s` String,
+	`device_date_time` DateTime,
+	`app_permissions` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'device'),'') as device,
+	ifNull(JSONExtractString(message,'device_o_s'),'') as device_o_s,
+	toDateTime(JSONExtractInt(message,'device_date_time')) as device_date_time,
+	ifNull(JSONExtractString(message,'app_permissions'),'') as app_permissions,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.meta_data_queue
+	where JSONExtractString(message,'tag') = 'MetaDataObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.notification_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `short_id` Nullable (String),
+    `source_amount` Nullable (String),
+    `mandate_id` Nullable (String),
+    `driver_fee_id` Nullable (String),
+    `txn_date` DateTime DEFAULT now(),
+    `juspay_provided_id` Nullable (String),
+    `provider_name` Nullable (String),
+    `notification_type` Nullable (String),
+    `description` Nullable (String),
+    `status` Nullable (String),
+    `date_created` DateTime DEFAULT now(),
+    `last_updated` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `last_status_checked_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.notification ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.notification_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, notification_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.notification ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.notification
+(
+	`id` String,
+	`short_id` String,
+	`source_amount` String,
+	`mandate_id` String,
+	`driver_fee_id` String,
+	`txn_date` DateTime,
+	`juspay_provided_id` String,
+	`provider_name` String,
+	`notification_type` String,
+	`description` String,
+	`status` String,
+	`date_created` DateTime,
+	`last_updated` DateTime,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`last_status_checked_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'source_amount'),'') as source_amount,
+	ifNull(JSONExtractString(message,'mandate_id'),'') as mandate_id,
+	ifNull(JSONExtractString(message,'driver_fee_id'),'') as driver_fee_id,
+	toDateTime(JSONExtractInt(message,'txn_date')) as txn_date,
+	ifNull(JSONExtractString(message,'juspay_provided_id'),'') as juspay_provided_id,
+	ifNull(JSONExtractString(message,'provider_name'),'') as provider_name,
+	ifNull(JSONExtractString(message,'notification_type'),'') as notification_type,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'date_created')) as date_created,
+	toDateTime(JSONExtractInt(message,'last_updated')) as last_updated,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'last_status_checked_at')) as last_status_checked_at,
+
+	FROM atlas_driver_offer_bpp.notification_queue
+	where JSONExtractString(message,'tag') = 'NotificationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.onboarding_document_configs_shard ON CLUSTER `{cluster}`
+    (
+    `merchant_id` Nullable (String),
+    `document_type` Nullable (String),
+    `check_extraction` Nullable (String),
+    `check_expiry` Nullable (String),
+    `vehicle_class_check_type` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `rc_number_prefix` Nullable (String),
+    `supported_vehicle_classes_json` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.onboarding_document_configs ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.onboarding_document_configs_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, onboarding_document_configs_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.onboarding_document_configs ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.onboarding_document_configs
+(
+	`merchant_id` String,
+	`document_type` String,
+	`check_extraction` String,
+	`check_expiry` String,
+	`vehicle_class_check_type` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`rc_number_prefix` String,
+	`supported_vehicle_classes_json` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'document_type'),'') as document_type,
+	ifNull(JSONExtractString(message,'check_extraction'),'') as check_extraction,
+	ifNull(JSONExtractString(message,'check_expiry'),'') as check_expiry,
+	ifNull(JSONExtractString(message,'vehicle_class_check_type'),'') as vehicle_class_check_type,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'rc_number_prefix'),'') as rc_number_prefix,
+	ifNull(JSONExtractString(message,'supported_vehicle_classes_json'),'') as supported_vehicle_classes_json,
+
+	FROM atlas_driver_offer_bpp.onboarding_document_configs_queue
+	where JSONExtractString(message,'tag') = 'OnboardingDocumentConfigsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.operating_city_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `city_name` Nullable (String),
+    `enabled` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.operating_city ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.operating_city_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, operating_city_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.operating_city ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.operating_city
+(
+	`id` String,
+	`merchant_id` String,
+	`city_name` String,
+	`enabled` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'city_name'),'') as city_name,
+	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_driver_offer_bpp.operating_city_queue
+	where JSONExtractString(message,'tag') = 'OperatingCityObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.payment_order_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `short_id` Nullable (String),
+    `person_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `amount` Nullable (Int64),
+    `currency` Nullable (String),
+    `status` Nullable (String),
+    `web_payment_link` Nullable (String),
+    `iframe_payment_link` Nullable (String),
+    `mobile_payment_link` Nullable (String),
+    `client_auth_token_encrypted` Nullable (String),
+    `client_auth_token_hash` Nullable (String),
+    `client_auth_token_expiry` DateTime DEFAULT now(),
+    `get_upi_deep_links_option` Nullable (String),
+    `environment` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `payment_service_order_id` Nullable (String),
+    `service` Nullable (String),
+    `client_id` Nullable (String),
+    `description` Nullable (String),
+    `return_url` Nullable (String),
+    `action` Nullable (String),
+    `request_id` Nullable (String),
+    `payment_merchant_id` Nullable (String),
+    `create_mandate` Nullable (String),
+    `mandate_max_amount` Nullable (String),
+    `mandate_start_date` DateTime DEFAULT now(),
+    `mandate_end_date` DateTime DEFAULT now(),
+    `bank_error_message` Nullable (String),
+    `bank_error_code` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.payment_order ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.payment_order_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, payment_order_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.payment_order ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.payment_order
+(
+	`id` String,
+	`short_id` String,
+	`person_id` String,
+	`merchant_id` String,
+	`amount` Int64,
+	`currency` String,
+	`status` String,
+	`web_payment_link` String,
+	`iframe_payment_link` String,
+	`mobile_payment_link` String,
+	`client_auth_token_encrypted` String,
+	`client_auth_token_hash` String,
+	`client_auth_token_expiry` DateTime,
+	`get_upi_deep_links_option` String,
+	`environment` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`payment_service_order_id` String,
+	`service` String,
+	`client_id` String,
+	`description` String,
+	`return_url` String,
+	`action` String,
+	`request_id` String,
+	`payment_merchant_id` String,
+	`create_mandate` String,
+	`mandate_max_amount` String,
+	`mandate_start_date` DateTime,
+	`mandate_end_date` DateTime,
+	`bank_error_message` String,
+	`bank_error_code` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractInt(message,'amount'), 0) as amount,
+	ifNull(JSONExtractString(message,'currency'),'') as currency,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'web_payment_link'),'') as web_payment_link,
+	ifNull(JSONExtractString(message,'iframe_payment_link'),'') as iframe_payment_link,
+	ifNull(JSONExtractString(message,'mobile_payment_link'),'') as mobile_payment_link,
+	ifNull(JSONExtractString(message,'client_auth_token_encrypted'),'') as client_auth_token_encrypted,
+	ifNull(JSONExtractString(message,'client_auth_token_hash'),'') as client_auth_token_hash,
+	toDateTime(JSONExtractInt(message,'client_auth_token_expiry')) as client_auth_token_expiry,
+	ifNull(JSONExtractString(message,'get_upi_deep_links_option'),'') as get_upi_deep_links_option,
+	ifNull(JSONExtractString(message,'environment'),'') as environment,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'payment_service_order_id'),'') as payment_service_order_id,
+	ifNull(JSONExtractString(message,'service'),'') as service,
+	ifNull(JSONExtractString(message,'client_id'),'') as client_id,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'return_url'),'') as return_url,
+	ifNull(JSONExtractString(message,'action'),'') as action,
+	ifNull(JSONExtractString(message,'request_id'),'') as request_id,
+	ifNull(JSONExtractString(message,'payment_merchant_id'),'') as payment_merchant_id,
+	ifNull(JSONExtractString(message,'create_mandate'),'') as create_mandate,
+	ifNull(JSONExtractString(message,'mandate_max_amount'),'') as mandate_max_amount,
+	toDateTime(JSONExtractInt(message,'mandate_start_date')) as mandate_start_date,
+	toDateTime(JSONExtractInt(message,'mandate_end_date')) as mandate_end_date,
+	ifNull(JSONExtractString(message,'bank_error_message'),'') as bank_error_message,
+	ifNull(JSONExtractString(message,'bank_error_code'),'') as bank_error_code,
+
+	FROM atlas_driver_offer_bpp.payment_order_queue
+	where JSONExtractString(message,'tag') = 'PaymentOrderObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.payment_transaction_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `txn_uuid` Nullable (String),
+    `payment_method_type` Nullable (String),
+    `payment_method` Nullable (String),
+    `resp_message` Nullable (String),
+    `resp_code` Nullable (String),
+    `gateway_reference_id` Nullable (String),
+    `order_id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `amount` Nullable (String),
+    `currency` Nullable (String),
+    `date_created` DateTime DEFAULT now(),
+    `status_id` Nullable (Int64),
+    `status` Nullable (String),
+    `juspay_response` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `mandate_id` Nullable (String),
+    `mandate_max_amount` Nullable (String),
+    `mandate_frequency` Nullable (String),
+    `mandate_status` Nullable (String),
+    `mandate_start_date` DateTime DEFAULT now(),
+    `mandate_end_date` DateTime DEFAULT now(),
+    `bank_error_message` Nullable (String),
+    `bank_error_code` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.payment_transaction ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.payment_transaction_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, payment_transaction_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.payment_transaction ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.payment_transaction
+(
+	`id` String,
+	`txn_uuid` String,
+	`payment_method_type` String,
+	`payment_method` String,
+	`resp_message` String,
+	`resp_code` String,
+	`gateway_reference_id` String,
+	`order_id` String,
+	`merchant_id` String,
+	`amount` String,
+	`currency` String,
+	`date_created` DateTime,
+	`status_id` Int64,
+	`status` String,
+	`juspay_response` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`mandate_id` String,
+	`mandate_max_amount` String,
+	`mandate_frequency` String,
+	`mandate_status` String,
+	`mandate_start_date` DateTime,
+	`mandate_end_date` DateTime,
+	`bank_error_message` String,
+	`bank_error_code` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'txn_uuid'),'') as txn_uuid,
+	ifNull(JSONExtractString(message,'payment_method_type'),'') as payment_method_type,
+	ifNull(JSONExtractString(message,'payment_method'),'') as payment_method,
+	ifNull(JSONExtractString(message,'resp_message'),'') as resp_message,
+	ifNull(JSONExtractString(message,'resp_code'),'') as resp_code,
+	ifNull(JSONExtractString(message,'gateway_reference_id'),'') as gateway_reference_id,
+	ifNull(JSONExtractString(message,'order_id'),'') as order_id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'amount'),'') as amount,
+	ifNull(JSONExtractString(message,'currency'),'') as currency,
+	toDateTime(JSONExtractInt(message,'date_created')) as date_created,
+	ifNull(JSONExtractInt(message,'status_id'), 0) as status_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'juspay_response'),'') as juspay_response,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'mandate_id'),'') as mandate_id,
+	ifNull(JSONExtractString(message,'mandate_max_amount'),'') as mandate_max_amount,
+	ifNull(JSONExtractString(message,'mandate_frequency'),'') as mandate_frequency,
+	ifNull(JSONExtractString(message,'mandate_status'),'') as mandate_status,
+	toDateTime(JSONExtractInt(message,'mandate_start_date')) as mandate_start_date,
+	toDateTime(JSONExtractInt(message,'mandate_end_date')) as mandate_end_date,
+	ifNull(JSONExtractString(message,'bank_error_message'),'') as bank_error_message,
+	ifNull(JSONExtractString(message,'bank_error_code'),'') as bank_error_code,
+
+	FROM atlas_driver_offer_bpp.payment_transaction_queue
+	where JSONExtractString(message,'tag') = 'PaymentTransactionObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.person_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `first_name` Nullable (String),
+    `middle_name` Nullable (String),
+    `last_name` Nullable (String),
+    `role` Nullable (String),
+    `gender` Nullable (String),
+    `identifier_type` Nullable (String),
+    `email` Nullable (String),
+    `password_hash` Nullable (String),
+    `mobile_number_encrypted` Nullable (String),
+    `mobile_number_hash` Nullable (String),
+    `mobile_country_code` Nullable (String),
+    `identifier` Nullable (String),
+    `is_new` Nullable (String),
+    `merchant_id` Nullable (String),
+    `device_token` Nullable (String),
+    `description` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `rating` Nullable (Float64),
+    `language` Nullable (String),
+    `client_version` Nullable (String),
+    `bundle_version` Nullable (String),
+    `unencrypted_mobile_number` Nullable (String),
+    `whatsapp_notification_enroll_status` Nullable (String),
+    `unencrypted_alternate_mobile_number` Nullable (String),
+    `alternate_mobile_number_encrypted` Nullable (String),
+    `alternate_mobile_number_hash` Nullable (String),
+    `hometown` Nullable (String),
+    `languages_spoken` Nullable (String),
+    `onboarded_from_dashboard` Nullable (String),
+    `face_image_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.person ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.person_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, person_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.person ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.person
+(
+	`id` String,
+	`first_name` String,
+	`middle_name` String,
+	`last_name` String,
+	`role` String,
+	`gender` String,
+	`identifier_type` String,
+	`email` String,
+	`password_hash` String,
+	`mobile_number_encrypted` String,
+	`mobile_number_hash` String,
+	`mobile_country_code` String,
+	`identifier` String,
+	`is_new` String,
+	`merchant_id` String,
+	`device_token` String,
+	`description` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`rating` Float64,
+	`language` String,
+	`client_version` String,
+	`bundle_version` String,
+	`unencrypted_mobile_number` String,
+	`whatsapp_notification_enroll_status` String,
+	`unencrypted_alternate_mobile_number` String,
+	`alternate_mobile_number_encrypted` String,
+	`alternate_mobile_number_hash` String,
+	`hometown` String,
+	`languages_spoken` String,
+	`onboarded_from_dashboard` String,
+	`face_image_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'first_name'),'') as first_name,
+	ifNull(JSONExtractString(message,'middle_name'),'') as middle_name,
+	ifNull(JSONExtractString(message,'last_name'),'') as last_name,
+	ifNull(JSONExtractString(message,'role'),'') as role,
+	ifNull(JSONExtractString(message,'gender'),'') as gender,
+	ifNull(JSONExtractString(message,'identifier_type'),'') as identifier_type,
+	ifNull(JSONExtractString(message,'email'),'') as email,
+	ifNull(JSONExtractString(message,'password_hash'),'') as password_hash,
+	ifNull(JSONExtractString(message,'mobile_number_encrypted'),'') as mobile_number_encrypted,
+	ifNull(JSONExtractString(message,'mobile_number_hash'),'') as mobile_number_hash,
+	ifNull(JSONExtractString(message,'mobile_country_code'),'') as mobile_country_code,
+	ifNull(JSONExtractString(message,'identifier'),'') as identifier,
+	ifNull(JSONExtractString(message,'is_new'),'') as is_new,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'device_token'),'') as device_token,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractFloat(message,'rating'),0.0) as rating,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+	ifNull(JSONExtractString(message,'client_version'),'') as client_version,
+	ifNull(JSONExtractString(message,'bundle_version'),'') as bundle_version,
+	ifNull(JSONExtractString(message,'unencrypted_mobile_number'),'') as unencrypted_mobile_number,
+	ifNull(JSONExtractString(message,'whatsapp_notification_enroll_status'),'') as whatsapp_notification_enroll_status,
+	ifNull(JSONExtractString(message,'unencrypted_alternate_mobile_number'),'') as unencrypted_alternate_mobile_number,
+	ifNull(JSONExtractString(message,'alternate_mobile_number_encrypted'),'') as alternate_mobile_number_encrypted,
+	ifNull(JSONExtractString(message,'alternate_mobile_number_hash'),'') as alternate_mobile_number_hash,
+	ifNull(JSONExtractString(message,'hometown'),'') as hometown,
+	ifNull(JSONExtractString(message,'languages_spoken'),'') as languages_spoken,
+	ifNull(JSONExtractString(message,'onboarded_from_dashboard'),'') as onboarded_from_dashboard,
+	ifNull(JSONExtractString(message,'face_image_id'),'') as face_image_id,
+
+	FROM atlas_driver_offer_bpp.person_queue
+	where JSONExtractString(message,'tag') = 'PersonObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.place_name_cache_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `formatted_address` Nullable (String),
+    `plus_code` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `place_id` Nullable (String),
+    `address_components` Nullable (String),
+    `geo_hash` Nullable (String),
+    `created_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.place_name_cache ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.place_name_cache_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, place_name_cache_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.place_name_cache ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.place_name_cache
+(
+	`id` String,
+	`formatted_address` String,
+	`plus_code` String,
+	`lat` Float64,
+	`lon` Float64,
+	`place_id` String,
+	`address_components` String,
+	`geo_hash` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'formatted_address'),'') as formatted_address,
+	ifNull(JSONExtractString(message,'plus_code'),'') as plus_code,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'place_id'),'') as place_id,
+	ifNull(JSONExtractString(message,'address_components'),'') as address_components,
+	ifNull(JSONExtractString(message,'geo_hash'),'') as geo_hash,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_driver_offer_bpp.place_name_cache_queue
+	where JSONExtractString(message,'tag') = 'PlaceNameCacheObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.plan_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `merchant_id` Nullable (String),
+    `payment_mode` Nullable (String),
+    `plan_type` Nullable (String),
+    `name` Nullable (String),
+    `description` Nullable (String),
+    `max_amount` Nullable (Int64),
+    `registration_amount` Nullable (Int64),
+    `plan_base_amount` Nullable (String),
+    `is_offer_applicable` Nullable (String),
+    `max_credit_limit` Nullable (Int64),
+    `free_ride_count` Nullable (Int64),
+    `frequency` Nullable (String),
+    `cgst_percentage` Nullable (Float64),
+    `sgst_percentage` Nullable (Float64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.plan ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.plan_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, plan_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.plan ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.plan
+(
+	`id` String,
+	`merchant_id` String,
+	`payment_mode` String,
+	`plan_type` String,
+	`name` String,
+	`description` String,
+	`max_amount` Int64,
+	`registration_amount` Int64,
+	`plan_base_amount` String,
+	`is_offer_applicable` String,
+	`max_credit_limit` Int64,
+	`free_ride_count` Int64,
+	`frequency` String,
+	`cgst_percentage` Float64,
+	`sgst_percentage` Float64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'payment_mode'),'') as payment_mode,
+	ifNull(JSONExtractString(message,'plan_type'),'') as plan_type,
+	ifNull(JSONExtractString(message,'name'),'') as name,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractInt(message,'max_amount'), 0) as max_amount,
+	ifNull(JSONExtractInt(message,'registration_amount'), 0) as registration_amount,
+	ifNull(JSONExtractString(message,'plan_base_amount'),'') as plan_base_amount,
+	ifNull(JSONExtractString(message,'is_offer_applicable'),'') as is_offer_applicable,
+	ifNull(JSONExtractInt(message,'max_credit_limit'), 0) as max_credit_limit,
+	ifNull(JSONExtractInt(message,'free_ride_count'), 0) as free_ride_count,
+	ifNull(JSONExtractString(message,'frequency'),'') as frequency,
+	ifNull(JSONExtractFloat(message,'cgst_percentage'),0.0) as cgst_percentage,
+	ifNull(JSONExtractFloat(message,'sgst_percentage'),0.0) as sgst_percentage,
+
+	FROM atlas_driver_offer_bpp.plan_queue
+	where JSONExtractString(message,'tag') = 'PlanObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.plan_translation_shard ON CLUSTER `{cluster}`
+    (
+    `plan_id` Nullable (String),
+    `language` Nullable (String),
+    `name` Nullable (String),
+    `description` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.plan_translation ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.plan_translation_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, plan_translation_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.plan_translation ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.plan_translation
+(
+	`plan_id` String,
+	`language` String,
+	`name` String,
+	`description` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'plan_id'),'') as plan_id,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+	ifNull(JSONExtractString(message,'name'),'') as name,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+
+	FROM atlas_driver_offer_bpp.plan_translation_queue
+	where JSONExtractString(message,'tag') = 'PlanTranslationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.quote_special_zone_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `search_request_id` Nullable (String),
+    `provider_id` Nullable (String),
+    `distance` Nullable (Int64),
+    `estimated_fare` Nullable (Float64),
+    `fare_parameters_id` Nullable (String),
+    `estimated_finish_time` DateTime DEFAULT now(),
+    `vehicle_variant` Nullable (String),
+    `valid_till` DateTime DEFAULT now(),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `special_location_tag` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.quote_special_zone ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.quote_special_zone_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, quote_special_zone_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.quote_special_zone ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.quote_special_zone
+(
+	`id` String,
+	`search_request_id` String,
+	`provider_id` String,
+	`distance` Int64,
+	`estimated_fare` Float64,
+	`fare_parameters_id` String,
+	`estimated_finish_time` DateTime,
+	`vehicle_variant` String,
+	`valid_till` DateTime,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`special_location_tag` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'search_request_id'),'') as search_request_id,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractInt(message,'distance'), 0) as distance,
+	ifNull(JSONExtractFloat(message,'estimated_fare'),0.0) as estimated_fare,
+	ifNull(JSONExtractString(message,'fare_parameters_id'),'') as fare_parameters_id,
+	toDateTime(JSONExtractInt(message,'estimated_finish_time')) as estimated_finish_time,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+
+	FROM atlas_driver_offer_bpp.quote_special_zone_queue
+	where JSONExtractString(message,'tag') = 'QuoteSpecialZoneObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.rating_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `ride_id` Nullable (String),
+    `rating_value` Nullable (Int64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `driver_id` Nullable (String),
+    `feedback_details` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.rating ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.rating_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, rating_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.rating ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.rating
+(
+	`id` String,
+	`ride_id` String,
+	`rating_value` Int64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`driver_id` String,
+	`feedback_details` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractInt(message,'rating_value'), 0) as rating_value,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'feedback_details'),'') as feedback_details,
+
+	FROM atlas_driver_offer_bpp.rating_queue
+	where JSONExtractString(message,'tag') = 'RatingObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.registration_token_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `auth_medium` Nullable (String),
+    `auth_type` Nullable (String),
+    `auth_value_hash` Nullable (String),
+    `token` Nullable (String),
+    `verified` Nullable (String),
+    `auth_expiry` Nullable (Int64),
+    `token_expiry` Nullable (Int64),
+    `attempts` Nullable (Int64),
+    `entity_id` Nullable (String),
+    `entity_type` Nullable (String),
+    `info` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `alternate_number_attempts` Nullable (Int64),
+    `merchant_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.registration_token ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.registration_token_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, registration_token_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.registration_token ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.registration_token
+(
+	`id` String,
+	`auth_medium` String,
+	`auth_type` String,
+	`auth_value_hash` String,
+	`token` String,
+	`verified` String,
+	`auth_expiry` Int64,
+	`token_expiry` Int64,
+	`attempts` Int64,
+	`entity_id` String,
+	`entity_type` String,
+	`info` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`alternate_number_attempts` Int64,
+	`merchant_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'auth_medium'),'') as auth_medium,
+	ifNull(JSONExtractString(message,'auth_type'),'') as auth_type,
+	ifNull(JSONExtractString(message,'auth_value_hash'),'') as auth_value_hash,
+	ifNull(JSONExtractString(message,'token'),'') as token,
+	ifNull(JSONExtractString(message,'verified'),'') as verified,
+	ifNull(JSONExtractInt(message,'auth_expiry'), 0) as auth_expiry,
+	ifNull(JSONExtractInt(message,'token_expiry'), 0) as token_expiry,
+	ifNull(JSONExtractInt(message,'attempts'), 0) as attempts,
+	ifNull(JSONExtractString(message,'entity_id'),'') as entity_id,
+	ifNull(JSONExtractString(message,'entity_type'),'') as entity_type,
+	ifNull(JSONExtractString(message,'info'),'') as info,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractInt(message,'alternate_number_attempts'), 0) as alternate_number_attempts,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+
+	FROM atlas_driver_offer_bpp.registration_token_queue
+	where JSONExtractString(message,'tag') = 'RegistrationTokenObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.registry_map_fallback_shard ON CLUSTER `{cluster}`
+    (
+    `subscriber_id` Nullable (String),
+    `unique_id` Nullable (String),
+    `registry_url` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.registry_map_fallback ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.registry_map_fallback_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, registry_map_fallback_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.registry_map_fallback ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.registry_map_fallback
+(
+	`subscriber_id` String,
+	`unique_id` String,
+	`registry_url` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'subscriber_id'),'') as subscriber_id,
+	ifNull(JSONExtractString(message,'unique_id'),'') as unique_id,
+	ifNull(JSONExtractString(message,'registry_url'),'') as registry_url,
+
+	FROM atlas_driver_offer_bpp.registry_map_fallback_queue
+	where JSONExtractString(message,'tag') = 'RegistryMapFallbackObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.ride_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `booking_id` Nullable (String),
+    `short_id` Nullable (String),
+    `status` Nullable (String),
+    `driver_id` Nullable (String),
+    `otp` Nullable (String),
+    `tracking_url` Nullable (String),
+    `fare` Nullable (String),
+    `traveled_distance` Nullable (Float64),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `trip_start_time` DateTime DEFAULT now(),
+    `trip_end_time` DateTime DEFAULT now(),
+    `chargeable_distance` Nullable (String),
+    `trip_start_lat` Nullable (Float64),
+    `trip_start_lon` Nullable (Float64),
+    `trip_end_lat` Nullable (Float64),
+    `trip_end_lon` Nullable (Float64),
+    `driver_arrival_time` DateTime DEFAULT now(),
+    `fare_parameters_id` Nullable (String),
+    `distance_calculation_failed` Nullable (String),
+    `pickup_drop_outside_of_threshold` Nullable (String),
+    `merchant_id` Nullable (String),
+    `number_of_deviation` Nullable (String),
+    `driver_deviated_from_route` Nullable (String),
+    `number_of_snap_to_road_calls` Nullable (String),
+    `driver_go_home_request_id` Nullable (String),
+    `ui_distance_calculation_with_accuracy` Nullable (String),
+    `ui_distance_calculation_without_accuracy` Nullable (Int64)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.ride ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.ride_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, ride_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.ride ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.ride
+(
+	`id` String,
+	`booking_id` String,
+	`short_id` String,
+	`status` String,
+	`driver_id` String,
+	`otp` String,
+	`tracking_url` String,
+	`fare` String,
+	`traveled_distance` Float64,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`trip_start_time` DateTime,
+	`trip_end_time` DateTime,
+	`chargeable_distance` String,
+	`trip_start_lat` Float64,
+	`trip_start_lon` Float64,
+	`trip_end_lat` Float64,
+	`trip_end_lon` Float64,
+	`driver_arrival_time` DateTime,
+	`fare_parameters_id` String,
+	`distance_calculation_failed` String,
+	`pickup_drop_outside_of_threshold` String,
+	`merchant_id` String,
+	`number_of_deviation` String,
+	`driver_deviated_from_route` String,
+	`number_of_snap_to_road_calls` String,
+	`driver_go_home_request_id` String,
+	`ui_distance_calculation_with_accuracy` String,
+	`ui_distance_calculation_without_accuracy` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'booking_id'),'') as booking_id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'otp'),'') as otp,
+	ifNull(JSONExtractString(message,'tracking_url'),'') as tracking_url,
+	ifNull(JSONExtractString(message,'fare'),'') as fare,
+	ifNull(JSONExtractFloat(message,'traveled_distance'),0.0) as traveled_distance,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	toDateTime(JSONExtractInt(message,'trip_start_time')) as trip_start_time,
+	toDateTime(JSONExtractInt(message,'trip_end_time')) as trip_end_time,
+	ifNull(JSONExtractString(message,'chargeable_distance'),'') as chargeable_distance,
+	ifNull(JSONExtractFloat(message,'trip_start_lat'),0.0) as trip_start_lat,
+	ifNull(JSONExtractFloat(message,'trip_start_lon'),0.0) as trip_start_lon,
+	ifNull(JSONExtractFloat(message,'trip_end_lat'),0.0) as trip_end_lat,
+	ifNull(JSONExtractFloat(message,'trip_end_lon'),0.0) as trip_end_lon,
+	toDateTime(JSONExtractInt(message,'driver_arrival_time')) as driver_arrival_time,
+	ifNull(JSONExtractString(message,'fare_parameters_id'),'') as fare_parameters_id,
+	ifNull(JSONExtractString(message,'distance_calculation_failed'),'') as distance_calculation_failed,
+	ifNull(JSONExtractString(message,'pickup_drop_outside_of_threshold'),'') as pickup_drop_outside_of_threshold,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'number_of_deviation'),'') as number_of_deviation,
+	ifNull(JSONExtractString(message,'driver_deviated_from_route'),'') as driver_deviated_from_route,
+	ifNull(JSONExtractString(message,'number_of_snap_to_road_calls'),'') as number_of_snap_to_road_calls,
+	ifNull(JSONExtractString(message,'driver_go_home_request_id'),'') as driver_go_home_request_id,
+	ifNull(JSONExtractString(message,'ui_distance_calculation_with_accuracy'),'') as ui_distance_calculation_with_accuracy,
+	ifNull(JSONExtractInt(message,'ui_distance_calculation_without_accuracy'), 0) as ui_distance_calculation_without_accuracy,
+
+	FROM atlas_driver_offer_bpp.ride_queue
+	where JSONExtractString(message,'tag') = 'RideObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.ride_details_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `driver_name` Nullable (String),
+    `driver_number_encrypted` Nullable (String),
+    `driver_number_hash` Nullable (String),
+    `driver_country_code` Nullable (String),
+    `vehicle_number` Nullable (String),
+    `vehicle_color` Nullable (String),
+    `vehicle_variant` Nullable (String),
+    `vehicle_model` Nullable (String),
+    `vehicle_class` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.ride_details ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.ride_details_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, ride_details_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.ride_details ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.ride_details
+(
+	`id` String,
+	`driver_name` String,
+	`driver_number_encrypted` String,
+	`driver_number_hash` String,
+	`driver_country_code` String,
+	`vehicle_number` String,
+	`vehicle_color` String,
+	`vehicle_variant` String,
+	`vehicle_model` String,
+	`vehicle_class` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'driver_name'),'') as driver_name,
+	ifNull(JSONExtractString(message,'driver_number_encrypted'),'') as driver_number_encrypted,
+	ifNull(JSONExtractString(message,'driver_number_hash'),'') as driver_number_hash,
+	ifNull(JSONExtractString(message,'driver_country_code'),'') as driver_country_code,
+	ifNull(JSONExtractString(message,'vehicle_number'),'') as vehicle_number,
+	ifNull(JSONExtractString(message,'vehicle_color'),'') as vehicle_color,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractString(message,'vehicle_model'),'') as vehicle_model,
+	ifNull(JSONExtractString(message,'vehicle_class'),'') as vehicle_class,
+
+	FROM atlas_driver_offer_bpp.ride_details_queue
+	where JSONExtractString(message,'tag') = 'RideDetailsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.rider_details_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `mobile_country_code` Nullable (String),
+    `mobile_number_encrypted` Nullable (String),
+    `mobile_number_hash` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `referral_code` Nullable (String),
+    `referred_by_driver` Nullable (String),
+    `referred_at` DateTime DEFAULT now(),
+    `has_taken_valid_ride` Nullable (String),
+    `has_taken_valid_ride_at` DateTime DEFAULT now(),
+    `merchant_id` Nullable (String),
+    `otp_code` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.rider_details ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.rider_details_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, rider_details_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.rider_details ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.rider_details
+(
+	`id` String,
+	`mobile_country_code` String,
+	`mobile_number_encrypted` String,
+	`mobile_number_hash` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`referral_code` String,
+	`referred_by_driver` String,
+	`referred_at` DateTime,
+	`has_taken_valid_ride` String,
+	`has_taken_valid_ride_at` DateTime,
+	`merchant_id` String,
+	`otp_code` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'mobile_country_code'),'') as mobile_country_code,
+	ifNull(JSONExtractString(message,'mobile_number_encrypted'),'') as mobile_number_encrypted,
+	ifNull(JSONExtractString(message,'mobile_number_hash'),'') as mobile_number_hash,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'referral_code'),'') as referral_code,
+	ifNull(JSONExtractString(message,'referred_by_driver'),'') as referred_by_driver,
+	toDateTime(JSONExtractInt(message,'referred_at')) as referred_at,
+	ifNull(JSONExtractString(message,'has_taken_valid_ride'),'') as has_taken_valid_ride,
+	toDateTime(JSONExtractInt(message,'has_taken_valid_ride_at')) as has_taken_valid_ride_at,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'otp_code'),'') as otp_code,
+
+	FROM atlas_driver_offer_bpp.rider_details_queue
+	where JSONExtractString(message,'tag') = 'RiderDetailsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.scheduler_job_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `job_type` Nullable (String),
+    `job_data` Nullable (String),
+    `scheduled_at` DateTime DEFAULT now(),
+    `maximum_delay` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `max_errors` Nullable (Int64),
+    `curr_errors` Nullable (Int64),
+    `status` Nullable (String),
+    `shard_id` Nullable (String),
+    `parent_job_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.scheduler_job ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.scheduler_job_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, scheduler_job_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.scheduler_job ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.scheduler_job
+(
+	`id` String,
+	`job_type` String,
+	`job_data` String,
+	`scheduled_at` DateTime,
+	`maximum_delay` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`max_errors` Int64,
+	`curr_errors` Int64,
+	`status` String,
+	`shard_id` String,
+	`parent_job_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'job_type'),'') as job_type,
+	ifNull(JSONExtractString(message,'job_data'),'') as job_data,
+	toDateTime(JSONExtractInt(message,'scheduled_at')) as scheduled_at,
+	ifNull(JSONExtractString(message,'maximum_delay'),'') as maximum_delay,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractInt(message,'max_errors'), 0) as max_errors,
+	ifNull(JSONExtractInt(message,'curr_errors'), 0) as curr_errors,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'shard_id'),'') as shard_id,
+	ifNull(JSONExtractString(message,'parent_job_id'),'') as parent_job_id,
+
+	FROM atlas_driver_offer_bpp.scheduler_job_queue
+	where JSONExtractString(message,'tag') = 'SchedulerJobObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.schema_migrations_shard ON CLUSTER `{cluster}`
+    (
+    `filename` Nullable (String),
+    `checksum` Nullable (String),
+    `executed_at` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.schema_migrations ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.schema_migrations_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, schema_migrations_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.schema_migrations ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.schema_migrations
+(
+	`filename` String,
+	`checksum` String,
+	`executed_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'filename'),'') as filename,
+	ifNull(JSONExtractString(message,'checksum'),'') as checksum,
+	toDateTime(JSONExtractInt(message,'executed_at')) as executed_at,
+
+	FROM atlas_driver_offer_bpp.schema_migrations_queue
+	where JSONExtractString(message,'tag') = 'SchemaMigrationsObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.search_request_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `transaction_id` Nullable (String),
+    `provider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `bap_id` Nullable (String),
+    `bap_uri` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `estimated_duration` Nullable (Int64),
+    `estimated_distance` Nullable (Int64),
+    `auto_assign_enabled` Nullable (String),
+    `device` Nullable (String),
+    `customer_language` Nullable (String),
+    `special_location_tag` Nullable (String),
+    `area` Nullable (String),
+    `bap_city` Nullable (String),
+    `bap_country` Nullable (String),
+    `disability_tag` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.search_request ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.search_request_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, search_request_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.search_request
+(
+	`id` String,
+	`transaction_id` String,
+	`provider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`bap_id` String,
+	`bap_uri` String,
+	`created_at` DateTime,
+	`estimated_duration` Int64,
+	`estimated_distance` Int64,
+	`auto_assign_enabled` String,
+	`device` String,
+	`customer_language` String,
+	`special_location_tag` String,
+	`area` String,
+	`bap_city` String,
+	`bap_country` String,
+	`disability_tag` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractString(message,'bap_id'),'') as bap_id,
+	ifNull(JSONExtractString(message,'bap_uri'),'') as bap_uri,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractInt(message,'estimated_duration'), 0) as estimated_duration,
+	ifNull(JSONExtractInt(message,'estimated_distance'), 0) as estimated_distance,
+	ifNull(JSONExtractString(message,'auto_assign_enabled'),'') as auto_assign_enabled,
+	ifNull(JSONExtractString(message,'device'),'') as device,
+	ifNull(JSONExtractString(message,'customer_language'),'') as customer_language,
+	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	ifNull(JSONExtractString(message,'bap_city'),'') as bap_city,
+	ifNull(JSONExtractString(message,'bap_country'),'') as bap_country,
+	ifNull(JSONExtractString(message,'disability_tag'),'') as disability_tag,
+
+	FROM atlas_driver_offer_bpp.search_request_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.search_request_for_driver_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `search_request_id` Nullable (String),
+    `actual_distance_to_pickup` Nullable (Int64),
+    `duration_to_pickup` Nullable (Int64),
+    `vehicle_variant` Nullable (String),
+    `search_request_valid_till` DateTime DEFAULT now(),
+    `driver_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `start_time` DateTime DEFAULT now(),
+    `status` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `straight_line_distance_to_pickup` Nullable (Int64),
+    `response` Nullable (String),
+    `driver_min_extra_fee` Nullable (Float64),
+    `driver_max_extra_fee` Nullable (Float64),
+    `batch_number` Nullable (String),
+    `ride_request_popup_delay_duration` Nullable (Int64),
+    `parallel_search_request_count` Nullable (String),
+    `is_part_of_intelligent_pool` Nullable (String),
+    `cancellation_ratio` Nullable (String),
+    `acceptance_ratio` Nullable (String),
+    `driver_available_time` Nullable (String),
+    `driver_speed` Nullable (Float64),
+    `mode` Nullable (String),
+    `search_try_id` Nullable (String),
+    `keep_hidden_for_seconds` Nullable (Int64),
+    `merchant_id` Nullable (String),
+    `go_home_request_id` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.search_request_for_driver ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.search_request_for_driver_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, search_request_for_driver_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request_for_driver ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.search_request_for_driver
+(
+	`id` String,
+	`search_request_id` String,
+	`actual_distance_to_pickup` Int64,
+	`duration_to_pickup` Int64,
+	`vehicle_variant` String,
+	`search_request_valid_till` DateTime,
+	`driver_id` String,
+	`created_at` DateTime,
+	`start_time` DateTime,
+	`status` String,
+	`lat` Float64,
+	`lon` Float64,
+	`straight_line_distance_to_pickup` Int64,
+	`response` String,
+	`driver_min_extra_fee` Float64,
+	`driver_max_extra_fee` Float64,
+	`batch_number` String,
+	`ride_request_popup_delay_duration` Int64,
+	`parallel_search_request_count` String,
+	`is_part_of_intelligent_pool` String,
+	`cancellation_ratio` String,
+	`acceptance_ratio` String,
+	`driver_available_time` String,
+	`driver_speed` Float64,
+	`mode` String,
+	`search_try_id` String,
+	`keep_hidden_for_seconds` Int64,
+	`merchant_id` String,
+	`go_home_request_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'search_request_id'),'') as search_request_id,
+	ifNull(JSONExtractInt(message,'actual_distance_to_pickup'), 0) as actual_distance_to_pickup,
+	ifNull(JSONExtractInt(message,'duration_to_pickup'), 0) as duration_to_pickup,
+	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	toDateTime(JSONExtractInt(message,'search_request_valid_till')) as search_request_valid_till,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractInt(message,'straight_line_distance_to_pickup'), 0) as straight_line_distance_to_pickup,
+	ifNull(JSONExtractString(message,'response'),'') as response,
+	ifNull(JSONExtractFloat(message,'driver_min_extra_fee'),0.0) as driver_min_extra_fee,
+	ifNull(JSONExtractFloat(message,'driver_max_extra_fee'),0.0) as driver_max_extra_fee,
+	ifNull(JSONExtractString(message,'batch_number'),'') as batch_number,
+	ifNull(JSONExtractInt(message,'ride_request_popup_delay_duration'), 0) as ride_request_popup_delay_duration,
+	ifNull(JSONExtractString(message,'parallel_search_request_count'),'') as parallel_search_request_count,
+	ifNull(JSONExtractString(message,'is_part_of_intelligent_pool'),'') as is_part_of_intelligent_pool,
+	ifNull(JSONExtractString(message,'cancellation_ratio'),'') as cancellation_ratio,
+	ifNull(JSONExtractString(message,'acceptance_ratio'),'') as acceptance_ratio,
+	ifNull(JSONExtractString(message,'driver_available_time'),'') as driver_available_time,
+	ifNull(JSONExtractFloat(message,'driver_speed'),0.0) as driver_speed,
+	ifNull(JSONExtractString(message,'mode'),'') as mode,
+	ifNull(JSONExtractString(message,'search_try_id'),'') as search_try_id,
+	ifNull(JSONExtractInt(message,'keep_hidden_for_seconds'), 0) as keep_hidden_for_seconds,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'go_home_request_id'),'') as go_home_request_id,
+
+	FROM atlas_driver_offer_bpp.search_request_for_driver_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestForDriverObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.search_request_location_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `city` Nullable (String),
+    `state` Nullable (String),
+    `country` Nullable (String),
+    `street` Nullable (String),
+    `building` Nullable (String),
+    `area_code` Nullable (String),
+    `area` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `full_address` Nullable (String),
+    `door` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.search_request_location ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.search_request_location_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, search_request_location_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request_location ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.search_request_location
+(
+	`id` String,
+	`lat` Float64,
+	`lon` Float64,
+	`city` String,
+	`state` String,
+	`country` String,
+	`street` String,
+	`building` String,
+	`area_code` String,
+	`area` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`full_address` String,
+	`door` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+	ifNull(JSONExtractString(message,'state'),'') as state,
+	ifNull(JSONExtractString(message,'country'),'') as country,
+	ifNull(JSONExtractString(message,'street'),'') as street,
+	ifNull(JSONExtractString(message,'building'),'') as building,
+	ifNull(JSONExtractString(message,'area_code'),'') as area_code,
+	ifNull(JSONExtractString(message,'area'),'') as area,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'full_address'),'') as full_address,
+	ifNull(JSONExtractString(message,'door'),'') as door,
+
+	FROM atlas_driver_offer_bpp.search_request_location_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestLocationObject'
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.search_request_special_zone_shard ON CLUSTER `{cluster}`
+    (
+    `id` Nullable (String),
+    `transaction_id` Nullable (String),
+    `message_id` Nullable (String),
+    `start_time` DateTime DEFAULT now(),
+    `valid_till` DateTime DEFAULT now(),
+    `provider_id` Nullable (String),
+    `from_location_id` Nullable (String),
+    `to_location_id` Nullable (String),
+    `bap_id` Nullable (String),
+    `bap_uri` Nullable (String)
+	)
+
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.search_request_special_zone ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.search_request_special_zone_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, search_request_special_zone_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request_special_zone ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.search_request_special_zone
+(
+	`id` String,
+	`transaction_id` String,
+	`message_id` String,
+	`start_time` DateTime,
+	`valid_till` DateTime,
+	`provider_id` String,
+	`from_location_id` String,
+	`to_location_id` String,
+	`bap_id` String,
+	`bap_uri` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'transaction_id'),'') as transaction_id,
+	ifNull(JSONExtractString(message,'message_id'),'') as message_id,
+	toDateTime(JSONExtractInt(message,'start_time')) as start_time,
+	toDateTime(JSONExtractInt(message,'valid_till')) as valid_till,
+	ifNull(JSONExtractString(message,'provider_id'),'') as provider_id,
+	ifNull(JSONExtractString(message,'from_location_id'),'') as from_location_id,
+	ifNull(JSONExtractString(message,'to_location_id'),'') as to_location_id,
+	ifNull(JSONExtractString(message,'bap_id'),'') as bap_id,
+	ifNull(JSONExtractString(message,'bap_uri'),'') as bap_uri,
+
+	FROM atlas_driver_offer_bpp.search_request_special_zone_queue
+	where JSONExtractString(message,'tag') = 'SearchRequestSpecialZoneObject'
 
 

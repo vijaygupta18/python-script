@@ -137,7 +137,7 @@ for query in queries:
         columns = getColumnNameAndType(query)
         (schemaName, tableName) = getSchemaNameAndTableName(query)
         # Generate ClickHouse CREATE TABLE statement
-        clickhouse_create_table = f"""CREATE TABLE {schemaName}_helper.{tableName} ON CLUSTER `{{cluster}}`
+        clickhouse_create_table = f"""CREATE TABLE {schemaName}_helper.{tableName}_shard ON CLUSTER `{{cluster}}`
     (\n"""
             # Iterate over the columns and append them to the table creation string
         for column_name, data_type in columns:
