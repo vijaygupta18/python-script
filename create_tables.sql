@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 12.3
--- Dumped by pg_dump version 14.9 (Homebrew)
+-- Dumped by pg_dump version 14.8 (Homebrew)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -436,7 +436,7 @@ CREATE TABLE atlas_app.booking (
     provider_mobile_number character varying(255) NOT NULL,
     start_time timestamp with time zone NOT NULL,
     rider_id character(36) NOT NULL,
-    from_location_id character(36) NOT NULL,
+    from_location_id character(36),
     to_location_id character(36),
     estimated_fare numeric(30,2) NOT NULL,
     discount numeric(30,2),
@@ -794,6 +794,31 @@ CREATE TABLE atlas_app.issue (
 ALTER TABLE atlas_app.issue OWNER TO atlas_app_user;
 
 --
+-- Name: location; Type: TABLE; Schema: atlas_app; Owner: atlas_app_user
+--
+
+CREATE TABLE atlas_app.location (
+    id character(36) NOT NULL,
+    lat double precision NOT NULL,
+    lon double precision NOT NULL,
+    street text,
+    door text,
+    city text,
+    state text,
+    country text,
+    building text,
+    area_code text,
+    area text,
+    ward text,
+    place_id text,
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+ALTER TABLE atlas_app.location OWNER TO atlas_app_user;
+
+--
 -- Name: location_backup; Type: TABLE; Schema: atlas_app; Owner: atlas_app_user
 --
 
@@ -818,6 +843,22 @@ CREATE TABLE atlas_app.location_backup (
 
 
 ALTER TABLE atlas_app.location_backup OWNER TO atlas_app_user;
+
+--
+-- Name: location_mapping; Type: TABLE; Schema: atlas_app; Owner: atlas_app_user
+--
+
+CREATE TABLE atlas_app.location_mapping (
+    id character(36) NOT NULL,
+    location_id character varying(255) NOT NULL,
+    tag character varying(255) NOT NULL,
+    entity_id character varying(255) NOT NULL,
+    "order" integer NOT NULL,
+    version character varying(255) NOT NULL
+);
+
+
+ALTER TABLE atlas_app.location_mapping OWNER TO atlas_app_user;
 
 --
 -- Name: merchant; Type: TABLE; Schema: atlas_app; Owner: atlas_app_user
@@ -1788,12 +1829,12 @@ CREATE TABLE atlas_bap_dashboard.person (
     id character(36) NOT NULL,
     first_name character varying(255) NOT NULL,
     last_name character varying(255) NOT NULL,
-    email_encrypted character varying(255) NOT NULL,
-    email_hash bytea NOT NULL,
+    email_encrypted character varying(255),
+    email_hash bytea,
     mobile_number_encrypted character varying(255) NOT NULL,
     mobile_number_hash bytea NOT NULL,
     mobile_country_code character varying(255) NOT NULL,
-    password_hash bytea NOT NULL,
+    password_hash bytea,
     created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     role_id character(36) DEFAULT 'e5a69a26-d165-455a-a711-33a41e0d47c6'::bpchar NOT NULL
@@ -1923,12 +1964,12 @@ CREATE TABLE atlas_bpp_dashboard.person (
     id character(36) NOT NULL,
     first_name character varying(255) NOT NULL,
     last_name character varying(255) NOT NULL,
-    email_encrypted character varying(255) NOT NULL,
-    email_hash bytea NOT NULL,
+    email_encrypted character varying(255),
+    email_hash bytea,
     mobile_number_encrypted character varying(255) NOT NULL,
     mobile_number_hash bytea NOT NULL,
     mobile_country_code character varying(255) NOT NULL,
-    password_hash bytea NOT NULL,
+    password_hash bytea,
     created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     role_id character(36) DEFAULT 'e5a69a26-d165-455a-a711-33a41e0d47c6'::bpchar NOT NULL
@@ -2095,8 +2136,8 @@ CREATE TABLE atlas_driver_offer_bpp.booking (
     bap_uri character varying(255) NOT NULL,
     start_time timestamp with time zone NOT NULL,
     rider_id character(36),
-    from_location_id character(36) NOT NULL,
-    to_location_id character(36) NOT NULL,
+    from_location_id character(36),
+    to_location_id character(36),
     vehicle_variant character varying(255) NOT NULL,
     estimated_distance integer NOT NULL,
     created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -3137,6 +3178,46 @@ CREATE TABLE atlas_driver_offer_bpp.leader_board_configs (
 ALTER TABLE atlas_driver_offer_bpp.leader_board_configs OWNER TO atlas_driver_offer_bpp_user;
 
 --
+-- Name: location; Type: TABLE; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE TABLE atlas_driver_offer_bpp.location (
+    id character(36) NOT NULL,
+    lat double precision NOT NULL,
+    lon double precision NOT NULL,
+    street text,
+    door text,
+    city text,
+    state text,
+    country text,
+    building text,
+    full_address text,
+    area_code text,
+    area text,
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+ALTER TABLE atlas_driver_offer_bpp.location OWNER TO atlas_driver_offer_bpp_user;
+
+--
+-- Name: location_mapping; Type: TABLE; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE TABLE atlas_driver_offer_bpp.location_mapping (
+    id character(36) NOT NULL,
+    location_id character varying(255) NOT NULL,
+    tag character varying(255) NOT NULL,
+    entity_id character varying(255) NOT NULL,
+    "order" integer NOT NULL,
+    version character varying(255) NOT NULL
+);
+
+
+ALTER TABLE atlas_driver_offer_bpp.location_mapping OWNER TO atlas_driver_offer_bpp_user;
+
+--
 -- Name: mandate; Type: TABLE; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
 --
 
@@ -3222,6 +3303,31 @@ CREATE TABLE atlas_driver_offer_bpp.merchant_message (
 
 
 ALTER TABLE atlas_driver_offer_bpp.merchant_message OWNER TO atlas_driver_offer_bpp_user;
+
+--
+-- Name: merchant_overlay; Type: TABLE; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE TABLE atlas_driver_offer_bpp.merchant_overlay (
+    id character(36) NOT NULL,
+    merchant_id character(36) NOT NULL,
+    overlay_key character varying(255) NOT NULL,
+    language character varying(255) NOT NULL,
+    udf1 character varying(255),
+    title text,
+    description text,
+    image_url text,
+    ok_button_text text,
+    cancel_button_text text,
+    actions text[] DEFAULT '{}'::text[] NOT NULL,
+    link text,
+    req_body json DEFAULT json_build_object() NOT NULL,
+    end_point text,
+    method text
+);
+
+
+ALTER TABLE atlas_driver_offer_bpp.merchant_overlay OWNER TO atlas_driver_offer_bpp_user;
 
 --
 -- Name: merchant_payment_method; Type: TABLE; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
@@ -3431,7 +3537,7 @@ CREATE TABLE atlas_driver_offer_bpp.payment_order (
     short_id character varying(36) NOT NULL,
     person_id character(36) NOT NULL,
     merchant_id character(36) NOT NULL,
-    amount integer NOT NULL,
+    amount numeric(30,2) NOT NULL,
     currency character varying(30) NOT NULL,
     status character varying(100) NOT NULL,
     web_payment_link text,
@@ -4047,7 +4153,10 @@ CREATE TABLE atlas_driver_offer_bpp.transporter_config (
     driver_fee_retry_threshold_config integer DEFAULT 3 NOT NULL,
     update_notification_status_batch_size integer DEFAULT 20 NOT NULL,
     update_order_status_batch_size integer DEFAULT 20 NOT NULL,
-    order_and_notification_status_check_time bigint DEFAULT 63000
+    order_and_notification_status_check_time bigint DEFAULT 63000,
+    cache_offer_list_by_driver_id boolean DEFAULT false NOT NULL,
+    use_offer_list_cache boolean DEFAULT true NOT NULL,
+    order_and_notification_status_check_time_limit bigint DEFAULT 345600
 );
 
 
@@ -4073,7 +4182,8 @@ CREATE TABLE atlas_driver_offer_bpp.vehicle (
     created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     vehicle_class character varying(255) NOT NULL,
-    vehicle_name character varying(255)
+    vehicle_name character varying(255),
+    fleet_owner_id character varying(36)
 );
 
 
@@ -4107,6 +4217,20 @@ CREATE TABLE atlas_driver_offer_bpp.vehicle_registration_certificate (
 
 
 ALTER TABLE atlas_driver_offer_bpp.vehicle_registration_certificate OWNER TO atlas_driver_offer_bpp_user;
+
+--
+-- Name: volunteer; Type: TABLE; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE TABLE atlas_driver_offer_bpp.volunteer (
+    id character(36) NOT NULL,
+    place character varying(255) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE atlas_driver_offer_bpp.volunteer OWNER TO atlas_driver_offer_bpp_user;
 
 --
 -- Name: beckn_request; Type: TABLE; Schema: atlas_public_transport; Owner: atlas_public_transport_user
@@ -4617,6 +4741,22 @@ ALTER TABLE ONLY atlas_app.saved_location
 
 ALTER TABLE ONLY atlas_app.rating
     ADD CONSTRAINT idx_rating_primary PRIMARY KEY (ride_id);
+
+
+--
+-- Name: location_mapping location_mapping_pkey; Type: CONSTRAINT; Schema: atlas_app; Owner: atlas_app_user
+--
+
+ALTER TABLE ONLY atlas_app.location_mapping
+    ADD CONSTRAINT location_mapping_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: location location_pkey; Type: CONSTRAINT; Schema: atlas_app; Owner: atlas_app_user
+--
+
+ALTER TABLE ONLY atlas_app.location
+    ADD CONSTRAINT location_pkey PRIMARY KEY (id);
 
 
 --
@@ -5548,6 +5688,22 @@ ALTER TABLE ONLY atlas_driver_offer_bpp.leader_board_configs
 
 
 --
+-- Name: location_mapping location_mapping_pkey; Type: CONSTRAINT; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+ALTER TABLE ONLY atlas_driver_offer_bpp.location_mapping
+    ADD CONSTRAINT location_mapping_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: location location_pkey; Type: CONSTRAINT; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+ALTER TABLE ONLY atlas_driver_offer_bpp.location
+    ADD CONSTRAINT location_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: mandate mandate_pkey; Type: CONSTRAINT; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
 --
 
@@ -5569,6 +5725,14 @@ ALTER TABLE ONLY atlas_driver_offer_bpp.media_file
 
 ALTER TABLE ONLY atlas_driver_offer_bpp.merchant_message
     ADD CONSTRAINT merchant_message_pkey PRIMARY KEY (merchant_id, message_key);
+
+
+--
+-- Name: merchant_overlay merchant_overlay_pkey; Type: CONSTRAINT; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+ALTER TABLE ONLY atlas_driver_offer_bpp.merchant_overlay
+    ADD CONSTRAINT merchant_overlay_pkey PRIMARY KEY (id);
 
 
 --
@@ -5916,6 +6080,14 @@ ALTER TABLE ONLY atlas_driver_offer_bpp.vehicle_registration_certificate
 
 
 --
+-- Name: volunteer volunteer_pkey; Type: CONSTRAINT; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+ALTER TABLE ONLY atlas_driver_offer_bpp.volunteer
+    ADD CONSTRAINT volunteer_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: beckn_request beckn_request_pkey; Type: CONSTRAINT; Schema: atlas_public_transport; Owner: atlas_public_transport_user
 --
 
@@ -6172,6 +6344,13 @@ CREATE INDEX idx_ticket_id ON atlas_app.issue USING btree (ticket_id);
 
 
 --
+-- Name: location_mapping_entity_id_idx; Type: INDEX; Schema: atlas_app; Owner: atlas_app_user
+--
+
+CREATE INDEX location_mapping_entity_id_idx ON atlas_app.location_mapping USING btree (entity_id);
+
+
+--
 -- Name: saved_location_rider_id_idx; Type: INDEX; Schema: atlas_app; Owner: atlas_app_user
 --
 
@@ -6312,6 +6491,13 @@ CREATE INDEX idx_gohome_request ON atlas_driver_offer_bpp.ride USING btree (driv
 
 
 --
+-- Name: idx_merchant_overlay_key; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE INDEX idx_merchant_overlay_key ON atlas_driver_offer_bpp.merchant_overlay USING btree (merchant_id, overlay_key);
+
+
+--
 -- Name: idx_organization_short_id; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
 --
 
@@ -6382,10 +6568,48 @@ CREATE INDEX idx_ticket_id ON atlas_driver_offer_bpp.issue_report USING btree (t
 
 
 --
+-- Name: idx_vehicle_fleet_owner_id; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE INDEX idx_vehicle_fleet_owner_id ON atlas_driver_offer_bpp.vehicle USING btree (fleet_owner_id);
+
+
+--
 -- Name: idx_vehicle_req_num; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
 --
 
 CREATE INDEX idx_vehicle_req_num ON atlas_driver_offer_bpp.vehicle USING btree (registration_no);
+
+
+--
+-- Name: location_mapping_entity_id_idx; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE INDEX location_mapping_entity_id_idx ON atlas_driver_offer_bpp.location_mapping USING btree (entity_id);
+
+
+--
+-- Name: aadhaar_otp_req aadhaar_otp_req_person_id_fkey; Type: FK CONSTRAINT; Schema: atlas_app; Owner: atlas_app_user
+--
+
+ALTER TABLE ONLY atlas_app.aadhaar_otp_req
+    ADD CONSTRAINT aadhaar_otp_req_person_id_fkey FOREIGN KEY (person_id) REFERENCES atlas_app.person(id);
+
+
+--
+-- Name: aadhaar_otp_verify aadhaar_otp_verify_person_id_fkey; Type: FK CONSTRAINT; Schema: atlas_app; Owner: atlas_app_user
+--
+
+ALTER TABLE ONLY atlas_app.aadhaar_otp_verify
+    ADD CONSTRAINT aadhaar_otp_verify_person_id_fkey FOREIGN KEY (person_id) REFERENCES atlas_app.person(id);
+
+
+--
+-- Name: aadhaar_verification aadhaar_verification_person_id_fkey; Type: FK CONSTRAINT; Schema: atlas_app; Owner: atlas_app_user
+--
+
+ALTER TABLE ONLY atlas_app.aadhaar_verification
+    ADD CONSTRAINT aadhaar_verification_person_id_fkey FOREIGN KEY (person_id) REFERENCES atlas_app.person(id);
 
 
 --

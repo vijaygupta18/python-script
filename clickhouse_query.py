@@ -30,10 +30,12 @@ print(fileData)
 fileData = open("create_tables.sql", 'r')
 file_path = 'clear_tables.sql'
 newFile = open(file_path, 'a+')
+primaryKey = {}
 f = False
+tableName = ""
 for i in fileData:
     # print(i)
-    if "CREATE TABLE" in i and ("atlas_app" in i or "atlas_driver_offer_bpp" in i):
+    if "CREATE TABLE" in i and ("atlas_app" in i):
         print(i)
         f = True;
         newFile.write(i)
@@ -42,6 +44,10 @@ for i in fileData:
         newFile.write(i)
         if ";" in i:
             f = False
+    if "ALTER TABLE ONLY" in i:
+        tableName = i.split('.')[1].strip('\n')
+    elif "PRIMARY KEY" in i:
+        primaryKey[tableName] = '('+i.split('(')[1].strip('\n').strip(';')
 
 #===================================================================================================
 
@@ -95,7 +101,7 @@ def getSchemaNameAndTableName(query):
     return (schemanName, tableName)
 
 def materializedTable(columns, tableName,schemaName):
-    materializedQuery = f"CREATE MATERIALIZED VIEW {schemaName}.{tableName} ON CLUSTER `{{cluster}}` TO {schemaName}.{tableName}\n(\n"
+    materializedQuery = f"CREATE MATERIALIZED VIEW {schemaName}.{tableName} ON CLUSTER `{{cluster}}` TO {schemaName}.{tableName}_mv\n(\n"
     for column_name,type in columns:
         materializedQuery += f"\t`{column_name}` {type},\n"
     materializedQuery.strip(',\n')
@@ -112,7 +118,7 @@ def materializedTable(columns, tableName,schemaName):
             materializedQuery += f"\ttoDateTime(JSONExtractInt(message,'{column_name}')) as {column_name},\n"
     materializedQuery.strip(',\n')
     materializedQuery += '\n'
-    materializedQuery += f"\tFROM {schemaName}.{tableName}_queue\n\twhere JSONExtractString(message,'tag') = "
+    materializedQuery += f"\tFROM {schemaName}.bap_main_queue\n\twhere JSONExtractString(message,'tag') = "
     value = ''.join(word.capitalize() for word in tableName.split('_'))
     materializedQuery += f"'{value}Object'"
     materializedQuery += '\n\n\n'
@@ -144,7 +150,13 @@ for query in queries:
             if data_type == "DateTime":
                 clickhouse_create_table += f"    `{column_name}` {data_type} DEFAULT now(),\n"
             else:
-                clickhouse_create_table += f"    `{column_name}` Nullable ({data_type}),\n"
+                if(tableName in primaryKey.keys()):
+                    if(column_name in primaryKey[tableName]):
+                        clickhouse_create_table += f"    `{column_name}` {data_type},\n"
+                    else:
+                        clickhouse_create_table += f"    `{column_name}` Nullable ({data_type}),\n"
+                else:
+                    clickhouse_create_table += f"    `{column_name}` Nullable ({data_type}),\n"
 
         # Remove the trailing comma and newline
         clickhouse_create_table = clickhouse_create_table.rstrip(',\n')
@@ -152,7 +164,11 @@ for query in queries:
         # Complete the table creation string
         clickhouse_create_table += "\n\t)\n"
 
-        clickhouse_create_table += "\nENGINE = ReplicatedCollapsingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', sign)\n"
+        clickhouse_create_table += "\nENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', updated_at)\n"
+        if tableName in primaryKey.keys():
+            clickhouse_create_table += f'PARTITION BY toStartOfWeek(created_at)\nPRIMARY KEY (created_at)\nORDER BY (created_at, {primaryKey[tableName]})\n'
+            clickhouse_create_table += f'PARTITION BY toStartOfWeek(created_at)\nPRIMARY KEY (created_at)\nORDER BY (created_at, {primaryKey[tableName]})\n'
+        clickhouse_create_table += "TTL created_at + toIntervalDay(365)\n"
         clickhouse_create_table += "SETTINGS index_granularity = 8192\n\n"
         clickhouse_create_table += f"CREATE TABLE {schemaName}.{tableName} ON CLUSTER `{{cluster}}` AS {schemaName}_helper.{tableName}_shard\n"
         clickhouse_create_table += f"ENGINE = Distributed(`{{cluster}}`, {schemaName}_helper, {tableName}_shard, xxHash32(id))\n\n"
