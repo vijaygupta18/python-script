@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 12.3
--- Dumped by pg_dump version 14.8 (Homebrew)
+-- Dumped by pg_dump version 14.9 (Ubuntu 14.9-0ubuntu0.22.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -568,22 +568,6 @@ CREATE TABLE atlas_app.cancellation_reason (
 ALTER TABLE atlas_app.cancellation_reason OWNER TO atlas_app_user;
 
 --
--- Name: directions_cache; Type: TABLE; Schema: atlas_app; Owner: atlas_app_user
---
-
-CREATE TABLE atlas_app.directions_cache (
-    id character(36) NOT NULL,
-    origin_hash text NOT NULL,
-    dest_hash text NOT NULL,
-    slot integer NOT NULL,
-    response text NOT NULL,
-    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
-);
-
-
-ALTER TABLE atlas_app.directions_cache OWNER TO atlas_app_user;
-
---
 -- Name: disability; Type: TABLE; Schema: atlas_app; Owner: atlas_app_user
 --
 
@@ -886,7 +870,6 @@ CREATE TABLE atlas_app.merchant (
     country text DEFAULT 'India'::text NOT NULL,
     bap_unique_key_id text NOT NULL,
     bap_id text NOT NULL,
-    dir_cache_slot json,
     time_diff_from_utc integer DEFAULT 19800 NOT NULL,
     distance_weightage integer DEFAULT 60 NOT NULL,
     minimum_driver_rates_count integer,
@@ -4156,7 +4139,10 @@ CREATE TABLE atlas_driver_offer_bpp.transporter_config (
     order_and_notification_status_check_time bigint DEFAULT 63000,
     cache_offer_list_by_driver_id boolean DEFAULT false NOT NULL,
     use_offer_list_cache boolean DEFAULT true NOT NULL,
-    order_and_notification_status_check_time_limit bigint DEFAULT 345600
+    order_and_notification_status_check_time_limit bigint DEFAULT 345600,
+    can_suv_downgrade_to_taxi boolean DEFAULT false,
+    enable_face_verification boolean DEFAULT false,
+    rating_as_decimal boolean DEFAULT false NOT NULL
 );
 
 
@@ -4600,14 +4586,6 @@ ALTER TABLE ONLY atlas_app.cancellation_reason
 
 
 --
--- Name: directions_cache directions_cache_pkey; Type: CONSTRAINT; Schema: atlas_app; Owner: atlas_app_user
---
-
-ALTER TABLE ONLY atlas_app.directions_cache
-    ADD CONSTRAINT directions_cache_pkey PRIMARY KEY (id);
-
-
---
 -- Name: driver_offer driver_offer_pkey; Type: CONSTRAINT; Schema: atlas_app; Owner: atlas_app_user
 --
 
@@ -4989,14 +4967,6 @@ ALTER TABLE ONLY atlas_app.app_installs
 
 ALTER TABLE ONLY atlas_app.person
     ADD CONSTRAINT unique_mobile_number_country_code_merchant_id UNIQUE (mobile_country_code, mobile_number_hash, merchant_id);
-
-
---
--- Name: directions_cache unique_optimal_path; Type: CONSTRAINT; Schema: atlas_app; Owner: atlas_app_user
---
-
-ALTER TABLE ONLY atlas_app.directions_cache
-    ADD CONSTRAINT unique_optimal_path UNIQUE (origin_hash, dest_hash, slot);
 
 
 --
@@ -6250,13 +6220,6 @@ CREATE INDEX idx_booking_rider_id ON atlas_app.booking USING btree (rider_id);
 --
 
 CREATE INDEX idx_booking_rider_id_and_status ON atlas_app.booking USING btree (rider_id, status);
-
-
---
--- Name: idx_directions_caching; Type: INDEX; Schema: atlas_app; Owner: atlas_app_user
---
-
-CREATE INDEX idx_directions_caching ON atlas_app.directions_cache USING btree (origin_hash, dest_hash, slot);
 
 
 --

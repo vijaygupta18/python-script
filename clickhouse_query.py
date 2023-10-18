@@ -35,9 +35,9 @@ f = False
 tableName = ""
 for i in fileData:
     # print(i)
-    if "CREATE TABLE" in i and ("atlas_app" in i):
+    if "CREATE TABLE" in i and ("atlas_app" in i or "atlas_driver_offer_bpp" in i):
         print(i)
-        f = True;
+        f = True
         newFile.write(i)
     elif f:
         print(i)
@@ -100,6 +100,10 @@ def getSchemaNameAndTableName(query):
             break
     return (schemanName, tableName)
 
+def cleanPrimaryKeys(primaryKeys):
+    primaryKeyOne = primaryKeys[1:-1].split(',')
+    return primaryKeyOne
+
 def materializedTable(columns, tableName,schemaName):
     materializedQuery = f"CREATE MATERIALIZED VIEW {schemaName}.{tableName} ON CLUSTER `{{cluster}}` TO {schemaName}.{tableName}_mv\n(\n"
     for column_name,type in columns:
@@ -121,6 +125,10 @@ def materializedTable(columns, tableName,schemaName):
     materializedQuery += f"\tFROM {schemaName}.bap_main_queue\n\twhere JSONExtractString(message,'tag') = "
     value = ''.join(word.capitalize() for word in tableName.split('_'))
     materializedQuery += f"'{value}Object'"
+    if(tableName in primaryKey.keys()):
+        primaryKeys = cleanPrimaryKeys(primaryKey[tableName])
+        for keys in primaryKeys:
+            materializedQuery += f"\n\tJSONExtractString(Message, '{keys}') is not null"
     materializedQuery += '\n\n\n'
     # print(materializedQuery)
     return materializedQuery
@@ -157,14 +165,14 @@ for query in queries:
                         clickhouse_create_table += f"    `{column_name}` Nullable ({data_type}),\n"
                 else:
                     clickhouse_create_table += f"    `{column_name}` Nullable ({data_type}),\n"
-
+        clickhouse_create_table += "    `date` DateTime DEFAULT now()\n"
         # Remove the trailing comma and newline
         clickhouse_create_table = clickhouse_create_table.rstrip(',\n')
 
         # Complete the table creation string
         clickhouse_create_table += "\n\t)\n"
 
-        clickhouse_create_table += "\nENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', updated_at)\n"
+        clickhouse_create_table += "\nENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)\n"
         if tableName in primaryKey.keys():
             clickhouse_create_table += f'PARTITION BY toStartOfWeek(created_at)\nPRIMARY KEY (created_at)\nORDER BY (created_at, {primaryKey[tableName]})\n'
             clickhouse_create_table += f'PARTITION BY toStartOfWeek(created_at)\nPRIMARY KEY (created_at)\nORDER BY (created_at, {primaryKey[tableName]})\n'
