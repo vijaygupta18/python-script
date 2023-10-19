@@ -3,16 +3,16 @@ import re
 import subprocess
 
 # Now convert to the clickhouse query from the sql query.
-def getClickHouseType(sqlType):
+def getNewType(sqlType):
     sql_to_clickhouse_types = {
-        'character': 'String',
-        'varchar': 'String',
-        'text': 'String',
-        'bigint': 'Int64',
-        'integer': 'Int64',  # Mapping 'integer' to ClickHouse 'Int64'
-        'smallint': 'Int64',  # Mapping 'smallint' to ClickHouse 'Int64'
-        'real': 'Float64',  # Mapping 'real' to ClickHouse 'Float64'
-        'double': 'Float64',
+        'character': 'Text',
+        'varchar': 'Text',
+        'text': 'Text',
+        'bigint': 'Integer',
+        'integer': 'Integer',  # Mapping 'integer' to ClickHouse 'Integer'
+        'smallint': 'Integer',  # Mapping 'smallint' to ClickHouse 'Integer'
+        'real': 'Double',  # Mapping 'real' to ClickHouse 'Double'
+        'double': 'Double',
         'timestamp': 'DateTime',
         'date': 'DateTime',
         'time': 'DateTime',
@@ -20,7 +20,7 @@ def getClickHouseType(sqlType):
     if sqlType in sql_to_clickhouse_types.keys():
         return sql_to_clickhouse_types[sqlType]
     else:
-        return "String"
+        return "Text"
 
 def getColumnNameAndType(query):
     columns = []
@@ -37,7 +37,7 @@ def getColumnNameAndType(query):
         newQuery[i] = newQuery[i].split(' ')
     for i in newQuery:
         if(len(i)>1):
-            columns.append([i[0], getClickHouseType(i[1])])
+            columns.append([i[0], getNewType(i[1])])
     return (columns)
 
 def getSchemaNameAndTableName(query):
@@ -104,13 +104,17 @@ import qualified Data.Aeson.KeyMap as KM
 import Codec.Serialise.Encoding (encodeWord32, encodeWord8)
 import Codec.Serialise.Decoding (decodeWord32, decodeWord8)
 import Control.Monad
+import Data.Vector (Vector)
 import Data.Word (Word32)\n\n"""
 
     data += """data Session =
   Session
     { """
     for i in range(len(columns)):
-        data += f"""_{columns[i][0]} :: Last {columns[i][1]}\n"""
+        if(columns[i][1] == "DateTime"):
+            data += f"""_{columns[i][0]} :: Last Int\n"""
+        else:
+            data += f"""_{columns[i][0]} :: Last {columns[i][1]}\n"""
         if(i!=len(columns)-1):
             data += "\t\t, "
         else :
@@ -125,7 +129,7 @@ instance Semigroup Session where
   a <> b = Session {
     """
     for i in range(len(columns)):
-        data += f"_{columns[i][0]} = _{columns[i][0]} a <> _{columns[i][0]} b,\n"
+        data += f"_{columns[i][0]} = _{columns[i][0]} a <> _{columns[i][0]} b\n"
         if i != len(columns)-1:
             data += "  , "
         else:
@@ -145,8 +149,141 @@ instance ToJSON Session where
 
 
 
+def generateSessionizerFile (columns, tableName) :
+    data = """{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE PolyKinds #-}
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE MultiWayIf #-}
+
+
+
+
+"""
+    data += f"""module {tableName}.Sessionizer where\n\n
+
+import Debug.Trace
+import Data.Time.Format.Internal
+import Data.Attoparsec.Text
+import qualified Data.Text as T
+import Control.Applicative
+import Data.Aeson
+import Control.Lens.Combinators
+import Control.Lens.Operators
+import Data.Aeson.Lens
+import Data.Monoid
+import Data.Text (Text)
+import Data.Time.Format
+import Data.Time.Clock.POSIX
+import Data.String (IsString)
+import Data.List (elem, foldl) 
+import GHC.Generics hiding (to, from)
+import qualified Data.Text.Lazy as TL
+import Data.ByteString (ByteString)
+import Data.Maybe (fromMaybe)
+import Text.Regex (mkRegex,subRegex)
+import Text.Regex.TDFA hiding(empty)
+import {tableName}.Session(Session(Session))
+import Data.Aeson.Text (encodeToLazyText)
+import Data.Time.Clock (nominalDiffTimeToSeconds)
+import Utils(timeComponent)
+import Data.Vector(Vector)
+
+
+"""
+
+    data += f"""logToSessionBPP{tableName} :: Object -> Value
+logToSessionBPP{tableName} value =
+  let session = value &
+        Session <$>\n"""
+    for i in range(len(columns)):
+        columnName = ''.join(x.title() for x in columns[i][0].split('_'))
+        data += f"""\t\t\ttransform{columnName} <*>\n"""
+    data += "          transformTag"
+    data += """  in toJSON session\n\n\n"""
+
+    # dataTypeDict = {}
+    # for i in range(len(columns)):
+    #     dataTypeDict[columns[i][0]] = getNewType(columns[i][1])
+    data += """transformTag :: Object -> First Text
+transformTag l  = First $ preview (ix "tag"._String.meaningFul) l\n\n"""
+    for i in columns:
+        col = ''.join(x.title() for x in i[0].split('_'))
+        newCol = (''.join(x.title() for x in i[0].split('_'))[0]).lower() + (''.join(x.title() for x in i[0].split('_'))[1:])
+        # print(col, newCol)
+        if (i[1]) == "Double":
+            data += f'''transform{col} :: Object -> Last {(i[1])}\n'''
+            data +=f'''transform{col} l  = Last $ preview (ix "contents".key "{newCol}"._Double) l\n\n'''
+        elif (i[1]) == "DateTime":
+            data += f'''transform{col} :: Object -> Last Int\n'''
+            data +=f'''transform{col} l  = Last $ preview (ix "contents".key "{newCol}"._String. to timeComponent._Right ) l\n\n'''
+
+        elif (i[1]) == "Integer":
+            data += f'''transform{col} :: Object -> Last {(i[1])}\n'''
+            data +=f'''transform{col} l  = Last $ preview (ix "contents".key "{newCol}"._Integral) l\n\n'''
+
+        else:
+            data += f'''transform{col} :: Object -> Last {(i[1])}\n'''
+            data +=f'''transform{col} l  = Last $ preview (ix "contents".key "{newCol}"._String.meaningFul) l\n\n'''
+    
+    data += """\n\n\n\n{-# INLINE timeComponentInMilliseconds #-}
+timeComponentInMilliseconds :: Text -> Either String Int
+timeComponentInMilliseconds time =
+  let
+    timeParser = do
+      day <-
+        zip "Ymd" <$> some digit `sepBy1` char '-'
+      (space <|> char 'T')
+      time <-
+        zip "HMS" <$> some digit `sepBy1` char  ':'
+      _ <- option '.' (char '.')  
+      mil <-
+        option 0 (decimal)
+      takeLazyText
+      maybe
+        (traceShow ("Unable to form time " <> show time) empty)
+        (pure . (\\a -> (a*1000 +(toEnum mil))) . truncate . nominalDiffTimeToSeconds. utcTimeToPOSIXSeconds)
+        (buildTime defaultTimeLocale (day ++ time))
+  in parseOnly timeParser time
+
+check :: Text -> Int 
+check time = T.length $ head $ T.splitOn "-" time 
+
+{-# INLINE meaningFul #-}
+meaningFul :: (Eq s, IsString s) => Traversal' s s
+meaningFul =
+  filtered (not . (`elem` discard))
+  where
+  discard = ["null", "UNKNOWN", "unknown", ""]
+
+-- stringToInt :: String -> Int
+-- stringToInt value read value :: Int
+
+{-# INLINE jsonText #-}
+jsonText :: Value -> Text 
+jsonText = TL.toStrict . encodeToLazyText 
+
+boolToString :: Value -> String
+boolToString (Bool a) = show a
+boolToString a = show a"""
+    return data
+
+        
+
+
+
+
+
 pathWrite = '/home/akhilesh/Desktop/projects/atlas-sessionizer/app/BPP/PaymentOrder/Session.hs'
+pathWrite1 = '/home/akhilesh/Desktop/projects/atlas-sessionizer/app/BPP/PaymentOrder/Sessionizer.hs'
 filePathSession = open(pathWrite, 'w')
+filePathSessionizer = open(pathWrite1, 'w')
 file_path = 'clear_tables.sql'
 # Read the SQL queries from the file
 with open(file_path, 'r') as file:
@@ -170,8 +307,12 @@ for query in queries:
             sessionFile = generateSessionFile(columns, tableName)
             # Write the session file
             filePathSession.write(sessionFile)
+            # Generate the sessionizer file
+            sessionizerFile = generateSessionizerFile(columns, tableName)
+            # Write the sessionizer file
+            filePathSessionizer.write(sessionizerFile)
             break
-        else :
-            print( tableName, myTable)
+        # else :
+            # print( tableName, myTable)
 
         
