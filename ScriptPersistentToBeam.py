@@ -193,7 +193,7 @@ def getNewFileData(fileData,filePath,fileName):
   return modifiedData
 
 # tabularPath here
-filePath = '/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Tabular/Booking.hs'
+filePath = '/Users/akhilesh.b/Desktop/nammayatri/Backend/app/kafka-consumers/src/Consumer/AvailabilityTime/Storage/Tables.hs'
 with open(filePath, 'r') as file:
     filename=os.path.basename(filePath)
     filename = filename.split('.')[0]
@@ -201,5 +201,5 @@ with open(filePath, 'r') as file:
     newFileData=getNewFileData(fileContents,filePath,filename)
     print(newFileData)
     # newFilePath where you want to change
-    overwriteFile('/Users/vijay.gupta/Desktop/nammayatri/Backend/app/provider-platform/dynamic-offer-driver-app/Main/src/Storage/Beam/Booking.hs', newFileData)
+    overwriteFile('/Users/akhilesh.b/Desktop/nammayatri/Backend/app/kafka-consumers/src/Consumer/AvailabilityTime/Storage/Beam/Tables.hs', newFileData)
 

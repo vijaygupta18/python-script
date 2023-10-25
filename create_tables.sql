@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 12.3
--- Dumped by pg_dump version 14.9 (Ubuntu 14.9-0ubuntu0.22.04.1)
+-- Dumped by pg_dump version 14.9 (Homebrew)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2526,7 +2526,8 @@ CREATE TABLE atlas_driver_offer_bpp.driver_pool_config (
     radius_shrink_value_for_drivers_on_ride bigint DEFAULT 300,
     driver_to_destination_distance_threshold bigint DEFAULT 300,
     driver_to_destination_duration bigint DEFAULT 10,
-    distance_based_batch_split text[] DEFAULT ARRAY['BatchSplitByPickupDistance { batchSplitSize = 1, batchSplitDelay = 0 }'::text, 'BatchSplitByPickupDistance { batchSplitSize = 1, batchSplitDelay = 4 }'::text] NOT NULL
+    distance_based_batch_split text[] DEFAULT ARRAY['BatchSplitByPickupDistance { batchSplitSize = 1, batchSplitDelay = 0 }'::text, 'BatchSplitByPickupDistance { batchSplitSize = 1, batchSplitDelay = 4 }'::text] NOT NULL,
+    vehicle_variant character varying(255)
 );
 
 
@@ -2672,7 +2673,8 @@ CREATE TABLE atlas_driver_offer_bpp.fare_parameters (
     govt_charges integer,
     waiting_charge integer,
     night_shift_charge integer,
-    night_shift_rate_if_applies double precision
+    night_shift_rate_if_applies double precision,
+    ride_extra_time_fare integer
 );
 
 
@@ -2720,7 +2722,8 @@ CREATE TABLE atlas_driver_offer_bpp.fare_policy (
     service_charge integer,
     govt_charges double precision,
     fare_policy_type character varying(50) NOT NULL,
-    description text
+    description text,
+    per_minute_ride_extra_time_charge integer
 );
 
 
@@ -2939,6 +2942,22 @@ CREATE TABLE atlas_driver_offer_bpp.feedback_form (
 
 
 ALTER TABLE atlas_driver_offer_bpp.feedback_form OWNER TO atlas_driver_offer_bpp_user;
+
+--
+-- Name: fleet_driver_association; Type: TABLE; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE TABLE atlas_driver_offer_bpp.fleet_driver_association (
+    id text NOT NULL,
+    driver_id text NOT NULL,
+    fleet_owner_id text NOT NULL,
+    is_active boolean NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE atlas_driver_offer_bpp.fleet_driver_association OWNER TO atlas_driver_offer_bpp_user;
 
 --
 -- Name: geometry; Type: TABLE; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
@@ -3818,7 +3837,8 @@ CREATE TABLE atlas_driver_offer_bpp.ride_details (
     vehicle_color character varying(255),
     vehicle_variant character varying(255),
     vehicle_model character varying(255),
-    vehicle_class character varying(255)
+    vehicle_class character varying(255),
+    fleet_owner_id character varying(36)
 );
 
 
@@ -4142,7 +4162,9 @@ CREATE TABLE atlas_driver_offer_bpp.transporter_config (
     order_and_notification_status_check_time_limit bigint DEFAULT 345600,
     can_suv_downgrade_to_taxi boolean DEFAULT false,
     enable_face_verification boolean DEFAULT false,
-    rating_as_decimal boolean DEFAULT false NOT NULL
+    rating_as_decimal boolean DEFAULT false NOT NULL,
+    refill_vehicle_model boolean DEFAULT false NOT NULL,
+    avg_speed_of_vehicle json
 );
 
 
@@ -4168,8 +4190,7 @@ CREATE TABLE atlas_driver_offer_bpp.vehicle (
     created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     vehicle_class character varying(255) NOT NULL,
-    vehicle_name character varying(255),
-    fleet_owner_id character varying(36)
+    vehicle_name character varying(255)
 );
 
 
@@ -4198,7 +4219,8 @@ CREATE TABLE atlas_driver_offer_bpp.vehicle_registration_certificate (
     vehicle_model character varying(255),
     vehicle_color character varying(255),
     vehicle_energy_type character varying(255),
-    vehicle_variant character varying(255)
+    vehicle_variant character varying(255),
+    fleet_owner_id character(36)
 );
 
 
@@ -5490,6 +5512,14 @@ ALTER TABLE ONLY atlas_driver_offer_bpp.feedback_form
 
 
 --
+-- Name: fleet_driver_association fleet_driver_association_pkey; Type: CONSTRAINT; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+ALTER TABLE ONLY atlas_driver_offer_bpp.fleet_driver_association
+    ADD CONSTRAINT fleet_driver_association_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: geometry geometry_pkey; Type: CONSTRAINT; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
 --
 
@@ -6405,6 +6435,34 @@ CREATE INDEX idx_booking_provider_id ON atlas_driver_offer_bpp.booking USING btr
 
 
 --
+-- Name: idx_driver_fee_collected_at; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE INDEX idx_driver_fee_collected_at ON atlas_driver_offer_bpp.driver_fee USING brin (collected_at);
+
+
+--
+-- Name: idx_driver_fee_end_time; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE INDEX idx_driver_fee_end_time ON atlas_driver_offer_bpp.driver_fee USING brin (end_time);
+
+
+--
+-- Name: idx_driver_fee_pay_by; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE INDEX idx_driver_fee_pay_by ON atlas_driver_offer_bpp.driver_fee USING brin (pay_by);
+
+
+--
+-- Name: idx_driver_fee_status; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE INDEX idx_driver_fee_status ON atlas_driver_offer_bpp.driver_fee USING btree (status);
+
+
+--
 -- Name: idx_driver_feedback; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
 --
 
@@ -6482,6 +6540,27 @@ CREATE INDEX idx_ride_booking_id ON atlas_driver_offer_bpp.ride USING btree (boo
 
 
 --
+-- Name: idx_ride_detail_driver_number_hash; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE INDEX idx_ride_detail_driver_number_hash ON atlas_driver_offer_bpp.ride_details USING btree (driver_number_hash);
+
+
+--
+-- Name: idx_ride_detail_fleet_owner_id; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE INDEX idx_ride_detail_fleet_owner_id ON atlas_driver_offer_bpp.ride_details USING btree (fleet_owner_id);
+
+
+--
+-- Name: idx_ride_detail_vehicle_number; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+--
+
+CREATE INDEX idx_ride_detail_vehicle_number ON atlas_driver_offer_bpp.ride_details USING btree (vehicle_number);
+
+
+--
 -- Name: idx_ride_driver_id_and_status; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
 --
 
@@ -6531,10 +6610,10 @@ CREATE INDEX idx_ticket_id ON atlas_driver_offer_bpp.issue_report USING btree (t
 
 
 --
--- Name: idx_vehicle_fleet_owner_id; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
+-- Name: idx_vehicle_registration_certificate_fleet_owner_id; Type: INDEX; Schema: atlas_driver_offer_bpp; Owner: atlas_driver_offer_bpp_user
 --
 
-CREATE INDEX idx_vehicle_fleet_owner_id ON atlas_driver_offer_bpp.vehicle USING btree (fleet_owner_id);
+CREATE INDEX idx_vehicle_registration_certificate_fleet_owner_id ON atlas_driver_offer_bpp.vehicle_registration_certificate USING btree (fleet_owner_id);
 
 
 --

@@ -12,10 +12,12 @@ def getNewType(sqlType):
         'integer': 'Integer',  # Mapping 'integer' to ClickHouse 'Integer'
         'smallint': 'Integer',  # Mapping 'smallint' to ClickHouse 'Integer'
         'real': 'Double',  # Mapping 'real' to ClickHouse 'Double'
+        'numeric(30,2)' : 'Double',
         'double': 'Double',
         'timestamp': 'DateTime',
         'date': 'DateTime',
         'time': 'DateTime',
+        'boolean': 'String'
         }
     if sqlType in sql_to_clickhouse_types.keys():
         return sql_to_clickhouse_types[sqlType]
@@ -37,7 +39,7 @@ def getColumnNameAndType(query):
         newQuery[i] = newQuery[i].split(' ')
     for i in newQuery:
         if(len(i)>1):
-            columns.append([i[0], getNewType(i[1])])
+            columns.append([i[0], getNewType(i[1]), i[1]])
     return (columns)
 
 def getSchemaNameAndTableName(query):
@@ -78,34 +80,34 @@ def generateSessionFile(columns, tableName):
 
 
 import qualified Data.HashMap.Strict as HM
-import NestedRecord
-import Codec.Serialise.Class
-import Generics.Deriving.Monoid
-import Data.Text (Text)
-import Data.Aeson
-import GHC.Generics
-import Data.Default.Class
-import Data.Monoid
-import Data.Default.Instances.Containers
-import Control.Lens
-import Data.Aeson.Lens
-import Data.Time.LocalTime
-import Data.Text.Strict.Lens
-import Data.Time.Clock.POSIX
-import Data.Bits
-import Data.Time.Clock
-import Data.Scientific hiding (scientific)
-import Data.Ratio
-import Data.Text.Manipulate
+import           NestedRecord
+import           Codec.Serialise.Class
+import           Generics.Deriving.Monoid
+import           Data.Text (Text)
+import           Data.Aeson
+import           GHC.Generics
+import           Data.Default.Class
+import           Data.Monoid
+import           Data.Default.Instances.Containers
+import           Control.Lens
+import           Data.Aeson.Lens
+import           Data.Time.LocalTime
+import           Data.Text.Strict.Lens
+import           Data.Time.Clock.POSIX
+import           Data.Bits
+import           Data.Time.Clock
+import           Data.Scientific hiding (scientific)
+import           Data.Ratio
+import           Data.Text.Manipulate
 import qualified Data.Text as T
-import Generics.Deriving.Semigroup
-import Sessionizer.Orphans
+import           Generics.Deriving.Semigroup
+import           Sessionizer.Orphans
 import qualified Data.Aeson.KeyMap as KM
-import Codec.Serialise.Encoding (encodeWord32, encodeWord8)
-import Codec.Serialise.Decoding (decodeWord32, decodeWord8)
-import Control.Monad
-import Data.Vector (Vector)
-import Data.Word (Word32)\n\n"""
+import           Codec.Serialise.Encoding (encodeWord32, encodeWord8)
+import           Codec.Serialise.Decoding (decodeWord32, decodeWord8)
+import           Control.Monad
+import           Data.Vector (Vector)
+import           Data.Word (Word32)\n\n"""
 
     data += """data Session =
   Session
@@ -149,7 +151,7 @@ instance ToJSON Session where
 
 
 
-def generateSessionizerFile (columns, tableName) :
+def generateSessionizerFile (columns, tableName, bapOrBPP) :
     data = """{-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PolyKinds #-}
@@ -168,45 +170,46 @@ def generateSessionizerFile (columns, tableName) :
 """
     data += f"""module {tableName}.Sessionizer where\n\n
 
-import Debug.Trace
-import Data.Time.Format.Internal
-import Data.Attoparsec.Text
+import           Debug.Trace
+import           Data.Time.Format.Internal
+import           Data.Attoparsec.Text
 import qualified Data.Text as T
-import Control.Applicative
-import Data.Aeson
-import Control.Lens.Combinators
-import Control.Lens.Operators
-import Data.Aeson.Lens
-import Data.Monoid
-import Data.Text (Text)
-import Data.Time.Format
-import Data.Time.Clock.POSIX
-import Data.String (IsString)
-import Data.List (elem, foldl) 
-import GHC.Generics hiding (to, from)
+import           Control.Applicative
+import           Data.Aeson
+import           Control.Lens.Combinators
+import           Control.Lens.Operators
+import           Data.Aeson.Lens
+import           Data.Monoid
+import           Data.Text (Text)
+import           Data.Time.Format
+import           Data.Time.Clock.POSIX
+import           Data.String (IsString)
+import           Data.List (elem, foldl) 
+import           GHC.Generics hiding (to, from)
 import qualified Data.Text.Lazy as TL
-import Data.ByteString (ByteString)
-import Data.Maybe (fromMaybe)
-import Text.Regex (mkRegex,subRegex)
-import Text.Regex.TDFA hiding(empty)
-import {tableName}.Session(Session(Session))
-import Data.Aeson.Text (encodeToLazyText)
-import Data.Time.Clock (nominalDiffTimeToSeconds)
-import Utils(timeComponent)
-import Data.Vector(Vector)
+import           Data.ByteString (ByteString)
+import           Data.Maybe (fromMaybe)
+import           Text.Regex (mkRegex,subRegex)
+import           Text.Regex.TDFA hiding(empty)
+import           {tableName}.Session(Session(Session))
+import           Data.Aeson.Text (encodeToLazyText)
+import           Data.Time.Clock (nominalDiffTimeToSeconds)
+import           Utils(timeComponent, MyType(..), myDefaultValue)
+import           Data.Vector(Vector)
 
 
 """
 
-    data += f"""logToSessionBPP{tableName} :: Object -> Value
-logToSessionBPP{tableName} value =
-  let session = value &
-        Session <$>\n"""
+    data += f"""logToSession{bapOrBPP}{tableName} :: Object -> MyType
+logToSession{bapOrBPP}{tableName} value =
+    let session = Just $ value &\n\t\tSession <$>\n"""
     for i in range(len(columns)):
         columnName = ''.join(x.title() for x in columns[i][0].split('_'))
         data += f"""\t\t\ttransform{columnName} <*>\n"""
-    data += "          transformTag"
-    data += """  in toJSON session\n\n\n"""
+    data += "\t\t\ttransformTag\n"
+    data += """\tin myDefaultValue {"""
+    data += f'''_{tableName[0].lower()+tableName[1:]}Session = Last session'''
+    data += "}\n\n\n"
 
     # dataTypeDict = {}
     # for i in range(len(columns)):
@@ -227,7 +230,9 @@ transformTag l  = First $ preview (ix "tag"._String.meaningFul) l\n\n"""
         elif (i[1]) == "Integer":
             data += f'''transform{col} :: Object -> Last {(i[1])}\n'''
             data +=f'''transform{col} l  = Last $ preview (ix "contents".key "{newCol}"._Integral) l\n\n'''
-
+        elif (i[2]== "boolean"):
+            data += f'''transform{col} :: Object -> Last {(i[1])}\n'''
+            data +=f'''transform{col} l  = Last (convertToString <$> preview (ix "contents".key "{newCol}") l)\n\n'''
         else:
             data += f'''transform{col} :: Object -> Last {(i[1])}\n'''
             data +=f'''transform{col} l  = Last $ preview (ix "contents".key "{newCol}"._String.meaningFul) l\n\n'''
@@ -258,9 +263,9 @@ check time = T.length $ head $ T.splitOn "-" time
 {-# INLINE meaningFul #-}
 meaningFul :: (Eq s, IsString s) => Traversal' s s
 meaningFul =
-  filtered (not . (`elem` discard))
-  where
-  discard = ["null", "UNKNOWN", "unknown", ""]
+    filtered (not . (`elem` discard))
+    where
+    discard = ["null", "UNKNOWN", "unknown", ""]
 
 -- stringToInt :: String -> Int
 -- stringToInt value read value :: Int
@@ -269,9 +274,10 @@ meaningFul =
 jsonText :: Value -> Text 
 jsonText = TL.toStrict . encodeToLazyText 
 
-boolToString :: Value -> String
-boolToString (Bool a) = show a
-boolToString a = show a"""
+convertToString :: Value -> String
+convertToString (Bool a) = show a
+convertToString (String a) = show a
+convertToString a = show a"""
     return data
 
         
@@ -280,15 +286,18 @@ boolToString a = show a"""
 
 
 
-pathWrite = '/home/akhilesh/Desktop/projects/atlas-sessionizer/app/BPP/PaymentOrder/Session.hs'
-pathWrite1 = '/home/akhilesh/Desktop/projects/atlas-sessionizer/app/BPP/PaymentOrder/Sessionizer.hs'
+pathWrite = '/Users/akhilesh.b/Desktop/atlas-sessionizer/app/BPP/PaymentOrder/Session.hs'
+pathWrite1 = '/Users/akhilesh.b/Desktop/atlas-sessionizer/app/BPP/PaymentOrder/Sessionizer.hs'
+bapOrBpp = 'BPP'
+myTable = "payment_order"
+schma = 'atlas_driver_offer_bpp'
+
 filePathSession = open(pathWrite, 'w')
 filePathSessionizer = open(pathWrite1, 'w')
 file_path = 'clear_tables.sql'
 # Read the SQL queries from the file
 with open(file_path, 'r') as file:
     sql_queries = file.read()
-myTable = "payment_order"
 
 # Split the content into individual queries
 queries = sql_queries.split(';')
@@ -297,18 +306,19 @@ for query in queries:
     if query.strip():  # Check if the query is not empty
         # print(f"Processing query: {query};")
         (schemaName, tableName) = getSchemaNameAndTableName(query)
-        if tableName == myTable:
+        if tableName == myTable and schma == schemaName:
             print( tableName, myTable)
             components = tableName.split('_')
             tableName = ''.join(x.title() for x in components) 
             # Extract column names and types from the SQL query
             columns = getColumnNameAndType(query)
+            print(columns)
             # Generate the session file
             sessionFile = generateSessionFile(columns, tableName)
             # Write the session file
             filePathSession.write(sessionFile)
             # Generate the sessionizer file
-            sessionizerFile = generateSessionizerFile(columns, tableName)
+            sessionizerFile = generateSessionizerFile(columns, tableName, bapOrBpp)
             # Write the sessionizer file
             filePathSessionizer.write(sessionizerFile)
             break

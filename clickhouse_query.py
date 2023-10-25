@@ -29,7 +29,7 @@ print(fileData)
 
 fileData = open("create_tables.sql", 'r')
 file_path = 'clear_tables.sql'
-newFile = open(file_path, 'a+')
+newFile = open(file_path, 'w')
 primaryKey = {}
 f = False
 tableName = ""
@@ -61,6 +61,7 @@ def getClickHouseType(sqlType):
         'integer': 'Int64',  # Mapping 'integer' to ClickHouse 'Int64'
         'smallint': 'Int64',  # Mapping 'smallint' to ClickHouse 'Int64'
         'real': 'Float64',  # Mapping 'real' to ClickHouse 'Float64'
+        'decimal' : 'Float64',
         'double': 'Float64',
         'timestamp': 'DateTime',
         'date': 'DateTime',
@@ -128,7 +129,7 @@ def materializedTable(columns, tableName,schemaName):
     if(tableName in primaryKey.keys()):
         primaryKeys = cleanPrimaryKeys(primaryKey[tableName])
         for keys in primaryKeys:
-            materializedQuery += f"\n\tJSONExtractString(Message, '{keys}') is not null"
+            materializedQuery += f"\n\tJSONExtractString(message, '{keys}') is not null"
     materializedQuery += '\n\n\n'
     # print(materializedQuery)
     return materializedQuery
@@ -174,7 +175,6 @@ for query in queries:
 
         clickhouse_create_table += "\nENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)\n"
         if tableName in primaryKey.keys():
-            clickhouse_create_table += f'PARTITION BY toStartOfWeek(created_at)\nPRIMARY KEY (created_at)\nORDER BY (created_at, {primaryKey[tableName]})\n'
             clickhouse_create_table += f'PARTITION BY toStartOfWeek(created_at)\nPRIMARY KEY (created_at)\nORDER BY (created_at, {primaryKey[tableName]})\n'
         clickhouse_create_table += "TTL created_at + toIntervalDay(365)\n"
         clickhouse_create_table += "SETTINGS index_granularity = 8192\n\n"
