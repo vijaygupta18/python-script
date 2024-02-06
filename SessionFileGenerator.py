@@ -208,7 +208,7 @@ logToSession{bapOrBPP}{tableName} value =
         data += f"""\t\t\ttransform{columnName} <*>\n"""
     data += "\t\t\ttransformTag\n"
     data += """\tin myDefaultValue {"""
-    data += f'''_{tableName[0].lower()+tableName[1:]}Session = Last session'''
+    data += f'''_{tableName[0].lower()+tableName[1:]} = Last session, _tag = First $ Just "_{tableName[0].lower()+tableName[1:]}"'''
     data += "}\n\n\n"
 
     # dataTypeDict = {}
@@ -286,10 +286,10 @@ convertToString a = show a"""
 
 
 
-pathWrite = '/Users/akhilesh.b/Desktop/atlas-sessionizer/app/BPP/PaymentOrder/Session.hs'
-pathWrite1 = '/Users/akhilesh.b/Desktop/atlas-sessionizer/app/BPP/PaymentOrder/Sessionizer.hs'
+pathWrite = '/Users/akhilesh.b/Desktop/atlas-sessionizer/app/BPP/DriverRcAssociation/Session.hs'
+pathWrite1 = '/Users/akhilesh.b/Desktop/atlas-sessionizer/app/BPP/DriverRcAssociation/Sessionizer.hs'
 bapOrBpp = 'BPP'
-myTable = "payment_order"
+myTable = "driver_rc_association"
 schma = 'atlas_driver_offer_bpp'
 
 filePathSession = open(pathWrite, 'w')

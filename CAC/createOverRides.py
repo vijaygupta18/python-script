@@ -24,7 +24,7 @@ table_names = ['driver_pool_config'] # NOTE: This works only for one table at a 
 env = 'dev'
 app = 'dobpp'
 cac_tgt_url = 'http://localhost:8080'
-tenant = 'atlas_driver_offer_bpp_v2'
+tenant = 'test'
 MAX_INT = 2147483000
 
 class TestFailed(Exception):
@@ -70,6 +70,7 @@ def get_default_configs(headers, table_name):
   if response.status_code != 200:
     raise TestFailed(f"Error: {response.status_code}! while Fetching defauklt cfgs Sad Broooooo")
   response = response.json()
+  print("Default Configs = ", response)
   table_name = convertOneToCamelCase(table_name)
   processed_resp = dict()
   for r in response:
@@ -113,11 +114,15 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
     m = len(res)
     override_data = {}
     for i in range(m):
-      override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = rm_sq(str(res[i])) # None is getting ignored 
+      if(":" in str(res[i])) and ("{" in str(res[i])):
+        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = (str(res[i])) # None is getting ignored 
+      else:
+        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = (str(res[i])) # None is getting ignored 
     headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer 12345678', 'x-tenant': f'{tenant}'}
     def_cfgs = get_default_configs(headers, table_name)
     diffed_data = {}
     if len(def_cfgs) != len(override_data):
+      print("lengths: ", len(def_cfgs), len(override_data))
       raise TestFailed("Error: Default config and override config length mismatch!")
     if def_cfgs.keys() != override_data.keys():
       raise TestFailed("Error: Default config and override config keys mismatch!")

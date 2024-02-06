@@ -82,7 +82,8 @@ CREATE TABLE atlas_app.booking (
     payment_url text,
     fulfillment_id text,
     driver_id text,
-    item_id text DEFAULT ''::text NOT NULL
+    item_id text DEFAULT ''::text NOT NULL,
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_app.booking_cancellation_reason (
     booking_id character(36) NOT NULL,
@@ -143,6 +144,13 @@ CREATE TABLE atlas_app.cancellation_reason (
     on_assign boolean DEFAULT true NOT NULL,
     priority smallint DEFAULT 0 NOT NULL
 );
+CREATE TABLE atlas_app.comment (
+    id character varying(255) NOT NULL,
+    issue_report_id character varying(255) NOT NULL,
+    author_id character varying(255) NOT NULL,
+    comment character varying(255) NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
 CREATE TABLE atlas_app.disability (
     id character varying(36) NOT NULL,
     tag character varying(255) NOT NULL,
@@ -166,7 +174,8 @@ CREATE TABLE atlas_app.driver_offer (
     merchant_id character(36),
     status character varying(255) DEFAULT 'ACTIVE'::character varying NOT NULL,
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    driver_id text
+    driver_id text,
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_app.estimate (
     id character(36) NOT NULL,
@@ -198,7 +207,8 @@ CREATE TABLE atlas_app.estimate (
     night_shift_charge integer,
     special_location_tag text,
     merchant_id character(36),
-    item_id text DEFAULT ''::text NOT NULL
+    item_id text DEFAULT ''::text NOT NULL,
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_app.estimate_breakup (
     id character(36) NOT NULL,
@@ -216,7 +226,8 @@ CREATE TABLE atlas_app.exophone (
     is_primary_down boolean NOT NULL,
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    call_service character varying(255) DEFAULT 'Exotel'::character varying NOT NULL
+    call_service character varying(255) DEFAULT 'Exotel'::character varying NOT NULL,
+    merchant_operating_city_id character(36) NOT NULL
 );
 CREATE TABLE atlas_app.fare_breakup (
     id character(36) NOT NULL,
@@ -235,7 +246,8 @@ CREATE TABLE atlas_app.feedback_form (
 CREATE TABLE atlas_app.geometry (
     region character varying(255) NOT NULL,
     geom public.geometry(MultiPolygon),
-    id character(36) DEFAULT atlas_app.uuid_generate_v4() NOT NULL
+    id character(36) DEFAULT atlas_app.uuid_generate_v4() NOT NULL,
+    city character varying(255) NOT NULL
 );
 CREATE TABLE atlas_app.hot_spot_config (
     id text,
@@ -264,6 +276,59 @@ CREATE TABLE atlas_app.issue (
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     ticket_id character varying(255),
     status character varying(255) DEFAULT 'OPEN'::character varying NOT NULL
+);
+CREATE TABLE atlas_app.issue_category (
+    id character varying(255) NOT NULL,
+    category character varying(255) NOT NULL,
+    logo_url character varying(255) NOT NULL,
+    priority integer DEFAULT 1 NOT NULL
+);
+CREATE TABLE atlas_app.issue_config (
+    id character(36) NOT NULL,
+    auto_mark_issue_closed_duration double precision,
+    on_auto_mark_issue_cls_msgs text[],
+    on_create_issue_msgs text[],
+    on_issue_reopen_msgs text[],
+    on_kapt_mark_issue_res_msgs text[]
+);
+CREATE TABLE atlas_app.issue_message (
+    id character(36) NOT NULL,
+    option_id character(36),
+    category_id character(36),
+    message character varying(1000) NOT NULL,
+    label text,
+    priority integer NOT NULL
+);
+CREATE TABLE atlas_app.issue_option (
+    id character varying(255) NOT NULL,
+    issue_category_id character varying(255),
+    issue_message_id character varying(255) NOT NULL,
+    option character varying(255) NOT NULL,
+    label text,
+    priority integer NOT NULL
+);
+CREATE TABLE atlas_app.issue_report (
+    id character varying(255) NOT NULL,
+    person_id character varying(255) NOT NULL,
+    ride_id character varying(255),
+    description character varying(255) NOT NULL,
+    assignee character varying(255),
+    status character varying(255) NOT NULL,
+    category_id character varying(255) NOT NULL,
+    option_id character varying(255),
+    deleted boolean,
+    media_files text[],
+    ticket_id character varying(255),
+    chats text[],
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    driver_id character(36)
+);
+CREATE TABLE atlas_app.issue_translation (
+    id character varying(255) NOT NULL,
+    sentence character varying(1000) NOT NULL,
+    translation character varying(1000) NOT NULL,
+    language character varying(255) NOT NULL
 );
 CREATE TABLE atlas_app.location (
     id character(36) NOT NULL,
@@ -308,6 +373,12 @@ CREATE TABLE atlas_app.location_mapping (
     "order" integer NOT NULL,
     version character varying(255) NOT NULL
 );
+CREATE TABLE atlas_app.media_file (
+    id character(36) NOT NULL,
+    type character(36) NOT NULL,
+    url text NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
 CREATE TABLE atlas_app.merchant (
     id character(36) NOT NULL,
     short_id character varying(255) NOT NULL,
@@ -335,7 +406,9 @@ CREATE TABLE atlas_app.merchant (
     minimum_driver_rates_count integer,
     is_avoid_toll boolean DEFAULT true NOT NULL,
     aadhaar_verification_try_limit integer NOT NULL,
-    aadhaar_key_expiry_time integer
+    aadhaar_key_expiry_time integer,
+    media_file_url_pattern text DEFAULT 'http://localhost:8013/v2/<DOMAIN>/media?filePath=<FILE_PATH>'::text NOT NULL,
+    media_file_size_upper_limit integer DEFAULT 10000000 NOT NULL
 );
 CREATE TABLE atlas_app.merchant_config (
     merchant_id character(36) NOT NULL,
@@ -349,14 +422,25 @@ CREATE TABLE atlas_app.merchant_config (
     id character(36) NOT NULL,
     enabled boolean DEFAULT true NOT NULL,
     fraud_ride_count_threshold integer DEFAULT 0 NOT NULL,
-    fraud_ride_count_window json DEFAULT '{"period":24, "periodType":"Hours"}'::json NOT NULL
+    fraud_ride_count_window json DEFAULT '{"period":24, "periodType":"Hours"}'::json NOT NULL,
+    merchant_operating_city_id character(36) NOT NULL
 );
 CREATE TABLE atlas_app.merchant_message (
     merchant_id character(36) NOT NULL,
     message_key character varying(255) NOT NULL,
-    message character varying(255) NOT NULL,
+    message text NOT NULL,
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    merchant_operating_city_id character(36) NOT NULL,
+    template_id character varying(255),
+    json_data json,
+    contains_url_button boolean DEFAULT false
+);
+CREATE TABLE atlas_app.merchant_operating_city (
+    id character(36) NOT NULL,
+    merchant_id character(36) NOT NULL,
+    merchant_short_id character varying(255) NOT NULL,
+    city character varying(255) NOT NULL
 );
 CREATE TABLE atlas_app.merchant_payment_method (
     id character(36) NOT NULL,
@@ -366,7 +450,8 @@ CREATE TABLE atlas_app.merchant_payment_method (
     collected_by character varying(30) NOT NULL,
     priority integer NOT NULL,
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    merchant_operating_city_id character(36) NOT NULL
 );
 CREATE TABLE atlas_app.merchant_service_config (
     merchant_id character(36) NOT NULL,
@@ -396,7 +481,8 @@ CREATE TABLE atlas_app.merchant_service_usage_config (
     enable_dashboard_sms boolean NOT NULL,
     issue_ticket_service character varying(30) DEFAULT 'Kapture'::character varying NOT NULL,
     get_exophone character varying(255) DEFAULT 'Exotel'::character varying NOT NULL,
-    aadhaar_verification_service character varying(30) NOT NULL
+    aadhaar_verification_service character varying(30) NOT NULL,
+    merchant_operating_city_id character(36) NOT NULL
 );
 CREATE TABLE atlas_app.on_search_event (
     id character(36) NOT NULL,
@@ -438,7 +524,10 @@ CREATE TABLE atlas_app.payment_order (
     mandate_start_date timestamp with time zone,
     mandate_end_date timestamp with time zone,
     bank_error_message text,
-    bank_error_code text
+    bank_error_code text,
+    is_retried boolean DEFAULT false NOT NULL,
+    is_retargeted boolean DEFAULT false NOT NULL,
+    retarget_link text
 );
 CREATE TABLE atlas_app.payment_transaction (
     id character(36) NOT NULL,
@@ -508,7 +597,9 @@ CREATE TABLE atlas_app.person (
     total_rating_score integer DEFAULT 0 NOT NULL,
     is_valid_rating boolean DEFAULT false NOT NULL,
     has_disability boolean,
-    aadhaar_verified boolean DEFAULT false NOT NULL
+    aadhaar_verified boolean DEFAULT false NOT NULL,
+    current_city character varying(255),
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_app.person_default_emergency_number (
     person_id character(36) NOT NULL,
@@ -606,7 +697,8 @@ CREATE TABLE atlas_app.quote (
     merchant_id character varying(36) DEFAULT 'da4e23a5-3ce6-4c37-8b9b-41377c3c1a51'::character varying NOT NULL,
     special_zone_quote_id character(36),
     special_location_tag text,
-    item_id text DEFAULT ''::text NOT NULL
+    item_id text DEFAULT ''::text NOT NULL,
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_app.quote_bak_1022 (
     id character(36),
@@ -711,7 +803,8 @@ CREATE TABLE atlas_app.ride (
     merchant_id character(36),
     traveled_distance numeric(30,2),
     driver_mobile_country_code text,
-    driver_image text
+    driver_image text,
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_app.ride_booking_bak_1022 (
     id character(36),
@@ -805,7 +898,8 @@ CREATE TABLE atlas_app.search_request (
     auto_assign_enabled_v2 boolean,
     available_payment_methods character(36)[] NOT NULL,
     selected_payment_method_id character(36),
-    disability_tag character(255)
+    disability_tag character(255),
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_app.search_request_bak_1022 (
     id character(36),
@@ -885,6 +979,62 @@ CREATE TABLE atlas_app.tag_category_mapping (
     tag character varying(255) NOT NULL,
     category character varying(255) NOT NULL,
     created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+CREATE TABLE atlas_app.ticket_booking (
+    id character(36) NOT NULL,
+    short_id character varying(36) NOT NULL,
+    merchant_operating_city_id character(36),
+    ticket_place_id character(36),
+    person_id character(36),
+    amount numeric(30,2) NOT NULL,
+    visit_date date NOT NULL,
+    status character varying(10) NOT NULL,
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+CREATE TABLE atlas_app.ticket_booking_service (
+    id character(36) NOT NULL,
+    short_id character varying(36) NOT NULL,
+    ticket_booking_id character(36),
+    ticket_service_id character(36),
+    amount numeric(30,2) NOT NULL,
+    status character varying(10) NOT NULL,
+    verification_count integer DEFAULT 0,
+    expiry_date timestamp with time zone,
+    merchant_operating_city_id character(36),
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+CREATE TABLE atlas_app.ticket_booking_service_price_breakup (
+    ticket_booking_service_id character(36),
+    attendee_type character varying(36) NOT NULL,
+    number_of_units integer NOT NULL,
+    price_per_unit numeric(30,2) NOT NULL
+);
+CREATE TABLE atlas_app.ticket_place (
+    id character(36) NOT NULL,
+    merchant_operating_city_id character(36),
+    name text NOT NULL,
+    description text,
+    lat double precision,
+    lon double precision,
+    gallery text[],
+    open_timings time without time zone,
+    close_timings time without time zone
+);
+CREATE TABLE atlas_app.ticket_service (
+    id character(36) NOT NULL,
+    places_id character(36),
+    service character varying(50) NOT NULL,
+    max_verification integer DEFAULT 1 NOT NULL,
+    open_timings time without time zone,
+    close_timings time without time zone,
+    validity_timings time without time zone
+);
+CREATE TABLE atlas_app.ticket_service_price (
+    ticket_service_id character(36) NOT NULL,
+    attendee_type character varying(36) NOT NULL,
+    price_per_unit numeric(30,2) NOT NULL
 );
 CREATE TABLE atlas_app.trip_terms (
     id character(36) NOT NULL,
@@ -971,7 +1121,8 @@ CREATE TABLE atlas_driver_offer_bpp.booking (
     bap_city text,
     bap_country text,
     payment_url text,
-    disability_tag text
+    disability_tag text,
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_driver_offer_bpp.booking_cancellation_reason (
     driver_id character(36),
@@ -1076,7 +1227,8 @@ CREATE TABLE atlas_driver_offer_bpp.driver_fee (
     autopay_payment_stage text,
     fee_without_discount integer,
     collected_at timestamp without time zone,
-    scheduler_try_count integer DEFAULT 1 NOT NULL
+    scheduler_try_count integer DEFAULT 1 NOT NULL,
+    overlay_sent boolean DEFAULT false NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.driver_flow_status (
     person_id character(36) NOT NULL,
@@ -1152,7 +1304,8 @@ CREATE TABLE atlas_driver_offer_bpp.driver_intelligent_pool_config (
     location_update_sample_time integer DEFAULT 3,
     min_location_updates integer DEFAULT 3,
     default_driver_speed double precision DEFAULT 27.0,
-    actual_pickup_distance_weightage integer DEFAULT 0 NOT NULL
+    actual_pickup_distance_weightage integer DEFAULT 0 NOT NULL,
+    merchant_operating_city_id character(36) NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.driver_license (
     id character(36) NOT NULL,
@@ -1213,7 +1366,9 @@ CREATE TABLE atlas_driver_offer_bpp.driver_pool_config (
     driver_to_destination_distance_threshold bigint DEFAULT 300,
     driver_to_destination_duration bigint DEFAULT 10,
     distance_based_batch_split text[] DEFAULT ARRAY['BatchSplitByPickupDistance { batchSplitSize = 1, batchSplitDelay = 0 }'::text, 'BatchSplitByPickupDistance { batchSplitSize = 1, batchSplitDelay = 4 }'::text] NOT NULL,
-    vehicle_variant character varying(255)
+    vehicle_variant character varying(255),
+    merchant_operating_city_id character(36) NOT NULL,
+    id character(36) NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.driver_quote (
     id character(36) NOT NULL,
@@ -1291,7 +1446,8 @@ CREATE TABLE atlas_driver_offer_bpp.exophone (
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     exophone_type character varying(255) DEFAULT 'CALL_RIDE'::character varying NOT NULL,
-    call_service character varying(255) DEFAULT 'Exotel'::character varying NOT NULL
+    call_service character varying(255) DEFAULT 'Exotel'::character varying NOT NULL,
+    merchant_operating_city_id character(36) NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.fare_parameters (
     id character(36) NOT NULL,
@@ -1382,7 +1538,8 @@ CREATE TABLE atlas_driver_offer_bpp.fare_product (
     fare_policy_id character(36) NOT NULL,
     vehicle_variant character varying(60) NOT NULL,
     area text NOT NULL,
-    flow character varying(60) NOT NULL
+    flow character varying(60) NOT NULL,
+    merchant_operating_city_id character(36) NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.feedback (
     id character(36) NOT NULL,
@@ -1418,7 +1575,8 @@ CREATE TABLE atlas_driver_offer_bpp.fleet_driver_association (
 CREATE TABLE atlas_driver_offer_bpp.geometry (
     id character(36) DEFAULT atlas_driver_offer_bpp.uuid_generate_v4() NOT NULL,
     region character varying(255) NOT NULL,
-    geom public.geometry(MultiPolygon)
+    geom public.geometry(MultiPolygon),
+    city character varying(255) NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.go_home_config (
     merchant_id character(36) NOT NULL,
@@ -1437,7 +1595,8 @@ CREATE TABLE atlas_driver_offer_bpp.go_home_config (
     updated_at timestamp with time zone NOT NULL,
     ignore_waypoints_till integer DEFAULT 3000 NOT NULL,
     add_start_waypoint_at integer DEFAULT 3000 NOT NULL,
-    new_loc_allowed_radius integer DEFAULT 20 NOT NULL
+    new_loc_allowed_radius integer DEFAULT 20 NOT NULL,
+    merchant_operating_city_id character(36) NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.idfy_verification (
     id character(36) NOT NULL,
@@ -1486,12 +1645,32 @@ CREATE TABLE atlas_driver_offer_bpp.invoice (
 CREATE TABLE atlas_driver_offer_bpp.issue_category (
     id character(36) NOT NULL,
     category character varying(255) NOT NULL,
-    logo_url character varying(255) NOT NULL
+    logo_url character varying(255) NOT NULL,
+    priority integer DEFAULT 1 NOT NULL
+);
+CREATE TABLE atlas_driver_offer_bpp.issue_config (
+    id character(36) NOT NULL,
+    auto_mark_issue_closed_duration double precision,
+    on_auto_mark_issue_cls_msgs text[],
+    on_create_issue_msgs text[],
+    on_issue_reopen_msgs text[],
+    on_kapt_mark_issue_res_msgs text[]
+);
+CREATE TABLE atlas_driver_offer_bpp.issue_message (
+    id character(36) NOT NULL,
+    option_id character(36),
+    category_id character(36),
+    message character varying(255) NOT NULL,
+    label text,
+    priority integer NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.issue_option (
     id character(36) NOT NULL,
     issue_category_id character(36) NOT NULL,
-    option character varying(255) NOT NULL
+    option character varying(255) NOT NULL,
+    priority integer DEFAULT 1 NOT NULL,
+    label text,
+    issue_message_id character varying(255)
 );
 CREATE TABLE atlas_driver_offer_bpp.issue_report (
     id character varying(255) NOT NULL,
@@ -1506,7 +1685,9 @@ CREATE TABLE atlas_driver_offer_bpp.issue_report (
     updated_at timestamp without time zone NOT NULL,
     category_id character(36) NOT NULL,
     option_id character(36),
-    ticket_id character varying(255)
+    ticket_id character varying(255),
+    person_id character(36),
+    chats text[]
 );
 CREATE TABLE atlas_driver_offer_bpp.issue_translation (
     id character(36) NOT NULL,
@@ -1537,7 +1718,8 @@ CREATE TABLE atlas_driver_offer_bpp.leader_board_configs (
     z_score_base integer NOT NULL,
     leader_board_length_limit integer NOT NULL,
     merchant_id character(36),
-    is_enabled boolean DEFAULT true NOT NULL
+    is_enabled boolean DEFAULT true NOT NULL,
+    merchant_operating_city_id character(36) NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.location (
     id character(36) NOT NULL,
@@ -1614,9 +1796,19 @@ CREATE TABLE atlas_driver_offer_bpp.merchant (
 CREATE TABLE atlas_driver_offer_bpp.merchant_message (
     merchant_id character(36) NOT NULL,
     message_key character varying(255) NOT NULL,
-    message character varying(255) NOT NULL,
+    message text NOT NULL,
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    template_id character varying(255),
+    json_data json,
+    contains_url_button boolean DEFAULT false,
+    merchant_operating_city_id character(36) NOT NULL
+);
+CREATE TABLE atlas_driver_offer_bpp.merchant_operating_city (
+    id character(36) NOT NULL,
+    merchant_id character(36) NOT NULL,
+    merchant_short_id character varying(255) NOT NULL,
+    city character varying(255) NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.merchant_overlay (
     id character(36) NOT NULL,
@@ -1633,7 +1825,13 @@ CREATE TABLE atlas_driver_offer_bpp.merchant_overlay (
     link text,
     req_body json DEFAULT json_build_object() NOT NULL,
     end_point text,
-    method text
+    method text,
+    delay integer,
+    contact_support_number text,
+    toast_message text,
+    secondary_actions text,
+    social_media_links json,
+    merchant_operating_city_id character(36) NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.merchant_payment_method (
     id character(36) NOT NULL,
@@ -1643,7 +1841,8 @@ CREATE TABLE atlas_driver_offer_bpp.merchant_payment_method (
     collected_by character varying(30) NOT NULL,
     priority integer NOT NULL,
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    merchant_operating_city_id character(36) NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.merchant_service_config (
     merchant_id character(36) NOT NULL,
@@ -1673,7 +1872,9 @@ CREATE TABLE atlas_driver_offer_bpp.merchant_service_usage_config (
     aadhaar_verification_service character varying(30) NOT NULL,
     face_verification_service character varying(30),
     issue_ticket_service character varying(30) DEFAULT 'Kapture'::character varying NOT NULL,
-    get_exophone character varying(255) DEFAULT 'Exotel'::character varying NOT NULL
+    get_exophone character varying(255) DEFAULT 'Exotel'::character varying NOT NULL,
+    merchant_operating_city_id character(36) NOT NULL,
+    snap_to_road_providers_list text[] DEFAULT '{OSRM,Google}'::text[] NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.message (
     id character(36) NOT NULL,
@@ -1733,7 +1934,9 @@ CREATE TABLE atlas_driver_offer_bpp.notification (
     last_updated timestamp with time zone NOT NULL,
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL,
-    last_status_checked_at timestamp with time zone
+    last_status_checked_at timestamp with time zone,
+    response_code text,
+    response_message text
 );
 CREATE TABLE atlas_driver_offer_bpp.onboarding_document_configs (
     merchant_id character(36) NOT NULL,
@@ -1744,7 +1947,9 @@ CREATE TABLE atlas_driver_offer_bpp.onboarding_document_configs (
     created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     rc_number_prefix text DEFAULT 'KA'::text NOT NULL,
-    supported_vehicle_classes_json json NOT NULL
+    supported_vehicle_classes_json json NOT NULL,
+    merchant_operating_city_id character(36) NOT NULL,
+    rc_number_prefix_list text[]
 );
 CREATE TABLE atlas_driver_offer_bpp.operating_city (
     id character(36) NOT NULL,
@@ -1785,7 +1990,10 @@ CREATE TABLE atlas_driver_offer_bpp.payment_order (
     mandate_start_date timestamp with time zone,
     mandate_end_date timestamp with time zone,
     bank_error_message text,
-    bank_error_code text
+    bank_error_code text,
+    is_retried boolean DEFAULT false NOT NULL,
+    is_retargeted boolean DEFAULT false NOT NULL,
+    retarget_link text
 );
 CREATE TABLE atlas_driver_offer_bpp.payment_transaction (
     id character(36) NOT NULL,
@@ -1846,7 +2054,8 @@ CREATE TABLE atlas_driver_offer_bpp.person (
     hometown character varying(255),
     languages_spoken text[] DEFAULT '{}'::text[],
     onboarded_from_dashboard boolean DEFAULT false,
-    face_image_id character(36)
+    face_image_id character(36),
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_driver_offer_bpp.place_name_cache (
     id character(36) NOT NULL,
@@ -1921,7 +2130,8 @@ CREATE TABLE atlas_driver_offer_bpp.registration_token (
     created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     alternate_number_attempts integer DEFAULT 5 NOT NULL,
-    merchant_id text DEFAULT 'favorit0-0000-0000-0000-00000favorit'::text NOT NULL
+    merchant_id text DEFAULT 'favorit0-0000-0000-0000-00000favorit'::text NOT NULL,
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_driver_offer_bpp.registry_map_fallback (
     subscriber_id character(36) NOT NULL,
@@ -1957,7 +2167,9 @@ CREATE TABLE atlas_driver_offer_bpp.ride (
     number_of_snap_to_road_calls integer,
     driver_go_home_request_id character(36),
     ui_distance_calculation_with_accuracy integer,
-    ui_distance_calculation_without_accuracy integer
+    ui_distance_calculation_without_accuracy integer,
+    merchant_operating_city_id character(36),
+    number_of_osrm_snap_to_road_calls integer
 );
 CREATE TABLE atlas_driver_offer_bpp.ride_details (
     id character(36) NOT NULL,
@@ -2024,7 +2236,8 @@ CREATE TABLE atlas_driver_offer_bpp.search_request (
     area text,
     bap_city text,
     bap_country text,
-    disability_tag text
+    disability_tag text,
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_driver_offer_bpp.search_request_for_driver (
     id character(36) NOT NULL,
@@ -2055,7 +2268,8 @@ CREATE TABLE atlas_driver_offer_bpp.search_request_for_driver (
     search_try_id character(36) NOT NULL,
     keep_hidden_for_seconds integer DEFAULT 0 NOT NULL,
     merchant_id character(36),
-    go_home_request_id character(36)
+    go_home_request_id character(36),
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_driver_offer_bpp.search_request_location (
     id character(36) NOT NULL,
@@ -2088,7 +2302,8 @@ CREATE TABLE atlas_driver_offer_bpp.search_request_special_zone (
     estimated_distance integer,
     created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    area text
+    area text,
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_driver_offer_bpp.search_try (
     id character(36) NOT NULL,
@@ -2105,7 +2320,8 @@ CREATE TABLE atlas_driver_offer_bpp.search_try (
     request_id character(36) NOT NULL,
     search_repeat_type character varying(255) NOT NULL,
     base_fare integer NOT NULL,
-    merchant_id character(36)
+    merchant_id character(36),
+    merchant_operating_city_id character(36)
 );
 CREATE TABLE atlas_driver_offer_bpp.special_location (
     id character(36) NOT NULL,
@@ -2200,7 +2416,14 @@ CREATE TABLE atlas_driver_offer_bpp.transporter_config (
     enable_face_verification boolean DEFAULT false,
     rating_as_decimal boolean DEFAULT false NOT NULL,
     refill_vehicle_model boolean DEFAULT false NOT NULL,
-    avg_speed_of_vehicle json
+    avg_speed_of_vehicle json,
+    driver_fee_overlay_sending_time_limit_in_days integer DEFAULT 15 NOT NULL,
+    overlay_batch_size integer DEFAULT 50 NOT NULL,
+    volunteer_sms_sending_limit json,
+    driver_sms_receiving_limit json,
+    merchant_operating_city_id character(36) NOT NULL,
+    snap_to_road_confidence_threshold double precision DEFAULT 0.75 NOT NULL,
+    use_with_snap_to_road_fallback boolean DEFAULT true NOT NULL
 );
 CREATE TABLE atlas_driver_offer_bpp.vehicle (
     driver_id character(36) NOT NULL,

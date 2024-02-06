@@ -300,6 +300,7 @@ CREATE TABLE atlas_app_helper.booking_shard ON CLUSTER `{cluster}`
     `fulfillment_id` Nullable (String),
     `driver_id` Nullable (String),
     `item_id` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -348,6 +349,7 @@ CREATE MATERIALIZED VIEW atlas_app.booking ON CLUSTER `{cluster}` TO atlas_app.b
 	`fulfillment_id` String,
 	`driver_id` String,
 	`item_id` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -383,6 +385,7 @@ CREATE MATERIALIZED VIEW atlas_app.booking ON CLUSTER `{cluster}` TO atlas_app.b
 	ifNull(JSONExtractString(message,'fulfillment_id'),'') as fulfillment_id,
 	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
 	ifNull(JSONExtractString(message,'item_id'),'') as item_id,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'BookingObject'
@@ -661,6 +664,46 @@ CREATE MATERIALIZED VIEW atlas_app.cancellation_reason ON CLUSTER `{cluster}` TO
 	JSONExtractString(message, 'reason_code') is not null
 
 
+CREATE TABLE atlas_app_helper.comment_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `issue_report_id` Nullable (String),
+    `author_id` Nullable (String),
+    `comment` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.comment ON CLUSTER `{cluster}` AS atlas_app_helper.comment_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, comment_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.comment ON CLUSTER `{cluster}` TO atlas_app.comment_mv
+(
+	`id` String,
+	`issue_report_id` String,
+	`author_id` String,
+	`comment` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'issue_report_id'),'') as issue_report_id,
+	ifNull(JSONExtractString(message,'author_id'),'') as author_id,
+	ifNull(JSONExtractString(message,'comment'),'') as comment,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'CommentObject'
+	JSONExtractString(message, 'id') is not null
+
+
 CREATE TABLE atlas_app_helper.disability_shard ON CLUSTER `{cluster}`
     (
     `id` Nullable (String),
@@ -738,6 +781,7 @@ CREATE TABLE atlas_app_helper.driver_offer_shard ON CLUSTER `{cluster}`
     `status` Nullable (String),
     `updated_at` DateTime DEFAULT now(),
     `driver_id` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -765,6 +809,7 @@ CREATE MATERIALIZED VIEW atlas_app.driver_offer ON CLUSTER `{cluster}` TO atlas_
 	`status` String,
 	`updated_at` DateTime,
 	`driver_id` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -779,6 +824,7 @@ CREATE MATERIALIZED VIEW atlas_app.driver_offer ON CLUSTER `{cluster}` TO atlas_
 	ifNull(JSONExtractString(message,'status'),'') as status,
 	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
 	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'DriverOfferObject'
@@ -817,6 +863,7 @@ CREATE TABLE atlas_app_helper.estimate_shard ON CLUSTER `{cluster}`
     `special_location_tag` Nullable (String),
     `merchant_id` Nullable (String),
     `item_id` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -862,6 +909,7 @@ CREATE MATERIALIZED VIEW atlas_app.estimate ON CLUSTER `{cluster}` TO atlas_app.
 	`special_location_tag` String,
 	`merchant_id` String,
 	`item_id` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -894,6 +942,7 @@ CREATE MATERIALIZED VIEW atlas_app.estimate ON CLUSTER `{cluster}` TO atlas_app.
 	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
 	ifNull(JSONExtractString(message,'item_id'),'') as item_id,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'EstimateObject'
@@ -953,6 +1002,7 @@ CREATE TABLE atlas_app_helper.exophone_shard ON CLUSTER `{cluster}`
     `updated_at` DateTime DEFAULT now(),
     `created_at` DateTime DEFAULT now(),
     `call_service` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -976,6 +1026,7 @@ CREATE MATERIALIZED VIEW atlas_app.exophone ON CLUSTER `{cluster}` TO atlas_app.
 	`updated_at` DateTime,
 	`created_at` DateTime,
 	`call_service` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -986,6 +1037,7 @@ CREATE MATERIALIZED VIEW atlas_app.exophone ON CLUSTER `{cluster}` TO atlas_app.
 	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
 	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
 	ifNull(JSONExtractString(message,'call_service'),'') as call_service,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'ExophoneObject'
@@ -1035,7 +1087,7 @@ CREATE TABLE atlas_app_helper.feedback_form_shard ON CLUSTER `{cluster}`
     `id` String,
     `rating` Nullable (String),
     `question` Nullable (String),
-    `answer` Nullable (String),
+    `answer` Nullable (Array(String)),
     `answer_type` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
@@ -1056,7 +1108,7 @@ CREATE MATERIALIZED VIEW atlas_app.feedback_form ON CLUSTER `{cluster}` TO atlas
 	`id` String,
 	`rating` String,
 	`question` String,
-	`answer` String,
+	`answer` Array(String),
 	`answer_type` String,
 )
 	AS SELECT
@@ -1064,7 +1116,7 @@ CREATE MATERIALIZED VIEW atlas_app.feedback_form ON CLUSTER `{cluster}` TO atlas
 	ifNull(JSONExtractString(message,'id'),'') as id,
 	ifNull(JSONExtractString(message,'rating'),'') as rating,
 	ifNull(JSONExtractString(message,'question'),'') as question,
-	ifNull(JSONExtractString(message,'answer'),'') as answer,
+	toDateTime(JSONExtractInt(message,'answer')) as answer,
 	ifNull(JSONExtractString(message,'answer_type'),'') as answer_type,
 
 	FROM atlas_app.bap_main_queue
@@ -1077,6 +1129,7 @@ CREATE TABLE atlas_app_helper.geometry_shard ON CLUSTER `{cluster}`
     `region` Nullable (String),
     `geom` Nullable (String),
     `id` String,
+    `city` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -1095,11 +1148,13 @@ CREATE MATERIALIZED VIEW atlas_app.geometry ON CLUSTER `{cluster}` TO atlas_app.
 	`region` String,
 	`geom` String,
 	`id` String,
+	`city` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'region'),'') as region,
 	ifNull(JSONExtractString(message,'geom'),'') as geom,
 	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'city'),'') as city,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'GeometryObject'
@@ -1218,6 +1273,279 @@ CREATE MATERIALIZED VIEW atlas_app.issue ON CLUSTER `{cluster}` TO atlas_app.iss
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'IssueObject'
+
+
+CREATE TABLE atlas_app_helper.issue_category_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `category` Nullable (String),
+    `logo_url` Nullable (String),
+    `priority` Nullable (Int64),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.issue_category ON CLUSTER `{cluster}` AS atlas_app_helper.issue_category_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, issue_category_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.issue_category ON CLUSTER `{cluster}` TO atlas_app.issue_category_mv
+(
+	`id` String,
+	`category` String,
+	`logo_url` String,
+	`priority` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'category'),'') as category,
+	ifNull(JSONExtractString(message,'logo_url'),'') as logo_url,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'IssueCategoryObject'
+	JSONExtractString(message, 'id') is not null
+
+
+CREATE TABLE atlas_app_helper.issue_config_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `auto_mark_issue_closed_duration` Nullable (Float64),
+    `on_auto_mark_issue_cls_msgs` Nullable (String),
+    `on_create_issue_msgs` Nullable (String),
+    `on_issue_reopen_msgs` Nullable (String),
+    `on_kapt_mark_issue_res_msgs` Nullable (Array(String)),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.issue_config ON CLUSTER `{cluster}` AS atlas_app_helper.issue_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, issue_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.issue_config ON CLUSTER `{cluster}` TO atlas_app.issue_config_mv
+(
+	`id` String,
+	`auto_mark_issue_closed_duration` Float64,
+	`on_auto_mark_issue_cls_msgs` String,
+	`on_create_issue_msgs` String,
+	`on_issue_reopen_msgs` String,
+	`on_kapt_mark_issue_res_msgs` Array(String),
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'auto_mark_issue_closed_duration'),0.0) as auto_mark_issue_closed_duration,
+	ifNull(JSONExtractString(message,'on_auto_mark_issue_cls_msgs'),'') as on_auto_mark_issue_cls_msgs,
+	ifNull(JSONExtractString(message,'on_create_issue_msgs'),'') as on_create_issue_msgs,
+	ifNull(JSONExtractString(message,'on_issue_reopen_msgs'),'') as on_issue_reopen_msgs,
+	toDateTime(JSONExtractInt(message,'on_kapt_mark_issue_res_msgs')) as on_kapt_mark_issue_res_msgs,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'IssueConfigObject'
+	JSONExtractString(message, 'id') is not null
+
+
+CREATE TABLE atlas_app_helper.issue_message_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `option_id` Nullable (String),
+    `category_id` Nullable (String),
+    `message` Nullable (String),
+    `label` Nullable (String),
+    `priority` Nullable (Int64),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.issue_message ON CLUSTER `{cluster}` AS atlas_app_helper.issue_message_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, issue_message_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.issue_message ON CLUSTER `{cluster}` TO atlas_app.issue_message_mv
+(
+	`id` String,
+	`option_id` String,
+	`category_id` String,
+	`message` String,
+	`label` String,
+	`priority` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'option_id'),'') as option_id,
+	ifNull(JSONExtractString(message,'category_id'),'') as category_id,
+	ifNull(JSONExtractString(message,'message'),'') as message,
+	ifNull(JSONExtractString(message,'label'),'') as label,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'IssueMessageObject'
+	JSONExtractString(message, 'id') is not null
+
+
+CREATE TABLE atlas_app_helper.issue_option_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `issue_category_id` Nullable (String),
+    `issue_message_id` Nullable (String),
+    `option` Nullable (String),
+    `label` Nullable (String),
+    `priority` Nullable (Int64),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.issue_option ON CLUSTER `{cluster}` AS atlas_app_helper.issue_option_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, issue_option_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.issue_option ON CLUSTER `{cluster}` TO atlas_app.issue_option_mv
+(
+	`id` String,
+	`issue_category_id` String,
+	`issue_message_id` String,
+	`option` String,
+	`label` String,
+	`priority` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'issue_category_id'),'') as issue_category_id,
+	ifNull(JSONExtractString(message,'issue_message_id'),'') as issue_message_id,
+	ifNull(JSONExtractString(message,'option'),'') as option,
+	ifNull(JSONExtractString(message,'label'),'') as label,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'IssueOptionObject'
+	JSONExtractString(message, 'id') is not null
+
+
+CREATE TABLE atlas_app_helper.issue_report_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `person_id` Nullable (String),
+    `ride_id` Nullable (String),
+    `description` Nullable (String),
+    `assignee` Nullable (String),
+    `status` Nullable (String),
+    `category_id` Nullable (String),
+    `option_id` Nullable (String),
+    `deleted` Nullable (String),
+    `media_files` Nullable (String),
+    `ticket_id` Nullable (String),
+    `chats` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `driver_id` Nullable (String),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.issue_report ON CLUSTER `{cluster}` AS atlas_app_helper.issue_report_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, issue_report_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.issue_report ON CLUSTER `{cluster}` TO atlas_app.issue_report_mv
+(
+	`id` String,
+	`person_id` String,
+	`ride_id` String,
+	`description` String,
+	`assignee` String,
+	`status` String,
+	`category_id` String,
+	`option_id` String,
+	`deleted` String,
+	`media_files` String,
+	`ticket_id` String,
+	`chats` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+	`driver_id` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'ride_id'),'') as ride_id,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractString(message,'assignee'),'') as assignee,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractString(message,'category_id'),'') as category_id,
+	ifNull(JSONExtractString(message,'option_id'),'') as option_id,
+	ifNull(JSONExtractString(message,'deleted'),'') as deleted,
+	ifNull(JSONExtractString(message,'media_files'),'') as media_files,
+	ifNull(JSONExtractString(message,'ticket_id'),'') as ticket_id,
+	ifNull(JSONExtractString(message,'chats'),'') as chats,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'IssueReportObject'
+	JSONExtractString(message, 'id') is not null
+
+
+CREATE TABLE atlas_app_helper.issue_translation_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `sentence` Nullable (String),
+    `translation` Nullable (String),
+    `language` Nullable (String),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.issue_translation ON CLUSTER `{cluster}` AS atlas_app_helper.issue_translation_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, issue_translation_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.issue_translation ON CLUSTER `{cluster}` TO atlas_app.issue_translation_mv
+(
+	`id` String,
+	`sentence` String,
+	`translation` String,
+	`language` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'sentence'),'') as sentence,
+	ifNull(JSONExtractString(message,'translation'),'') as translation,
+	ifNull(JSONExtractString(message,'language'),'') as language,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'IssueTranslationObject'
+	JSONExtractString(message, 'id') is not null
 
 
 CREATE TABLE atlas_app_helper.location_shard ON CLUSTER `{cluster}`
@@ -1402,6 +1730,43 @@ CREATE MATERIALIZED VIEW atlas_app.location_mapping ON CLUSTER `{cluster}` TO at
 	JSONExtractString(message, 'id') is not null
 
 
+CREATE TABLE atlas_app_helper.media_file_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `type` Nullable (String),
+    `url` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.media_file ON CLUSTER `{cluster}` AS atlas_app_helper.media_file_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, media_file_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.media_file ON CLUSTER `{cluster}` TO atlas_app.media_file_mv
+(
+	`id` String,
+	`type` String,
+	`url` String,
+	`created_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'type'),'') as type,
+	ifNull(JSONExtractString(message,'url'),'') as url,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'MediaFileObject'
+	JSONExtractString(message, 'id') is not null
+
+
 CREATE TABLE atlas_app_helper.merchant_shard ON CLUSTER `{cluster}`
     (
     `id` String,
@@ -1430,7 +1795,9 @@ CREATE TABLE atlas_app_helper.merchant_shard ON CLUSTER `{cluster}`
     `minimum_driver_rates_count` Nullable (String),
     `is_avoid_toll` Nullable (String),
     `aadhaar_verification_try_limit` Nullable (Int64),
-    `aadhaar_key_expiry_time` Nullable (Int64),
+    `aadhaar_key_expiry_time` Nullable (String),
+    `media_file_url_pattern` Nullable (String),
+    `media_file_size_upper_limit` Nullable (Int64),
     `date` DateTime DEFAULT now()
 	)
 
@@ -1472,7 +1839,9 @@ CREATE MATERIALIZED VIEW atlas_app.merchant ON CLUSTER `{cluster}` TO atlas_app.
 	`minimum_driver_rates_count` String,
 	`is_avoid_toll` String,
 	`aadhaar_verification_try_limit` Int64,
-	`aadhaar_key_expiry_time` Int64,
+	`aadhaar_key_expiry_time` String,
+	`media_file_url_pattern` String,
+	`media_file_size_upper_limit` Int64,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -1501,7 +1870,9 @@ CREATE MATERIALIZED VIEW atlas_app.merchant ON CLUSTER `{cluster}` TO atlas_app.
 	ifNull(JSONExtractString(message,'minimum_driver_rates_count'),'') as minimum_driver_rates_count,
 	ifNull(JSONExtractString(message,'is_avoid_toll'),'') as is_avoid_toll,
 	ifNull(JSONExtractInt(message,'aadhaar_verification_try_limit'), 0) as aadhaar_verification_try_limit,
-	ifNull(JSONExtractInt(message,'aadhaar_key_expiry_time'), 0) as aadhaar_key_expiry_time,
+	ifNull(JSONExtractString(message,'aadhaar_key_expiry_time'),'') as aadhaar_key_expiry_time,
+	ifNull(JSONExtractString(message,'media_file_url_pattern'),'') as media_file_url_pattern,
+	ifNull(JSONExtractInt(message,'media_file_size_upper_limit'), 0) as media_file_size_upper_limit,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'MerchantObject'
@@ -1522,6 +1893,7 @@ CREATE TABLE atlas_app_helper.merchant_config_shard ON CLUSTER `{cluster}`
     `enabled` Nullable (String),
     `fraud_ride_count_threshold` Nullable (Int64),
     `fraud_ride_count_window` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -1549,6 +1921,7 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_config ON CLUSTER `{cluster}` TO atl
 	`enabled` String,
 	`fraud_ride_count_threshold` Int64,
 	`fraud_ride_count_window` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
@@ -1563,6 +1936,7 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_config ON CLUSTER `{cluster}` TO atl
 	ifNull(JSONExtractString(message,'enabled'),'') as enabled,
 	ifNull(JSONExtractInt(message,'fraud_ride_count_threshold'), 0) as fraud_ride_count_threshold,
 	ifNull(JSONExtractString(message,'fraud_ride_count_window'),'') as fraud_ride_count_window,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'MerchantConfigObject'
@@ -1571,18 +1945,22 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_config ON CLUSTER `{cluster}` TO atl
 
 CREATE TABLE atlas_app_helper.merchant_message_shard ON CLUSTER `{cluster}`
     (
-    `merchant_id` String,
+    `merchant_id` Nullable (String),
     `message_key` String,
     `message` String,
     `updated_at` DateTime DEFAULT now(),
     `created_at` DateTime DEFAULT now(),
+    `merchant_operating_city_id` String,
+    `template_id` Nullable (String),
+    `json_data` Nullable (String),
+    `contains_url_button` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
 ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
 PARTITION BY toStartOfWeek(created_at)
 PRIMARY KEY (created_at)
-ORDER BY (created_at, (merchant_id, message_key))
+ORDER BY (created_at, (merchant_operating_city_id, message_key))
 TTL created_at + toIntervalDay(365)
 SETTINGS index_granularity = 8192
 
@@ -1596,6 +1974,10 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_message ON CLUSTER `{cluster}` TO at
 	`message` String,
 	`updated_at` DateTime,
 	`created_at` DateTime,
+	`merchant_operating_city_id` String,
+	`template_id` String,
+	`json_data` String,
+	`contains_url_button` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
@@ -1603,11 +1985,52 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_message ON CLUSTER `{cluster}` TO at
 	ifNull(JSONExtractString(message,'message'),'') as message,
 	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
 	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
+	ifNull(JSONExtractString(message,'template_id'),'') as template_id,
+	ifNull(JSONExtractString(message,'json_data'),'') as json_data,
+	ifNull(JSONExtractString(message,'contains_url_button'),'') as contains_url_button,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'MerchantMessageObject'
-	JSONExtractString(message, 'merchant_id') is not null
+	JSONExtractString(message, 'merchant_operating_city_id') is not null
 	JSONExtractString(message, ' message_key') is not null
+
+
+CREATE TABLE atlas_app_helper.merchant_operating_city_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `merchant_id` Nullable (String),
+    `merchant_short_id` Nullable (String),
+    `city` Nullable (String),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.merchant_operating_city ON CLUSTER `{cluster}` AS atlas_app_helper.merchant_operating_city_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, merchant_operating_city_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.merchant_operating_city ON CLUSTER `{cluster}` TO atlas_app.merchant_operating_city_mv
+(
+	`id` String,
+	`merchant_id` String,
+	`merchant_short_id` String,
+	`city` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'merchant_short_id'),'') as merchant_short_id,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'MerchantOperatingCityObject'
+	JSONExtractString(message, 'id') is not null
 
 
 CREATE TABLE atlas_app_helper.merchant_payment_method_shard ON CLUSTER `{cluster}`
@@ -1620,6 +2043,7 @@ CREATE TABLE atlas_app_helper.merchant_payment_method_shard ON CLUSTER `{cluster
     `priority` Nullable (Int64),
     `updated_at` DateTime DEFAULT now(),
     `created_at` DateTime DEFAULT now(),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -1643,6 +2067,7 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_payment_method ON CLUSTER `{cluster}
 	`priority` Int64,
 	`updated_at` DateTime,
 	`created_at` DateTime,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -1653,6 +2078,7 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_payment_method ON CLUSTER `{cluster}
 	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
 	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
 	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'MerchantPaymentMethodObject'
@@ -1702,7 +2128,7 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_service_config ON CLUSTER `{cluster}
 
 CREATE TABLE atlas_app_helper.merchant_service_usage_config_shard ON CLUSTER `{cluster}`
     (
-    `merchant_id` String,
+    `merchant_id` Nullable (String),
     `get_distances` Nullable (String),
     `get_routes` Nullable (String),
     `snap_to_road` Nullable (String),
@@ -1711,8 +2137,8 @@ CREATE TABLE atlas_app_helper.merchant_service_usage_config_shard ON CLUSTER `{c
     `auto_complete` Nullable (String),
     `updated_at` DateTime DEFAULT now(),
     `created_at` DateTime DEFAULT now(),
-    `sms_providers_priority_list` Nullable (String),
-    `whatsapp_providers_priority_list` Nullable (String),
+    `sms_providers_priority_list` Nullable (Array(String)),
+    `whatsapp_providers_priority_list` Nullable (Array(String)),
     `initiate_call` Nullable (String),
     `get_pickup_routes` Nullable (String),
     `get_trip_routes` Nullable (String),
@@ -1723,13 +2149,14 @@ CREATE TABLE atlas_app_helper.merchant_service_usage_config_shard ON CLUSTER `{c
     `issue_ticket_service` Nullable (String),
     `get_exophone` Nullable (String),
     `aadhaar_verification_service` Nullable (String),
+    `merchant_operating_city_id` String,
     `date` DateTime DEFAULT now()
 	)
 
 ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
 PARTITION BY toStartOfWeek(created_at)
 PRIMARY KEY (created_at)
-ORDER BY (created_at, (merchant_id))
+ORDER BY (created_at, (merchant_operating_city_id))
 TTL created_at + toIntervalDay(365)
 SETTINGS index_granularity = 8192
 
@@ -1747,8 +2174,8 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_service_usage_config ON CLUSTER `{cl
 	`auto_complete` String,
 	`updated_at` DateTime,
 	`created_at` DateTime,
-	`sms_providers_priority_list` String,
-	`whatsapp_providers_priority_list` String,
+	`sms_providers_priority_list` Array(String),
+	`whatsapp_providers_priority_list` Array(String),
 	`initiate_call` String,
 	`get_pickup_routes` String,
 	`get_trip_routes` String,
@@ -1759,6 +2186,7 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_service_usage_config ON CLUSTER `{cl
 	`issue_ticket_service` String,
 	`get_exophone` String,
 	`aadhaar_verification_service` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
@@ -1770,8 +2198,8 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_service_usage_config ON CLUSTER `{cl
 	ifNull(JSONExtractString(message,'auto_complete'),'') as auto_complete,
 	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
 	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
-	ifNull(JSONExtractString(message,'sms_providers_priority_list'),'') as sms_providers_priority_list,
-	ifNull(JSONExtractString(message,'whatsapp_providers_priority_list'),'') as whatsapp_providers_priority_list,
+	toDateTime(JSONExtractInt(message,'sms_providers_priority_list')) as sms_providers_priority_list,
+	toDateTime(JSONExtractInt(message,'whatsapp_providers_priority_list')) as whatsapp_providers_priority_list,
 	ifNull(JSONExtractString(message,'initiate_call'),'') as initiate_call,
 	ifNull(JSONExtractString(message,'get_pickup_routes'),'') as get_pickup_routes,
 	ifNull(JSONExtractString(message,'get_trip_routes'),'') as get_trip_routes,
@@ -1782,10 +2210,11 @@ CREATE MATERIALIZED VIEW atlas_app.merchant_service_usage_config ON CLUSTER `{cl
 	ifNull(JSONExtractString(message,'issue_ticket_service'),'') as issue_ticket_service,
 	ifNull(JSONExtractString(message,'get_exophone'),'') as get_exophone,
 	ifNull(JSONExtractString(message,'aadhaar_verification_service'),'') as aadhaar_verification_service,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'MerchantServiceUsageConfigObject'
-	JSONExtractString(message, 'merchant_id') is not null
+	JSONExtractString(message, 'merchant_operating_city_id') is not null
 
 
 CREATE TABLE atlas_app_helper.on_search_event_shard ON CLUSTER `{cluster}`
@@ -1867,6 +2296,9 @@ CREATE TABLE atlas_app_helper.payment_order_shard ON CLUSTER `{cluster}`
     `mandate_end_date` DateTime DEFAULT now(),
     `bank_error_message` Nullable (String),
     `bank_error_code` Nullable (String),
+    `is_retried` Nullable (String),
+    `is_retargeted` Nullable (String),
+    `retarget_link` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -1913,6 +2345,9 @@ CREATE MATERIALIZED VIEW atlas_app.payment_order ON CLUSTER `{cluster}` TO atlas
 	`mandate_end_date` DateTime,
 	`bank_error_message` String,
 	`bank_error_code` String,
+	`is_retried` String,
+	`is_retargeted` String,
+	`retarget_link` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -1946,6 +2381,9 @@ CREATE MATERIALIZED VIEW atlas_app.payment_order ON CLUSTER `{cluster}` TO atlas
 	toDateTime(JSONExtractInt(message,'mandate_end_date')) as mandate_end_date,
 	ifNull(JSONExtractString(message,'bank_error_message'),'') as bank_error_message,
 	ifNull(JSONExtractString(message,'bank_error_code'),'') as bank_error_code,
+	ifNull(JSONExtractString(message,'is_retried'),'') as is_retried,
+	ifNull(JSONExtractString(message,'is_retargeted'),'') as is_retargeted,
+	ifNull(JSONExtractString(message,'retarget_link'),'') as retarget_link,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'PaymentOrderObject'
@@ -2095,6 +2533,8 @@ CREATE TABLE atlas_app_helper.person_shard ON CLUSTER `{cluster}`
     `is_valid_rating` Nullable (String),
     `has_disability` Nullable (String),
     `aadhaar_verified` Nullable (String),
+    `current_city` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -2151,6 +2591,8 @@ CREATE MATERIALIZED VIEW atlas_app.person ON CLUSTER `{cluster}` TO atlas_app.pe
 	`is_valid_rating` String,
 	`has_disability` String,
 	`aadhaar_verified` String,
+	`current_city` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -2194,6 +2636,8 @@ CREATE MATERIALIZED VIEW atlas_app.person ON CLUSTER `{cluster}` TO atlas_app.pe
 	ifNull(JSONExtractString(message,'is_valid_rating'),'') as is_valid_rating,
 	ifNull(JSONExtractString(message,'has_disability'),'') as has_disability,
 	ifNull(JSONExtractString(message,'aadhaar_verified'),'') as aadhaar_verified,
+	ifNull(JSONExtractString(message,'current_city'),'') as current_city,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'PersonObject'
@@ -2385,7 +2829,7 @@ CREATE TABLE atlas_app_helper.place_name_cache_shard ON CLUSTER `{cluster}`
     `lat` Nullable (Float64),
     `lon` Nullable (Float64),
     `place_id` Nullable (String),
-    `address_components` Nullable (String),
+    `address_components` Nullable (Array(String)),
     `geo_hash` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
@@ -2408,7 +2852,7 @@ CREATE MATERIALIZED VIEW atlas_app.place_name_cache ON CLUSTER `{cluster}` TO at
 	`lat` Float64,
 	`lon` Float64,
 	`place_id` String,
-	`address_components` String,
+	`address_components` Array(String),
 	`geo_hash` String,
 )
 	AS SELECT
@@ -2418,7 +2862,7 @@ CREATE MATERIALIZED VIEW atlas_app.place_name_cache ON CLUSTER `{cluster}` TO at
 	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
 	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
 	ifNull(JSONExtractString(message,'place_id'),'') as place_id,
-	ifNull(JSONExtractString(message,'address_components'),'') as address_components,
+	toDateTime(JSONExtractInt(message,'address_components')) as address_components,
 	ifNull(JSONExtractString(message,'geo_hash'),'') as geo_hash,
 
 	FROM atlas_app.bap_main_queue
@@ -2558,6 +3002,7 @@ CREATE TABLE atlas_app_helper.quote_shard ON CLUSTER `{cluster}`
     `special_zone_quote_id` Nullable (String),
     `special_location_tag` Nullable (String),
     `item_id` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -2595,6 +3040,7 @@ CREATE MATERIALIZED VIEW atlas_app.quote ON CLUSTER `{cluster}` TO atlas_app.quo
 	`special_zone_quote_id` String,
 	`special_location_tag` String,
 	`item_id` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -2619,6 +3065,7 @@ CREATE MATERIALIZED VIEW atlas_app.quote ON CLUSTER `{cluster}` TO atlas_app.quo
 	ifNull(JSONExtractString(message,'special_zone_quote_id'),'') as special_zone_quote_id,
 	ifNull(JSONExtractString(message,'special_location_tag'),'') as special_location_tag,
 	ifNull(JSONExtractString(message,'item_id'),'') as item_id,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'QuoteObject'
@@ -2997,6 +3444,7 @@ CREATE TABLE atlas_app_helper.ride_shard ON CLUSTER `{cluster}`
     `traveled_distance` Nullable (String),
     `driver_mobile_country_code` Nullable (String),
     `driver_image` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -3040,6 +3488,7 @@ CREATE MATERIALIZED VIEW atlas_app.ride ON CLUSTER `{cluster}` TO atlas_app.ride
 	`traveled_distance` String,
 	`driver_mobile_country_code` String,
 	`driver_image` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -3070,6 +3519,7 @@ CREATE MATERIALIZED VIEW atlas_app.ride ON CLUSTER `{cluster}` TO atlas_app.ride
 	ifNull(JSONExtractString(message,'traveled_distance'),'') as traveled_distance,
 	ifNull(JSONExtractString(message,'driver_mobile_country_code'),'') as driver_mobile_country_code,
 	ifNull(JSONExtractString(message,'driver_image'),'') as driver_image,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'RideObject'
@@ -3376,6 +3826,7 @@ CREATE TABLE atlas_app_helper.search_request_shard ON CLUSTER `{cluster}`
     `available_payment_methods` Nullable (String),
     `selected_payment_method_id` Nullable (String),
     `disability_tag` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -3412,6 +3863,7 @@ CREATE MATERIALIZED VIEW atlas_app.search_request ON CLUSTER `{cluster}` TO atla
 	`available_payment_methods` String,
 	`selected_payment_method_id` String,
 	`disability_tag` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -3435,6 +3887,7 @@ CREATE MATERIALIZED VIEW atlas_app.search_request ON CLUSTER `{cluster}` TO atla
 	ifNull(JSONExtractString(message,'available_payment_methods'),'') as available_payment_methods,
 	ifNull(JSONExtractString(message,'selected_payment_method_id'),'') as selected_payment_method_id,
 	ifNull(JSONExtractString(message,'disability_tag'),'') as disability_tag,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'SearchRequestObject'
@@ -3667,7 +4120,7 @@ CREATE TABLE atlas_app_helper.special_location_shard ON CLUSTER `{cluster}`
     `id` String,
     `location_name` Nullable (String),
     `category` Nullable (String),
-    `gates` Nullable (String),
+    `gates` Nullable (Array(String)),
     `geom` Nullable (String),
     `created_at` DateTime DEFAULT now(),
     `date` DateTime DEFAULT now()
@@ -3688,7 +4141,7 @@ CREATE MATERIALIZED VIEW atlas_app.special_location ON CLUSTER `{cluster}` TO at
 	`id` String,
 	`location_name` String,
 	`category` String,
-	`gates` String,
+	`gates` Array(String),
 	`geom` String,
 	`created_at` DateTime,
 )
@@ -3696,7 +4149,7 @@ CREATE MATERIALIZED VIEW atlas_app.special_location ON CLUSTER `{cluster}` TO at
 	ifNull(JSONExtractString(message,'id'),'') as id,
 	ifNull(JSONExtractString(message,'location_name'),'') as location_name,
 	ifNull(JSONExtractString(message,'category'),'') as category,
-	ifNull(JSONExtractString(message,'gates'),'') as gates,
+	toDateTime(JSONExtractInt(message,'gates')) as gates,
 	ifNull(JSONExtractString(message,'geom'),'') as geom,
 	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
 
@@ -3820,6 +4273,285 @@ CREATE MATERIALIZED VIEW atlas_app.tag_category_mapping ON CLUSTER `{cluster}` T
 	FROM atlas_app.bap_main_queue
 	where JSONExtractString(message,'tag') = 'TagCategoryMappingObject'
 	JSONExtractString(message, 'tag') is not null
+
+
+CREATE TABLE atlas_app_helper.ticket_booking_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `short_id` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
+    `ticket_place_id` Nullable (String),
+    `person_id` Nullable (String),
+    `amount` Nullable (String),
+    `visit_date` DateTime DEFAULT now(),
+    `status` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.ticket_booking ON CLUSTER `{cluster}` AS atlas_app_helper.ticket_booking_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, ticket_booking_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.ticket_booking ON CLUSTER `{cluster}` TO atlas_app.ticket_booking_mv
+(
+	`id` String,
+	`short_id` String,
+	`merchant_operating_city_id` String,
+	`ticket_place_id` String,
+	`person_id` String,
+	`amount` String,
+	`visit_date` DateTime,
+	`status` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
+	ifNull(JSONExtractString(message,'ticket_place_id'),'') as ticket_place_id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	ifNull(JSONExtractString(message,'amount'),'') as amount,
+	toDateTime(JSONExtractInt(message,'visit_date')) as visit_date,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'TicketBookingObject'
+	JSONExtractString(message, 'id') is not null
+
+
+CREATE TABLE atlas_app_helper.ticket_booking_service_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `short_id` Nullable (String),
+    `ticket_booking_id` Nullable (String),
+    `ticket_service_id` Nullable (String),
+    `amount` Nullable (String),
+    `status` Nullable (String),
+    `verification_count` Nullable (Int64),
+    `expiry_date` DateTime DEFAULT now(),
+    `merchant_operating_city_id` Nullable (String),
+    `created_at` DateTime DEFAULT now(),
+    `updated_at` DateTime DEFAULT now(),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.ticket_booking_service ON CLUSTER `{cluster}` AS atlas_app_helper.ticket_booking_service_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, ticket_booking_service_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.ticket_booking_service ON CLUSTER `{cluster}` TO atlas_app.ticket_booking_service_mv
+(
+	`id` String,
+	`short_id` String,
+	`ticket_booking_id` String,
+	`ticket_service_id` String,
+	`amount` String,
+	`status` String,
+	`verification_count` Int64,
+	`expiry_date` DateTime,
+	`merchant_operating_city_id` String,
+	`created_at` DateTime,
+	`updated_at` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
+	ifNull(JSONExtractString(message,'ticket_booking_id'),'') as ticket_booking_id,
+	ifNull(JSONExtractString(message,'ticket_service_id'),'') as ticket_service_id,
+	ifNull(JSONExtractString(message,'amount'),'') as amount,
+	ifNull(JSONExtractString(message,'status'),'') as status,
+	ifNull(JSONExtractInt(message,'verification_count'), 0) as verification_count,
+	toDateTime(JSONExtractInt(message,'expiry_date')) as expiry_date,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
+	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'TicketBookingServiceObject'
+	JSONExtractString(message, 'id') is not null
+
+
+CREATE TABLE atlas_app_helper.ticket_booking_service_price_breakup_shard ON CLUSTER `{cluster}`
+    (
+    `ticket_booking_service_id` Nullable (String),
+    `attendee_type` Nullable (String),
+    `number_of_units` Nullable (Int64),
+    `price_per_unit` Nullable (String),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.ticket_booking_service_price_breakup ON CLUSTER `{cluster}` AS atlas_app_helper.ticket_booking_service_price_breakup_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, ticket_booking_service_price_breakup_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.ticket_booking_service_price_breakup ON CLUSTER `{cluster}` TO atlas_app.ticket_booking_service_price_breakup_mv
+(
+	`ticket_booking_service_id` String,
+	`attendee_type` String,
+	`number_of_units` Int64,
+	`price_per_unit` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'ticket_booking_service_id'),'') as ticket_booking_service_id,
+	ifNull(JSONExtractString(message,'attendee_type'),'') as attendee_type,
+	ifNull(JSONExtractInt(message,'number_of_units'), 0) as number_of_units,
+	ifNull(JSONExtractString(message,'price_per_unit'),'') as price_per_unit,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'TicketBookingServicePriceBreakupObject'
+
+
+CREATE TABLE atlas_app_helper.ticket_place_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `merchant_operating_city_id` Nullable (String),
+    `name` Nullable (String),
+    `description` Nullable (String),
+    `lat` Nullable (Float64),
+    `lon` Nullable (Float64),
+    `gallery` Nullable (String),
+    `open_timings` DateTime DEFAULT now(),
+    `close_timings` DateTime DEFAULT now(),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.ticket_place ON CLUSTER `{cluster}` AS atlas_app_helper.ticket_place_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, ticket_place_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.ticket_place ON CLUSTER `{cluster}` TO atlas_app.ticket_place_mv
+(
+	`id` String,
+	`merchant_operating_city_id` String,
+	`name` String,
+	`description` String,
+	`lat` Float64,
+	`lon` Float64,
+	`gallery` String,
+	`open_timings` DateTime,
+	`close_timings` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
+	ifNull(JSONExtractString(message,'name'),'') as name,
+	ifNull(JSONExtractString(message,'description'),'') as description,
+	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
+	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
+	ifNull(JSONExtractString(message,'gallery'),'') as gallery,
+	toDateTime(JSONExtractInt(message,'open_timings')) as open_timings,
+	toDateTime(JSONExtractInt(message,'close_timings')) as close_timings,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'TicketPlaceObject'
+	JSONExtractString(message, 'id') is not null
+
+
+CREATE TABLE atlas_app_helper.ticket_service_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `places_id` Nullable (String),
+    `service` Nullable (String),
+    `max_verification` Nullable (Int64),
+    `open_timings` DateTime DEFAULT now(),
+    `close_timings` DateTime DEFAULT now(),
+    `validity_timings` DateTime DEFAULT now(),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.ticket_service ON CLUSTER `{cluster}` AS atlas_app_helper.ticket_service_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, ticket_service_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.ticket_service ON CLUSTER `{cluster}` TO atlas_app.ticket_service_mv
+(
+	`id` String,
+	`places_id` String,
+	`service` String,
+	`max_verification` Int64,
+	`open_timings` DateTime,
+	`close_timings` DateTime,
+	`validity_timings` DateTime,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'places_id'),'') as places_id,
+	ifNull(JSONExtractString(message,'service'),'') as service,
+	ifNull(JSONExtractInt(message,'max_verification'), 0) as max_verification,
+	toDateTime(JSONExtractInt(message,'open_timings')) as open_timings,
+	toDateTime(JSONExtractInt(message,'close_timings')) as close_timings,
+	toDateTime(JSONExtractInt(message,'validity_timings')) as validity_timings,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'TicketServiceObject'
+	JSONExtractString(message, 'id') is not null
+
+
+CREATE TABLE atlas_app_helper.ticket_service_price_shard ON CLUSTER `{cluster}`
+    (
+    `ticket_service_id` String,
+    `attendee_type` String,
+    `price_per_unit` Nullable (String),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (ticket_service_id, attendee_type))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_app.ticket_service_price ON CLUSTER `{cluster}` AS atlas_app_helper.ticket_service_price_shard
+ENGINE = Distributed(`{cluster}`, atlas_app_helper, ticket_service_price_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_app.ticket_service_price ON CLUSTER `{cluster}` TO atlas_app.ticket_service_price_mv
+(
+	`ticket_service_id` String,
+	`attendee_type` String,
+	`price_per_unit` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'ticket_service_id'),'') as ticket_service_id,
+	ifNull(JSONExtractString(message,'attendee_type'),'') as attendee_type,
+	ifNull(JSONExtractString(message,'price_per_unit'),'') as price_per_unit,
+
+	FROM atlas_app.bap_main_queue
+	where JSONExtractString(message,'tag') = 'TicketServicePriceObject'
+	JSONExtractString(message, 'ticket_service_id') is not null
+	JSONExtractString(message, ' attendee_type') is not null
 
 
 CREATE TABLE atlas_app_helper.trip_terms_shard ON CLUSTER `{cluster}`
@@ -4152,6 +4884,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.booking_shard ON CLUSTER `{cluster}`
     `bap_country` Nullable (String),
     `payment_url` Nullable (String),
     `disability_tag` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -4197,6 +4930,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.booking ON CLUSTER `{cluster}` T
 	`bap_country` String,
 	`payment_url` String,
 	`disability_tag` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -4229,6 +4963,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.booking ON CLUSTER `{cluster}` T
 	ifNull(JSONExtractString(message,'bap_country'),'') as bap_country,
 	ifNull(JSONExtractString(message,'payment_url'),'') as payment_url,
 	ifNull(JSONExtractString(message,'disability_tag'),'') as disability_tag,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'BookingObject'
@@ -4648,6 +5383,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.driver_fee_shard ON CLUSTER `{cluster
     `fee_without_discount` Nullable (String),
     `collected_at` DateTime DEFAULT now(),
     `scheduler_try_count` Nullable (Int64),
+    `overlay_sent` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -4688,6 +5424,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_fee ON CLUSTER `{cluster}
 	`fee_without_discount` String,
 	`collected_at` DateTime,
 	`scheduler_try_count` Int64,
+	`overlay_sent` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -4715,6 +5452,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_fee ON CLUSTER `{cluster}
 	ifNull(JSONExtractString(message,'fee_without_discount'),'') as fee_without_discount,
 	toDateTime(JSONExtractInt(message,'collected_at')) as collected_at,
 	ifNull(JSONExtractInt(message,'scheduler_try_count'), 0) as scheduler_try_count,
+	ifNull(JSONExtractString(message,'overlay_sent'),'') as overlay_sent,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'DriverFeeObject'
@@ -4967,7 +5705,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_information ON CLUSTER `{
 
 CREATE TABLE atlas_driver_offer_bpp_helper.driver_intelligent_pool_config_shard ON CLUSTER `{cluster}`
     (
-    `merchant_id` String,
+    `merchant_id` Nullable (String),
     `availability_time_weightage` Nullable (Int64),
     `acceptance_ratio_weightage` Nullable (Int64),
     `cancellation_ratio_weightage` Nullable (Int64),
@@ -4985,13 +5723,14 @@ CREATE TABLE atlas_driver_offer_bpp_helper.driver_intelligent_pool_config_shard 
     `min_location_updates` Nullable (Int64),
     `default_driver_speed` Nullable (Float64),
     `actual_pickup_distance_weightage` Nullable (Int64),
+    `merchant_operating_city_id` String,
     `date` DateTime DEFAULT now()
 	)
 
 ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
 PARTITION BY toStartOfWeek(created_at)
 PRIMARY KEY (created_at)
-ORDER BY (created_at, (merchant_id))
+ORDER BY (created_at, (merchant_operating_city_id))
 TTL created_at + toIntervalDay(365)
 SETTINGS index_granularity = 8192
 
@@ -5018,6 +5757,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_intelligent_pool_config O
 	`min_location_updates` Int64,
 	`default_driver_speed` Float64,
 	`actual_pickup_distance_weightage` Int64,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
@@ -5038,10 +5778,11 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_intelligent_pool_config O
 	ifNull(JSONExtractInt(message,'min_location_updates'), 0) as min_location_updates,
 	ifNull(JSONExtractFloat(message,'default_driver_speed'),0.0) as default_driver_speed,
 	ifNull(JSONExtractInt(message,'actual_pickup_distance_weightage'), 0) as actual_pickup_distance_weightage,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'DriverIntelligentPoolConfigObject'
-	JSONExtractString(message, 'merchant_id') is not null
+	JSONExtractString(message, 'merchant_operating_city_id') is not null
 
 
 CREATE TABLE atlas_driver_offer_bpp_helper.driver_license_shard ON CLUSTER `{cluster}`
@@ -5206,7 +5947,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_plan ON CLUSTER `{cluster
 
 CREATE TABLE atlas_driver_offer_bpp_helper.driver_pool_config_shard ON CLUSTER `{cluster}`
     (
-    `merchant_id` String,
+    `merchant_id` Nullable (String),
     `min_radius_of_search` Nullable (Int64),
     `max_radius_of_search` Nullable (Int64),
     `radius_step_size` Nullable (Int64),
@@ -5220,21 +5961,23 @@ CREATE TABLE atlas_driver_offer_bpp_helper.driver_pool_config_shard ON CLUSTER `
     `max_parallel_search_requests` Nullable (Int64),
     `pool_sorting_type` Nullable (String),
     `single_batch_process_time` Nullable (String),
-    `trip_distance` Int64,
+    `trip_distance` Nullable (Int64),
     `created_at` DateTime DEFAULT now(),
     `updated_at` DateTime DEFAULT now(),
     `radius_shrink_value_for_drivers_on_ride` Nullable (Int64),
     `driver_to_destination_distance_threshold` Nullable (Int64),
     `driver_to_destination_duration` Nullable (Int64),
-    `distance_based_batch_split` Nullable (String),
+    `distance_based_batch_split` Nullable (Array(String)),
     `vehicle_variant` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
+    `id` String,
     `date` DateTime DEFAULT now()
 	)
 
 ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
 PARTITION BY toStartOfWeek(created_at)
 PRIMARY KEY (created_at)
-ORDER BY (created_at, (merchant_id, trip_distance))
+ORDER BY (created_at, (id))
 TTL created_at + toIntervalDay(365)
 SETTINGS index_granularity = 8192
 
@@ -5263,8 +6006,10 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_pool_config ON CLUSTER `{
 	`radius_shrink_value_for_drivers_on_ride` Int64,
 	`driver_to_destination_distance_threshold` Int64,
 	`driver_to_destination_duration` Int64,
-	`distance_based_batch_split` String,
+	`distance_based_batch_split` Array(String),
 	`vehicle_variant` String,
+	`merchant_operating_city_id` String,
+	`id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
@@ -5287,13 +6032,14 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.driver_pool_config ON CLUSTER `{
 	ifNull(JSONExtractInt(message,'radius_shrink_value_for_drivers_on_ride'), 0) as radius_shrink_value_for_drivers_on_ride,
 	ifNull(JSONExtractInt(message,'driver_to_destination_distance_threshold'), 0) as driver_to_destination_distance_threshold,
 	ifNull(JSONExtractInt(message,'driver_to_destination_duration'), 0) as driver_to_destination_duration,
-	ifNull(JSONExtractString(message,'distance_based_batch_split'),'') as distance_based_batch_split,
+	toDateTime(JSONExtractInt(message,'distance_based_batch_split')) as distance_based_batch_split,
 	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
+	ifNull(JSONExtractString(message,'id'),'') as id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'DriverPoolConfigObject'
-	JSONExtractString(message, 'merchant_id') is not null
-	JSONExtractString(message, ' trip_distance') is not null
+	JSONExtractString(message, 'id') is not null
 
 
 CREATE TABLE atlas_driver_offer_bpp_helper.driver_quote_shard ON CLUSTER `{cluster}`
@@ -5527,7 +6273,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.estimate_shard ON CLUSTER `{cluster}`
     `vehicle_variant` Nullable (String),
     `min_fare` Nullable (Int64),
     `max_fare` Nullable (Int64),
-    `estimate_breakup_list` Nullable (String),
+    `estimate_breakup_list` Nullable (Array(String)),
     `night_shift_multiplier` Nullable (String),
     `night_shift_start` Nullable (String),
     `night_shift_end` Nullable (String),
@@ -5556,7 +6302,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.estimate ON CLUSTER `{cluster}` 
 	`vehicle_variant` String,
 	`min_fare` Int64,
 	`max_fare` Int64,
-	`estimate_breakup_list` String,
+	`estimate_breakup_list` Array(String),
 	`night_shift_multiplier` String,
 	`night_shift_start` String,
 	`night_shift_end` String,
@@ -5572,7 +6318,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.estimate ON CLUSTER `{cluster}` 
 	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
 	ifNull(JSONExtractInt(message,'min_fare'), 0) as min_fare,
 	ifNull(JSONExtractInt(message,'max_fare'), 0) as max_fare,
-	ifNull(JSONExtractString(message,'estimate_breakup_list'),'') as estimate_breakup_list,
+	toDateTime(JSONExtractInt(message,'estimate_breakup_list')) as estimate_breakup_list,
 	ifNull(JSONExtractString(message,'night_shift_multiplier'),'') as night_shift_multiplier,
 	ifNull(JSONExtractString(message,'night_shift_start'),'') as night_shift_start,
 	ifNull(JSONExtractString(message,'night_shift_end'),'') as night_shift_end,
@@ -5599,6 +6345,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.exophone_shard ON CLUSTER `{cluster}`
     `created_at` DateTime DEFAULT now(),
     `exophone_type` Nullable (String),
     `call_service` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -5623,6 +6370,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.exophone ON CLUSTER `{cluster}` 
 	`created_at` DateTime,
 	`exophone_type` String,
 	`call_service` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -5634,6 +6382,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.exophone ON CLUSTER `{cluster}` 
 	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
 	ifNull(JSONExtractString(message,'exophone_type'),'') as exophone_type,
 	ifNull(JSONExtractString(message,'call_service'),'') as call_service,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'ExophoneObject'
@@ -6060,6 +6809,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.fare_product_shard ON CLUSTER `{clust
     `vehicle_variant` Nullable (String),
     `area` Nullable (String),
     `flow` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -6081,6 +6831,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_product ON CLUSTER `{cluste
 	`vehicle_variant` String,
 	`area` String,
 	`flow` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -6089,6 +6840,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.fare_product ON CLUSTER `{cluste
 	ifNull(JSONExtractString(message,'vehicle_variant'),'') as vehicle_variant,
 	ifNull(JSONExtractString(message,'area'),'') as area,
 	ifNull(JSONExtractString(message,'flow'),'') as flow,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'FareProductObject'
@@ -6184,7 +6936,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.feedback_form_shard ON CLUSTER `{clus
     `id` String,
     `rating` Nullable (String),
     `question` Nullable (String),
-    `answer` Nullable (String),
+    `answer` Nullable (Array(String)),
     `answer_type` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
@@ -6205,7 +6957,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.feedback_form ON CLUSTER `{clust
 	`id` String,
 	`rating` String,
 	`question` String,
-	`answer` String,
+	`answer` Array(String),
 	`answer_type` String,
 )
 	AS SELECT
@@ -6213,7 +6965,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.feedback_form ON CLUSTER `{clust
 	ifNull(JSONExtractString(message,'id'),'') as id,
 	ifNull(JSONExtractString(message,'rating'),'') as rating,
 	ifNull(JSONExtractString(message,'question'),'') as question,
-	ifNull(JSONExtractString(message,'answer'),'') as answer,
+	toDateTime(JSONExtractInt(message,'answer')) as answer,
 	ifNull(JSONExtractString(message,'answer_type'),'') as answer_type,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
@@ -6269,6 +7021,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.geometry_shard ON CLUSTER `{cluster}`
     `id` String,
     `region` Nullable (String),
     `geom` Nullable (String),
+    `city` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -6287,11 +7040,13 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.geometry ON CLUSTER `{cluster}` 
 	`id` String,
 	`region` String,
 	`geom` String,
+	`city` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
 	ifNull(JSONExtractString(message,'region'),'') as region,
 	ifNull(JSONExtractString(message,'geom'),'') as geom,
+	ifNull(JSONExtractString(message,'city'),'') as city,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'GeometryObject'
@@ -6300,7 +7055,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.geometry ON CLUSTER `{cluster}` 
 
 CREATE TABLE atlas_driver_offer_bpp_helper.go_home_config_shard ON CLUSTER `{cluster}`
     (
-    `merchant_id` String,
+    `merchant_id` Nullable (String),
     `enable_go_home` Nullable (String),
     `start_cnt` Nullable (Int64),
     `dest_radius_meters` Nullable (Int64),
@@ -6317,13 +7072,14 @@ CREATE TABLE atlas_driver_offer_bpp_helper.go_home_config_shard ON CLUSTER `{clu
     `ignore_waypoints_till` Nullable (Int64),
     `add_start_waypoint_at` Nullable (Int64),
     `new_loc_allowed_radius` Nullable (Int64),
+    `merchant_operating_city_id` String,
     `date` DateTime DEFAULT now()
 	)
 
 ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
 PARTITION BY toStartOfWeek(created_at)
 PRIMARY KEY (created_at)
-ORDER BY (created_at, (merchant_id))
+ORDER BY (created_at, (merchant_operating_city_id))
 TTL created_at + toIntervalDay(365)
 SETTINGS index_granularity = 8192
 
@@ -6349,6 +7105,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.go_home_config ON CLUSTER `{clus
 	`ignore_waypoints_till` Int64,
 	`add_start_waypoint_at` Int64,
 	`new_loc_allowed_radius` Int64,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
@@ -6368,10 +7125,11 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.go_home_config ON CLUSTER `{clus
 	ifNull(JSONExtractInt(message,'ignore_waypoints_till'), 0) as ignore_waypoints_till,
 	ifNull(JSONExtractInt(message,'add_start_waypoint_at'), 0) as add_start_waypoint_at,
 	ifNull(JSONExtractInt(message,'new_loc_allowed_radius'), 0) as new_loc_allowed_radius,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'GoHomeConfigObject'
-	JSONExtractString(message, 'merchant_id') is not null
+	JSONExtractString(message, 'merchant_operating_city_id') is not null
 
 
 CREATE TABLE atlas_driver_offer_bpp_helper.idfy_verification_shard ON CLUSTER `{cluster}`
@@ -6561,6 +7319,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.issue_category_shard ON CLUSTER `{clu
     `id` String,
     `category` Nullable (String),
     `logo_url` Nullable (String),
+    `priority` Nullable (Int64),
     `date` DateTime DEFAULT now()
 	)
 
@@ -6579,14 +7338,102 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_category ON CLUSTER `{clus
 	`id` String,
 	`category` String,
 	`logo_url` String,
+	`priority` Int64,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
 	ifNull(JSONExtractString(message,'category'),'') as category,
 	ifNull(JSONExtractString(message,'logo_url'),'') as logo_url,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'IssueCategoryObject'
+	JSONExtractString(message, 'id') is not null
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_config_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `auto_mark_issue_closed_duration` Nullable (Float64),
+    `on_auto_mark_issue_cls_msgs` Nullable (String),
+    `on_create_issue_msgs` Nullable (String),
+    `on_issue_reopen_msgs` Nullable (String),
+    `on_kapt_mark_issue_res_msgs` Nullable (Array(String)),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.issue_config ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.issue_config_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, issue_config_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_config ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.issue_config_mv
+(
+	`id` String,
+	`auto_mark_issue_closed_duration` Float64,
+	`on_auto_mark_issue_cls_msgs` String,
+	`on_create_issue_msgs` String,
+	`on_issue_reopen_msgs` String,
+	`on_kapt_mark_issue_res_msgs` Array(String),
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractFloat(message,'auto_mark_issue_closed_duration'),0.0) as auto_mark_issue_closed_duration,
+	ifNull(JSONExtractString(message,'on_auto_mark_issue_cls_msgs'),'') as on_auto_mark_issue_cls_msgs,
+	ifNull(JSONExtractString(message,'on_create_issue_msgs'),'') as on_create_issue_msgs,
+	ifNull(JSONExtractString(message,'on_issue_reopen_msgs'),'') as on_issue_reopen_msgs,
+	toDateTime(JSONExtractInt(message,'on_kapt_mark_issue_res_msgs')) as on_kapt_mark_issue_res_msgs,
+
+	FROM atlas_driver_offer_bpp.bap_main_queue
+	where JSONExtractString(message,'tag') = 'IssueConfigObject'
+	JSONExtractString(message, 'id') is not null
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.issue_message_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `option_id` Nullable (String),
+    `category_id` Nullable (String),
+    `message` Nullable (String),
+    `label` Nullable (String),
+    `priority` Nullable (Int64),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.issue_message ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.issue_message_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, issue_message_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_message ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.issue_message_mv
+(
+	`id` String,
+	`option_id` String,
+	`category_id` String,
+	`message` String,
+	`label` String,
+	`priority` Int64,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'option_id'),'') as option_id,
+	ifNull(JSONExtractString(message,'category_id'),'') as category_id,
+	ifNull(JSONExtractString(message,'message'),'') as message,
+	ifNull(JSONExtractString(message,'label'),'') as label,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
+
+	FROM atlas_driver_offer_bpp.bap_main_queue
+	where JSONExtractString(message,'tag') = 'IssueMessageObject'
 	JSONExtractString(message, 'id') is not null
 
 
@@ -6595,6 +7442,9 @@ CREATE TABLE atlas_driver_offer_bpp_helper.issue_option_shard ON CLUSTER `{clust
     `id` String,
     `issue_category_id` Nullable (String),
     `option` Nullable (String),
+    `priority` Nullable (Int64),
+    `label` Nullable (String),
+    `issue_message_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -6613,11 +7463,17 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_option ON CLUSTER `{cluste
 	`id` String,
 	`issue_category_id` String,
 	`option` String,
+	`priority` Int64,
+	`label` String,
+	`issue_message_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
 	ifNull(JSONExtractString(message,'issue_category_id'),'') as issue_category_id,
 	ifNull(JSONExtractString(message,'option'),'') as option,
+	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
+	ifNull(JSONExtractString(message,'label'),'') as label,
+	ifNull(JSONExtractString(message,'issue_message_id'),'') as issue_message_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'IssueOptionObject'
@@ -6639,6 +7495,8 @@ CREATE TABLE atlas_driver_offer_bpp_helper.issue_report_shard ON CLUSTER `{clust
     `category_id` Nullable (String),
     `option_id` Nullable (String),
     `ticket_id` Nullable (String),
+    `person_id` Nullable (String),
+    `chats` Nullable (Array(String)),
     `date` DateTime DEFAULT now()
 	)
 
@@ -6667,6 +7525,8 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_report ON CLUSTER `{cluste
 	`category_id` String,
 	`option_id` String,
 	`ticket_id` String,
+	`person_id` String,
+	`chats` Array(String),
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -6682,6 +7542,8 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.issue_report ON CLUSTER `{cluste
 	ifNull(JSONExtractString(message,'category_id'),'') as category_id,
 	ifNull(JSONExtractString(message,'option_id'),'') as option_id,
 	ifNull(JSONExtractString(message,'ticket_id'),'') as ticket_id,
+	ifNull(JSONExtractString(message,'person_id'),'') as person_id,
+	toDateTime(JSONExtractInt(message,'chats')) as chats,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'IssueReportObject'
@@ -6819,6 +7681,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.leader_board_configs_shard ON CLUSTER
     `leader_board_length_limit` Nullable (Int64),
     `merchant_id` Nullable (String),
     `is_enabled` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -6842,6 +7705,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.leader_board_configs ON CLUSTER 
 	`leader_board_length_limit` Int64,
 	`merchant_id` String,
 	`is_enabled` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -6852,6 +7716,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.leader_board_configs ON CLUSTER 
 	ifNull(JSONExtractInt(message,'leader_board_length_limit'), 0) as leader_board_length_limit,
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
 	ifNull(JSONExtractString(message,'is_enabled'),'') as is_enabled,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'LeaderBoardConfigsObject'
@@ -7084,8 +7949,8 @@ CREATE TABLE atlas_driver_offer_bpp_helper.merchant_shard ON CLUSTER `{cluster}`
     `info` Nullable (String),
     `unique_key_id` Nullable (String),
     `short_id` Nullable (String),
-    `origin_restriction` Nullable (String),
-    `destination_restriction` Nullable (String),
+    `origin_restriction` Nullable (Array(String)),
+    `destination_restriction` Nullable (Array(String)),
     `internal_api_key` Nullable (String),
     `city` Nullable (String),
     `geo_hash_precision_value` Nullable (Int64),
@@ -7126,8 +7991,8 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant ON CLUSTER `{cluster}` 
 	`info` String,
 	`unique_key_id` String,
 	`short_id` String,
-	`origin_restriction` String,
-	`destination_restriction` String,
+	`origin_restriction` Array(String),
+	`destination_restriction` Array(String),
 	`internal_api_key` String,
 	`city` String,
 	`geo_hash_precision_value` Int64,
@@ -7155,8 +8020,8 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant ON CLUSTER `{cluster}` 
 	ifNull(JSONExtractString(message,'info'),'') as info,
 	ifNull(JSONExtractString(message,'unique_key_id'),'') as unique_key_id,
 	ifNull(JSONExtractString(message,'short_id'),'') as short_id,
-	ifNull(JSONExtractString(message,'origin_restriction'),'') as origin_restriction,
-	ifNull(JSONExtractString(message,'destination_restriction'),'') as destination_restriction,
+	toDateTime(JSONExtractInt(message,'origin_restriction')) as origin_restriction,
+	toDateTime(JSONExtractInt(message,'destination_restriction')) as destination_restriction,
 	ifNull(JSONExtractString(message,'internal_api_key'),'') as internal_api_key,
 	ifNull(JSONExtractString(message,'city'),'') as city,
 	ifNull(JSONExtractInt(message,'geo_hash_precision_value'), 0) as geo_hash_precision_value,
@@ -7171,18 +8036,22 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant ON CLUSTER `{cluster}` 
 
 CREATE TABLE atlas_driver_offer_bpp_helper.merchant_message_shard ON CLUSTER `{cluster}`
     (
-    `merchant_id` String,
+    `merchant_id` Nullable (String),
     `message_key` String,
     `message` String,
     `updated_at` DateTime DEFAULT now(),
     `created_at` DateTime DEFAULT now(),
+    `template_id` Nullable (String),
+    `json_data` Nullable (String),
+    `contains_url_button` Nullable (String),
+    `merchant_operating_city_id` String,
     `date` DateTime DEFAULT now()
 	)
 
 ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
 PARTITION BY toStartOfWeek(created_at)
 PRIMARY KEY (created_at)
-ORDER BY (created_at, (merchant_id, message_key))
+ORDER BY (created_at, (merchant_operating_city_id, message_key))
 TTL created_at + toIntervalDay(365)
 SETTINGS index_granularity = 8192
 
@@ -7196,6 +8065,10 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_message ON CLUSTER `{cl
 	`message` String,
 	`updated_at` DateTime,
 	`created_at` DateTime,
+	`template_id` String,
+	`json_data` String,
+	`contains_url_button` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
@@ -7203,11 +8076,52 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_message ON CLUSTER `{cl
 	ifNull(JSONExtractString(message,'message'),'') as message,
 	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
 	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'template_id'),'') as template_id,
+	ifNull(JSONExtractString(message,'json_data'),'') as json_data,
+	ifNull(JSONExtractString(message,'contains_url_button'),'') as contains_url_button,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'MerchantMessageObject'
-	JSONExtractString(message, 'merchant_id') is not null
+	JSONExtractString(message, 'merchant_operating_city_id') is not null
 	JSONExtractString(message, ' message_key') is not null
+
+
+CREATE TABLE atlas_driver_offer_bpp_helper.merchant_operating_city_shard ON CLUSTER `{cluster}`
+    (
+    `id` String,
+    `merchant_id` Nullable (String),
+    `merchant_short_id` Nullable (String),
+    `city` Nullable (String),
+    `date` DateTime DEFAULT now()
+	)
+
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
+PARTITION BY toStartOfWeek(created_at)
+PRIMARY KEY (created_at)
+ORDER BY (created_at, (id))
+TTL created_at + toIntervalDay(365)
+SETTINGS index_granularity = 8192
+
+CREATE TABLE atlas_driver_offer_bpp.merchant_operating_city ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.merchant_operating_city_shard
+ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, merchant_operating_city_shard, xxHash32(id))
+
+CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_operating_city ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.merchant_operating_city_mv
+(
+	`id` String,
+	`merchant_id` String,
+	`merchant_short_id` String,
+	`city` String,
+)
+	AS SELECT
+	ifNull(JSONExtractString(message,'id'),'') as id,
+	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'merchant_short_id'),'') as merchant_short_id,
+	ifNull(JSONExtractString(message,'city'),'') as city,
+
+	FROM atlas_driver_offer_bpp.bap_main_queue
+	where JSONExtractString(message,'tag') = 'MerchantOperatingCityObject'
+	JSONExtractString(message, 'id') is not null
 
 
 CREATE TABLE atlas_driver_offer_bpp_helper.merchant_overlay_shard ON CLUSTER `{cluster}`
@@ -7222,11 +8136,17 @@ CREATE TABLE atlas_driver_offer_bpp_helper.merchant_overlay_shard ON CLUSTER `{c
     `image_url` Nullable (String),
     `ok_button_text` Nullable (String),
     `cancel_button_text` Nullable (String),
-    `actions` Nullable (String),
+    `actions` Nullable (Array(String)),
     `link` Nullable (String),
     `req_body` Nullable (String),
     `end_point` Nullable (String),
     `method` Nullable (String),
+    `delay` Nullable (String),
+    `contact_support_number` Nullable (String),
+    `toast_message` Nullable (String),
+    `secondary_actions` Nullable (String),
+    `social_media_links` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -7252,11 +8172,17 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_overlay ON CLUSTER `{cl
 	`image_url` String,
 	`ok_button_text` String,
 	`cancel_button_text` String,
-	`actions` String,
+	`actions` Array(String),
 	`link` String,
 	`req_body` String,
 	`end_point` String,
 	`method` String,
+	`delay` String,
+	`contact_support_number` String,
+	`toast_message` String,
+	`secondary_actions` String,
+	`social_media_links` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -7269,11 +8195,17 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_overlay ON CLUSTER `{cl
 	ifNull(JSONExtractString(message,'image_url'),'') as image_url,
 	ifNull(JSONExtractString(message,'ok_button_text'),'') as ok_button_text,
 	ifNull(JSONExtractString(message,'cancel_button_text'),'') as cancel_button_text,
-	ifNull(JSONExtractString(message,'actions'),'') as actions,
+	toDateTime(JSONExtractInt(message,'actions')) as actions,
 	ifNull(JSONExtractString(message,'link'),'') as link,
 	ifNull(JSONExtractString(message,'req_body'),'') as req_body,
 	ifNull(JSONExtractString(message,'end_point'),'') as end_point,
 	ifNull(JSONExtractString(message,'method'),'') as method,
+	ifNull(JSONExtractString(message,'delay'),'') as delay,
+	ifNull(JSONExtractString(message,'contact_support_number'),'') as contact_support_number,
+	ifNull(JSONExtractString(message,'toast_message'),'') as toast_message,
+	ifNull(JSONExtractString(message,'secondary_actions'),'') as secondary_actions,
+	ifNull(JSONExtractString(message,'social_media_links'),'') as social_media_links,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'MerchantOverlayObject'
@@ -7290,6 +8222,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.merchant_payment_method_shard ON CLUS
     `priority` Nullable (Int64),
     `updated_at` DateTime DEFAULT now(),
     `created_at` DateTime DEFAULT now(),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -7313,6 +8246,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_payment_method ON CLUST
 	`priority` Int64,
 	`updated_at` DateTime,
 	`created_at` DateTime,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -7323,6 +8257,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_payment_method ON CLUST
 	ifNull(JSONExtractInt(message,'priority'), 0) as priority,
 	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
 	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'MerchantPaymentMethodObject'
@@ -7372,7 +8307,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_service_config ON CLUST
 
 CREATE TABLE atlas_driver_offer_bpp_helper.merchant_service_usage_config_shard ON CLUSTER `{cluster}`
     (
-    `merchant_id` String,
+    `merchant_id` Nullable (String),
     `get_distances` Nullable (String),
     `get_routes` Nullable (String),
     `snap_to_road` Nullable (String),
@@ -7381,9 +8316,9 @@ CREATE TABLE atlas_driver_offer_bpp_helper.merchant_service_usage_config_shard O
     `auto_complete` Nullable (String),
     `updated_at` DateTime DEFAULT now(),
     `created_at` DateTime DEFAULT now(),
-    `sms_providers_priority_list` Nullable (String),
+    `sms_providers_priority_list` Nullable (Array(String)),
     `get_estimated_pickup_distances` Nullable (String),
-    `whatsapp_providers_priority_list` Nullable (String),
+    `whatsapp_providers_priority_list` Nullable (Array(String)),
     `get_pickup_routes` Nullable (String),
     `get_trip_routes` Nullable (String),
     `verification_service` Nullable (String),
@@ -7393,13 +8328,15 @@ CREATE TABLE atlas_driver_offer_bpp_helper.merchant_service_usage_config_shard O
     `face_verification_service` Nullable (String),
     `issue_ticket_service` Nullable (String),
     `get_exophone` Nullable (String),
+    `merchant_operating_city_id` String,
+    `snap_to_road_providers_list` Nullable (Array(String)),
     `date` DateTime DEFAULT now()
 	)
 
 ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
 PARTITION BY toStartOfWeek(created_at)
 PRIMARY KEY (created_at)
-ORDER BY (created_at, (merchant_id))
+ORDER BY (created_at, (merchant_operating_city_id))
 TTL created_at + toIntervalDay(365)
 SETTINGS index_granularity = 8192
 
@@ -7417,9 +8354,9 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_service_usage_config ON
 	`auto_complete` String,
 	`updated_at` DateTime,
 	`created_at` DateTime,
-	`sms_providers_priority_list` String,
+	`sms_providers_priority_list` Array(String),
 	`get_estimated_pickup_distances` String,
-	`whatsapp_providers_priority_list` String,
+	`whatsapp_providers_priority_list` Array(String),
 	`get_pickup_routes` String,
 	`get_trip_routes` String,
 	`verification_service` String,
@@ -7429,6 +8366,8 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_service_usage_config ON
 	`face_verification_service` String,
 	`issue_ticket_service` String,
 	`get_exophone` String,
+	`merchant_operating_city_id` String,
+	`snap_to_road_providers_list` Array(String),
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
@@ -7440,9 +8379,9 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_service_usage_config ON
 	ifNull(JSONExtractString(message,'auto_complete'),'') as auto_complete,
 	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
 	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
-	ifNull(JSONExtractString(message,'sms_providers_priority_list'),'') as sms_providers_priority_list,
+	toDateTime(JSONExtractInt(message,'sms_providers_priority_list')) as sms_providers_priority_list,
 	ifNull(JSONExtractString(message,'get_estimated_pickup_distances'),'') as get_estimated_pickup_distances,
-	ifNull(JSONExtractString(message,'whatsapp_providers_priority_list'),'') as whatsapp_providers_priority_list,
+	toDateTime(JSONExtractInt(message,'whatsapp_providers_priority_list')) as whatsapp_providers_priority_list,
 	ifNull(JSONExtractString(message,'get_pickup_routes'),'') as get_pickup_routes,
 	ifNull(JSONExtractString(message,'get_trip_routes'),'') as get_trip_routes,
 	ifNull(JSONExtractString(message,'verification_service'),'') as verification_service,
@@ -7452,10 +8391,12 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.merchant_service_usage_config ON
 	ifNull(JSONExtractString(message,'face_verification_service'),'') as face_verification_service,
 	ifNull(JSONExtractString(message,'issue_ticket_service'),'') as issue_ticket_service,
 	ifNull(JSONExtractString(message,'get_exophone'),'') as get_exophone,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
+	toDateTime(JSONExtractInt(message,'snap_to_road_providers_list')) as snap_to_road_providers_list,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'MerchantServiceUsageConfigObject'
-	JSONExtractString(message, 'merchant_id') is not null
+	JSONExtractString(message, 'merchant_operating_city_id') is not null
 
 
 CREATE TABLE atlas_driver_offer_bpp_helper.message_shard ON CLUSTER `{cluster}`
@@ -7680,6 +8621,8 @@ CREATE TABLE atlas_driver_offer_bpp_helper.notification_shard ON CLUSTER `{clust
     `created_at` DateTime DEFAULT now(),
     `updated_at` DateTime DEFAULT now(),
     `last_status_checked_at` DateTime DEFAULT now(),
+    `response_code` Nullable (String),
+    `response_message` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -7711,6 +8654,8 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.notification ON CLUSTER `{cluste
 	`created_at` DateTime,
 	`updated_at` DateTime,
 	`last_status_checked_at` DateTime,
+	`response_code` String,
+	`response_message` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -7729,6 +8674,8 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.notification ON CLUSTER `{cluste
 	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
 	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
 	toDateTime(JSONExtractInt(message,'last_status_checked_at')) as last_status_checked_at,
+	ifNull(JSONExtractString(message,'response_code'),'') as response_code,
+	ifNull(JSONExtractString(message,'response_message'),'') as response_message,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'NotificationObject'
@@ -7737,7 +8684,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.notification ON CLUSTER `{cluste
 
 CREATE TABLE atlas_driver_offer_bpp_helper.onboarding_document_configs_shard ON CLUSTER `{cluster}`
     (
-    `merchant_id` String,
+    `merchant_id` Nullable (String),
     `document_type` String,
     `check_extraction` Nullable (String),
     `check_expiry` Nullable (String),
@@ -7746,13 +8693,15 @@ CREATE TABLE atlas_driver_offer_bpp_helper.onboarding_document_configs_shard ON 
     `updated_at` DateTime DEFAULT now(),
     `rc_number_prefix` Nullable (String),
     `supported_vehicle_classes_json` Nullable (String),
+    `merchant_operating_city_id` String,
+    `rc_number_prefix_list` Nullable (Array(String)),
     `date` DateTime DEFAULT now()
 	)
 
 ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
 PARTITION BY toStartOfWeek(created_at)
 PRIMARY KEY (created_at)
-ORDER BY (created_at, (merchant_id, document_type))
+ORDER BY (created_at, (merchant_operating_city_id, document_type))
 TTL created_at + toIntervalDay(365)
 SETTINGS index_granularity = 8192
 
@@ -7770,6 +8719,8 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.onboarding_document_configs ON C
 	`updated_at` DateTime,
 	`rc_number_prefix` String,
 	`supported_vehicle_classes_json` String,
+	`merchant_operating_city_id` String,
+	`rc_number_prefix_list` Array(String),
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
@@ -7781,10 +8732,12 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.onboarding_document_configs ON C
 	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
 	ifNull(JSONExtractString(message,'rc_number_prefix'),'') as rc_number_prefix,
 	ifNull(JSONExtractString(message,'supported_vehicle_classes_json'),'') as supported_vehicle_classes_json,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
+	toDateTime(JSONExtractInt(message,'rc_number_prefix_list')) as rc_number_prefix_list,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'OnboardingDocumentConfigsObject'
-	JSONExtractString(message, 'merchant_id') is not null
+	JSONExtractString(message, 'merchant_operating_city_id') is not null
 	JSONExtractString(message, ' document_type') is not null
 
 
@@ -7860,6 +8813,9 @@ CREATE TABLE atlas_driver_offer_bpp_helper.payment_order_shard ON CLUSTER `{clus
     `mandate_end_date` DateTime DEFAULT now(),
     `bank_error_message` Nullable (String),
     `bank_error_code` Nullable (String),
+    `is_retried` Nullable (String),
+    `is_retargeted` Nullable (String),
+    `retarget_link` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -7906,6 +8862,9 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.payment_order ON CLUSTER `{clust
 	`mandate_end_date` DateTime,
 	`bank_error_message` String,
 	`bank_error_code` String,
+	`is_retried` String,
+	`is_retargeted` String,
+	`retarget_link` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -7939,6 +8898,9 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.payment_order ON CLUSTER `{clust
 	toDateTime(JSONExtractInt(message,'mandate_end_date')) as mandate_end_date,
 	ifNull(JSONExtractString(message,'bank_error_message'),'') as bank_error_message,
 	ifNull(JSONExtractString(message,'bank_error_code'),'') as bank_error_code,
+	ifNull(JSONExtractString(message,'is_retried'),'') as is_retried,
+	ifNull(JSONExtractString(message,'is_retargeted'),'') as is_retargeted,
+	ifNull(JSONExtractString(message,'retarget_link'),'') as retarget_link,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'PaymentOrderObject'
@@ -8076,9 +9038,10 @@ CREATE TABLE atlas_driver_offer_bpp_helper.person_shard ON CLUSTER `{cluster}`
     `alternate_mobile_number_encrypted` Nullable (String),
     `alternate_mobile_number_hash` Nullable (String),
     `hometown` Nullable (String),
-    `languages_spoken` Nullable (String),
+    `languages_spoken` Nullable (Array(String)),
     `onboarded_from_dashboard` Nullable (String),
     `face_image_id` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -8123,9 +9086,10 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.person ON CLUSTER `{cluster}` TO
 	`alternate_mobile_number_encrypted` String,
 	`alternate_mobile_number_hash` String,
 	`hometown` String,
-	`languages_spoken` String,
+	`languages_spoken` Array(String),
 	`onboarded_from_dashboard` String,
 	`face_image_id` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -8157,9 +9121,10 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.person ON CLUSTER `{cluster}` TO
 	ifNull(JSONExtractString(message,'alternate_mobile_number_encrypted'),'') as alternate_mobile_number_encrypted,
 	ifNull(JSONExtractString(message,'alternate_mobile_number_hash'),'') as alternate_mobile_number_hash,
 	ifNull(JSONExtractString(message,'hometown'),'') as hometown,
-	ifNull(JSONExtractString(message,'languages_spoken'),'') as languages_spoken,
+	toDateTime(JSONExtractInt(message,'languages_spoken')) as languages_spoken,
 	ifNull(JSONExtractString(message,'onboarded_from_dashboard'),'') as onboarded_from_dashboard,
 	ifNull(JSONExtractString(message,'face_image_id'),'') as face_image_id,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'PersonObject'
@@ -8174,7 +9139,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.place_name_cache_shard ON CLUSTER `{c
     `lat` Nullable (Float64),
     `lon` Nullable (Float64),
     `place_id` Nullable (String),
-    `address_components` Nullable (String),
+    `address_components` Nullable (Array(String)),
     `geo_hash` Nullable (String),
     `created_at` DateTime DEFAULT now(),
     `date` DateTime DEFAULT now()
@@ -8198,7 +9163,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.place_name_cache ON CLUSTER `{cl
 	`lat` Float64,
 	`lon` Float64,
 	`place_id` String,
-	`address_components` String,
+	`address_components` Array(String),
 	`geo_hash` String,
 	`created_at` DateTime,
 )
@@ -8209,7 +9174,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.place_name_cache ON CLUSTER `{cl
 	ifNull(JSONExtractFloat(message,'lat'),0.0) as lat,
 	ifNull(JSONExtractFloat(message,'lon'),0.0) as lon,
 	ifNull(JSONExtractString(message,'place_id'),'') as place_id,
-	ifNull(JSONExtractString(message,'address_components'),'') as address_components,
+	toDateTime(JSONExtractInt(message,'address_components')) as address_components,
 	ifNull(JSONExtractString(message,'geo_hash'),'') as geo_hash,
 	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
 
@@ -8452,6 +9417,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.registration_token_shard ON CLUSTER `
     `updated_at` DateTime DEFAULT now(),
     `alternate_number_attempts` Nullable (Int64),
     `merchant_id` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -8483,6 +9449,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.registration_token ON CLUSTER `{
 	`updated_at` DateTime,
 	`alternate_number_attempts` Int64,
 	`merchant_id` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -8501,6 +9468,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.registration_token ON CLUSTER `{
 	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
 	ifNull(JSONExtractInt(message,'alternate_number_attempts'), 0) as alternate_number_attempts,
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'RegistrationTokenObject'
@@ -8572,7 +9540,9 @@ CREATE TABLE atlas_driver_offer_bpp_helper.ride_shard ON CLUSTER `{cluster}`
     `number_of_snap_to_road_calls` Nullable (String),
     `driver_go_home_request_id` Nullable (String),
     `ui_distance_calculation_with_accuracy` Nullable (String),
-    `ui_distance_calculation_without_accuracy` Nullable (Int64),
+    `ui_distance_calculation_without_accuracy` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
+    `number_of_osrm_snap_to_road_calls` Nullable (Int64),
     `date` DateTime DEFAULT now()
 	)
 
@@ -8616,7 +9586,9 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.ride ON CLUSTER `{cluster}` TO a
 	`number_of_snap_to_road_calls` String,
 	`driver_go_home_request_id` String,
 	`ui_distance_calculation_with_accuracy` String,
-	`ui_distance_calculation_without_accuracy` Int64,
+	`ui_distance_calculation_without_accuracy` String,
+	`merchant_operating_city_id` String,
+	`number_of_osrm_snap_to_road_calls` Int64,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -8647,7 +9619,9 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.ride ON CLUSTER `{cluster}` TO a
 	ifNull(JSONExtractString(message,'number_of_snap_to_road_calls'),'') as number_of_snap_to_road_calls,
 	ifNull(JSONExtractString(message,'driver_go_home_request_id'),'') as driver_go_home_request_id,
 	ifNull(JSONExtractString(message,'ui_distance_calculation_with_accuracy'),'') as ui_distance_calculation_with_accuracy,
-	ifNull(JSONExtractInt(message,'ui_distance_calculation_without_accuracy'), 0) as ui_distance_calculation_without_accuracy,
+	ifNull(JSONExtractString(message,'ui_distance_calculation_without_accuracy'),'') as ui_distance_calculation_without_accuracy,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
+	ifNull(JSONExtractInt(message,'number_of_osrm_snap_to_road_calls'), 0) as number_of_osrm_snap_to_road_calls,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'RideObject'
@@ -8887,6 +9861,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.search_request_shard ON CLUSTER `{clu
     `bap_city` Nullable (String),
     `bap_country` Nullable (String),
     `disability_tag` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -8920,6 +9895,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request ON CLUSTER `{clus
 	`bap_city` String,
 	`bap_country` String,
 	`disability_tag` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -8940,6 +9916,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request ON CLUSTER `{clus
 	ifNull(JSONExtractString(message,'bap_city'),'') as bap_city,
 	ifNull(JSONExtractString(message,'bap_country'),'') as bap_country,
 	ifNull(JSONExtractString(message,'disability_tag'),'') as disability_tag,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'SearchRequestObject'
@@ -8977,6 +9954,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.search_request_for_driver_shard ON CL
     `keep_hidden_for_seconds` Nullable (Int64),
     `merchant_id` Nullable (String),
     `go_home_request_id` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -9021,6 +9999,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request_for_driver ON CLU
 	`keep_hidden_for_seconds` Int64,
 	`merchant_id` String,
 	`go_home_request_id` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -9052,6 +10031,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request_for_driver ON CLU
 	ifNull(JSONExtractInt(message,'keep_hidden_for_seconds'), 0) as keep_hidden_for_seconds,
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
 	ifNull(JSONExtractString(message,'go_home_request_id'),'') as go_home_request_id,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'SearchRequestForDriverObject'
@@ -9142,6 +10122,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.search_request_special_zone_shard ON 
     `created_at` DateTime DEFAULT now(),
     `updated_at` DateTime DEFAULT now(),
     `area` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -9172,6 +10153,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request_special_zone ON C
 	`created_at` DateTime,
 	`updated_at` DateTime,
 	`area` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -9189,6 +10171,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_request_special_zone ON C
 	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
 	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
 	ifNull(JSONExtractString(message,'area'),'') as area,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'SearchRequestSpecialZoneObject'
@@ -9212,6 +10195,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.search_try_shard ON CLUSTER `{cluster
     `search_repeat_type` Nullable (String),
     `base_fare` Nullable (Int64),
     `merchant_id` Nullable (String),
+    `merchant_operating_city_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
@@ -9242,6 +10226,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_try ON CLUSTER `{cluster}
 	`search_repeat_type` String,
 	`base_fare` Int64,
 	`merchant_id` String,
+	`merchant_operating_city_id` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'id'),'') as id,
@@ -9259,6 +10244,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.search_try ON CLUSTER `{cluster}
 	ifNull(JSONExtractString(message,'search_repeat_type'),'') as search_repeat_type,
 	ifNull(JSONExtractInt(message,'base_fare'), 0) as base_fare,
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
+	ifNull(JSONExtractString(message,'merchant_operating_city_id'),'') as merchant_operating_city_id,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'SearchTryObject'
@@ -9270,7 +10256,7 @@ CREATE TABLE atlas_driver_offer_bpp_helper.special_location_shard ON CLUSTER `{c
     `id` String,
     `location_name` Nullable (String),
     `category` Nullable (String),
-    `gates` Nullable (String),
+    `gates` Nullable (Array(String)),
     `geom` Nullable (String),
     `created_at` DateTime DEFAULT now(),
     `date` DateTime DEFAULT now()
@@ -9291,7 +10277,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.special_location ON CLUSTER `{cl
 	`id` String,
 	`location_name` String,
 	`category` String,
-	`gates` String,
+	`gates` Array(String),
 	`geom` String,
 	`created_at` DateTime,
 )
@@ -9299,7 +10285,7 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.special_location ON CLUSTER `{cl
 	ifNull(JSONExtractString(message,'id'),'') as id,
 	ifNull(JSONExtractString(message,'location_name'),'') as location_name,
 	ifNull(JSONExtractString(message,'category'),'') as category,
-	ifNull(JSONExtractString(message,'gates'),'') as gates,
+	toDateTime(JSONExtractInt(message,'gates')) as gates,
 	ifNull(JSONExtractString(message,'geom'),'') as geom,
 	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
 
@@ -9387,85 +10373,14 @@ CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.tag_category_mapping ON CLUSTER 
 
 CREATE TABLE atlas_driver_offer_bpp_helper.transporter_config_shard ON CLUSTER `{cluster}`
     (
-    `merchant_id` String,
-    `pickup_loc_threshold` Nullable (Int64),
-    `drop_loc_threshold` Nullable (Int64),
-    `created_at` DateTime DEFAULT now(),
-    `updated_at` DateTime DEFAULT now(),
-    `ride_time_estimated_threshold` Nullable (Int64),
-    `fcm_url` Nullable (String),
-    `fcm_service_account` Nullable (String),
-    `fcm_token_key_prefix` Nullable (String),
-    `referral_link_password` Nullable (String),
-    `popup_delay_to_add_as_penalty` Nullable (String),
-    `threshold_cancellation_score` Nullable (String),
-    `min_rides_for_cancellation_score` Nullable (String),
-    `onboarding_try_limit` Nullable (Int64),
-    `onboarding_retry_time_in_hours` Nullable (Int64),
-    `check_image_extraction_for_dashboard` Nullable (String),
-    `search_repeat_limit` Nullable (Int64),
-    `default_popup_delay` Nullable (Int64),
-    `media_file_url_pattern` Nullable (String),
-    `media_file_size_upper_limit` Nullable (Int64),
-    `include_driver_currently_on_ride` Nullable (String),
-    `actual_ride_distance_diff_threshold` Nullable (Float64),
-    `upwards_recompute_buffer` Nullable (Float64),
-    `approx_ride_distance_diff_threshold` Nullable (Float64),
-    `min_location_accuracy` Nullable (Float64),
-    `threshold_cancellation_percentage_to_unlist` Nullable (String),
-    `min_rides_to_unlist` Nullable (String),
-    `driver_payment_cycle_duration` Nullable (Int64),
-    `driver_payment_cycle_start_time` Nullable (Int64),
-    `driver_payment_cycle_buffer` Nullable (Int64),
-    `driver_payment_reminder_interval` Nullable (Int64),
-    `time_diff_from_utc` Nullable (Int64),
-    `subscription` Nullable (String),
-    `aadhaar_verification_required` Nullable (String),
-    `rc_limit` Nullable (Int64),
-    `automatic_r_c_activation_cut_off` Nullable (Int64),
-    `enable_dashboard_sms` Nullable (String),
-    `driver_auto_pay_notification_time` Nullable (Int64),
-    `driver_auto_pay_execution_time` Nullable (Int64),
-    `subscription_start_time` DateTime DEFAULT now(),
-    `mandate_validity` Nullable (Int64),
-    `driver_location_accuracy_buffer` Nullable (Int64),
-    `route_deviation_threshold` Nullable (Int64),
-    `can_downgrade_to_sedan` Nullable (String),
-    `can_downgrade_to_hatchback` Nullable (String),
-    `can_downgrade_to_taxi` Nullable (String),
-    `is_avoid_toll` Nullable (String),
-    `special_zone_booking_otp_expiry` Nullable (Int64),
-    `aadhaar_image_resize_config` Nullable (String),
-    `bank_error_expiry` Nullable (Int64),
-    `driver_fee_calculation_time` Nullable (String),
-    `driver_fee_calculator_batch_size` Nullable (String),
-    `driver_fee_calculator_batch_gap` Nullable (String),
-    `driver_fee_mandate_notification_batch_size` Nullable (Int64),
-    `driver_fee_mandate_execution_batch_size` Nullable (Int64),
-    `mandate_notification_reschedule_interval` Nullable (Int64),
-    `mandate_execution_reschedule_interval` Nullable (Int64),
-    `is_plan_mandatory` Nullable (String),
-    `free_trial_days` Nullable (Int64),
-    `open_market_un_blocked` Nullable (String),
-    `driver_fee_retry_threshold_config` Nullable (Int64),
-    `update_notification_status_batch_size` Nullable (Int64),
-    `update_order_status_batch_size` Nullable (Int64),
-    `order_and_notification_status_check_time` Nullable (Int64),
-    `cache_offer_list_by_driver_id` Nullable (String),
-    `use_offer_list_cache` Nullable (String),
-    `order_and_notification_status_check_time_limit` Nullable (Int64),
-    `can_suv_downgrade_to_taxi` Nullable (String),
-    `enable_face_verification` Nullable (String),
-    `rating_as_decimal` Nullable (String),
-    `refill_vehicle_model` Nullable (String),
-    `avg_speed_of_vehicle` Nullable (String),
+    `merchant_id` Nullable (String),
     `date` DateTime DEFAULT now()
 	)
 
 ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
 PARTITION BY toStartOfWeek(created_at)
 PRIMARY KEY (created_at)
-ORDER BY (created_at, (merchant_id))
+ORDER BY (created_at, (merchant_operating_city_id))
 TTL created_at + toIntervalDay(365)
 SETTINGS index_granularity = 8192
 
@@ -9475,188 +10390,12 @@ ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, transporter_con
 CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.transporter_config ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.transporter_config_mv
 (
 	`merchant_id` String,
-	`pickup_loc_threshold` Int64,
-	`drop_loc_threshold` Int64,
-	`created_at` DateTime,
-	`updated_at` DateTime,
-	`ride_time_estimated_threshold` Int64,
-	`fcm_url` String,
-	`fcm_service_account` String,
-	`fcm_token_key_prefix` String,
-	`referral_link_password` String,
-	`popup_delay_to_add_as_penalty` String,
-	`threshold_cancellation_score` String,
-	`min_rides_for_cancellation_score` String,
-	`onboarding_try_limit` Int64,
-	`onboarding_retry_time_in_hours` Int64,
-	`check_image_extraction_for_dashboard` String,
-	`search_repeat_limit` Int64,
-	`default_popup_delay` Int64,
-	`media_file_url_pattern` String,
-	`media_file_size_upper_limit` Int64,
-	`include_driver_currently_on_ride` String,
-	`actual_ride_distance_diff_threshold` Float64,
-	`upwards_recompute_buffer` Float64,
-	`approx_ride_distance_diff_threshold` Float64,
-	`min_location_accuracy` Float64,
-	`threshold_cancellation_percentage_to_unlist` String,
-	`min_rides_to_unlist` String,
-	`driver_payment_cycle_duration` Int64,
-	`driver_payment_cycle_start_time` Int64,
-	`driver_payment_cycle_buffer` Int64,
-	`driver_payment_reminder_interval` Int64,
-	`time_diff_from_utc` Int64,
-	`subscription` String,
-	`aadhaar_verification_required` String,
-	`rc_limit` Int64,
-	`automatic_r_c_activation_cut_off` Int64,
-	`enable_dashboard_sms` String,
-	`driver_auto_pay_notification_time` Int64,
-	`driver_auto_pay_execution_time` Int64,
-	`subscription_start_time` DateTime,
-	`mandate_validity` Int64,
-	`driver_location_accuracy_buffer` Int64,
-	`route_deviation_threshold` Int64,
-	`can_downgrade_to_sedan` String,
-	`can_downgrade_to_hatchback` String,
-	`can_downgrade_to_taxi` String,
-	`is_avoid_toll` String,
-	`special_zone_booking_otp_expiry` Int64,
-	`aadhaar_image_resize_config` String,
-	`bank_error_expiry` Int64,
-	`driver_fee_calculation_time` String,
-	`driver_fee_calculator_batch_size` String,
-	`driver_fee_calculator_batch_gap` String,
-	`driver_fee_mandate_notification_batch_size` Int64,
-	`driver_fee_mandate_execution_batch_size` Int64,
-	`mandate_notification_reschedule_interval` Int64,
-	`mandate_execution_reschedule_interval` Int64,
-	`is_plan_mandatory` String,
-	`free_trial_days` Int64,
-	`open_market_un_blocked` String,
-	`driver_fee_retry_threshold_config` Int64,
-	`update_notification_status_batch_size` Int64,
-	`update_order_status_batch_size` Int64,
-	`order_and_notification_status_check_time` Int64,
-	`cache_offer_list_by_driver_id` String,
-	`use_offer_list_cache` String,
-	`order_and_notification_status_check_time_limit` Int64,
-	`can_suv_downgrade_to_taxi` String,
-	`enable_face_verification` String,
-	`rating_as_decimal` String,
-	`refill_vehicle_model` String,
-	`avg_speed_of_vehicle` String,
 )
 	AS SELECT
 	ifNull(JSONExtractString(message,'merchant_id'),'') as merchant_id,
-	ifNull(JSONExtractInt(message,'pickup_loc_threshold'), 0) as pickup_loc_threshold,
-	ifNull(JSONExtractInt(message,'drop_loc_threshold'), 0) as drop_loc_threshold,
-	toDateTime(JSONExtractInt(message,'created_at')) as created_at,
-	toDateTime(JSONExtractInt(message,'updated_at')) as updated_at,
-	ifNull(JSONExtractInt(message,'ride_time_estimated_threshold'), 0) as ride_time_estimated_threshold,
-	ifNull(JSONExtractString(message,'fcm_url'),'') as fcm_url,
-	ifNull(JSONExtractString(message,'fcm_service_account'),'') as fcm_service_account,
-	ifNull(JSONExtractString(message,'fcm_token_key_prefix'),'') as fcm_token_key_prefix,
-	ifNull(JSONExtractString(message,'referral_link_password'),'') as referral_link_password,
-	ifNull(JSONExtractString(message,'popup_delay_to_add_as_penalty'),'') as popup_delay_to_add_as_penalty,
-	ifNull(JSONExtractString(message,'threshold_cancellation_score'),'') as threshold_cancellation_score,
-	ifNull(JSONExtractString(message,'min_rides_for_cancellation_score'),'') as min_rides_for_cancellation_score,
-	ifNull(JSONExtractInt(message,'onboarding_try_limit'), 0) as onboarding_try_limit,
-	ifNull(JSONExtractInt(message,'onboarding_retry_time_in_hours'), 0) as onboarding_retry_time_in_hours,
-	ifNull(JSONExtractString(message,'check_image_extraction_for_dashboard'),'') as check_image_extraction_for_dashboard,
-	ifNull(JSONExtractInt(message,'search_repeat_limit'), 0) as search_repeat_limit,
-	ifNull(JSONExtractInt(message,'default_popup_delay'), 0) as default_popup_delay,
-	ifNull(JSONExtractString(message,'media_file_url_pattern'),'') as media_file_url_pattern,
-	ifNull(JSONExtractInt(message,'media_file_size_upper_limit'), 0) as media_file_size_upper_limit,
-	ifNull(JSONExtractString(message,'include_driver_currently_on_ride'),'') as include_driver_currently_on_ride,
-	ifNull(JSONExtractFloat(message,'actual_ride_distance_diff_threshold'),0.0) as actual_ride_distance_diff_threshold,
-	ifNull(JSONExtractFloat(message,'upwards_recompute_buffer'),0.0) as upwards_recompute_buffer,
-	ifNull(JSONExtractFloat(message,'approx_ride_distance_diff_threshold'),0.0) as approx_ride_distance_diff_threshold,
-	ifNull(JSONExtractFloat(message,'min_location_accuracy'),0.0) as min_location_accuracy,
-	ifNull(JSONExtractString(message,'threshold_cancellation_percentage_to_unlist'),'') as threshold_cancellation_percentage_to_unlist,
-	ifNull(JSONExtractString(message,'min_rides_to_unlist'),'') as min_rides_to_unlist,
-	ifNull(JSONExtractInt(message,'driver_payment_cycle_duration'), 0) as driver_payment_cycle_duration,
-	ifNull(JSONExtractInt(message,'driver_payment_cycle_start_time'), 0) as driver_payment_cycle_start_time,
-	ifNull(JSONExtractInt(message,'driver_payment_cycle_buffer'), 0) as driver_payment_cycle_buffer,
-	ifNull(JSONExtractInt(message,'driver_payment_reminder_interval'), 0) as driver_payment_reminder_interval,
-	ifNull(JSONExtractInt(message,'time_diff_from_utc'), 0) as time_diff_from_utc,
-	ifNull(JSONExtractString(message,'subscription'),'') as subscription,
-	ifNull(JSONExtractString(message,'aadhaar_verification_required'),'') as aadhaar_verification_required,
-	ifNull(JSONExtractInt(message,'rc_limit'), 0) as rc_limit,
-	ifNull(JSONExtractInt(message,'automatic_r_c_activation_cut_off'), 0) as automatic_r_c_activation_cut_off,
-	ifNull(JSONExtractString(message,'enable_dashboard_sms'),'') as enable_dashboard_sms,
-	ifNull(JSONExtractInt(message,'driver_auto_pay_notification_time'), 0) as driver_auto_pay_notification_time,
-	ifNull(JSONExtractInt(message,'driver_auto_pay_execution_time'), 0) as driver_auto_pay_execution_time,
-	toDateTime(JSONExtractInt(message,'subscription_start_time')) as subscription_start_time,
-	ifNull(JSONExtractInt(message,'mandate_validity'), 0) as mandate_validity,
-	ifNull(JSONExtractInt(message,'driver_location_accuracy_buffer'), 0) as driver_location_accuracy_buffer,
-	ifNull(JSONExtractInt(message,'route_deviation_threshold'), 0) as route_deviation_threshold,
-	ifNull(JSONExtractString(message,'can_downgrade_to_sedan'),'') as can_downgrade_to_sedan,
-	ifNull(JSONExtractString(message,'can_downgrade_to_hatchback'),'') as can_downgrade_to_hatchback,
-	ifNull(JSONExtractString(message,'can_downgrade_to_taxi'),'') as can_downgrade_to_taxi,
-	ifNull(JSONExtractString(message,'is_avoid_toll'),'') as is_avoid_toll,
-	ifNull(JSONExtractInt(message,'special_zone_booking_otp_expiry'), 0) as special_zone_booking_otp_expiry,
-	ifNull(JSONExtractString(message,'aadhaar_image_resize_config'),'') as aadhaar_image_resize_config,
-	ifNull(JSONExtractInt(message,'bank_error_expiry'), 0) as bank_error_expiry,
-	ifNull(JSONExtractString(message,'driver_fee_calculation_time'),'') as driver_fee_calculation_time,
-	ifNull(JSONExtractString(message,'driver_fee_calculator_batch_size'),'') as driver_fee_calculator_batch_size,
-	ifNull(JSONExtractString(message,'driver_fee_calculator_batch_gap'),'') as driver_fee_calculator_batch_gap,
-	ifNull(JSONExtractInt(message,'driver_fee_mandate_notification_batch_size'), 0) as driver_fee_mandate_notification_batch_size,
-	ifNull(JSONExtractInt(message,'driver_fee_mandate_execution_batch_size'), 0) as driver_fee_mandate_execution_batch_size,
-	ifNull(JSONExtractInt(message,'mandate_notification_reschedule_interval'), 0) as mandate_notification_reschedule_interval,
-	ifNull(JSONExtractInt(message,'mandate_execution_reschedule_interval'), 0) as mandate_execution_reschedule_interval,
-	ifNull(JSONExtractString(message,'is_plan_mandatory'),'') as is_plan_mandatory,
-	ifNull(JSONExtractInt(message,'free_trial_days'), 0) as free_trial_days,
-	ifNull(JSONExtractString(message,'open_market_un_blocked'),'') as open_market_un_blocked,
-	ifNull(JSONExtractInt(message,'driver_fee_retry_threshold_config'), 0) as driver_fee_retry_threshold_config,
-	ifNull(JSONExtractInt(message,'update_notification_status_batch_size'), 0) as update_notification_status_batch_size,
-	ifNull(JSONExtractInt(message,'update_order_status_batch_size'), 0) as update_order_status_batch_size,
-	ifNull(JSONExtractInt(message,'order_and_notification_status_check_time'), 0) as order_and_notification_status_check_time,
-	ifNull(JSONExtractString(message,'cache_offer_list_by_driver_id'),'') as cache_offer_list_by_driver_id,
-	ifNull(JSONExtractString(message,'use_offer_list_cache'),'') as use_offer_list_cache,
-	ifNull(JSONExtractInt(message,'order_and_notification_status_check_time_limit'), 0) as order_and_notification_status_check_time_limit,
-	ifNull(JSONExtractString(message,'can_suv_downgrade_to_taxi'),'') as can_suv_downgrade_to_taxi,
-	ifNull(JSONExtractString(message,'enable_face_verification'),'') as enable_face_verification,
-	ifNull(JSONExtractString(message,'rating_as_decimal'),'') as rating_as_decimal,
-	ifNull(JSONExtractString(message,'refill_vehicle_model'),'') as refill_vehicle_model,
-	ifNull(JSONExtractString(message,'avg_speed_of_vehicle'),'') as avg_speed_of_vehicle,
 
 	FROM atlas_driver_offer_bpp.bap_main_queue
 	where JSONExtractString(message,'tag') = 'TransporterConfigObject'
-	JSONExtractString(message, 'merchant_id') is not null
-
-
-CREATE TABLE atlas_driver_offer_bpp_helper.vehicle_shard ON CLUSTER `{cluster}`
-    (
-    `driver_id` String,
-    `capacity` Nullable (String),
-    `category` Nullable (String),
-    `date` DateTime DEFAULT now()
-	)
-
-ENGINE = ReplicatedReplacingMergeTree('/clickhouse/{cluster}/tables/{shard}/{database}/{table}', '{replica}', date)
-PARTITION BY toStartOfWeek(created_at)
-PRIMARY KEY (created_at)
-ORDER BY (created_at, (driver_id))
-TTL created_at + toIntervalDay(365)
-SETTINGS index_granularity = 8192
-
-CREATE TABLE atlas_driver_offer_bpp.vehicle ON CLUSTER `{cluster}` AS atlas_driver_offer_bpp_helper.vehicle_shard
-ENGINE = Distributed(`{cluster}`, atlas_driver_offer_bpp_helper, vehicle_shard, xxHash32(id))
-
-CREATE MATERIALIZED VIEW atlas_driver_offer_bpp.vehicle ON CLUSTER `{cluster}` TO atlas_driver_offer_bpp.vehicle_mv
-(
-	`driver_id` String,
-	`capacity` String,
-	`category` String,
-)
-	AS SELECT
-	ifNull(JSONExtractString(message,'driver_id'),'') as driver_id,
-	ifNull(JSONExtractString(message,'capacity'),'') as capacity,
-	ifNull(JSONExtractString(message,'category'),'') as category,
-
-	FROM atlas_driver_offer_bpp.bap_main_queue
-	where JSONExtractString(message,'tag') = 'VehicleObject'
-	JSONExtractString(message, 'driver_id') is not null
+	JSONExtractString(message, 'merchant_operating_city_id') is not null
 
 

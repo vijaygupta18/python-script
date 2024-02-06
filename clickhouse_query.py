@@ -66,6 +66,7 @@ def getClickHouseType(sqlType):
         'timestamp': 'DateTime',
         'date': 'DateTime',
         'time': 'DateTime',
+        'text[]': 'Array(String)', 
         }
     if sqlType in sql_to_clickhouse_types.keys():
         return sql_to_clickhouse_types[sqlType]
@@ -91,7 +92,7 @@ def getColumnNameAndType(query):
     return (columns)
 
 def getSchemaNameAndTableName(query):
-    queries = query.split('\n');
+    queries = query.split('\n')
     schemanName = "default_schema"
     tableName = "defualt_table"
     for que in queries:
