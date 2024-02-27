@@ -20,7 +20,7 @@ password = ''
 
 # Other Misc vars
 schema_name = '' # Let this be empty
-table_names = ['transporter_config'] # NOTE: This works only for one table at a time!!!! (I have used list here as this part was copied from sqlToCac.py  Lol :-P )
+table_names = ['fare_policy'] # NOTE: This works only for one table at a time!!!! (I have used list here as this part was copied from sqlToCac.py  Lol :-P )
 env = 'dev'
 app = 'dobpp'
 cac_tgt_url = 'http://localhost:8080'
@@ -68,7 +68,7 @@ def get_default_configs(headers, table_name):
   api_url = f'{cac_tgt_url}/default-config'
   response = requests.get(api_url, headers=headers)
   if response.status_code != 200:
-    raise TestFailed(f"Error: {response.status_code}! while Fetching defauklt cfgs Sad Broooooo with resp {response}")
+    raise TestFailed(f"Error: {response.status_code}! while Fetching defauklt cfgs Sad Broooooo")
   response = response.json()
   print("Default Configs = ", response)
   table_name += ":"
@@ -115,17 +115,10 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
     m = len(res)
     override_data = {}
     for i in range(m):
-      if(type(res[i]) == int):
-        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = int(res[i])
-      elif (type(res[i]) == bool):
-        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = bool(res[i])
-      elif (type(res[i]) == float):
-        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = float(res[i])
+      if(":" in str(res[i])) and ("{" in str(res[i])):
+        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = (str(res[i])) # None is getting ignored 
       else:
-        if(":" in str(res[i])) and ("{" in str(res[i])):
-          override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = (str(res[i])) # None is getting ignored 
-        else:
-          override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = rm_sq(str(res[i])) # None is getting ignored 
+        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = (str(res[i])) # None is getting ignored 
     headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer 12345678', 'x-tenant': f'{tenant}'}
     def_cfgs = get_default_configs(headers, table_name)
     diffed_data = {}
@@ -156,7 +149,7 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
     if response.status_code == 200:
         print(f"Successfully added override {data}! Yaaayyyyyy")
     else:
-        print(f"Error: {response.status_code}! Sad Broooooo Disappointed and resp {response}\n\n DATA = {data}")
+        print(f"Error: {response.status_code}! Sad Broooooo Disappointed\n\n DATA = {data}")
     time.sleep(1)
     return
     

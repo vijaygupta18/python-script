@@ -18,11 +18,12 @@ password = ''
 
 # Other Misc vars
 schema_name = '' # Let this be empty
-table_names = ['transporter_config', 'go_home_config', 'driver_pool_config', "driver_intelligent_pool_config"]
+table_names = ["fare_policy"]
 env = 'local'
 app = 'dobpp'
 cac_tgt_url = 'http://localhost:8080'
 tenant = 'test'
+where_column = 'id'
 
 def rm_sq(s):
    res = ""
@@ -52,12 +53,12 @@ def main(table_name):
   if app == 'dobpp':
     if env == 'master': merchantOpCityId = '1e7b7ab9-3b9b-4d3e-a47c-11e7d2a9ff98'
     elif env == 'prod': merchantOpCityId = 'f067bccf-5b34-fb51-a5a3-9d6fa6baac26'
-    else: merchantOpCityId = '5f734f9c-257b-e8bc-a4f8-1de7d5e75e8e' # For local replace this !!!!!!!!!
+    else: merchantOpCityId = '1fd23f0b-fa76-c19e-1915-d9b6e28bbf81' # For local replace this !!!!!!!!!
     schema_name = 'atlas_driver_offer_bpp'
   else:
     if env == 'master': merchantOpCityId = 'b30daaf7-77d2-17c8-00d9-baf7ad0f5719'
     elif env == 'prod': merchantOpCityId = 'f067bccf-5b34-fb51-a5a3-9d6fa6baac26'
-    else: merchantOpCityId = '5f734f9c-257b-e8bc-a4f8-1de7d5e75e8e' # For local replace this !!!!!!!!!
+    else: merchantOpCityId = '1fd23f0b-fa76-c19e-1915-d9b6e28bbf81' # For local replace this !!!!!!!!!
     schema_name = 'atlas_app'
   try:
       # Establish a connection to the RDS instance
@@ -76,7 +77,7 @@ def main(table_name):
 
       # Create a cursor object to interact with the database
       cursor = connection.cursor()
-      query = sql.SQL(f"SELECT * FROM {schema_name}.{table_name} WHERE merchant_operating_city_id = '{merchantOpCityId}';")
+      query = sql.SQL(f"SELECT * FROM {schema_name}.{table_name} WHERE {where_column} = '{merchantOpCityId}';")
       limit_value = 1
       cursor.execute(query, [limit_value])
 
@@ -107,7 +108,7 @@ def main(table_name):
              print("adding this value", results[0][j])
              data = {"value":(str(results[0][j])),"schema":{"type":"string","pattern":".*"}}
           else:
-            data = {"value":rm_sq(str(results[0][j])),"schema":{"type":"string","pattern":".*"}}
+            data = {"value":(str(results[0][j])),"schema":{"type":"string","pattern":".*"}}
         except:
            print("Skipping column since cannot parse :-\ :", column_names[j])
 
