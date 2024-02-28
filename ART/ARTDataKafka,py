@@ -1,0 +1,55 @@
+import json
+import re
+
+def extract_text_between(text, start_marker, end_marker):
+    """Extract all text between two specified markers."""
+    pattern = re.escape(start_marker) + "(.*?)" + re.escape(end_marker)
+    matches = re.findall(pattern, text, re.DOTALL)
+    return matches
+
+input_file_path = "/home/kv/projects/nammayatri/kafkaoutput.log"
+output_file_path = "/home/kv/projects/nammayatri/output_data.json"
+
+def processAPIdatainLogFile(input_file_path, output_file_path):
+    APIdata = []
+    counter = 0
+    with open(input_file_path, 'r') as file:
+        for line in file:
+            line = line.split("RequestInfo'")
+            line = line[1].strip()
+            requestMethod = extract_text_between(line, "requestMethod = ", ",")[0].replace("\"", "")
+            rawQueryString = extract_text_between(line, "rawQueryString = ", ",")[0].replace("\"", "")
+            rawPathInfo = extract_text_between(line, "rawPathInfo = ", ",")[0].replace("\"", "")
+            requestHeaders = extract_text_between(line, "requestHeaders = ", "],")[0]+"]"
+            requestBody = extract_text_between(line, "body = ", "}, response")[0]
+            responseBody = extract_text_between(line, "response = ", '}"}')[0]
+            if "null" or "false" or "true" in responseBody[-5:]:
+                responseBody = responseBody+'}"'
+            else:
+                responseBody = responseBody+'"}"}'
+
+
+            api = {
+                "requestMethod": requestMethod,
+                "rawQueryString": rawQueryString,
+                "rawPathInfo": rawPathInfo,
+                "requestHeaders": eval(requestHeaders),
+                "requestBody": eval(requestBody),
+                "responseBody": eval(responseBody)
+            }
+            APIdata.append(json.dumps(api))
+    with open(output_file_path, 'w') as output_file:
+        length = len(APIdata)
+        output_file.write("{")
+        for line in APIdata:
+            counter += 1
+            api = "API" + str(counter)
+            # line = json.dumps(line)
+            if counter == length:
+                output_file.write('"'+api+'"' + ":" + str(line) + "\n")
+            else:
+                output_file.write('"'+api+'"' + ":" + str(line) + ",\n")
+
+        output_file.write("}")
+
+processAPIdatainLogFile(input_file_path, output_file_path)
