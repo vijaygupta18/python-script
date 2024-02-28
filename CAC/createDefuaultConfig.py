@@ -8,19 +8,20 @@ import psycopg2
 from psycopg2 import sql
 import requests
 import time
+import json
 # Replace these values with your AWS RDS credentials
 host = 'localhost'
 port = '5434' # 5434 for local
 dbname = 'atlas_dev'
-user = 'akhilesh.b' # postgres for local
+user = 'ratnadeep.b' # postgres for local
 password = ''
 
 
 # Other Misc vars
 schema_name = '' # Let this be empty
-table_names = ["driver_pool_config", "go_home_config", "driver_intelligent_pool_config", "transporter_config"]
+table_names = ["merchant_service_usage_config"]
 env = 'local'
-app = 'dobpp'
+app = 'v2'
 cac_tgt_url = 'http://localhost:8080'
 tenant = 'test'
 where_column = 'merchant_operating_city_id'
@@ -58,7 +59,7 @@ def main(table_name):
   else:
     if env == 'master': merchantOpCityId = 'b30daaf7-77d2-17c8-00d9-baf7ad0f5719'
     elif env == 'prod': merchantOpCityId = 'f067bccf-5b34-fb51-a5a3-9d6fa6baac26'
-    else: merchantOpCityId = 'a174b699-a3f3-b362-22a1-602951dbe8a2' # For local replace this !!!!!!!!!
+    else: merchantOpCityId = '6bc154f2-2097-fbb3-7aa0-969ced5962d5' # For local replace this !!!!!!!!!
     schema_name = 'atlas_app'
   try:
       # Establish a connection to the RDS instance
@@ -100,20 +101,35 @@ def main(table_name):
       for j in range (0, m):
         print("column name :", column_names[j])
         url = f'{cac_tgt_url}/default-config/{new_table_name}:{column_names[j]}'
+        print ("result is : ", results[0][j])
         try:
-          # try:
-          #   data = {"value":int(results[0][j]),"schema":{"type":"number"}} TODO: Uncomment this after fix is given by PP.
-          # except:
+          if (results[0][j] == None): #TODO: Test This Module.
+            cursor.execute(f"SELECT data_type FROM information_schema.columns WHERE table_name = {table_name} AND column_name = {column_names[j]}")
+            type = cursor.fetchone()[0]
+            if type.lower() == 'numeric' or type.lower() == 'integer' or type.lower() == 'bigint':
+               type = 'Number'
+            elif type.lower() == 'decimal' or type.lower() == 'real':
+               type = 'Decimal'
+            else :
+               type = 'String'
+            if type != 'String':
+              data = {"value":None,"schema":{"type":"Maybe" + " " + type}}
+            else:
+               print(f"WARNING:- Could not decode type of the maybe column {column_names[j]} hence putting as null as string type. Check This !!!!!!! ")
+               data = {"value":"null","schema":{"type":"String"}}
           if(type(results[0][j]) == int):
             data = {"value":int(results[0][j]),"schema":{"type":"number"}}
           elif (type(results[0][j]) == bool):
             data = {"value":bool(results[0][j]),"schema":{"type":"boolean"}}
           elif (type(results[0][j]) == float):
-            data = {"value":int(results[0][j]),"schema":{"type":"number"}}
+            data = {"value":float(results[0][j]),"schema":{"type":"number"}}
           else:
-            if(":" in str(results[0][j])) and ("{" in str(results[0][j])):
+            if(":" in str(results[0][j])) and ("{" in str(results[0][j]) and "[" not in results[0][j]):
               print("adding this value", results[0][j])
               data = {"value":(str(results[0][j])),"schema":{"type":"string","pattern":".*"}}
+            elif type(results[0][j]) == list:
+              print("adding this value (Array of int)", results[0][j])
+              data = {"value":(results[0][j]),"schema":{"type":"array"}}
             else:
               data = {"value":rm_sq(str(results[0][j])),"schema":{"type":"string","pattern":".*"}}
         except:
