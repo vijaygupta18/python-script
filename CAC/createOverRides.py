@@ -14,7 +14,7 @@ import sys
 host = 'localhost'
 port = '5434' # 5434 for local
 dbname = 'atlas_dev'
-user = 'akhilesh.b' # postgres for local
+user = 'ratnadeep.b' # postgres for local
 password = ''
 
 
@@ -68,7 +68,7 @@ def get_default_configs(headers, table_name):
   api_url = f'{cac_tgt_url}/default-config'
   response = requests.get(api_url, headers=headers)
   if response.status_code != 200:
-    raise TestFailed(f"Error: {response.status_code}! while Fetching defauklt cfgs Sad Broooooo with resp {response}")
+    raise TestFailed(f"Error: {response.status_code}! while Fetching default cfgs Sad Broooooo with resp {response}")
   response = response.json()
   print("Default Configs = ", response)
   table_name += ":"
@@ -123,7 +123,10 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
         override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = float(res[i])
       else:
         if(":" in str(res[i])) and ("{" in str(res[i])):
-          override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = (str(res[i])) # None is getting ignored 
+          override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = (str(res[i])) 
+        elif type(res[0][j]) == list:
+          print("adding this value (Array)", res[i])
+          override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = res[i]
         else:
           override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = rm_sq(str(res[i])) # None is getting ignored 
     headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer 12345678', 'x-tenant': f'{tenant}'}

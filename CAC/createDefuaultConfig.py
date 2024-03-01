@@ -131,7 +131,7 @@ def main(table_name):
               data = {"value":(str(results[0][j])),"schema":{"type":"string","pattern":".*"}}
               #UNCOMMENT THE BELOW CODE ONCE COMPATIBILITY FOR ARRAYS IS ADDED.
             # elif type(results[0][j]) == list:
-            #   print("adding this value (Array of int)", results[0][j])
+            #   print("adding this value (Array)", results[0][j])
             #   data = {"value":(results[0][j]),"schema":{"type":"array"}}
             else:
               data = {"value":rm_sq(str(results[0][j])),"schema":{"type":"string","pattern":".*"}}
