@@ -8,6 +8,8 @@ import psycopg2
 from psycopg2 import sql
 import requests
 import time
+import json
+import decimal
 # Replace these values with your AWS RDS credentials
 host = 'localhost'
 port = '5434' # 5434 for local
@@ -18,12 +20,12 @@ password = ''
 
 # Other Misc vars
 schema_name = '' # Let this be empty
-table_names = ["fare_policy"]
+table_names = ["fare_policy_rental_details"]
 env = 'local'
 app = 'dobpp'
 cac_tgt_url = 'http://localhost:8080'
 tenant = 'test'
-where_column = 'id'
+where_column = 'fare_policy_id'
 
 def rm_sq(s):
    res = ""
@@ -53,12 +55,12 @@ def main(table_name):
   if app == 'dobpp':
     if env == 'master': merchantOpCityId = '1e7b7ab9-3b9b-4d3e-a47c-11e7d2a9ff98'
     elif env == 'prod': merchantOpCityId = 'f067bccf-5b34-fb51-a5a3-9d6fa6baac26'
-    else: merchantOpCityId = '1fd23f0b-fa76-c19e-1915-d9b6e28bbf81' # For local replace this !!!!!!!!!
+    else: merchantOpCityId = '71b52524-e773-03dc-5853-290132ce6fd5' # For local replace this !!!!!!!!!
     schema_name = 'atlas_driver_offer_bpp'
   else:
     if env == 'master': merchantOpCityId = 'b30daaf7-77d2-17c8-00d9-baf7ad0f5719'
     elif env == 'prod': merchantOpCityId = 'f067bccf-5b34-fb51-a5a3-9d6fa6baac26'
-    else: merchantOpCityId = '1fd23f0b-fa76-c19e-1915-d9b6e28bbf81' # For local replace this !!!!!!!!!
+    else: merchantOpCityId = 'dc66fddb-e248-c537-b214-a1219bdf482c' # For local replace this !!!!!!!!!
     schema_name = 'atlas_app'
   try:
       # Establish a connection to the RDS instance
@@ -84,7 +86,8 @@ def main(table_name):
       # Fetch the results
       results = cursor.fetchall()
 
-      column_names = convertToCamelCase([desc[0] for desc in cursor.description])
+      snk_cols = [desc[0] for desc in cursor.description] # col names in snake case
+      column_names = convertToCamelCase(snk_cols)
       print("col names :", column_names)
 
       # Process the results
@@ -100,17 +103,44 @@ def main(table_name):
       for j in range (0, m):
         print("column name :", column_names[j])
         url = f'{cac_tgt_url}/default-config/{new_table_name}:{column_names[j]}'
+        print ("result is : ", results[0][j])
         try:
-          # try:
-          #   data = {"value":int(results[0][j]),"schema":{"type":"number"}} TODO: Uncomment this after fix is given by PP.
-          # except:
-          if(":" in str(results[0][j])) and ("{" in str(results[0][j])):
-             print("adding this value", results[0][j])
-             data = {"value":(str(results[0][j])),"schema":{"type":"string","pattern":".*"}}
+          if (results[0][j] == None or results[0][j] == "None"): #TODO: Test This Module.
+            cursor.execute(f"SELECT data_type FROM information_schema.columns WHERE table_name LIKE '{table_name}' AND column_name = '{snk_cols[j]}'")
+            typ = cursor.fetchone()[0]
+            print("The Type Of Maybe Field is : ", typ)
+            if typ.lower() == 'numeric' or typ.lower() == 'integer' or typ.lower() == 'bigint':
+               typ = 'number'
+            elif typ.lower() == 'decimal' or typ.lower() == 'real':
+               typ = 'number'
+            else :
+               typ = 'string'
+            if typ != 'string':
+              data = {"value":None,"schema":{"type":["null",f"{typ}"]}}
+            else:
+               print(f"WARNING:- Could not decode type of the maybe column {column_names[j]} hence putting as null as string type. Check This !!!!!!! ")
+               data = {"value":None,"schema":{"type":["string","null"],"pattern":".*"}}
+          elif (type(results[0][j]) == int):
+            data = {"value":int(results[0][j]),"schema":{"type":["null","number"]}}
+          elif (type(results[0][j]) == bool):
+            data = {"value":bool(results[0][j]),"schema":{"type":["null","boolean"]}}
+          elif (type(results[0][j]) == float):
+            data = {"value":float(results[0][j]),"schema":{"type":["null","number"]}}
+          elif (type(results[0][j]) == decimal.Decimal):
+            data = {"value":float(results[0][j]),"schema":{"type":["null","number"]}}
           else:
-            data = {"value":(str(results[0][j])),"schema":{"type":"string","pattern":".*"}}
-        except:
-           print("Skipping column since cannot parse :-\ :", column_names[j])
+            if(":" in str(results[0][j])) and ("{" in str(results[0][j]) and "[" not in results[0][j]):
+              print("adding this value", results[0][j])
+              data = {"value":(results[0][j]),"schema":{"type":["null","object"]}}
+              #UNCOMMENT THE BELOW CODE ONCE COMPATIBILITY FOR ARRAYS IS ADDED.
+            elif type(results[0][j]) == list:
+              print("adding this value (Array)", results[0][j])
+              data = {"value":(results[0][j]),"schema":{"type":["null","array"]}}
+            else:
+              data = {"value":rm_sq(str(results[0][j])),"schema":{"type":["string","null"],"pattern":".*"}}
+        except Exception as e:
+            print(f"WARNING: Skipping column since cannot parse :-\ : {column_names[j]} with error : {e} !!!!!!!!!!")
+            continue
 
         # print("Url is :", url)
         # print("Data is :", data)
@@ -120,6 +150,7 @@ def main(table_name):
             print(f"Successfully added data {data}! Yaaayyyyyy")
         else:
             print(f"Error: {response.status_code}! Sad Broooooo")
+            return
         time.sleep(1)
 
   except psycopg2.Error as e:

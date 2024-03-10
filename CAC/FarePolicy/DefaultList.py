@@ -3,6 +3,7 @@ from psycopg2 import sql
 import requests
 import time
 import decimal
+import json
 
 # Replace these values with your AWS RDS credentials
 host = 'localhost'
@@ -12,10 +13,10 @@ user = 'akhilesh.b' # postgres for local
 password = ''
 column_name_to_get = 'fare_policy_id'
 
-
+#farePolicyProgressiveDetailsPerExtraKmRateSection
 # Other Misc vars
 schema_name = '' # Let this be empty
-table_names = ['fare_policy_driver_extra_fee_bounds']
+table_names = ['fare_policy_rental_details_distance_buffers']
 env = 'local'
 app = 'dobpp'
 cac_tgt_url = 'http://localhost:8080'
@@ -72,6 +73,7 @@ def main(table_name):
       # Extract single values from tuples
       distinct_values = [result[0] for result in results1]
       for fare_policy_id in distinct_values:
+        print("the distinct key with value: ", fare_policy_id)
         # Create a cursor object to interact with the database
         query = sql.SQL(f"SELECT * FROM {schema_name}.{table_name} WHERE {column_name_to_get} = '{fare_policy_id}';")
         cursor.execute(query)
@@ -87,6 +89,7 @@ def main(table_name):
         for value_tuple in results:
             combined_dict = {}
             for column, value in zip(column_names, value_tuple):
+                print("my column name and value is ", column,value )
                 if isinstance(value, decimal.Decimal):
                   combined_dict[column] = float(value)
                 else:
@@ -101,7 +104,13 @@ def main(table_name):
           for column in columns_to_remove1:
               d.pop(column, None)
 
-        print(combined_dicts)
+        # ls = []
+        # for i in range(0, len(combined_dicts)):
+        #    ls.append(json.dumps(combined_dicts[i]))
+        # combined_dicts = ls
+        # print("ended here ")
+        # print("combined",ls)
+        # print("combined",type(ls))
         # Adding to CAC
         
 
@@ -109,7 +118,7 @@ def main(table_name):
         headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer 12345678', 'x-tenant': f'{tenant}'}
         new_table_name = convertToCamelCase([table_name])[0]
         url = f'{cac_tgt_url}/default-config/{new_table_name}:{fare_policy_id}'
-        data = {"value":(str(combined_dicts)),"schema":{"type":"string","pattern":".*"}}
+        data = {"value":(combined_dicts),"schema":{"type":["array","null"]}}
         response = requests.put(url, json=data, headers=headers)
         if response.status_code == 200:
             print(f"Successfully added data {data}! Yaaayyyyyy")

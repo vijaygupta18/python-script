@@ -13,13 +13,13 @@ import json
 host = 'localhost'
 port = '5434' # 5434 for local
 dbname = 'atlas_dev'
-user = 'ratnadeep.b' # postgres for local
+user = 'akhilesh.b' # postgres for local
 password = ''
 
 
 # Other Misc vars
 schema_name = '' # Let this be empty
-table_names = ["transporter_config"]
+table_names = ["go_home_config", "transporter_config", "driver_intelligent_pool_config"]
 env = 'local'
 app = 'dobpp'
 cac_tgt_url = 'http://localhost:8080'
@@ -54,12 +54,12 @@ def main(table_name):
   if app == 'dobpp':
     if env == 'master': merchantOpCityId = '1e7b7ab9-3b9b-4d3e-a47c-11e7d2a9ff98'
     elif env == 'prod': merchantOpCityId = 'f067bccf-5b34-fb51-a5a3-9d6fa6baac26'
-    else: merchantOpCityId = 'ea1a6af7-f9d3-3f3e-3542-e5dc196dd44a' # For local replace this !!!!!!!!!
+    else: merchantOpCityId = 'e1ea59fb-3354-ce6c-441d-89062e6f133c' # For local replace this !!!!!!!!!
     schema_name = 'atlas_driver_offer_bpp'
   else:
     if env == 'master': merchantOpCityId = 'b30daaf7-77d2-17c8-00d9-baf7ad0f5719'
     elif env == 'prod': merchantOpCityId = 'f067bccf-5b34-fb51-a5a3-9d6fa6baac26'
-    else: merchantOpCityId = '6bc154f2-2097-fbb3-7aa0-969ced5962d5' # For local replace this !!!!!!!!!
+    else: merchantOpCityId = 'e1ea59fb-3354-ce6c-441d-89062e6f133c' # For local replace this !!!!!!!!!
     schema_name = 'atlas_app'
   try:
       # Establish a connection to the RDS instance
@@ -109,32 +109,32 @@ def main(table_name):
             typ = cursor.fetchone()[0]
             print("The Type Of Maybe Field is : ", typ)
             if typ.lower() == 'numeric' or typ.lower() == 'integer' or typ.lower() == 'bigint':
-               typ = 'Number'
+               typ = 'number'
             elif typ.lower() == 'decimal' or typ.lower() == 'real':
-               typ = 'Decimal'
+               typ = 'number'
             else :
-               typ = 'String'
-            if typ != 'String':
-              data = {"value":"None","schema":{"type":"Maybe" + " " + typ}}
+               typ = 'string'
+            if typ != 'string':
+              data = {"value":None,"schema":{"type":["null",f"{typ}"]}}
             else:
                print(f"WARNING:- Could not decode type of the maybe column {column_names[j]} hence putting as null as string type. Check This !!!!!!! ")
-               data = {"value":"null","schema":{"type":"string","pattern":".*"}}
+               data = {"value":None,"schema":{"type":["string","null"],"pattern":".*"}}
           elif (type(results[0][j]) == int):
-            data = {"value":int(results[0][j]),"schema":{"type":"number"}}
+            data = {"value":int(results[0][j]),"schema":{"type":["null","number"]}}
           elif (type(results[0][j]) == bool):
-            data = {"value":bool(results[0][j]),"schema":{"type":"boolean"}}
+            data = {"value":bool(results[0][j]),"schema":{"type":["null","boolean"]}}
           elif (type(results[0][j]) == float):
-            data = {"value":float(results[0][j]),"schema":{"type":"number"}}
+            data = {"value":float(results[0][j]),"schema":{"type":["null","number"]}}
           else:
             if(":" in str(results[0][j])) and ("{" in str(results[0][j]) and "[" not in results[0][j]):
               print("adding this value", results[0][j])
-              data = {"value":(str(results[0][j])),"schema":{"type":"string","pattern":".*"}}
+              data = {"value":(results[0][j]),"schema":{"type":["null","object"]}}
               #UNCOMMENT THE BELOW CODE ONCE COMPATIBILITY FOR ARRAYS IS ADDED.
-            # elif type(results[0][j]) == list:
-            #   print("adding this value (Array)", results[0][j])
-            #   data = {"value":(results[0][j]),"schema":{"type":"array"}}
+            elif type(results[0][j]) == list:
+              print("adding this value (Array)", results[0][j])
+              data = {"value":(results[0][j]),"schema":{"type":["null","array"]}}
             else:
-              data = {"value":rm_sq(str(results[0][j])),"schema":{"type":"string","pattern":".*"}}
+              data = {"value":rm_sq(str(results[0][j])),"schema":{"type":["string","null"],"pattern":".*"}}
         except Exception as e:
             print(f"WARNING: Skipping column since cannot parse :-\ : {column_names[j]} with error : {e} !!!!!!!!!!")
             continue
@@ -147,6 +147,7 @@ def main(table_name):
             print(f"Successfully added data {data}! Yaaayyyyyy")
         else:
             print(f"Error: {response.status_code}! Sad Broooooo")
+            return
         time.sleep(1)
 
   except psycopg2.Error as e:

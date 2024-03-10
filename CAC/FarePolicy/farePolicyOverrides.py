@@ -9,6 +9,7 @@ from psycopg2 import sql
 import requests
 import time
 import sys
+import decimal
 
 # Replace these values with your AWS RDS credentials
 host = 'localhost'
@@ -20,7 +21,7 @@ password = ''
 
 # Other Misc vars
 schema_name = '' # Let this be empty
-table_names = ['fare_policy'] # NOTE: This works only for one table at a time!!!! (I have used list here as this part was copied from sqlToCac.py  Lol :-P )
+table_names = ['fare_policy_rental_details'] # NOTE: This works only for one table at a time!!!! (I have used list here as this part was copied from sqlToCac.py  Lol :-P )
 env = 'dev'
 app = 'dobpp'
 cac_tgt_url = 'http://localhost:8080'
@@ -68,9 +69,9 @@ def get_default_configs(headers, table_name):
   api_url = f'{cac_tgt_url}/default-config'
   response = requests.get(api_url, headers=headers)
   if response.status_code != 200:
-    raise TestFailed(f"Error: {response.status_code}! while Fetching defauklt cfgs Sad Broooooo")
+    raise TestFailed(f"Error: {response.status_code}! while Fetching default cfgs Sad Broooooo with resp {response}")
   response = response.json()
-  print("Default Configs = ", response)
+  # print("Default Configs = ", response)
   table_name += ":"
   table_name = convertOneToCamelCase(table_name)
   processed_resp = dict()
@@ -109,16 +110,31 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
       print("NOTE:-  No override found for this condition !!!!")
       return
     res = res[0]
-    print("Data to be overridden = ", res)
+    # print("Data to bel overridden = ", res)
     print ("len res:", len(res))
     print ("len column_names:", column_names)
     m = len(res)
     override_data = {}
     for i in range(m):
-      if(":" in str(res[i])) and ("{" in str(res[i])):
-        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = (str(res[i])) # None is getting ignored 
+      # print("printing type res[i] :", type(res[i]))
+      if(type(res[i]) == int):
+        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = int(res[i])
+      elif (type(res[i]) == bool):
+        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = bool(res[i])
+      elif (type(res[i]) == float):
+        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = float(res[i])
+      elif (res[i] == None or res[i] == "None"): #TODO: Test This Module.
+        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = None
+      elif (type(res[i]) == decimal.Decimal):
+        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = float(res[i])
       else:
-        override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = (str(res[i])) # None is getting ignored 
+        if(":" in str(res[i])) and ("{" in str(res[i]) and "[" not in str(res[i])):
+          override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = res[i]
+        elif type(res[i]) == list:
+          print("adding this value (Array)", res[i])
+          override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = res[i]
+        else:
+          override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = str(res[i]) # None is getting ignored 
     headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer 12345678', 'x-tenant': f'{tenant}'}
     def_cfgs = get_default_configs(headers, table_name)
     diffed_data = {}
@@ -149,7 +165,7 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
     if response.status_code == 200:
         print(f"Successfully added override {data}! Yaaayyyyyy")
     else:
-        print(f"Error: {response.status_code}! Sad Broooooo Disappointed\n\n DATA = {data}")
+        print(f"Error: {response.status_code}! Sad Broooooo Disappointed and resp {response}\n\n DATA = {data}")
     time.sleep(1)
     return
     
@@ -163,7 +179,7 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
         val = overrides[ind][0]
         if(overrides[ind][0] == 'id'):
           val = 'fare_policy_id'
-        context.append({"==":[{"var":convertOneToCamelCase(val)}, str(dist_overrides[ind][i])]}) # None is getting ignored by cac
+        context.append({"==":[{"var":convertOneToCamelCase(val)}, (dist_overrides[ind][i])]}) # None is getting ignored by cac
       else: flg = False
       stack.append(dist_overrides[ind][i])
       solution(ind + 1, n, stack, context, dist_overrides, overrides, table_name, cursor, sn, limit_value, column_names)
