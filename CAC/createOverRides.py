@@ -10,6 +10,8 @@ import requests
 import time
 import sys
 import datetime
+import copy
+import json
 
 # Replace these values with your AWS RDS credentials
 host = 'localhost'
@@ -21,12 +23,16 @@ password = ''
 
 # Other Misc vars
 schema_name = '' # Let this be empty
-table_names = ['driver_intelligent_pool_config'] # NOTE: This works only for one table at a time!!!! (I have used list here as this part was copied from sqlToCac.py  Lol :-P )
+table_names = ["transporter_config", "driver_intelligent_pool_config",  "go_home_config"]
+conditions = {'transporter_config' :[('merchant_operating_city_id', '==')],
+              'go_home_config': [('merchant_operating_city_id', '==')],
+              'driver_intelligent_pool_config': [('merchant_operating_city_id', '==')]}
 env = 'dev'
 app = 'dobpp'
-cac_tgt_url = 'http://localhost:8080'
-tenant = 'test'
+cac_tgt_url = 'https://api.sandbox.beckn.juspay.in/cac'
+tenant = 'atlas_driver_offer_bpp_v2'
 MAX_INT = 2147483000
+columnToIgnore = []
 
 class TestFailed(Exception):
     def __init__(self, m):
@@ -96,7 +102,7 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
       elif (overrides[j][1] == 'slot'):
         query_str += f"{overrides[j][0]} >= {stack[j][0]} AND {overrides[j][0]} < {stack[j][1]} AND "
       else:
-         raise TestFailed("Error: Invalid operator for override!")
+        raise TestFailed("Error: Invalid operator for override!")
     ln = len(query_str)
     query_str = query_str[:ln - 5] + ';'
     print("Query = ", query_str)
@@ -117,6 +123,9 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
     override_data = {}
     for i in range(m):
       # print("printing type res[i] :", type(res[i]))
+      if(convertOneToCamelCase(table_name) + ":" + column_names[i] in columnToIgnore):
+        print("Ignoring this column", convertOneToCamelCase(table_name) + ":" + column_names[i])
+        continue
       if(type(res[i]) == int):
         override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = int(res[i])
       elif (type(res[i]) == bool):
@@ -130,7 +139,12 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
           override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = res[i]
         elif type(res[i]) == list:
           print("adding this value (Array)", res[i])
-          override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = res[i]
+          val = copy.deepcopy(res[i])
+          if("=" in str(res[i]) and "{" in str(res[i])):
+            for j in range(len(res[i])):
+              val[j] = '{' + res[i][j].split('{')[1].replace("=", ":")
+              val[j] = json.loads(val[j].replace(" ", "").replace(":", '":').replace("{", '{"').replace(',', ',"'))
+          override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = val
         else:
           override_data[convertOneToCamelCase(table_name) + ":" + column_names[i]] = str(res[i]) # None is getting ignored 
     headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer 12345678', 'x-tenant': f'{tenant}'}
@@ -150,7 +164,11 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
     if diffed_data == {}:
       print(" ** NOTE:-  No override required for this condition !!!! as no diff found !!!!! ")
       return
-    data = {"override":diffed_data,"context":{"and":context}}
+    data = {}
+    if len(context) == 1:
+      data = {"override":diffed_data,"context":context[0]}
+    else:
+      data = {"override":diffed_data,"context":{"and":context}}
     url = f'{cac_tgt_url}/context'
 
     # Logger block start....
@@ -163,7 +181,8 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
     if response.status_code == 200:
         print(f"Successfully added override {data}! Yaaayyyyyy")
     else:
-        print(f"Error: {response.status_code}! Sad Broooooo Disappointed and resp {response}\n\n DATA = {data}")
+        raise TestFailed(f"Error: {response.status_code}! Sad Broooooo Disappointed and resp {response}\n\n DATA = {data}")
+        
     time.sleep(1)
     return
     
@@ -183,11 +202,11 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
       solution(ind + 1, n, stack, context, dist_overrides, overrides, table_name, cursor, sn, limit_value, column_names)
     elif (overrides[ind][1] == 'slot'):
       if i + 1 < len(dist_overrides[ind]):
-        context.append({"<=":[str(dist_overrides[ind][i]), {"var":convertOneToCamelCase(overrides[ind][0])}, str(dist_overrides[ind][i + 1] - 1)]})
+        context.append({"<=":[dist_overrides[ind][i], {"var":convertOneToCamelCase(overrides[ind][0])}, dist_overrides[ind][i + 1] - 1]})
         stack.append((dist_overrides[ind][i], dist_overrides[ind][i + 1]))
         solution(ind + 1, n, stack, context, dist_overrides, overrides, table_name, cursor, sn, limit_value, column_names)
       else:
-        context.append({"<=":[str(dist_overrides[ind][i]), {"var":convertOneToCamelCase(overrides[ind][0])}, str(MAX_INT)]}) 
+        context.append({"<=":[dist_overrides[ind][i], {"var":convertOneToCamelCase(overrides[ind][0])}, MAX_INT]}) 
         stack.append((dist_overrides[ind][i], MAX_INT)) 
         solution(ind + 1, n, stack, context, dist_overrides, overrides, table_name, cursor, sn, limit_value, column_names)
     else:
@@ -218,10 +237,10 @@ def main(table_name):
 
       # Create a cursor object to interact with the database
       cursor = connection.cursor()
-      n = len(sys.argv)
-      if n % 2 == 0:
-        raise TestFailed("Error: Invalid number of arguments!")
-      overrides = [(sys.argv[i], sys.argv[i + 1]) for i in range(1, n - 1, 2)]
+      if table_name not in conditions.keys():
+        raise TestFailed("Error: Table not found in conditions!", table_name)
+      print("conditions = ", conditions[table_name])
+      overrides = conditions[table_name]
       print("Overrides = ", overrides)
       dist_overrides = []
       for override in overrides:
@@ -235,7 +254,7 @@ def main(table_name):
       col_query = sql.SQL(f"SELECT * FROM {schema_name}.{table_name} LIMIT 0;")
       cursor.execute(col_query)
       column_names = convertToCamelCase([desc[0] for desc in cursor.description])
-      solution(0, n, [], [], dist_overrides, overrides, table_name, cursor, schema_name, limit_value, column_names)
+      solution(0, n, [], [], dist_overrides, overrides, table_name, cursor, schema_name, 1000, column_names)
 
 
   except psycopg2.Error as e:
@@ -252,3 +271,4 @@ def main(table_name):
 if __name__ == '__main__':
   for tn in table_names:
     main(tn)
+    print("finished handling table: ", tn)

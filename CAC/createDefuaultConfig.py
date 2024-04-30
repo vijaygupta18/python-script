@@ -9,6 +9,7 @@ from psycopg2 import sql
 import requests
 import time
 import json
+import copy
 # Replace these values with your AWS RDS credentials
 host = 'localhost'
 port = '5434' # 5434 for local
@@ -19,12 +20,13 @@ password = ''
 
 # Other Misc vars
 schema_name = '' # Let this be empty
-table_names = ["go_home_config", "transporter_config", "driver_intelligent_pool_config"]
+table_names = ["transporter_config", "driver_intelligent_pool_config", "driver_pool_config","go_home_config"]
 env = 'local'
 app = 'dobpp'
-cac_tgt_url = 'http://localhost:8080'
-tenant = 'test'
+cac_tgt_url = 'https://api.sandbox.beckn.juspay.in/cac' # change these
+tenant = 'atlas_driver_offer_bpp_v2'
 where_column = 'merchant_operating_city_id'
+columnToIgnore = []
 
 def rm_sq(s):
    res = ""
@@ -54,12 +56,12 @@ def main(table_name):
   if app == 'dobpp':
     if env == 'master': merchantOpCityId = '1e7b7ab9-3b9b-4d3e-a47c-11e7d2a9ff98'
     elif env == 'prod': merchantOpCityId = 'f067bccf-5b34-fb51-a5a3-9d6fa6baac26'
-    else: merchantOpCityId = 'e1ea59fb-3354-ce6c-441d-89062e6f133c' # For local replace this !!!!!!!!!
+    else: merchantOpCityId = '76fb75b9-236f-2564-2024-b6f21603cfb6' # For local replace this !!!!!!!!!
     schema_name = 'atlas_driver_offer_bpp'
   else:
     if env == 'master': merchantOpCityId = 'b30daaf7-77d2-17c8-00d9-baf7ad0f5719'
     elif env == 'prod': merchantOpCityId = 'f067bccf-5b34-fb51-a5a3-9d6fa6baac26'
-    else: merchantOpCityId = 'e1ea59fb-3354-ce6c-441d-89062e6f133c' # For local replace this !!!!!!!!!
+    else: merchantOpCityId = '76fb75b9-236f-2564-2024-b6f21603cfb6' # For local replace this !!!!!!!!!
     schema_name = 'atlas_app'
   try:
       # Establish a connection to the RDS instance
@@ -78,7 +80,7 @@ def main(table_name):
 
       # Create a cursor object to interact with the database
       cursor = connection.cursor()
-      query = sql.SQL(f"SELECT * FROM {schema_name}.{table_name} WHERE {where_column} = '{merchantOpCityId}';")
+      query = sql.SQL(f"SELECT * FROM {schema_name}.{table_name};")
       limit_value = 1
       cursor.execute(query, [limit_value])
 
@@ -102,6 +104,9 @@ def main(table_name):
       for j in range (0, m):
         print("column name :", column_names[j])
         url = f'{cac_tgt_url}/default-config/{new_table_name}:{column_names[j]}'
+        if(f"{new_table_name}:{column_names[j]}" in columnToIgnore):
+          print("Ignoring this column", f"{new_table_name}:{column_names[j]}")
+          continue
         print ("result is : ", results[0][j])
         try:
           if (results[0][j] == None or results[0][j] == "None"): #TODO: Test This Module.
@@ -110,34 +115,44 @@ def main(table_name):
             print("The Type Of Maybe Field is : ", typ)
             if typ.lower() == 'numeric' or typ.lower() == 'integer' or typ.lower() == 'bigint':
                typ = 'number'
-            elif typ.lower() == 'decimal' or typ.lower() == 'real':
+            elif typ.lower() == 'decimal' or typ.lower() == 'real' or typ.lower() == 'double precision':
                typ = 'number'
+            elif typ.lower() == 'json':
+               typ = 'object'
+            elif typ.lower() == 'boolean':
+                typ = 'boolean'
             else :
                typ = 'string'
             if typ != 'string':
-              data = {"value":None,"schema":{"type":["null",f"{typ}"]}}
+              data = {"value":None,"schema":{"type":[f"{typ}","null"]}}
             else:
                print(f"WARNING:- Could not decode type of the maybe column {column_names[j]} hence putting as null as string type. Check This !!!!!!! ")
                data = {"value":None,"schema":{"type":["string","null"],"pattern":".*"}}
           elif (type(results[0][j]) == int):
-            data = {"value":int(results[0][j]),"schema":{"type":["null","number"]}}
+            data = {"value":int(results[0][j]),"schema":{"type":["number","null"]}}
           elif (type(results[0][j]) == bool):
-            data = {"value":bool(results[0][j]),"schema":{"type":["null","boolean"]}}
+            data = {"value":bool(results[0][j]),"schema":{"type":["boolean","null"]}}
           elif (type(results[0][j]) == float):
-            data = {"value":float(results[0][j]),"schema":{"type":["null","number"]}}
+            data = {"value":float(results[0][j]),"schema":{"type":["number","null"]}}
           else:
             if(":" in str(results[0][j])) and ("{" in str(results[0][j]) and "[" not in results[0][j]):
               print("adding this value", results[0][j])
-              data = {"value":(results[0][j]),"schema":{"type":["null","object"]}}
+              data = {"value":(results[0][j]),"schema":{"type":["object","null"]}}
               #UNCOMMENT THE BELOW CODE ONCE COMPATIBILITY FOR ARRAYS IS ADDED.
             elif type(results[0][j]) == list:
               print("adding this value (Array)", results[0][j])
-              data = {"value":(results[0][j]),"schema":{"type":["null","array"]}}
+              val = copy.deepcopy(results[0][j])
+              if("=" in str(results[0][j]) and "{" in str(results[0][j])):
+                for i in range(len(results[0][j])):
+                  val[i] = '{' + results[0][j][i].split('{')[1].replace("=", ":")
+                  val[i] = json.loads(val[i].replace(" ", "").replace(":", '":').replace("{", '{"').replace(',', ',"'))
+              # print("value of val is: ", val)
+              data = {"value":(val),"schema":{"type":["array","null"]}}
             else:
               data = {"value":rm_sq(str(results[0][j])),"schema":{"type":["string","null"],"pattern":".*"}}
         except Exception as e:
-            print(f"WARNING: Skipping column since cannot parse :-\ : {column_names[j]} with error : {e} !!!!!!!!!!")
-            continue
+            print(f"WARNING:   :-\ : {column_names[j]} with error : {e} !!!!!!!!!!")
+            return False
 
         # print("Url is :", url)
         # print("Data is :", data)
@@ -147,8 +162,9 @@ def main(table_name):
             print(f"Successfully added data {data}! Yaaayyyyyy")
         else:
             print(f"Error: {response.status_code}! Sad Broooooo")
-            return
+            return False
         time.sleep(1)
+      return True
 
   except psycopg2.Error as e:
       print(f"Error: {e}")
@@ -162,4 +178,8 @@ def main(table_name):
 
 if __name__ == '__main__':
   for tn in table_names:
-    main(tn)
+    if(main(tn)):
+      print(f"finished adding the data for table {tn}")
+    else:
+      print(f"Error in adding data to {tn}")
+      break

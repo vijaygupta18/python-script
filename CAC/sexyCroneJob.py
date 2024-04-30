@@ -9,7 +9,7 @@ port = "5434"
 user = "akhilesh.b"
 password = ""
 table = "system_configs"
-tenantAndSchema = [("test", "atlas_driver_offer_bpp"), ("dev", "atlas_driver_offer_bpp")]
+tenantAndSchema = [("atlas_driver_offer_bpp_v2", "atlas_driver_offer_bpp")]
 
 # Connect to the database
 conn = psycopg2.connect(host=host, database=database, user=user, password=password,port=port,
@@ -22,7 +22,7 @@ cur = conn.cursor()
 
 for (tenant, schema) in tenantAndSchema:
     # API endpoint URL and method
-    api_url = "http://localhost:8080/config"
+    api_url = "https://api.sandbox.beckn.juspay.in/cac/config"
     method = "GET"
     headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer 12345678', 'x-tenant': f'{tenant}'}
     # Make the API call

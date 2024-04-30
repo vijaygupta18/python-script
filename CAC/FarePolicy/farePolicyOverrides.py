@@ -10,6 +10,7 @@ import requests
 import time
 import sys
 import decimal
+import datetime
 
 # Replace these values with your AWS RDS credentials
 host = 'localhost'
@@ -21,7 +22,10 @@ password = ''
 
 # Other Misc vars
 schema_name = '' # Let this be empty
-table_names = ['fare_policy_rental_details'] # NOTE: This works only for one table at a time!!!! (I have used list here as this part was copied from sqlToCac.py  Lol :-P )
+table_names = ["fare_policy_rental_details", "fare_policy_progressive_details", "fare_policy"]
+conditions = {'fare_policy_rental_details' :[('fare_policy_id', '==')], 
+              'fare_policy_progressive_details': [('fare_policy_id', '==')],
+              'fare_policy': [('id', '==')]}
 env = 'dev'
 app = 'dobpp'
 cac_tgt_url = 'http://localhost:8080'
@@ -152,7 +156,11 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
     if diffed_data == {}:
       print(" ** NOTE:-  No override required for this condition !!!! as no diff found !!!!! ")
       return
-    data = {"override":diffed_data,"context":{"and":context}}
+    data = {}
+    if len(context) == 1:
+      data = {"override":diffed_data,"context":context[0]}
+    else:
+      data = {"override":diffed_data,"context":{"and":context}}
     url = f'{cac_tgt_url}/context'
 
     # Logger block start....
@@ -165,7 +173,7 @@ def solution(ind, n, stack, context, dist_overrides, overrides, table_name, curs
     if response.status_code == 200:
         print(f"Successfully added override {data}! Yaaayyyyyy")
     else:
-        print(f"Error: {response.status_code}! Sad Broooooo Disappointed and resp {response}\n\n DATA = {data}")
+        TestFailed(f"Error: {response.status_code}! Sad Broooooo Disappointed and resp {response}\n\n DATA = {data}")
     time.sleep(1)
     return
     
@@ -220,10 +228,10 @@ def main(table_name):
 
       # Create a cursor object to interact with the database
       cursor = connection.cursor()
-      n = len(sys.argv)
-      if n % 2 == 0:
-        raise TestFailed("Error: Invalid number of arguments!")
-      overrides = [(sys.argv[i], sys.argv[i + 1]) for i in range(1, n - 1, 2)]
+      if table_name not in conditions.keys():
+        raise TestFailed("Error: Table not found in conditions!")
+      print("conditions = ", conditions[table_name])
+      overrides = conditions[table_name]
       print("Overrides = ", overrides)
       dist_overrides = []
       for override in overrides:
@@ -237,7 +245,7 @@ def main(table_name):
       col_query = sql.SQL(f"SELECT * FROM {schema_name}.{table_name} LIMIT 0;")
       cursor.execute(col_query)
       column_names = convertToCamelCase([desc[0] for desc in cursor.description])
-      solution(0, n, [], [], dist_overrides, overrides, table_name, cursor, schema_name, limit_value, column_names)
+      solution(0, n, [], [], dist_overrides, overrides, table_name, cursor, schema_name, 1000, column_names)
 
 
   except psycopg2.Error as e:
@@ -254,3 +262,4 @@ def main(table_name):
 if __name__ == '__main__':
   for tn in table_names:
     main(tn)
+    print("finished handling table: ", tn)

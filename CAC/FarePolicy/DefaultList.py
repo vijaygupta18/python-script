@@ -16,11 +16,11 @@ column_name_to_get = 'fare_policy_id'
 #farePolicyProgressiveDetailsPerExtraKmRateSection
 # Other Misc vars
 schema_name = '' # Let this be empty
-table_names = ['fare_policy_rental_details_distance_buffers']
+table_names = ['fare_policy_rental_details_distance_buffers', 'fare_policy_driver_extra_fee_bounds', 'fare_policy_progressive_details_per_extra_km_rate_section', 'fare_policy_slabs_details_slab']
 env = 'local'
 app = 'dobpp'
-cac_tgt_url = 'http://localhost:8080'
-tenant = 'test'
+cac_tgt_url = 'https://api.sandbox.beckn.juspay.in/cac' # change this to the actual CAC URL
+tenant = 'atlas_driver_offer_bpp_v2'
 columns_to_remove = ['fare_policy_id', 'id']
 
 def rm_sq(s):
@@ -124,7 +124,9 @@ def main(table_name):
             print(f"Successfully added data {data}! Yaaayyyyyy")
         else:
             print(f"Error: {response.status_code}! Sad Broooooo")
+            return False
         time.sleep(1)
+      return True
 
   except psycopg2.Error as e:
       print(f"Error: {e}")
@@ -139,4 +141,8 @@ def main(table_name):
 if __name__ == '__main__':
   for tn in table_names:
     
-    main(tn)
+    if(main(tn)):
+      print(f"Finished Adding the follwing table {tn}")
+    else:
+      print("Breaking here")
+      break
