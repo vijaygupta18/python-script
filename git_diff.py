@@ -88,8 +88,8 @@ if __name__ == "__main__":
     repo_name = "nammayatri"
     # start_commit = input("Please enter your start commit hash: ")
     # end_commit = input("Please enter your end commit hash: ")
-    start_commit = "08fb13"
-    end_commit = "758f5fe4df94308f12cd22a7485528e30b353428"
+    start_commit = "eac87ac1de164f7ebd0248b9a8919ab5f18527df"
+    end_commit = "bc0fd2"
 
     diff_info = get_github_commit_diff(repo_owner, repo_name, start_commit, end_commit, None)
     print_sql_file_changes(diff_info)

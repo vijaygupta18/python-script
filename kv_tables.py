@@ -15,7 +15,8 @@ def config_value_json(table_list, table_names):
     "enableKVForWriteAlso": table_list,
     "enableKVForRead": table_names,
     "useCAC": [],
-    "useCACForFrontend": "false"
+    "useCACForFrontend": "false",
+    "readFromMasterDb":[]
     }
     return config_value
 
