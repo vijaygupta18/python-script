@@ -1,10 +1,10 @@
 import threading
 import requests
 import datetime
-import json
+import time
 
 # Define the number of threads
-NUM_THREADS = 100
+NUM_THREADS = 50
 NUM_REQUESTS = 10
 
 def get_current_timestamp():
@@ -14,9 +14,16 @@ def get_current_timestamp():
 driver_location_url = 'http://localhost:8081/ui/driver/location'
 ride_search_url = 'http://localhost:8013/v2/rideSearch'
 
+def get_ride_search_results_url(ride_search_id):
+    return f"http://localhost:8013/v2/rideSearch/{ride_search_id}/results"
+
+ride_search_result_headers = {
+    'token': 'b7d'
+}
+
 driver_location_headers = {
     'Content-Type': 'application/json;charset=utf-8',
-    'token': 'bb6da79f-3e1b-4691-a4dd-0873f3013efd',
+    'token': 'c3896059-37f8-4a51-a24e-71f34fd97204',
     'mId': 'favorit0-0000-0000-0000-00000favorit',
     'vt': 'AUTO_RICKSHAW',
     'dm': 'ONLINE'
@@ -24,9 +31,8 @@ driver_location_headers = {
 
 ride_search_headers = {
     'Content-Type': 'application/json;charset=utf-8',
-    'token': 'b7d8de2d-8cdb-4940-9c7f-535bbf0b2e39'
+    'token': 'ec22d5d7-f1aa-4d8c-8105-211a62c821f4'
 }
-
 
 driver_location_data = [
     {
@@ -76,29 +82,42 @@ ride_search_data = {
     }
 }
 
+driver_location_latencies = []
+ride_search_latencies = []
 
 def call_driver_location():
     for _ in range(NUM_REQUESTS):
+        start_time = time.time()
         response = requests.post(driver_location_url, headers=driver_location_headers, json=driver_location_data)
-        print(f"Ride Search API response status: {response.json()}")
-        print(f"Driver Location API response status: {response.status_code}")
+        end_time = time.time()
+        latency = end_time - start_time
+        driver_location_latencies.append(latency)
+        print(f"Driver Location API response status: {response.status_code}, latency: {latency:.4f} seconds")
 
 def call_ride_search():
     for _ in range(NUM_REQUESTS):
+        start_time = time.time()
         response = requests.post(ride_search_url, headers=ride_search_headers, json=ride_search_data)
-        print(f"Ride Search API response status: {response.status_code}")
+        end_time = time.time()
+        latency = end_time - start_time
+        ride_search_latencies.append(latency)
+        print(f"Ride Search API response status: {response.status_code}, latency: {latency:.4f} seconds")
 
-if __name__ == "__mainn__":
+def call_ride_search_results(ride_search_id):
+    response = requests.get(get_ride_search_results_url(ride_search_id), headers=ride_search_result_headers)
+    print(f"Ride Search Results API response status: {response.status_code}")
+
+if __name__ == "__main__":
     threads = []
 
     # Create threads for driver location API
-    for _ in range(NUM_THREADS // 2):
-        thread = threading.Thread(target=call_driver_location)
-        threads.append(thread)
-        thread.start()
+    # for _ in range(NUM_THREADS):
+    #     thread = threading.Thread(target=call_driver_location)
+    #     threads.append(thread)
+    #     thread.start()
 
     # Create threads for ride search API
-    for _ in range(NUM_THREADS // 2):
+    for _ in range(NUM_THREADS):
         thread = threading.Thread(target=call_ride_search)
         threads.append(thread)
         thread.start()
@@ -107,6 +126,12 @@ if __name__ == "__mainn__":
     for thread in threads:
         thread.join()
 
+    avg_driver_location_latency = sum(driver_location_latencies) / len(driver_location_latencies) if driver_location_latencies else 0
+    avg_ride_search_latency = sum(ride_search_latencies) / len(ride_search_latencies) if ride_search_latencies else 0
+
+    print(f"Average Driver Location API latency: {avg_driver_location_latency:.4f} seconds")
+    print(f"Average Ride Search API latency: {avg_ride_search_latency:.4f} seconds")
+
     print("Load testing complete")
 
-call_driver_location()
+# call_driver_location()          
